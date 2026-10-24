@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Our services",
+    "apply": "Submit my application",
+    "partners": "Become a partner",
+    "brand": "Odysseo Education"
+  },
+  "home": {
+    "hero": {
+      "badge1": "Language",
+      "badge2": "Bachelor's",
+      "badge3": "Master's",
+      "badge4": "PhD",
+      "title": "Study in <red>China</red>: free analysis of your profile",
+      "subtitle": "Answer a few questions (3 minutes). We'll get back to you on WhatsApp with an initial assessment.",
+      "cta": "Start the free analysis",
+      "tagline": "Get access to the best study programs in China",
+      "tagline2": "Competitive, disciplined and innovative education."
+    }
+  },
+  "services": {
+    "title": "Our services",
+    "subtitle": "Complete support, from orientation all the way to your visa.",
+    "cover": {
+      "title": "Our services"
+    },
+    "orientation": {
+      "title": "Orientation and profile assessment",
+      "items": [
+        "Review of your academic and school background.",
+        "Verification of diplomas, grades and eligibility.",
+        "Identification of accessible programs and levels.",
+        "Language proficiency assessment.",
+        "Advice on your chances and application hurdles, with no guarantee of selection.",
+        "Development of a personalized application strategy."
+      ]
+    },
+    "bourses": {
+      "title": "Scholarship research and selection",
+      "items": [
+        "Search for government, provincial and university scholarships.",
+        "Identification of universities matching your profile.",
+        "Search for programs taught in Chinese or English.",
+        "Verification of admission requirements and deadlines.",
+        "Comparison of full and partial scholarships."
+      ]
+    },
+    "dossier": {
+      "title": "Application file preparation and optimization",
+      "items": [
+        "Creation or improvement of your academic CV.",
+        "Preparation of your study or research proposal.",
+        "Verification of diplomas, transcripts and translations.",
+        "Organization and review of administrative documents.",
+        "Preparation for required language or admission tests."
+      ]
+    },
+    "candidatures": {
+      "title": "Application management and tracking",
+      "items": [
+        "Document review before submission.",
+        "Tracking of deadlines and additional requests.",
+        "Tracking of admission and scholarship results.",
+        "Support in case of rejection: analysis of identifiable causes.",
+        "Support in case of rejection: preparation of a new application."
+      ]
+    }
+  },
+  "trust": {
+    "title": "What we guarantee you, with full transparency",
+    "admission": "we only submit complete, verified application files. No one can honestly promise you guaranteed admission, and we won't either.",
+    "scholarship": "we prepare your application to maximize your chances, but the award depends on criteria we do not control: academic results, interview, number of available places, university choice.",
+    "visa": "we help you build a complete, solid file; the final decision belongs to the consular authorities.",
+    "labels": {
+      "admission": "Admission",
+      "scholarship": "Scholarship",
+      "visa": "Visa"
+    }
+  },
+  "intake": {
+    "progress": "Step {current} of {total}",
+    "steps": {
+      "vous": { "name": "You", "title": "You", "intro": "To identify and contact you." },
+      "parcours": { "name": "Background", "title": "Your background", "intro": "Universities look first at your latest diploma." },
+      "projet": { "name": "Project", "title": "Your project in China", "intro": "So we can offer you the right opportunities." },
+      "validation": { "name": "Validation", "title": "Last step", "intro": "Just 3 more short questions." }
+    },
+    "fields": {
+      "fullName": { "label": "Full name", "placeholder": "e.g. KAMGA Paul" },
+      "whatsapp": { "label": "WhatsApp number (with country code)", "placeholder": "+237 6XX XX XX XX" },
+      "dateOfBirth": { "label": "Date of birth" },
+      "country": { "label": "Country", "placeholder": "Choose…" },
+      "city": { "label": "City", "placeholder": "e.g. Douala" },
+      "managedBy": {
+        "label": "Who manages and funds your project?",
+        "options": { "self": "Myself", "parent": "A parent", "guardian": "A guardian or other" }
+      },
+      "guardianBlock": {
+        "title": "Parent or guardian details",
+        "whyMinor": "You are under 18: we need to be able to reach a parent or guardian.",
+        "whyDefault": "We need to be able to reach the person managing your project.",
+        "name": "Parent or guardian full name",
+        "link": "Relationship to you",
+        "linkOptions": { "father": "Father", "mother": "Mother", "sibling": "Brother / sister", "auntUncle": "Uncle / aunt", "other": "Guardian / other" },
+        "whatsapp": "Parent or guardian WhatsApp number"
+      },
+      "situation": {
+        "label": "Current situation",
+        "options": { "pupil": "Pupil", "student": "Student", "working": "Working", "none": "Not currently active" }
+      },
+      "degree": {
+        "label": "Highest diploma obtained",
+        "placeholder": "Choose…",
+        "options": ["Probatoire / GCE O Level", "Bac / GCE A Level", "BTS / HND / DUT", "Bachelor's", "Master's", "PhD", "Other"]
+      },
+      "degreeOther": { "label": "Specify the diploma" },
+      "degreeYear": { "label": "Year obtained", "placeholder": "Choose…" },
+      "degreeAverage": { "label": "Average obtained for this diploma", "hint": "e.g. 13.5/20 · Upper Second · 3.2 GPA. Check your transcript." },
+      "level": {
+        "label": "Target level",
+        "options": { "language": "Language year", "licence": "Bachelor's", "master": "Master's", "doctorat": "PhD" }
+      },
+      "field": {
+        "label": "Desired field of study",
+        "placeholder": "Choose…",
+        "options": [
+          "Medicine and health (MBBS, pharmacy…)",
+          "Engineering (civil, mechanical, electrical…)",
+          "Computer science and digital",
+          "Business, management, economics",
+          "International relations, law",
+          "Chinese language and culture",
+          "Sciences (chemistry, physics, biology…)",
+          "Agriculture and environment",
+          "Architecture and design",
+          "I don't know yet",
+          "Other"
+        ]
+      },
+      "fieldOther": { "label": "Specify the field" },
+      "passport": {
+        "label": "Passport",
+        "options": { "valid": "Valid", "inProgress": "In progress", "none": "Not yet" }
+      },
+      "english": {
+        "label": "Do you speak English?",
+        "options": { "yes": "Yes", "little": "A little", "no": "No" }
+      },
+      "funding": {
+        "label": "How do you plan to fund your studies?",
+        "options": { "scholarshipOnly": "Scholarship only", "familyPart": "My family can pay part of it", "fullFunding": "I (or my family) can fund it fully" }
+      },
+      "intake": {
+        "label": "Target intake",
+        "options": { "march": "March 2027", "september": "September 2027", "later": "Later" }
+      },
+      "referred": {
+        "label": "Did someone refer you to us?",
+        "options": { "no": "No", "yes": "Yes, a partner or advisor" }
+      },
+      "partnerDeclared": { "label": "Partner name or file code", "hint": "e.g. AUDY-012" },
+      "discovery": {
+        "label": "How did you hear about us?",
+        "optional": "(optional)",
+        "options": { "tiktok": "TikTok", "facebook": "Facebook", "friend": "Friend or family", "partner": "Partner", "other": "Other" }
+      },
+      "consent": { "label": "I agree that Odysseo Education uses my information to review my application and contact me on WhatsApp." }
+    },
+    "errors": {
+      "required": "This field is required.",
+      "fullName": "Please provide your first AND last name.",
+      "whatsapp": "Invalid number. Start with the country code, e.g. +237 6XX XX XX XX.",
+      "dateOfBirth": "Invalid date of birth.",
+      "consent": "Check this box to submit your application.",
+      "generic": "The submission failed. Check your connection and try again."
+    },
+    "navigation": { "prev": "Back", "next": "Continue", "submit": "Submit my application", "sending": "Sending…", "retry": "Retry sending" },
+    "done": {
+      "title": "Thank you {name}!",
+      "subtitle": "Your application has been received.",
+      "codeNote": "Keep this code: it's used to track your application.",
+      "whatsappButton": "Send my code on WhatsApp",
+      "steps": {
+        "analysis": { "title": "Profile review", "text": "Our team reviews your answers and the matching opportunities." },
+        "firstAnswer": { "title": "Initial response within 48 hours", "text": "We'll write to you on WhatsApp at the number provided." },
+        "proposal": { "title": "Your personalized proposal", "text": "We'll privately present the offers matching your profile on WhatsApp." }
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Stay informed",
+    "subtitle": "Get our admission tips and scholarship deadlines by email.",
+    "placeholder": "Your email address",
+    "submit": "Subscribe",
+    "success": "Thanks, check your inbox to confirm.",
+    "error": "Something went wrong, please try again."
+  },
+  "cookies": {
+    "title": "Cookie settings",
+    "description": "We use cookies to run the site, measure its audience and, with your consent, personalize your experience.",
+    "necessary": "Necessary (always on)",
+    "analytics": "Analytics",
+    "marketing": "Marketing",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject all",
+    "customize": "Customize",
+    "save": "Save my choices"
+  },
+  "auth": {
+    "login": {
+      "title": "Staff area",
+      "subtitle": "Sign in to access the dashboard.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "googleButton": "Continue with Google",
+      "or": "or",
+      "error": "Invalid credentials."
+    },
+    "verify2fa": {
+      "title": "Two-factor verification",
+      "subtitle": "Enter the 6-digit code from your authenticator app.",
+      "code": "6-digit code",
+      "submit": "Verify",
+      "error": "Invalid code, try again."
+    }
+  },
+  "dashboard": {
+    "nav": {
+      "overview": "Overview",
+      "candidates": "Applications",
+      "partners": "Partners",
+      "newsletter": "Newsletter",
+      "settings": "Settings",
+      "signOut": "Sign out"
+    },
+    "overview": {
+      "title": "Overview",
+      "totalCandidates": "Applications received",
+      "last7Days": "Last 7 days",
+      "conversion": "Qualification rate",
+      "topPartners": "Top partners",
+      "trend": "Applications trend"
+    },
+    "candidates": {
+      "title": "Applications",
+      "search": "Search a name, city, code...",
+      "status": "Status",
+      "source": "Source",
+      "columns": { "code": "Code", "name": "Name", "country": "Country", "level": "Level", "status": "Status", "date": "Received on" }
+    },
+    "partners": {
+      "title": "Partners & points",
+      "add": "Add a partner",
+      "columns": { "name": "Name", "code": "Referral code", "candidates": "Referred leads", "points": "Points", "status": "Status" }
+    },
+    "settings": {
+      "title": "Settings",
+      "twoFactor": "Two-factor authentication",
+      "enable2fa": "Enable 2FA",
+      "notifications": "Notification preferences"
+    }
+  },
+  "partner": {
+    "title": "Partner area",
+    "yourLink": "Your referral link",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "points": "Your points",
+    "referred": "Referred leads",
+    "leaderboard": "Partner leaderboard"
+  },
+  "footer": {
+    "rights": "Your information is only used to review your application.",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
+  }
+}

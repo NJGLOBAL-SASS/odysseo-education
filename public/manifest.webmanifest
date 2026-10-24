@@ -1,0 +1,17 @@
+{
+  "name": "Odysseo Education — Tableau de bord",
+  "short_name": "Odysseo Team",
+  "description": "Tableau de bord équipe Odysseo Education (candidatures, partenaires, newsletter).",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4F4F6",
+  "theme_color": "#0B0B0D",
+  "icons": [
+    {
+      "src": "/images/logo/favicon-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "services": "Nos services",
+    "apply": "Déposer mon dossier",
+    "partners": "Devenir partenaire",
+    "brand": "Odysseo Education"
+  },
+  "home": {
+    "hero": {
+      "badge1": "Langue",
+      "badge2": "Licence",
+      "badge3": "Master",
+      "badge4": "Doctorat",
+      "title": "Étudier en <red>Chine</red> : analyse gratuite de votre profil",
+      "subtitle": "Répondez à quelques questions (3 minutes). Nous revenons vers vous sur WhatsApp avec un premier avis.",
+      "cta": "Commencer l'analyse gratuite",
+      "tagline": "Bénéficiez des meilleurs programmes d'étude en Chine",
+      "tagline2": "Éducation compétitive, disciplinée et innovante."
+    }
+  },
+  "services": {
+    "title": "Nos services",
+    "subtitle": "Un accompagnement complet, de l'orientation jusqu'au visa.",
+    "cover": {
+      "title": "Nos services"
+    },
+    "orientation": {
+      "title": "Orientation et évaluation du profil",
+      "items": [
+        "Analyse du parcours scolaire et universitaire.",
+        "Vérification des diplômes, des notes et de l'admissibilité.",
+        "Identification des filières et des niveaux accessibles.",
+        "Évaluation des compétences linguistiques.",
+        "Conseil sur les chances et les obstacles du dossier, sans garantie de sélection.",
+        "Élaboration d'une stratégie de candidature personnalisée."
+      ]
+    },
+    "bourses": {
+      "title": "Recherche et sélection des bourses",
+      "items": [
+        "Recherche de bourses gouvernementales, provinciales et universitaires.",
+        "Identification des universités compatibles avec le profil.",
+        "Recherche de formations en chinois ou en anglais.",
+        "Vérification des conditions d'admission et des dates limites.",
+        "Comparaison des bourses complètes et partielles."
+      ]
+    },
+    "dossier": {
+      "title": "Constitution et optimisation du dossier",
+      "items": [
+        "Création ou amélioration du CV académique.",
+        "Préparation du projet d'études ou de recherche.",
+        "Vérification des diplômes, relevés de notes et traductions.",
+        "Organisation et contrôle des pièces administratives.",
+        "Préparation aux tests linguistiques ou d'admission requis."
+      ]
+    },
+    "candidatures": {
+      "title": "Gestion et suivi des candidatures",
+      "items": [
+        "Vérification des pièces avant soumission.",
+        "Suivi des échéances et des demandes complémentaires.",
+        "Suivi des résultats d'admission et de bourse.",
+        "Assistance en cas de refus : analyse des causes identifiables.",
+        "Assistance en cas de refus : préparation d'une nouvelle candidature."
+      ]
+    }
+  },
+  "trust": {
+    "title": "Ce que nous vous garantissons, en toute transparence",
+    "admission": "nous ne déposons que des dossiers complets et vérifiés. Personne ne peut honnêtement vous promettre une admission garantie, et nous ne le ferons pas.",
+    "scholarship": "nous préparons votre candidature pour maximiser vos chances, mais l'attribution dépend de critères que nous ne contrôlons pas : résultats scolaires, entretien, nombre de places, choix de l'université.",
+    "visa": "nous vous aidons à constituer un dossier complet et solide ; la décision finale revient aux autorités consulaires.",
+    "labels": {
+      "admission": "Admission",
+      "scholarship": "Bourse",
+      "visa": "Visa"
+    }
+  },
+  "intake": {
+    "progress": "Étape {current} sur {total}",
+    "steps": {
+      "vous": { "name": "Vous", "title": "Vous", "intro": "Pour vous identifier et vous contacter." },
+      "parcours": { "name": "Parcours", "title": "Votre parcours", "intro": "Les universités regardent d'abord votre dernier diplôme." },
+      "projet": { "name": "Projet", "title": "Votre projet en Chine", "intro": "Pour vous proposer les bonnes offres." },
+      "validation": { "name": "Validation", "title": "Dernière étape", "intro": "Encore 3 petites questions." }
+    },
+    "fields": {
+      "fullName": { "label": "Nom et prénom", "placeholder": "Ex. KAMGA Paul" },
+      "whatsapp": { "label": "Numéro WhatsApp (avec indicatif)", "placeholder": "+237 6XX XX XX XX" },
+      "dateOfBirth": { "label": "Date de naissance" },
+      "country": { "label": "Pays", "placeholder": "Choisir…" },
+      "city": { "label": "Ville", "placeholder": "Ex. Douala" },
+      "managedBy": {
+        "label": "Qui gère et finance votre projet ?",
+        "options": { "self": "Moi-même", "parent": "Un parent", "guardian": "Un tuteur ou autre" }
+      },
+      "guardianBlock": {
+        "title": "Coordonnées du parent ou tuteur",
+        "whyMinor": "Vous avez moins de 18 ans : nous devons pouvoir joindre un parent ou tuteur.",
+        "whyDefault": "Nous avons besoin de joindre la personne qui suit votre projet.",
+        "name": "Nom et prénom du parent ou tuteur",
+        "link": "Lien avec vous",
+        "linkOptions": { "father": "Père", "mother": "Mère", "sibling": "Frère / sœur", "auntUncle": "Oncle / tante", "other": "Tuteur / autre" },
+        "whatsapp": "WhatsApp du parent ou tuteur"
+      },
+      "situation": {
+        "label": "Situation actuelle",
+        "options": { "pupil": "Élève", "student": "Étudiant", "working": "Je travaille", "none": "Sans activité" }
+      },
+      "degree": {
+        "label": "Plus haut diplôme obtenu",
+        "placeholder": "Choisir…",
+        "options": ["Probatoire / GCE O Level", "Bac / GCE A Level", "BTS / HND / DUT", "Licence", "Master", "Doctorat", "Autre"]
+      },
+      "degreeOther": { "label": "Précisez le diplôme" },
+      "degreeYear": { "label": "Année d'obtention", "placeholder": "Choisir…" },
+      "degreeAverage": { "label": "Moyenne obtenue à ce diplôme", "hint": "Ex. 13,5/20 · mention Assez bien · 3,2 GPA. Regardez votre relevé de notes." },
+      "level": {
+        "label": "Niveau visé",
+        "options": { "language": "Année de langue", "licence": "Licence", "master": "Master", "doctorat": "Doctorat" }
+      },
+      "field": {
+        "label": "Domaine d'études souhaité",
+        "placeholder": "Choisir…",
+        "options": [
+          "Médecine et santé (MBBS, pharmacie…)",
+          "Ingénierie (génie civil, mécanique, électrique…)",
+          "Informatique et numérique",
+          "Commerce, gestion, économie",
+          "Relations internationales, droit",
+          "Langue et culture chinoises",
+          "Sciences (chimie, physique, biologie…)",
+          "Agriculture et environnement",
+          "Architecture et design",
+          "Je ne sais pas encore",
+          "Autre"
+        ]
+      },
+      "fieldOther": { "label": "Précisez le domaine" },
+      "passport": {
+        "label": "Passeport",
+        "options": { "valid": "Valide", "inProgress": "En cours", "none": "Pas encore" }
+      },
+      "english": {
+        "label": "Parlez-vous anglais ?",
+        "options": { "yes": "Oui", "little": "Un peu", "no": "Non" }
+      },
+      "funding": {
+        "label": "Comment pensez-vous payer vos études ?",
+        "options": { "scholarshipOnly": "Uniquement avec une bourse", "familyPart": "Ma famille peut payer une partie", "fullFunding": "Je (ou ma famille) peux tout payer" }
+      },
+      "intake": {
+        "label": "Rentrée visée",
+        "options": { "march": "Mars 2027", "september": "Septembre 2027", "later": "Plus tard" }
+      },
+      "referred": {
+        "label": "Quelqu'un vous a-t-il orienté vers nous ?",
+        "options": { "no": "Non", "yes": "Oui, un partenaire ou conseiller" }
+      },
+      "partnerDeclared": { "label": "Nom du partenaire ou code dossier", "hint": "Ex. AUDY-012" },
+      "discovery": {
+        "label": "Comment nous avez-vous connus ?",
+        "optional": "(facultatif)",
+        "options": { "tiktok": "TikTok", "facebook": "Facebook", "friend": "Ami ou famille", "partner": "Partenaire", "other": "Autre" }
+      },
+      "consent": { "label": "J'accepte qu'Odysseo Education utilise mes informations pour étudier mon dossier et me contacter sur WhatsApp." }
+    },
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "fullName": "Indiquez le nom ET le prénom.",
+      "whatsapp": "Numéro invalide. Commencez par l'indicatif, ex. +237 6XX XX XX XX.",
+      "dateOfBirth": "Date de naissance invalide.",
+      "consent": "Cochez cette case pour envoyer votre dossier.",
+      "generic": "L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez."
+    },
+    "navigation": { "prev": "Retour", "next": "Continuer", "submit": "Envoyer mon dossier", "sending": "Envoi en cours…", "retry": "Réessayer l'envoi" },
+    "done": {
+      "title": "Merci {name} !",
+      "subtitle": "Votre dossier est bien enregistré.",
+      "codeNote": "Gardez ce code : il sert à suivre votre dossier.",
+      "whatsappButton": "Envoyer mon code sur WhatsApp",
+      "steps": {
+        "analysis": { "title": "Étude de votre profil", "text": "Notre équipe analyse vos réponses et les offres adaptées." },
+        "firstAnswer": { "title": "Premier avis sous 48 heures", "text": "Nous vous écrivons sur WhatsApp au numéro indiqué." },
+        "proposal": { "title": "Votre proposition personnalisée", "text": "Nous vous présentons en privé sur WhatsApp les offres adaptées à votre profil." }
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Restez informé",
+    "subtitle": "Recevez nos conseils d'admission et nos dates de bourses par email.",
+    "placeholder": "Votre adresse email",
+    "submit": "S'abonner",
+    "success": "Merci, vérifiez votre boîte mail pour confirmer.",
+    "error": "Une erreur est survenue, réessayez."
+  },
+  "cookies": {
+    "title": "Gestion des cookies",
+    "description": "Nous utilisons des cookies pour faire fonctionner le site, mesurer son audience et, avec votre accord, personnaliser votre expérience.",
+    "necessary": "Nécessaires (toujours actifs)",
+    "analytics": "Mesure d'audience",
+    "marketing": "Marketing",
+    "acceptAll": "Tout accepter",
+    "rejectAll": "Tout refuser",
+    "customize": "Personnaliser",
+    "save": "Enregistrer mes choix"
+  },
+  "auth": {
+    "login": {
+      "title": "Espace équipe",
+      "subtitle": "Connectez-vous pour accéder au tableau de bord.",
+      "email": "Email",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "googleButton": "Continuer avec Google",
+      "or": "ou",
+      "error": "Identifiants invalides."
+    },
+    "verify2fa": {
+      "title": "Vérification en deux étapes",
+      "subtitle": "Entrez le code à 6 chiffres généré par votre application d'authentification.",
+      "code": "Code à 6 chiffres",
+      "submit": "Valider",
+      "error": "Code invalide, réessayez."
+    }
+  },
+  "dashboard": {
+    "nav": {
+      "overview": "Vue d'ensemble",
+      "candidates": "Candidatures",
+      "partners": "Partenaires",
+      "newsletter": "Newsletter",
+      "settings": "Paramètres",
+      "signOut": "Déconnexion"
+    },
+    "overview": {
+      "title": "Vue d'ensemble",
+      "totalCandidates": "Dossiers reçus",
+      "last7Days": "7 derniers jours",
+      "conversion": "Taux de qualification",
+      "topPartners": "Meilleurs partenaires",
+      "trend": "Évolution des dossiers"
+    },
+    "candidates": {
+      "title": "Candidatures",
+      "search": "Rechercher un nom, une ville, un code...",
+      "status": "Statut",
+      "source": "Source",
+      "columns": { "code": "Code", "name": "Nom", "country": "Pays", "level": "Niveau", "status": "Statut", "date": "Reçu le" }
+    },
+    "partners": {
+      "title": "Partenaires & points",
+      "add": "Ajouter un partenaire",
+      "columns": { "name": "Nom", "code": "Code de parrainage", "candidates": "Dossiers apportés", "points": "Points", "status": "Statut" }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "twoFactor": "Authentification à deux facteurs",
+      "enable2fa": "Activer la 2FA",
+      "notifications": "Préférences de notification"
+    }
+  },
+  "partner": {
+    "title": "Espace partenaire",
+    "yourLink": "Votre lien de parrainage",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "points": "Vos points",
+    "referred": "Dossiers apportés",
+    "leaderboard": "Classement des partenaires"
+  },
+  "footer": {
+    "rights": "Vos informations servent uniquement à l'étude de votre dossier.",
+    "privacy": "Confidentialité",
+    "cookies": "Cookies"
+  }
+}

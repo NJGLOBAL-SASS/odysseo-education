@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --noir: #0b0b0d;
+  --rouge: #ff0000;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-fond text-texte font-sans antialiased;
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-wrap px-4;
+  }
+  .wrap-site {
+    @apply mx-auto w-full max-w-site px-4 sm:px-6;
+  }
+  .card {
+    @apply rounded-brand bg-carte shadow-card;
+  }
+  .btn {
+    @apply inline-flex min-h-[50px] items-center justify-center gap-2 rounded-brand px-5 font-bold text-base;
+  }
+  .btn-primary {
+    @apply btn bg-rouge text-white active:bg-rouge-fonce disabled:cursor-wait disabled:opacity-60;
+  }
+  .btn-ghost {
+    @apply btn border-[1.5px] border-bord bg-white text-noir;
+  }
+  .btn-dark {
+    @apply btn w-full bg-noir text-white;
+  }
+  .btn-wa {
+    @apply btn w-full bg-[#1FAF55] text-white;
+  }
+  .field-input {
+    @apply min-h-[46px] w-full rounded-[10px] border-[1.5px] border-bord bg-white px-3 py-2 text-base text-texte placeholder:text-gris focus:border-noir focus:outline-none focus:ring-[3px] focus:ring-noir/10;
+  }
+  .field-error {
+    @apply field-input border-erreur bg-erreur-fond;
+  }
+  .chip {
+    @apply inline-flex min-h-[42px] cursor-pointer items-center rounded-[10px] border-[1.5px] border-bord bg-white px-3.5 text-[15px] font-medium leading-tight;
+  }
+  .chip-selected {
+    @apply chip border-noir bg-noir text-white;
+  }
+}
