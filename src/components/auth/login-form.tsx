@@ -20,7 +20,15 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(false);
-  const [error, setError] = useState("");
+  // Erreurs renvoyées par Auth.js après un aller-retour Google (?error=...).
+  const oauthError = searchParams.get("error");
+  const [error, setError] = useState(
+    oauthError === "AccessDenied"
+      ? t("googleDenied")
+      : oauthError
+        ? t("googleError")
+        : ""
+  );
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 

@@ -226,6 +226,8 @@
       "capsLock": "Caps Lock is on.",
       "submitting": "Signing in…",
       "forgot": "Forgot password?",
+      "googleDenied": "This Google account has no access to the team area. Ask an administrator to add you.",
+      "googleError": "Google sign-in failed. Please try again.",
       "error": "Invalid credentials."
     },
     "forgot": {
@@ -240,6 +242,8 @@
       "error": "The request failed. Please try again in a moment."
     },
     "reset": {
+      "inviteTitle": "Welcome to the team",
+      "inviteSubtitle": "Choose your password to activate your account: at least 8 characters, with one letter and one digit.",
       "title": "New password",
       "subtitle": "Choose a password with at least 8 characters, including at least one letter and one digit.",
       "password": "New password",
@@ -269,6 +273,7 @@
       "candidates": "Applications",
       "partners": "Partners",
       "newsletter": "Newsletter",
+      "team": "Team",
       "settings": "Settings",
       "signOut": "Sign out"
     },
@@ -319,5 +324,6 @@
     "legalNotice": "Legal notice",
     "terms": "Terms of use",
     "manageCookies": "Manage cookies"
-  }
+  },
+  "notFound": {"eyebrow": "Error 404", "title": "This page got lost along the way", "text": "The page you are looking for doesn't exist, has been moved or isn't available here. Don't worry: your study project is still on the right track.", "home": "Back to home", "apply": "Submit my application", "helpTitle": "You might be looking for:", "services": "Our services", "partners": "Become a partner", "whatsapp": "Message us on WhatsApp", "teamTitle": "Page not found in the team area", "teamText": "This link leads nowhere: the page may have been deleted, or the address is mistyped.", "dashboard": "Back to dashboard", "candidates": "Applications", "partnersTeam": "Partners", "itemTitle": "Item not found", "itemText": "This application or page doesn't exist or has been deleted. Check the link or go back to the list.", "partnerTitle": "Unknown partner code", "partnerText": "This referral code doesn't exist or is no longer active. Check the code you received by email, including the dashes (e.g. AUDY-012).", "partnerRetry": "Enter another code", "rights": "All rights reserved."}
 }

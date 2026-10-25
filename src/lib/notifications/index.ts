@@ -242,3 +242,22 @@ export async function sendPasswordChangedEmail(user: { email: string }) {
   });
   return deliver("EMAIL", user.email, () => sendEmail(user.email, subject, html), { subject });
 }
+
+/** Invitation d'un nouveau membre : lien pour choisir son mot de passe (valable 7 jours). */
+export async function sendTeamInvitationEmail(
+  invitee: { email: string; name: string | null },
+  invitedBy: string,
+  link: string,
+  loginUrl: string
+) {
+  const subject = "Invitation à l'espace équipe Odysseo Education";
+  const html = emailLayout({
+    title: `Bienvenue dans l'équipe${invitee.name ? `, ${invitee.name.split(/\s+/)[0]}` : ""} !`,
+    intro: `${invitedBy} vous a ajouté(e) à l'espace équipe d'Odysseo Education (suivi des candidatures et des partenaires).`,
+    bodyHtml: `<p style="margin:0;font-size:14px;color:#5B5B66">Pour activer votre compte, choisissez votre mot de passe avec le bouton ci-dessous. Ce lien est valable <b>7 jours</b> et ne sert qu'une fois.</p>
+      <p style="margin:12px 0 0;font-size:14px;color:#5B5B66">Vous pouvez aussi vous connecter directement avec <b>Google</b> si ${escapeHtml(invitee.email)} est une adresse Google, depuis ${escapeHtml(loginUrl)}.</p>
+      <p style="margin:16px 0 0;font-size:12px;color:#5B5B66;word-break:break-all">Lien direct : ${escapeHtml(link)}</p>`,
+    cta: { label: "Activer mon compte", url: link },
+  });
+  return deliver("EMAIL", invitee.email, () => sendEmail(invitee.email, subject, html), { subject });
+}

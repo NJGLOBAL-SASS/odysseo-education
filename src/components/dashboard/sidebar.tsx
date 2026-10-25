@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, Users, Handshake, Mail, Settings, X } from "lucide-react";
+import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ const NAV = [
   { href: "/dashboard/candidatures", icon: Users, key: "candidates" },
   { href: "/dashboard/partenaires", icon: Handshake, key: "partners" },
   { href: "/dashboard/newsletter", icon: Mail, key: "newsletter" },
+  { href: "/dashboard/equipe", icon: UserCog, key: "team" },
   { href: "/dashboard/parametres", icon: Settings, key: "settings" },
 ] as const;
 
@@ -42,7 +43,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         <div className="flex h-16 items-center justify-between px-5">
           <Link href="/dashboard" onClick={onClose}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/logo/logo-full-white-tight.png" alt="Odysseo" className="mix-blend-lighten h-8 w-auto" />
+            <img src="/images/logo/logo-full-white-tight.png" alt="Odysseo" className="h-8 w-auto" />
           </Link>
           <button
             onClick={onClose}
@@ -92,7 +93,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             src="/images/logo/logo-mark-white-tight.png"
             alt=""
             aria-hidden="true"
-            className="mix-blend-lighten pointer-events-none absolute -bottom-3 -right-3 w-20 opacity-10"
+            className="pointer-events-none absolute -bottom-3 -right-3 w-20 opacity-10"
           />
           <p className="text-xs font-semibold">Odysseo Education</p>
           <p className="mt-0.5 text-[11px] text-[#9A9AA6]">Tableau de bord · v1.1</p>

@@ -294,6 +294,21 @@ un lien `/reset-password?token=…` (Brevo).
 - Mot de passe : 8 caractères minimum, au moins une lettre et un chiffre.
   Un email d'alerte est envoyé après le changement. La 2FA reste exigée ensuite.
 
+### 8.2 Membres de l'équipe (`/dashboard/equipe`)
+
+- Visible par tous les membres ; **seuls les administrateurs** invitent,
+  changent les rôles, réinitialisent la 2FA ou retirent un membre (`/api/team`).
+- **Invitation** : crée le compte sans mot de passe et envoie un lien
+  d'activation (même mécanisme que la réinitialisation, valable 7 jours). Le
+  membre peut aussi se connecter directement avec Google sur cette adresse.
+- **Connexion Google réservée à l'équipe** : une adresse absente de `users`
+  est refusée (callback `signIn`, `src/lib/auth.ts`).
+- **Effet immédiat** : la session est revalidée en base à chaque requête
+  (callback `jwt`) — un membre retiré perd l'accès sur tous ses appareils, un
+  changement de rôle s'applique sans reconnexion.
+- Garde-fous : impossible de se retirer soi-même ou de retirer / rétrograder le
+  dernier administrateur.
+
 ## 9. Exports CSV / Excel / PDF aux couleurs Odysseo
 
 Chaque liste du dashboard (candidatures, partenaires, newsletter) propose trois

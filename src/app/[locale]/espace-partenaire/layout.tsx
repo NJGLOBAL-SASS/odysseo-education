@@ -12,7 +12,7 @@ export default function PartnerPortalLayout({ children }: { children: ReactNode 
         <div className="wrap-site">
           <Link href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/logo/logo-full-white-tight.png" alt="Odysseo" className="mix-blend-lighten h-7 w-auto" />
+            <img src="/images/logo/logo-full-white-tight.png" alt="Odysseo" className="h-7 w-auto" />
           </Link>
         </div>
       </header>

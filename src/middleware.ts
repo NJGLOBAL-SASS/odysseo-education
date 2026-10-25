@@ -2,6 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 import { locales, defaultLocale } from "@/i18n/config";
+import { isTeamHost } from "@/lib/hosts";
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -11,13 +12,6 @@ const intlMiddleware = createMiddleware({
 
 // Chemins (hors préfixe de langue) réservés au sous-domaine équipe.
 const TEAM_ONLY_PREFIXES = ["/dashboard", "/login", "/verify-2fa", "/forgot-password", "/reset-password"];
-
-function isTeamHost(host: string) {
-  const bare = host.split(":")[0];
-  const configured = (process.env.TEAM_HOSTNAME || "team.odysseo-education.com").split(":")[0];
-  // "team." en préfixe couvre aussi team.localhost en développement.
-  return bare === configured || bare.startsWith("team.");
-}
 
 /** Déclenche la page 404 native de Next.js (aucune route ne correspond). */
 function blockWithNotFound(req: NextRequest, locale: string) {

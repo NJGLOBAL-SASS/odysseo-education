@@ -178,7 +178,9 @@ export function ForgotPasswordForm() {
 
 export function ResetPasswordForm() {
   const t = useTranslations("auth.reset");
-  const token = useSearchParams().get("token") || "";
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token") || "";
+  const isInvite = searchParams.get("invite") === "1";
   const [status, setStatus] = useState<"checking" | "invalid" | "ready" | "done">("checking");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -265,8 +267,8 @@ export function ResetPasswordForm() {
   return (
     <Shell>
       <IconBadge icon={KeyRound} />
-      <h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
-      <p className="mb-6 mt-1 text-sm text-gris">{t("subtitle")}</p>
+      <h1 className="text-2xl font-extrabold tracking-tight">{isInvite ? t("inviteTitle") : t("title")}</h1>
+      <p className="mb-6 mt-1 text-sm text-gris">{isInvite ? t("inviteSubtitle") : t("subtitle")}</p>
 
       <form onSubmit={onSubmit} className="space-y-4">
         <PasswordField id="password" label={t("password")} value={password} onChange={setPassword} disabled={loading} autoFocus />

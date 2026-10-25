@@ -17,7 +17,7 @@ export async function Header() {
             width={860}
             height={310}
             priority
-            className="mix-blend-lighten h-7 w-auto"
+            className="h-7 w-auto"
           />
         </Link>
 
