@@ -37,7 +37,23 @@ const config: Config = {
         brand: "12px",
       },
       boxShadow: {
-        card: "0 1px 2px rgba(0,0,0,.05)",
+        card: "0 1px 2px rgba(11,11,13,.04), 0 0 0 1px rgba(11,11,13,.05)",
+        pop: "0 12px 32px -8px rgba(11,11,13,.18), 0 0 0 1px rgba(11,11,13,.06)",
+      },
+      keyframes: {
+        shimmer: { "100%": { transform: "translateX(100%)" } },
+        "toast-in": {
+          from: { opacity: "0", transform: "translateY(8px) scale(.98)" },
+          to: { opacity: "1", transform: "none" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(6px)" },
+          to: { opacity: "1", transform: "none" },
+        },
+      },
+      animation: {
+        "toast-in": "toast-in .2s ease-out",
+        "fade-up": "fade-up .25s ease-out both",
       },
       maxWidth: {
         wrap: "560px",

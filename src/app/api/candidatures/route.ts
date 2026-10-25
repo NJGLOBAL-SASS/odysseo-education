@@ -5,8 +5,9 @@ import { auth } from "@/lib/auth";
 import { intakeSchema, normalizePhone, ageFrom } from "@/lib/validations/intake";
 import { generateCandidateCode } from "@/lib/utils";
 import { findPartnerByCode, awardPoints, POINTS_RULES } from "@/lib/points";
-import { notifyNewCandidate } from "@/lib/notifications";
+import { notifyNewCandidate, notifyCandidateConfirmation } from "@/lib/notifications";
 import { appendCandidateRow } from "@/lib/google-sheets";
+import { REFERRAL_COOKIE } from "@/lib/referral";
 
 export async function POST(req: NextRequest) {
   const raw = await req.json();
@@ -28,15 +29,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, code: "ODY-000000" });
   }
 
-  // Attribution de source : code saisi par le candidat OU ?ref= capté côté client.
+  // Attribution de source, par ordre de fiabilité : le lien de parrainage
+  // (?ref= capté côté client), puis le cookie posé par /r/CODE (visite
+  // antérieure), et seulement en dernier recours le code tapé à la main.
+  const cookieRef = req.cookies.get(REFERRAL_COOKIE)?.value;
+  const srcParam = d.srcParam || cookieRef || undefined;
   const partner =
-    (await findPartnerByCode(d.partnerDeclared)) || (await findPartnerByCode(d.srcParam));
+    (await findPartnerByCode(srcParam)) || (await findPartnerByCode(d.partnerDeclared));
+
+  // "Autre" + précision : on garde la précision, sinon elle était perdue.
+  const withOther = (value: string, other?: string) =>
+    /^(autre|other)$/i.test(value) && other?.trim() ? `${value} : ${other.trim()}` : value;
 
   const candidate = await prisma.candidate.create({
     data: {
       code: generateCandidateCode(),
       fullName: d.fullName.trim(),
       whatsapp: normalizePhone(d.whatsapp),
+      email: d.email,
       dateOfBirth: new Date(d.dateOfBirth),
       age: ageFrom(d.dateOfBirth) ?? undefined,
       country: d.country,
@@ -46,11 +56,11 @@ export async function POST(req: NextRequest) {
       guardianLink: d.guardianLink,
       guardianWhatsapp: d.guardianWhatsapp ? normalizePhone(d.guardianWhatsapp) : undefined,
       currentSituation: d.currentSituation,
-      highestDegree: d.highestDegree,
+      highestDegree: withOther(d.highestDegree, d.degreeOther),
       degreeYear: d.degreeYear,
       degreeAverage: d.degreeAverage,
       targetLevel: d.targetLevel,
-      fieldOfStudy: d.fieldOfStudy,
+      fieldOfStudy: withOther(d.fieldOfStudy, d.fieldOther),
       passportStatus: d.passportStatus,
       englishLevel: d.englishLevel,
       fundingPlan: d.fundingPlan,
@@ -59,7 +69,7 @@ export async function POST(req: NextRequest) {
       discoverySource: d.discoverySource,
       consentGiven: d.consentGiven,
       submissionDurationSec: d.submissionDurationSec,
-      srcParam: d.srcParam,
+      srcParam,
       locale: d.locale,
       partnerId: partner?.id,
     },
@@ -72,7 +82,8 @@ export async function POST(req: NextRequest) {
     await awardPoints(partner.id, POINTS_RULES.NEW_LEAD, "NEW_LEAD", candidate.id);
   }
 
-  notifyNewCandidate(candidate).catch((err) => console.error("[notify] échec :", err));
+  notifyNewCandidate({ ...candidate, partner }).catch((err) => console.error("[notify] échec :", err));
+  notifyCandidateConfirmation(candidate).catch((err) => console.error("[notify] confirmation candidat :", err));
   appendCandidateRow(candidate).catch((err) => console.error("[google-sheets] échec :", err));
 
   return NextResponse.json({ ok: true, code: candidate.code });
@@ -96,12 +107,13 @@ export async function GET(req: NextRequest) {
         ? [
             { fullName: { contains: q, mode: "insensitive" } },
             { code: { contains: q, mode: "insensitive" } },
+            { email: { contains: q, mode: "insensitive" } },
             { city: { contains: q, mode: "insensitive" } },
           ]
         : undefined,
     },
     orderBy: { createdAt: "desc" },
-    take: 100,
+    take: 500,
     include: { partner: { select: { fullName: true, referralCode: true } } },
   });
 

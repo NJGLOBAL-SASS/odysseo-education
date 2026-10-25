@@ -12,12 +12,12 @@ export async function Header() {
       <div className="wrap-site flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/images/logo/logo-full-white.png"
+            src="/images/logo/logo-full-white-tight.png"
             alt={t("brand")}
-            width={140}
-            height={28}
+            width={860}
+            height={310}
             priority
-            className="h-7 w-auto"
+            className="mix-blend-lighten h-7 w-auto"
           />
         </Link>
 

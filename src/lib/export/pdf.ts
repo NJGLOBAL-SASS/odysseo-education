@@ -4,7 +4,7 @@ import PDFDocument from "pdfkit";
 
 import type { ExportColumn } from "./types";
 
-const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black.png");
+const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black-tight.png");
 const NOIR = "#0B0B0D";
 const ROUGE = "#FF0000";
 const GRIS = "#5B5B66";

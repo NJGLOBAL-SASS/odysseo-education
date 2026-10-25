@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { ShieldCheck } from "lucide-react";
 
 import { Field, TextInput, SelectInput, ChipGroup } from "./fields";
 import { COUNTRIES, dialCodeFor } from "@/lib/countries";
@@ -52,6 +53,28 @@ export function StepVous({
           error={errors.whatsapp}
         />
       </Field>
+
+      <Field label={t("fields.email.label")} required error={errors.email}>
+        <TextInput
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          autoCapitalize="none"
+          value={data.email}
+          onChange={(v) => onChange("email", v.trim())}
+          placeholder={t("fields.email.placeholder")}
+          maxLength={120}
+          error={errors.email}
+        />
+      </Field>
+
+      <div className="mb-3.5 -mt-0.5 flex gap-2.5 rounded-[10px] border border-bord bg-fond p-3 text-[13px] leading-snug">
+        <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-rouge" />
+        <p>
+          <b className="block text-[14px]">{t("fields.contactNotice.title")}</b>
+          <span className="text-gris">{t("fields.contactNotice.text")}</span>
+        </p>
+      </div>
 
       <Field label={t("fields.dateOfBirth.label")} required error={errors.dateOfBirth}>
         <TextInput

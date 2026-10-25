@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { ShieldCheck } from "lucide-react";
 
+import { Spinner } from "@/components/ui/spinner";
+
 export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
   const t = useTranslations("dashboard.settings");
   const [enrolling, setEnrolling] = useState(false);
@@ -12,29 +14,44 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
   const [code, setCode] = useState("");
   const [done, setDone] = useState(enabled);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function startEnrollment() {
-    setEnrolling(true);
-    const res = await fetch("/api/auth/2fa/setup", { method: "POST" });
-    const json = await res.json();
-    setQr(json.qrDataUrl);
-    setSecret(json.secret);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/auth/2fa/setup", { method: "POST" });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Erreur");
+      setQr(json.qrDataUrl);
+      setSecret(json.secret);
+      setEnrolling(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function confirm() {
     setError("");
-    const res = await fetch("/api/auth/2fa/enable", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ secret, code }),
-    });
-    const json = await res.json();
-    if (!res.ok) {
-      setError(json.error || "Erreur");
-      return;
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/2fa/enable", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ secret, code }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error || "Erreur");
+        return;
+      }
+      setDone(true);
+      setEnrolling(false);
+    } finally {
+      setLoading(false);
     }
-    setDone(true);
-    setEnrolling(false);
   }
 
   if (done) {
@@ -47,9 +64,13 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
 
   if (!enrolling) {
     return (
-      <button onClick={startEnrollment} className="btn-dark !w-auto">
-        {t("enable2fa")}
-      </button>
+      <div>
+        <button onClick={startEnrollment} disabled={loading} className="btn-sm-dark">
+          {loading && <Spinner />}
+          {t("enable2fa")}
+        </button>
+        {error && <p className="mt-2 text-sm text-erreur">{error}</p>}
+      </div>
     );
   }
 
@@ -68,8 +89,9 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
         className="field-input mb-2 text-center tracking-[0.4em]"
       />
       {error && <p className="mb-2 text-sm text-erreur">{error}</p>}
-      <button onClick={confirm} disabled={code.length !== 6} className="btn-primary w-full">
-        Confirmer
+      <button onClick={confirm} disabled={code.length !== 6 || loading} className="btn-sm-primary w-full">
+        {loading && <Spinner />}
+        {loading ? "Vérification…" : "Confirmer"}
       </button>
     </div>
   );

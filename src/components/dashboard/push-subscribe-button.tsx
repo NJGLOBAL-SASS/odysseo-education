@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BellRing, Check } from "lucide-react";
+
+import { Spinner } from "@/components/ui/spinner";
 
 function urlBase64ToUint8Array(base64String: string) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -10,53 +12,95 @@ function urlBase64ToUint8Array(base64String: string) {
   return Uint8Array.from([...rawData].map((c) => c.charCodeAt(0)));
 }
 
+type Status = "checking" | "idle" | "working" | "done" | "unsupported" | "denied" | "error";
+
 export function PushSubscribeButton() {
-  const [status, setStatus] = useState<"idle" | "done" | "error">("idle");
+  const [status, setStatus] = useState<Status>("checking");
+  const [error, setError] = useState("");
+
+  // Cet appareil est-il déjà abonné ?
+  useEffect(() => {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      setStatus("unsupported");
+      return;
+    }
+    if (Notification.permission === "denied") {
+      setStatus("denied");
+      return;
+    }
+    navigator.serviceWorker
+      .getRegistration("/sw.js")
+      .then((reg) => reg?.pushManager.getSubscription())
+      .then((sub) => setStatus(sub ? "done" : "idle"))
+      .catch(() => setStatus("idle"));
+  }, []);
 
   async function enable() {
+    setStatus("working");
+    setError("");
     try {
-      const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-      if (!vapidKey) throw new Error("VAPID non configuré");
+      const { publicKey } = (await (await fetch("/api/push/public-key")).json()) as { publicKey: string | null };
+      if (!publicKey) throw new Error("Clé VAPID absente côté serveur (VAPID_PUBLIC_KEY).");
 
       const registration = await navigator.serviceWorker.register("/sw.js");
+      await navigator.serviceWorker.ready;
       const permission = await Notification.requestPermission();
-      if (permission !== "granted") throw new Error("Permission refusée");
+      if (permission !== "granted") {
+        setStatus(permission === "denied" ? "denied" : "idle");
+        return;
+      }
 
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(vapidKey),
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
       });
 
-      await fetch("/api/push/subscribe", {
+      const res = await fetch("/api/push/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(subscription.toJSON()),
       });
+      if (!res.ok) throw new Error("Enregistrement de l'abonnement refusé par le serveur.");
 
       setStatus("done");
-    } catch {
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
       setStatus("error");
     }
+  }
+
+  if (status === "checking") {
+    return <div className="skeleton h-[38px] w-60 rounded-[10px]" />;
   }
 
   if (status === "done") {
     return (
       <p className="flex items-center gap-2 text-sm font-semibold text-ok">
-        <Check className="h-4 w-4" /> Notifications push activées.
+        <Check className="h-4 w-4" /> Notifications push activées sur cet appareil.
+      </p>
+    );
+  }
+
+  if (status === "unsupported") {
+    return <p className="text-sm text-gris">Ce navigateur ne prend pas en charge les notifications push.</p>;
+  }
+
+  if (status === "denied") {
+    return (
+      <p className="text-sm text-erreur">
+        Les notifications sont bloquées pour ce site. Autorisez-les dans les réglages du navigateur
+        (icône cadenas à gauche de l&apos;adresse), puis rechargez la page.
       </p>
     );
   }
 
   return (
     <div>
-      <button onClick={enable} className="btn-dark !w-auto">
-        <BellRing className="h-4 w-4" /> Activer les notifications push
+      <button onClick={enable} disabled={status === "working"} className="btn-sm-dark">
+        {status === "working" ? <Spinner /> : <BellRing className="h-4 w-4" />}
+        {status === "working" ? "Activation…" : "Activer les notifications push"}
       </button>
-      {status === "error" && (
-        <p className="mt-2 text-sm text-erreur">
-          Impossible d&apos;activer les notifications (clé VAPID manquante ou permission refusée).
-        </p>
-      )}
+      {status === "error" && <p className="mt-2 text-sm text-erreur">{error}</p>}
     </div>
   );
 }

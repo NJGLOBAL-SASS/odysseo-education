@@ -22,10 +22,10 @@ export async function Footer() {
         <div className="wrap-site grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Image
-              src="/images/logo/logo-full-black.png"
+              src="/images/logo/logo-full-black-tight.png"
               alt={tNav("brand")}
-              width={140}
-              height={28}
+              width={860}
+              height={310}
               className="h-7 w-auto"
             />
             <p className="mt-3 max-w-xs text-sm text-gris">{t("description")}</p>

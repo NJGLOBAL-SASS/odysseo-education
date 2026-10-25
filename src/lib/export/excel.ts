@@ -4,7 +4,7 @@ import ExcelJS from "exceljs";
 
 import type { ExportColumn } from "./types";
 
-const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black.png");
+const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black-tight.png");
 const BRAND_NOIR = "FF0B0B0D";
 const BRAND_ROUGE = "FFFF0000";
 const BRAND_GRIS = "FF5B5B66";
@@ -45,7 +45,7 @@ export async function buildExcelBuffer<T>({
 
   if (fs.existsSync(LOGO_PATH)) {
     const imageId = workbook.addImage({ filename: LOGO_PATH, extension: "png" });
-    sheet.addImage(imageId, { tl: { col: 0, row: 1.15 }, ext: { width: 110, height: 22 } });
+    sheet.addImage(imageId, { tl: { col: 0, row: 1.15 }, ext: { width: 72, height: 26 } });
   }
 
   sheet.mergeCells(2, 2, 2, colCount);

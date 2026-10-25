@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 
+import { Spinner } from "@/components/ui/spinner";
+
 export function Verify2FAForm() {
   const t = useTranslations("auth.verify2fa");
   const router = useRouter();
@@ -75,6 +77,7 @@ export function Verify2FAForm() {
           {error && <p className="text-sm font-semibold text-erreur">{error}</p>}
 
           <button type="submit" disabled={loading || code.length !== 6} className="btn-primary w-full">
+            {loading && <Spinner />}
             {t("submit")}
           </button>
         </form>
