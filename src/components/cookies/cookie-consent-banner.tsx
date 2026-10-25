@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Cookie } from "lucide-react";
 
-const STORAGE_KEY = "odysseo_cookie_consent";
-
-type Consent = { necessary: true; analytics: boolean; marketing: boolean };
+import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  OPEN_COOKIE_SETTINGS_EVENT,
+  getStoredCookieConsent,
+  type CookieConsent,
+} from "@/lib/cookie-consent";
 
 function getAnonId() {
   let id = localStorage.getItem("odysseo_anon_id");
@@ -25,13 +28,25 @@ export function CookieConsentBanner() {
   const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = getStoredCookieConsent();
     if (!stored) setVisible(true);
+
+    function openForEditing() {
+      const current = getStoredCookieConsent();
+      setAnalytics(current?.analytics ?? false);
+      setMarketing(current?.marketing ?? false);
+      setCustomize(true);
+      setVisible(true);
+    }
+
+    window.addEventListener(OPEN_COOKIE_SETTINGS_EVENT, openForEditing);
+    return () => window.removeEventListener(OPEN_COOKIE_SETTINGS_EVENT, openForEditing);
   }, []);
 
-  async function save(consent: Consent) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+  async function save(consent: CookieConsent) {
+    localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, JSON.stringify(consent));
     setVisible(false);
+    setCustomize(false);
     try {
       await fetch("/api/cookies/consent", {
         method: "POST",

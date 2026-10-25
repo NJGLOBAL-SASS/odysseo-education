@@ -272,8 +272,15 @@
     "leaderboard": "Partner leaderboard"
   },
   "footer": {
+    "description": "Support to the best Chinese universities: orientation, scholarships, application and visa.",
     "rights": "Your information is only used to review your application.",
-    "privacy": "Privacy",
-    "cookies": "Cookies"
+    "navTitle": "Navigation",
+    "legalTitle": "Legal",
+    "contactTitle": "Contact",
+    "privacy": "Privacy policy",
+    "cookies": "Cookie policy",
+    "legalNotice": "Legal notice",
+    "terms": "Terms of use",
+    "manageCookies": "Manage cookies"
   }
 }

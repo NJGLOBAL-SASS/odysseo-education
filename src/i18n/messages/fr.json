@@ -272,8 +272,15 @@
     "leaderboard": "Classement des partenaires"
   },
   "footer": {
+    "description": "Accompagnement vers les meilleures universités chinoises : orientation, bourses, dossier et visa.",
     "rights": "Vos informations servent uniquement à l'étude de votre dossier.",
-    "privacy": "Confidentialité",
-    "cookies": "Cookies"
+    "navTitle": "Navigation",
+    "legalTitle": "Informations légales",
+    "contactTitle": "Contact",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Politique de cookies",
+    "legalNotice": "Mentions légales",
+    "terms": "Conditions générales d'utilisation",
+    "manageCookies": "Gérer mes cookies"
   }
 }
