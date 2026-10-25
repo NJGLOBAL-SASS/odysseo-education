@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import ExcelJS from "exceljs";
 
+import { APP_TIME_ZONE } from "@/lib/utils";
 import type { ExportColumn } from "./types";
 
 const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black-tight.png");
@@ -57,7 +58,7 @@ export async function buildExcelBuffer<T>({
 
   sheet.mergeCells(3, 1, 3, colCount);
   const dateCell = sheet.getCell(3, 1);
-  dateCell.value = `Généré le ${generatedAt.toLocaleString("fr-FR")} · ${rows.length} ligne(s)`;
+  dateCell.value = `Généré le ${generatedAt.toLocaleString("fr-FR", { timeZone: APP_TIME_ZONE })} · ${rows.length} ligne(s)`;
   dateCell.font = { size: 10, italic: true, color: { argb: BRAND_GRIS } };
 
   sheet.getRow(4).height = 6;

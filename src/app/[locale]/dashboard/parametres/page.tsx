@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { checkBrevoAccount } from "@/lib/notifications/email";
 import { isPushConfigured } from "@/lib/notifications/push";
 import { checkSheetsAccess } from "@/lib/google-sheets";
+import { APP_TIME_ZONE } from "@/lib/utils";
 import { TwoFactorSetup } from "@/components/dashboard/two-factor-setup";
 import { PushSubscribeButton } from "@/components/dashboard/push-subscribe-button";
 import {
@@ -84,7 +85,7 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
     },
   ];
 
-  const dateTime = new Intl.DateTimeFormat(params.locale, { dateStyle: "short", timeStyle: "short" });
+  const dateTime = new Intl.DateTimeFormat(params.locale, { dateStyle: "short", timeStyle: "short", timeZone: APP_TIME_ZONE });
 
   return (
     <div className="max-w-4xl">

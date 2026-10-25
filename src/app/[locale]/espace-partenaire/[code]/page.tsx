@@ -8,6 +8,7 @@ import { findPartnerByCode } from "@/lib/points";
 import { CopyLinkButton } from "@/components/dashboard/copy-link-button";
 import { StatusBadge } from "@/components/dashboard/status-badge";
 import { referralLink } from "@/lib/referral";
+import { APP_TIME_ZONE } from "@/lib/utils";
 import { optionLabel } from "@/lib/intake-labels";
 
 export default async function PartnerStatsPage({
@@ -95,7 +96,7 @@ export default async function PartnerStatsPage({
                   <StatusBadge status={c.status} locale={params.locale} />
                 </td>
                 <td className="px-4 py-3 text-gris">
-                  {new Intl.DateTimeFormat(params.locale).format(c.createdAt)}
+                  {new Intl.DateTimeFormat(params.locale, { timeZone: APP_TIME_ZONE }).format(c.createdAt)}
                 </td>
               </tr>
             ))}

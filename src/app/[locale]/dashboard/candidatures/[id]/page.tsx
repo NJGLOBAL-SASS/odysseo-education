@@ -4,6 +4,7 @@ import { ArrowLeft, MessageCircle, Link2, PenLine, Globe, Mail, Smartphone, Bell
 import { prisma } from "@/lib/prisma";
 import { Link } from "@/i18n/navigation";
 import { optionLabel } from "@/lib/intake-labels";
+import { APP_TIME_ZONE } from "@/lib/utils";
 import { StatusUpdater } from "@/components/dashboard/status-updater";
 import { StatusBadge } from "@/components/dashboard/status-badge";
 import { InternalNotes } from "@/components/dashboard/internal-notes";
@@ -58,7 +59,7 @@ export default async function CandidateDetailPage({
   if (!candidate) notFound();
 
   const L = params.locale;
-  const dateTime = new Intl.DateTimeFormat(L, { dateStyle: "medium", timeStyle: "short" });
+  const dateTime = new Intl.DateTimeFormat(L, { dateStyle: "medium", timeStyle: "short", timeZone: APP_TIME_ZONE });
   const viaLink =
     Boolean(candidate.partner) && candidate.srcParam?.toUpperCase() === candidate.partner?.referralCode;
 
@@ -108,7 +109,7 @@ export default async function CandidateDetailPage({
           <Section title="Vous">
             <Row label="WhatsApp" value={candidate.whatsapp} />
             <Row label="Email" value={candidate.email ?? "Non renseigné (dossier antérieur)"} />
-            <Row label="Date de naissance" value={new Intl.DateTimeFormat(L).format(candidate.dateOfBirth)} />
+            <Row label="Date de naissance" value={new Intl.DateTimeFormat(L, { timeZone: "UTC" }).format(candidate.dateOfBirth)} />
             <Row label="Âge" value={candidate.age != null ? `${candidate.age} ans` : null} />
             <Row label="Pays" value={candidate.country} />
             <Row label="Ville" value={candidate.city} />

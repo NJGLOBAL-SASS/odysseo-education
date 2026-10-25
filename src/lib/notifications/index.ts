@@ -1,6 +1,7 @@
 import type { Candidate, NotificationChannel, Partner } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
+import { APP_TIME_ZONE } from "@/lib/utils";
 import { optionLabel } from "@/lib/intake-labels";
 import { publicSiteUrl, referralLink } from "@/lib/referral";
 import { sendEmail, emailLayout, emailRows, escapeHtml } from "./email";
@@ -152,7 +153,7 @@ export async function sendTestNotification(
     const html = emailLayout({
       title: "Les emails fonctionnent ✔",
       intro: "Ceci est un email de test envoyé depuis les paramètres du tableau de bord.",
-      bodyHtml: emailRows([["Envoyé le", new Date().toLocaleString("fr-FR")]]),
+      bodyHtml: emailRows([["Envoyé le", new Date().toLocaleString("fr-FR", { timeZone: APP_TIME_ZONE })]]),
     });
     return deliver("EMAIL", user.email, () => sendEmail(user.email, subject, html), { subject });
   }
@@ -236,7 +237,7 @@ export async function sendPasswordChangedEmail(user: { email: string }) {
   const subject = "Votre mot de passe a été modifié — Odysseo";
   const html = emailLayout({
     title: "Mot de passe modifié",
-    intro: `Le mot de passe de votre compte a été modifié le ${new Date().toLocaleString("fr-FR")}.`,
+    intro: `Le mot de passe de votre compte a été modifié le ${new Date().toLocaleString("fr-FR", { timeZone: APP_TIME_ZONE })}.`,
     bodyHtml: `<p style="margin:0;font-size:14px;color:#5B5B66">Si vous n'êtes pas à l'origine de ce changement, contactez immédiatement un administrateur.</p>`,
     cta: { label: "Se connecter", url: teamUrl("/fr/login") },
   });

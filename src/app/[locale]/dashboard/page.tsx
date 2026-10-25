@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { Link } from "@/i18n/navigation";
 import { optionLabel } from "@/lib/intake-labels";
+import { APP_TIME_ZONE } from "@/lib/utils";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { StatusBadge, STATUS_LABELS_FR, STATUS_LABELS_EN } from "@/components/dashboard/status-badge";
 import { TrendChart, BarList } from "@/components/dashboard/charts";
@@ -126,7 +127,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
   });
 
   const firstName = session?.user?.name?.split(/\s+/)[0];
-  const today = new Intl.DateTimeFormat(locale, { weekday: "long", day: "numeric", month: "long" }).format(new Date());
+  const today = new Intl.DateTimeFormat(locale, { weekday: "long", day: "numeric", month: "long", timeZone: APP_TIME_ZONE }).format(new Date());
 
   return (
     <div className="space-y-6">
@@ -232,7 +233,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
                       <StatusBadge status={c.status} locale={locale} />
                     </td>
                     <td className="py-3 pl-3 pr-5 text-right text-xs text-gris">
-                      {new Intl.DateTimeFormat(locale, { day: "numeric", month: "short" }).format(c.createdAt)}
+                      {new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", timeZone: APP_TIME_ZONE }).format(c.createdAt)}
                     </td>
                   </tr>
                 ))}

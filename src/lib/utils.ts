@@ -1,6 +1,12 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+/**
+ * Fuseau d'affichage des dates rendues côté serveur. Les serveurs Vercel sont en
+ * UTC : sans fuseau explicite, heures des exports, emails et fiches décalées.
+ */
+export const APP_TIME_ZONE = "Africa/Douala";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

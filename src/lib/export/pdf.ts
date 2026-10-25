@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import PDFDocument from "pdfkit";
 
+import { APP_TIME_ZONE } from "@/lib/utils";
 import type { ExportColumn } from "./types";
 
 const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black-tight.png");
@@ -34,7 +35,7 @@ function drawHeader(doc: PDFKit.PDFDocument, title: string, generatedAt: Date, r
   doc
     .fontSize(8)
     .fillColor(GRIS)
-    .text(`Généré le ${generatedAt.toLocaleString("fr-FR")}`, left, top, {
+    .text(`Généré le ${generatedAt.toLocaleString("fr-FR", { timeZone: APP_TIME_ZONE })}`, left, top, {
       width: right - left,
       align: "right",
     });
@@ -97,7 +98,9 @@ export function buildPdfBuffer<T>({
 
     const left = doc.page.margins.left;
     const usableWidth = doc.page.width - doc.page.margins.left - doc.page.margins.right;
-    const colWidth = usableWidth / columns.length;
+    const pdfColumns = columns.filter((c) => c.pdfWeight !== 0);
+    const totalWeight = pdfColumns.reduce((sum, c) => sum + (c.pdfWeight ?? 1), 0);
+    const widths = pdfColumns.map((c) => (usableWidth * (c.pdfWeight ?? 1)) / totalWeight);
     const rowHeight = 18;
 
     function drawTableRow(y: number, values: string[], isHeader: boolean, zebra: boolean) {
@@ -107,7 +110,8 @@ export function buildPdfBuffer<T>({
       } else if (zebra) {
         doc.rect(left, y, usableWidth, rowHeight).fill(FOND);
       }
-      values.forEach((value) => {
+      values.forEach((value, i) => {
+        const colWidth = widths[i]!;
         doc
           .fillColor(isHeader ? "#FFFFFF" : NOIR)
           .font(isHeader ? "Helvetica-Bold" : "Helvetica")
@@ -121,7 +125,7 @@ export function buildPdfBuffer<T>({
       drawWatermark(doc);
       const contentTop = drawHeader(doc, title, generatedAt, rows.length);
       let y = contentTop;
-      drawTableRow(y, columns.map((c) => c.header), true, false);
+      drawTableRow(y, pdfColumns.map((c) => c.header), true, false);
       return y + rowHeight + 4;
     }
 
@@ -132,7 +136,7 @@ export function buildPdfBuffer<T>({
         doc.addPage();
         y = newPage();
       }
-      drawTableRow(y, columns.map((c) => c.get(row)), false, idx % 2 === 1);
+      drawTableRow(y, pdfColumns.map((c) => c.get(row)), false, idx % 2 === 1);
       y += rowHeight;
     });
 

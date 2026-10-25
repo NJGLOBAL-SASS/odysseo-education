@@ -2,6 +2,7 @@ import { google } from "googleapis";
 import type { Candidate } from "@prisma/client";
 
 import { optionLabel } from "@/lib/intake-labels";
+import { APP_TIME_ZONE } from "@/lib/utils";
 import { STATUS_LABELS_FR } from "@/components/dashboard/status-badge";
 
 /**
@@ -51,7 +52,7 @@ function getSheetsClient() {
 function candidateToRow(candidate: Candidate) {
   return [
     candidate.code,
-    candidate.createdAt.toLocaleString("fr-FR", { timeZone: "Africa/Douala" }),
+    candidate.createdAt.toLocaleString("fr-FR", { timeZone: APP_TIME_ZONE }),
     candidate.fullName,
     candidate.whatsapp,
     candidate.email ?? "",
