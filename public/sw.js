@@ -6,8 +6,8 @@
  *     voir src/lib/offline/db.ts).
  */
 
-const CACHE_NAME = "odysseo-dashboard-v1";
-const PRECACHE_URLS = ["/images/logo/logo-full-white.png", "/images/logo/favicon-64.png"];
+const CACHE_NAME = "odysseo-dashboard-v2";
+const PRECACHE_URLS = ["/images/logo/logo-full-white-tight.png", "/images/logo/favicon-64.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { auth } from "@/lib/auth";
 import { redirect } from "@/i18n/navigation";
-import { Sidebar } from "@/components/dashboard/sidebar";
+import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { ServiceWorkerRegister } from "@/components/dashboard/service-worker-register";
 
 // Back-office protégé par session : jamais de rendu statique / cache.
@@ -26,12 +26,13 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-fond">
+    <>
       <ServiceWorkerRegister />
-      <Sidebar />
-      <div className="flex-1 overflow-x-hidden">
-        <div className="wrap-site py-8">{children}</div>
-      </div>
-    </div>
+      <DashboardShell
+        user={{ name: session?.user?.name, email: session?.user?.email, role: session?.user?.role }}
+      >
+        {children}
+      </DashboardShell>
+    </>
   );
 }

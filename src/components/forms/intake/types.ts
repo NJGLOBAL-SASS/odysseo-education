@@ -1,6 +1,7 @@
 export type IntakeDraft = {
   fullName: string;
   whatsapp: string;
+  email: string;
   dateOfBirth: string;
   country: string;
   city: string;
@@ -34,6 +35,7 @@ export type IntakeDraft = {
 export const emptyDraft: IntakeDraft = {
   fullName: "",
   whatsapp: "",
+  email: "",
   dateOfBirth: "",
   country: "",
   city: "",
@@ -61,3 +63,6 @@ export const emptyDraft: IntakeDraft = {
 };
 
 export type StepErrors = Partial<Record<keyof IntakeDraft, string>>;
+
+/** Parrainage reconnu via le lien /r/CODE (pré-remplit et verrouille l'étape Validation). */
+export type ReferralInfo = { code: string; partnerName: string };

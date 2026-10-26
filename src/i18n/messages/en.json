@@ -80,6 +80,7 @@
   },
   "intake": {
     "progress": "Step {current} of {total}",
+    "referral": { "banner": "You were referred by {name} — the referral will be applied automatically.", "lockedTitle": "Referral applied automatically", "lockedText": "You came through {name}'s link. Code:" },
     "steps": {
       "vous": { "name": "You", "title": "You", "intro": "To identify and contact you." },
       "parcours": { "name": "Background", "title": "Your background", "intro": "Universities look first at your latest diploma." },
@@ -89,6 +90,8 @@
     "fields": {
       "fullName": { "label": "Full name", "placeholder": "e.g. KAMGA Paul" },
       "whatsapp": { "label": "WhatsApp number (with country code)", "placeholder": "+237 6XX XX XX XX" },
+      "email": { "label": "Email address", "placeholder": "E.g. paul.kamga@gmail.com" },
+      "contactNotice": { "title": "Your contact channels", "text": "All information about your application (progress, documents to provide, proposals) will be sent to you only on this WhatsApp number and this email address. Please double-check them." },
       "dateOfBirth": { "label": "Date of birth" },
       "country": { "label": "Country", "placeholder": "Choose…" },
       "city": { "label": "City", "placeholder": "e.g. Douala" },
@@ -165,12 +168,13 @@
         "optional": "(optional)",
         "options": { "tiktok": "TikTok", "facebook": "Facebook", "friend": "Friend or family", "partner": "Partner", "other": "Other" }
       },
-      "consent": { "label": "I agree that Odysseo Education uses my information to review my application and contact me on WhatsApp." }
+      "consent": { "label": "I agree that Odysseo Education uses my information to review my application and contact me on WhatsApp and by email." }
     },
     "errors": {
       "required": "This field is required.",
       "fullName": "Please provide your first AND last name.",
       "whatsapp": "Invalid number. Start with the country code, e.g. +237 6XX XX XX XX.",
+      "email": "Invalid email address, e.g. paul.kamga@gmail.com.",
       "dateOfBirth": "Invalid date of birth.",
       "consent": "Check this box to submit your application.",
       "generic": "The submission failed. Check your connection and try again."
@@ -180,10 +184,11 @@
       "title": "Thank you {name}!",
       "subtitle": "Your application has been received.",
       "codeNote": "Keep this code: it's used to track your application.",
+      "emailNote": "A confirmation email with your code has just been sent to {email}.",
       "whatsappButton": "Send my code on WhatsApp",
       "steps": {
         "analysis": { "title": "Profile review", "text": "Our team reviews your answers and the matching opportunities." },
-        "firstAnswer": { "title": "Initial response within 48 hours", "text": "We'll write to you on WhatsApp at the number provided." },
+        "firstAnswer": { "title": "Initial response within 48 hours", "text": "We'll write to you on WhatsApp and by email using the details provided." },
         "proposal": { "title": "Your personalized proposal", "text": "We'll privately present the offers matching your profile on WhatsApp." }
       }
     }
@@ -216,7 +221,43 @@
       "submit": "Sign in",
       "googleButton": "Continue with Google",
       "or": "or",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "capsLock": "Caps Lock is on.",
+      "submitting": "Signing in…",
+      "forgot": "Forgot password?",
+      "googleDenied": "This Google account has no access to the team area. Ask an administrator to add you.",
+      "googleError": "Google sign-in failed. Please try again.",
       "error": "Invalid credentials."
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "subtitle": "Enter your account email: we'll send you a link to choose a new password.",
+      "email": "Email",
+      "submit": "Send the link",
+      "submitting": "Sending…",
+      "sentTitle": "Check your inbox",
+      "sentText": "If an account exists for {email}, a reset link has just been sent. It is valid for 1 hour. Remember to check your spam folder.",
+      "back": "Back to sign in",
+      "error": "The request failed. Please try again in a moment."
+    },
+    "reset": {
+      "inviteTitle": "Welcome to the team",
+      "inviteSubtitle": "Choose your password to activate your account: at least 8 characters, with one letter and one digit.",
+      "title": "New password",
+      "subtitle": "Choose a password with at least 8 characters, including at least one letter and one digit.",
+      "password": "New password",
+      "confirm": "Confirm password",
+      "mismatch": "The two passwords do not match.",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "doneTitle": "Password changed",
+      "doneText": "You can now sign in with your new password.",
+      "invalidTitle": "Invalid or expired link",
+      "invalidText": "This reset link has expired or has already been used. Please make a new request.",
+      "newRequest": "Make a new request",
+      "goLogin": "Sign in",
+      "rules": { "length": "At least 8 characters", "letter": "At least one letter", "digit": "At least one digit" }
     },
     "verify2fa": {
       "title": "Two-factor verification",
@@ -232,6 +273,7 @@
       "candidates": "Applications",
       "partners": "Partners",
       "newsletter": "Newsletter",
+      "team": "Team",
       "settings": "Settings",
       "signOut": "Sign out"
     },
@@ -282,5 +324,6 @@
     "legalNotice": "Legal notice",
     "terms": "Terms of use",
     "manageCookies": "Manage cookies"
-  }
+  },
+  "notFound": {"eyebrow": "Error 404", "title": "This page got lost along the way", "text": "The page you are looking for doesn't exist, has been moved or isn't available here. Don't worry: your study project is still on the right track.", "home": "Back to home", "apply": "Submit my application", "helpTitle": "You might be looking for:", "services": "Our services", "partners": "Become a partner", "whatsapp": "Message us on WhatsApp", "teamTitle": "Page not found in the team area", "teamText": "This link leads nowhere: the page may have been deleted, or the address is mistyped.", "dashboard": "Back to dashboard", "candidates": "Applications", "partnersTeam": "Partners", "itemTitle": "Item not found", "itemText": "This application or page doesn't exist or has been deleted. Check the link or go back to the list.", "partnerTitle": "Unknown partner code", "partnerText": "This referral code doesn't exist or is no longer active. Check the code you received by email, including the dashes (e.g. AUDY-012).", "partnerRetry": "Enter another code", "rights": "All rights reserved."}
 }

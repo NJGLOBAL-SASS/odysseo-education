@@ -17,6 +17,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      // Permet à un membre déjà créé (email + mot de passe) de se connecter aussi
+      // avec Google. Sans danger ici : le callback signIn ci-dessous n'accepte que
+      // des adresses déjà enregistrées ET vérifiées par Google.
+      allowDangerousEmailAccountLinking: true,
     }),
     Credentials({
       name: "credentials",
@@ -59,10 +63,41 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    /**
+     * Connexion Google réservée à l'équipe : l'adresse doit déjà exister dans la
+     * table users (créée par un administrateur). Un compte Google inconnu est
+     * refusé AVANT que l'adapter ne crée quoi que ce soit en base.
+     */
+    async signIn({ account, profile }) {
+      if (account?.provider !== "google") return true;
+
+      const email = profile?.email?.trim().toLowerCase();
+      if (!email || profile?.email_verified !== true) return false;
+
+      const member = await prisma.user.findFirst({
+        where: { email: { equals: email, mode: "insensitive" } },
+        select: { id: true },
+      });
+      return Boolean(member);
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.role = (user as { role?: string }).role ?? "STAFF";
+        return token;
+      }
+
+      // Revalidation à chaque lecture de session : un membre retiré de l'équipe
+      // perd l'accès immédiatement, et un changement de rôle s'applique sans
+      // attendre l'expiration du jeton.
+      if (token.id) {
+        const member = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true, name: true },
+        });
+        if (!member) return null;
+        token.role = member.role;
+        token.name = member.name;
       }
       return token;
     },

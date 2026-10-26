@@ -4,10 +4,11 @@ import { useOfflineDataset } from "@/hooks/use-offline-dataset";
 import { OfflineBanner } from "@/components/dashboard/offline-banner";
 import { ExportButtons } from "@/components/dashboard/export-buttons";
 import { newsletterColumns } from "@/lib/export/columns";
+import { SkeletonTable } from "@/components/ui/skeleton";
 import type { NewsletterSubscriber } from "@prisma/client";
 
 export function NewsletterPanel({ locale }: { locale: string }) {
-  const { data: subscribers, isOffline, cachedAt } = useOfflineDataset<NewsletterSubscriber>(
+  const { data: subscribers, loading, isOffline, cachedAt } = useOfflineDataset<NewsletterSubscriber>(
     "newsletter",
     "/api/newsletter",
     "subscribers"
@@ -16,9 +17,12 @@ export function NewsletterPanel({ locale }: { locale: string }) {
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-extrabold">Newsletter</h1>
+        <div>
+          <p className="page-eyebrow">Audience</p>
+          <h1 className="page-title">Newsletter</h1>
+          <p className="mt-1 text-sm text-gris">{loading ? "Chargement…" : `${subscribers.length} abonné(s)`}</p>
+        </div>
         <div className="flex items-center gap-3">
-          <span className="text-sm text-gris">{subscribers.length} abonnés</span>
           <ExportButtons
             resource="newsletter"
             isOffline={isOffline}
@@ -30,9 +34,12 @@ export function NewsletterPanel({ locale }: { locale: string }) {
 
       {isOffline && <OfflineBanner cachedAt={cachedAt} />}
 
+      {loading ? (
+        <SkeletonTable cols={3} />
+      ) : (
       <div className="card overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-bord text-gris">
+          <thead className="table-head">
             <tr>
               <th className="px-4 py-3 font-semibold">Email</th>
               <th className="px-4 py-3 font-semibold">Langue</th>
@@ -59,6 +66,7 @@ export function NewsletterPanel({ locale }: { locale: string }) {
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }

@@ -2,9 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import ExcelJS from "exceljs";
 
+import { APP_TIME_ZONE } from "@/lib/utils";
 import type { ExportColumn } from "./types";
 
-const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black.png");
+const LOGO_PATH = path.join(process.cwd(), "public/images/logo/logo-full-black-tight.png");
 const BRAND_NOIR = "FF0B0B0D";
 const BRAND_ROUGE = "FFFF0000";
 const BRAND_GRIS = "FF5B5B66";
@@ -45,7 +46,7 @@ export async function buildExcelBuffer<T>({
 
   if (fs.existsSync(LOGO_PATH)) {
     const imageId = workbook.addImage({ filename: LOGO_PATH, extension: "png" });
-    sheet.addImage(imageId, { tl: { col: 0, row: 1.15 }, ext: { width: 110, height: 22 } });
+    sheet.addImage(imageId, { tl: { col: 0, row: 1.15 }, ext: { width: 72, height: 26 } });
   }
 
   sheet.mergeCells(2, 2, 2, colCount);
@@ -57,7 +58,7 @@ export async function buildExcelBuffer<T>({
 
   sheet.mergeCells(3, 1, 3, colCount);
   const dateCell = sheet.getCell(3, 1);
-  dateCell.value = `Généré le ${generatedAt.toLocaleString("fr-FR")} · ${rows.length} ligne(s)`;
+  dateCell.value = `Généré le ${generatedAt.toLocaleString("fr-FR", { timeZone: APP_TIME_ZONE })} · ${rows.length} ligne(s)`;
   dateCell.font = { size: 10, italic: true, color: { argb: BRAND_GRIS } };
 
   sheet.getRow(4).height = 6;

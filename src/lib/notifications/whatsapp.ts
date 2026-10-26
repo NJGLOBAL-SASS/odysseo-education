@@ -2,6 +2,10 @@
  * Intégration WhatsApp Cloud API (Meta for Developers).
  * Nécessite WHATSAPP_PHONE_NUMBER_ID + WHATSAPP_ACCESS_TOKEN (voir .env.example).
  * Documentation : https://developers.facebook.com/docs/whatsapp/cloud-api
+ *
+ * Attention : un message texte libre n'est délivré que si le destinataire a
+ * écrit au numéro professionnel dans les dernières 24 h. Au-delà, Meta exige
+ * un modèle (template) approuvé.
  */
 export async function sendWhatsAppMessage(to: string, text: string) {
   const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
@@ -9,7 +13,7 @@ export async function sendWhatsAppMessage(to: string, text: string) {
 
   if (!phoneNumberId || !token) {
     console.warn(`[whatsapp] Cloud API non configurée — message à ${to} non envoyé.`);
-    return { sent: false, reason: "WHATSAPP_NOT_CONFIGURED" as const };
+    return { sent: false as const, reason: "WhatsApp Cloud API non configurée" };
   }
 
   const res = await fetch(`https://graph.facebook.com/v20.0/${phoneNumberId}/messages`, {

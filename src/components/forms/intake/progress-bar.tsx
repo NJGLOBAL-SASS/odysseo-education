@@ -14,7 +14,7 @@ export function ProgressBar({
   const t = useTranslations("intake");
 
   return (
-    <div className="sticky top-0 z-10 -mx-4 bg-fond px-4 pb-2 pt-2">
+    <div className="sticky top-0 z-10 -mx-4 bg-fond/85 px-4 pb-2 pt-2 backdrop-blur">
       <div className="mb-1 flex justify-between text-[13px] font-semibold text-gris">
         <span>{t("progress", { current: step + 1, total })}</span>
         <span>{stepName}</span>

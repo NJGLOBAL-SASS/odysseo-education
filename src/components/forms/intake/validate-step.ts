@@ -1,7 +1,9 @@
 import { normalizePhone, ageFrom } from "@/lib/validations/intake";
 import type { IntakeDraft, StepErrors } from "./types";
 
-type Errors = "required" | "fullName" | "whatsapp" | "dateOfBirth" | "consent";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+type Errors = "required" | "fullName" | "whatsapp" | "email" | "dateOfBirth" | "consent";
 type Messages = Record<Errors, string>;
 
 function isMinor(data: IntakeDraft) {
@@ -27,6 +29,10 @@ export function validateStep(step: number, data: IntakeDraft, m: Messages): Step
     req(data.whatsapp.trim().length > 0, "whatsapp");
     if (data.whatsapp.trim() && !/^\+\d{9,15}$/.test(normalizePhone(data.whatsapp))) {
       errors.whatsapp = m.whatsapp;
+    }
+    req(data.email.trim().length > 0, "email");
+    if (data.email.trim() && !EMAIL_RE.test(data.email.trim())) {
+      errors.email = m.email;
     }
     req(data.dateOfBirth.length > 0, "dateOfBirth");
     const age = ageFrom(data.dateOfBirth);

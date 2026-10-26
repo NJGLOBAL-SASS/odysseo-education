@@ -1,9 +1,29 @@
 "use client";
 
+import { useState } from "react";
 import { FileDown, FileSpreadsheet, FileText } from "lucide-react";
 
 import { toCsv } from "@/lib/export/csv";
-import type { ExportColumn, ExportResource } from "@/lib/export/types";
+import { Spinner } from "@/components/ui/spinner";
+import { useToast } from "@/components/ui/toast";
+import type { ExportColumn, ExportFormat, ExportResource } from "@/lib/export/types";
+
+function saveBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+const FORMATS: { format: ExportFormat; label: string; Icon: typeof FileDown }[] = [
+  { format: "csv", label: "CSV", Icon: FileDown },
+  { format: "xlsx", label: "Excel", Icon: FileSpreadsheet },
+  { format: "pdf", label: "PDF", Icon: FileText },
+];
 
 export function ExportButtons<T>({
   resource,
@@ -16,57 +36,65 @@ export function ExportButtons<T>({
   offlineRows?: T[];
   offlineColumns?: ExportColumn<T>[];
 }) {
-  const base = `/api/export/${resource}`;
-  const disabledClass = "pointer-events-none opacity-40";
+  const toast = useToast();
+  const [pending, setPending] = useState<ExportFormat | null>(null);
 
   function downloadOfflineCsv() {
     if (!offlineRows || !offlineColumns) return;
     const csv = "﻿" + toCsv(offlineColumns, offlineRows);
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `odysseo-${resource}-hors-ligne-${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+    saveBlob(
+      new Blob([csv], { type: "text/csv;charset=utf-8" }),
+      `odysseo-${resource}-hors-ligne-${new Date().toISOString().slice(0, 10)}.csv`
+    );
+  }
+
+  // Téléchargement via fetch pour afficher un loader pendant la génération (PDF / Excel peuvent prendre du temps).
+  async function download(format: ExportFormat) {
+    setPending(format);
+    try {
+      const res = await fetch(`/api/export/${resource}?format=${format}`);
+      if (!res.ok) throw new Error();
+      const disposition = res.headers.get("Content-Disposition") ?? "";
+      const filename =
+        /filename="?([^"]+)"?/.exec(disposition)?.[1] ??
+        `odysseo-${resource}-${new Date().toISOString().slice(0, 10)}.${format}`;
+      saveBlob(await res.blob(), filename);
+    } catch {
+      toast({ tone: "error", title: "Export impossible", description: "Réessayez dans un instant." });
+    } finally {
+      setPending(null);
+    }
   }
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {isOffline ? (
-        <button
-          type="button"
-          onClick={downloadOfflineCsv}
-          disabled={!offlineRows?.length}
-          className="btn-ghost !min-h-[36px] text-sm disabled:opacity-40"
-        >
-          <FileDown className="h-4 w-4" /> CSV (hors-ligne)
-        </button>
-      ) : (
-        <a href={`${base}?format=csv`} className="btn-ghost !min-h-[36px] text-sm">
-          <FileDown className="h-4 w-4" /> CSV
-        </a>
-      )}
-
-      <a
-        href={isOffline ? undefined : `${base}?format=xlsx`}
-        aria-disabled={isOffline}
-        title={isOffline ? "Excel nécessite une connexion internet" : undefined}
-        className={`btn-ghost !min-h-[36px] text-sm ${isOffline ? disabledClass : ""}`}
-      >
-        <FileSpreadsheet className="h-4 w-4" /> Excel
-      </a>
-
-      <a
-        href={isOffline ? undefined : `${base}?format=pdf`}
-        aria-disabled={isOffline}
-        title={isOffline ? "PDF nécessite une connexion internet" : undefined}
-        className={`btn-ghost !min-h-[36px] text-sm ${isOffline ? disabledClass : ""}`}
-      >
-        <FileText className="h-4 w-4" /> PDF
-      </a>
+      {FORMATS.map(({ format, label, Icon }) => {
+        if (isOffline && format === "csv") {
+          return (
+            <button
+              key={format}
+              type="button"
+              onClick={downloadOfflineCsv}
+              disabled={!offlineRows?.length}
+              className="btn-sm-ghost"
+            >
+              <Icon className="h-4 w-4" /> CSV (hors-ligne)
+            </button>
+          );
+        }
+        return (
+          <button
+            key={format}
+            type="button"
+            onClick={() => download(format)}
+            disabled={isOffline || pending !== null}
+            title={isOffline ? `${label} nécessite une connexion internet` : `Exporter en ${label}`}
+            className="btn-sm-ghost"
+          >
+            {pending === format ? <Spinner /> : <Icon className="h-4 w-4" />} {label}
+          </button>
+        );
+      })}
     </div>
   );
 }

@@ -52,4 +52,47 @@ body {
   .chip-selected {
     @apply chip border-noir bg-noir text-white;
   }
+
+  /* Chargements : bloc gris avec reflet qui balaie (respecte prefers-reduced-motion). */
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-[#E9E9EE];
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite];
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  }
+
+  /* Dashboard */
+  .page-eyebrow {
+    @apply mb-1 text-xs font-semibold uppercase tracking-[0.08em] text-gris;
+  }
+  .page-title {
+    @apply text-2xl font-extrabold tracking-tight sm:text-[28px];
+  }
+  .section-title {
+    @apply text-[15px] font-bold;
+  }
+  .table-head {
+    @apply border-b border-bord bg-[#FAFAFB] text-xs font-semibold uppercase tracking-wide text-gris;
+  }
+  .btn-sm {
+    @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-[10px] px-3.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-sm-dark {
+    @apply btn-sm bg-noir text-white hover:bg-[#26262B];
+  }
+  .btn-sm-ghost {
+    @apply btn-sm border border-bord bg-white text-noir hover:bg-fond;
+  }
+  .btn-sm-primary {
+    @apply btn-sm bg-rouge text-white hover:bg-rouge-fonce;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after,
+  .animate-spin {
+    animation-duration: 3s;
+  }
 }

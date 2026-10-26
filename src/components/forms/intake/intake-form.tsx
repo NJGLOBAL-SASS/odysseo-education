@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
 
 import { ProgressBar } from "./progress-bar";
 import { DoneScreen } from "./done-screen";
@@ -11,19 +11,27 @@ import { StepParcours } from "./step-parcours";
 import { StepProjet } from "./step-projet";
 import { StepValidation } from "./step-validation";
 import { validateStep } from "./validate-step";
-import { emptyDraft, type IntakeDraft, type StepErrors } from "./types";
+import { emptyDraft, type IntakeDraft, type StepErrors, type ReferralInfo } from "./types";
+import { Spinner } from "@/components/ui/spinner";
 
 const STEP_COUNT = 4;
 
+const REF_STORAGE_KEY = "odysseo_ref";
+
+/** Code transmis par le lien de parrainage (?ref=), mémorisé pour toute la session. */
 function readReferralCode() {
   if (typeof window === "undefined") return "";
   const url = new URLSearchParams(window.location.search);
   const fromUrl = (url.get("ref") || url.get("partenaire") || url.get("src") || "").trim();
-  if (fromUrl) {
-    sessionStorage.setItem("odysseo_ref", fromUrl);
+  try {
+    if (fromUrl) {
+      sessionStorage.setItem(REF_STORAGE_KEY, fromUrl);
+      return fromUrl;
+    }
+    return sessionStorage.getItem(REF_STORAGE_KEY) || "";
+  } catch {
     return fromUrl;
   }
-  return sessionStorage.getItem("odysseo_ref") || "";
 }
 
 export function IntakeForm() {
@@ -37,9 +45,28 @@ export function IntakeForm() {
   const [result, setResult] = useState<{ code: string } | null>(null);
   const startedAt = useRef(Date.now());
   const [refCode, setRefCode] = useState("");
+  const [referral, setReferral] = useState<ReferralInfo | null>(null);
 
+  // Lien de parrainage : on vérifie le code puis on pré-remplit l'étape
+  // "Validation" pour que le candidat n'ait rien à taper.
   useEffect(() => {
-    setRefCode(readReferralCode());
+    const code = readReferralCode();
+    setRefCode(code);
+    if (!code) return;
+
+    fetch(`/api/referral/${encodeURIComponent(code)}`)
+      .then((res) => res.json())
+      .then((json: { valid: boolean; code?: string; partnerName?: string }) => {
+        if (!json.valid || !json.code) return;
+        setReferral({ code: json.code, partnerName: json.partnerName ?? "" });
+        setData((d) => ({
+          ...d,
+          referred: "yes",
+          partnerDeclared: json.code!,
+          discoverySource: d.discoverySource || "partner",
+        }));
+      })
+      .catch(() => {});
   }, []);
 
   function onChange<K extends keyof IntakeDraft>(field: K, value: IntakeDraft[K]) {
@@ -51,6 +78,7 @@ export function IntakeForm() {
       required: t("errors.required"),
       fullName: t("errors.fullName"),
       whatsapp: t("errors.whatsapp"),
+      email: t("errors.email"),
       dateOfBirth: t("errors.dateOfBirth"),
       consent: t("errors.consent"),
     };
@@ -101,7 +129,7 @@ export function IntakeForm() {
     const firstName = data.fullName.trim().split(/\s+/).slice(-1)[0] || "";
     return (
       <div className="wrap py-6">
-        <DoneScreen code={result.code} firstName={firstName} />
+        <DoneScreen code={result.code} firstName={firstName} email={data.email.trim()} />
       </div>
     );
   }
@@ -112,11 +140,20 @@ export function IntakeForm() {
     <div className="wrap py-4">
       <ProgressBar step={step} total={STEP_COUNT} stepName={stepName} />
 
+      {referral && step === 0 && (
+        <div className="mt-2 flex items-center gap-2.5 rounded-brand border border-ok/20 bg-[#EAF7F0] px-3.5 py-2.5 text-sm text-ok">
+          <BadgeCheck className="h-4 w-4 flex-shrink-0" />
+          <span>
+            {t("referral.banner", { name: referral.partnerName })}
+          </span>
+        </div>
+      )}
+
       <div className="card mt-2 p-4">
         {step === 0 && <StepVous data={data} errors={errors} onChange={onChange} />}
         {step === 1 && <StepParcours data={data} errors={errors} onChange={onChange} />}
         {step === 2 && <StepProjet data={data} errors={errors} onChange={onChange} />}
-        {step === 3 && <StepValidation data={data} errors={errors} onChange={onChange} />}
+        {step === 3 && <StepValidation data={data} errors={errors} onChange={onChange} referral={referral} />}
 
         {submitError && (
           <div className="mb-3.5 rounded-[10px] border-[1.5px] border-erreur bg-erreur-fond p-3 text-sm">
@@ -136,6 +173,7 @@ export function IntakeForm() {
             </button>
           )}
           <button type="button" onClick={goNext} disabled={submitting} className="btn-primary flex-1">
+            {submitting && <Spinner />}
             {submitting
               ? t("navigation.sending")
               : step === STEP_COUNT - 1

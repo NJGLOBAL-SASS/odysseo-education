@@ -65,7 +65,7 @@ Identifiants créés par le seed :
 - `BREVO_API_KEY` / `BREVO_SENDER_EMAIL` / `BREVO_SENDER_NAME` — email transactionnel (app.brevo.com)
 - `GOOGLE_SHEETS_SPREADSHEET_ID` / `GOOGLE_SHEETS_CLIENT_EMAIL` / `GOOGLE_SHEETS_PRIVATE_KEY` / `GOOGLE_SHEETS_TAB_NAME` — miroir Google Sheet (voir §10)
 - `WHATSAPP_PHONE_NUMBER_ID` / `WHATSAPP_ACCESS_TOKEN` / `WHATSAPP_ADMIN_NUMBER` — WhatsApp Cloud API (Meta for Developers)
-- `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` (+ `NEXT_PUBLIC_VAPID_PUBLIC_KEY`) — notifications push (`npx web-push generate-vapid-keys`)
+- `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` — notifications push (`npx web-push generate-vapid-keys`)
 
 Tant que ces clés ne sont pas renseignées, chaque intégration se dégrade proprement
 (log d'avertissement, entrée `NotificationLog` marquée `FAILED`) sans jamais faire
@@ -162,6 +162,23 @@ signature :
     au partenaire (`Candidate.partnerId`), que le lien ait été cliqué ou que le
     candidat ait simplement tapé le code au champ « Nom du partenaire » (étape 4) ;
   - c'est 100 % auditable a posteriori (qui, quand, quel dossier).
+
+**v1.1 — le lien fait tout, le candidat ne tape plus rien :**
+
+1. À la création d'un partenaire (dashboard), le code **et** le lien
+   `https://odysseo-education.com/r/CODE` sont générés, affichés avec un QR code
+   et envoyés automatiquement par email au partenaire (Brevo).
+2. `/r/CODE` (`src/app/r/[code]/route.ts`) journalise le clic (les robots
+   d'aperçu WhatsApp/Facebook/Telegram sont ignorés), pose un cookie
+   `odysseo_ref` de 30 jours et redirige vers `/postuler?ref=CODE`.
+3. Le formulaire vérifie le code (`GET /api/referral/CODE`), affiche « Recommandé
+   par Prénom N. » et **pré-remplit et verrouille** la question de parrainage.
+4. À la soumission, l'attribution suit cet ordre de fiabilité : lien (`?ref=`),
+   puis cookie (retour du candidat plus tard), puis code tapé à la main.
+   La fiche candidat indique « via son lien » ou « code saisi ».
+
+Les liens pointent toujours vers `NEXT_PUBLIC_SITE_URL` (jamais vers le
+sous-domaine équipe) : renseigner l'URL publique en production.
 
 ### 6.1 Barème de points (`src/lib/points.ts`)
 
@@ -260,6 +277,37 @@ peut pas interroger Prisma. La vérification faisant autorité a lieu ensuite
 côté serveur dans `src/app/[locale]/dashboard/layout.tsx` via `auth()`.
 
 ---
+
+### 8.1 Mot de passe oublié
+
+Lien « Mot de passe oublié ? » sur `/login` → `/forgot-password` → email avec
+un lien `/reset-password?token=…` (Brevo).
+
+- Le jeton (32 octets aléatoires) n'est **jamais stocké en clair** : seule son
+  empreinte SHA-256 est en base (`PasswordResetToken`). Valable **1 heure**,
+  **usage unique** ; une nouvelle demande invalide les précédentes.
+- La réponse est identique que le compte existe ou non (pas de fuite des
+  adresses de l'équipe) ; une seule demande par minute et par compte.
+- Le domaine du lien n'est jamais repris tel quel de l'en-tête `Host` (protection
+  contre l'empoisonnement de lien) : seuls `TEAM_HOSTNAME` et `NEXTAUTH_URL`
+  sont acceptés.
+- Mot de passe : 8 caractères minimum, au moins une lettre et un chiffre.
+  Un email d'alerte est envoyé après le changement. La 2FA reste exigée ensuite.
+
+### 8.2 Membres de l'équipe (`/dashboard/equipe`)
+
+- Visible par tous les membres ; **seuls les administrateurs** invitent,
+  changent les rôles, réinitialisent la 2FA ou retirent un membre (`/api/team`).
+- **Invitation** : crée le compte sans mot de passe et envoie un lien
+  d'activation (même mécanisme que la réinitialisation, valable 7 jours). Le
+  membre peut aussi se connecter directement avec Google sur cette adresse.
+- **Connexion Google réservée à l'équipe** : une adresse absente de `users`
+  est refusée (callback `signIn`, `src/lib/auth.ts`).
+- **Effet immédiat** : la session est revalidée en base à chaque requête
+  (callback `jwt`) — un membre retiré perd l'accès sur tous ses appareils, un
+  changement de rôle s'applique sans reconnexion.
+- Garde-fous : impossible de se retirer soi-même ou de retirer / rétrograder le
+  dernier administrateur.
 
 ## 9. Exports CSV / Excel / PDF aux couleurs Odysseo
 
@@ -374,8 +422,26 @@ indépendants, chacun avec son propre log (`NotificationLog`) :
   active la réception depuis `/dashboard/parametres` (bouton « Activer les
   notifications push »).
 
-Tant qu'une intégration n'a pas ses clés renseignées dans `.env`, elle logue un
-avertissement et marque l'entrée `FAILED` au lieu de lever une exception.
+Statuts du journal (`NotificationLog.status`) :
+
+- `SENT` — le fournisseur a accepté le message ;
+- `SKIPPED` — rien n'est parti : canal non configuré, ou aucun appareil abonné (push) ;
+- `FAILED` — le fournisseur a refusé (clé invalide, numéro hors fenêtre 24 h WhatsApp...).
+
+Destinataires : email = `NOTIFY_ADMIN_EMAILS` + membres ayant activé
+l'option dans Paramètres (et moins ceux qui l'ont désactivée) ; push = tous
+les appareils abonnés sauf préférences désactivées.
+
+**Notifications in-app** : cloche dans la barre du dashboard (nouveaux dossiers
+et partenaires, toast à l'arrivée d'un dossier, `GET/POST /api/notifications/feed`).
+Le « lu » est stocké par utilisateur (`User.notificationsSeenAt`).
+
+**Contrôle** : `/dashboard/parametres` vérifie en direct chaque canal (clé
+Brevo, VAPID, WhatsApp, accès Google Sheets), propose un bouton « Tester » et
+affiche le journal des derniers envois.
+
+La clé publique VAPID est servie par `GET /api/push/public-key` (depuis
+`VAPID_PUBLIC_KEY`) : `NEXT_PUBLIC_VAPID_PUBLIC_KEY` n'est plus nécessaire.
 
 ---
 

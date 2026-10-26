@@ -25,6 +25,7 @@ export const intakeSchema = z.object({
     .trim()
     .refine((v) => v.split(/\s+/).filter(Boolean).length >= 2, "fullName"),
   whatsapp: z.string().refine((v) => phoneRegex.test(normalizePhone(v)), "whatsapp"),
+  email: z.string().trim().toLowerCase().email("email").max(120),
   dateOfBirth: z.string().refine((v) => {
     const a = ageFrom(v);
     return a !== null && a >= 12 && a <= 65;

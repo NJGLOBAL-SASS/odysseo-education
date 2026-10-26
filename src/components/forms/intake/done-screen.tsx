@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-export function DoneScreen({ code, firstName }: { code: string; firstName: string }) {
+export function DoneScreen({ code, firstName, email }: { code: string; firstName: string; email?: string }) {
   const t = useTranslations("intake.done");
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
   const waText = encodeURIComponent(
@@ -21,6 +21,7 @@ export function DoneScreen({ code, firstName }: { code: string; firstName: strin
         {code}
       </div>
       <p className="mb-3 text-[13px] text-gris">{t("codeNote")}</p>
+      {email && <p className="mb-3 text-[13px] text-gris">{t("emailNote", { email })}</p>}
 
       <a
         href={`https://wa.me/${waNumber}?text=${waText}`}

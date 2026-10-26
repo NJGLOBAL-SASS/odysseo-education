@@ -35,6 +35,10 @@ model User {
   accounts          Account[]
   sessions          Session[]
   notificationPrefs NotificationPreference?
+  passwordResetTokens PasswordResetToken[]
+
+  // Notifications in-app : tout ce qui est plus récent est "non lu" pour cet utilisateur.
+  notificationsSeenAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,6 +74,21 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+// Réinitialisation du mot de passe par lien email : on ne stocke que l'empreinte
+// SHA-256 du jeton (le jeton en clair n'existe que dans l'email), valable 1 h, usage unique.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@map("password_reset_tokens")
 }
 
 model VerificationToken {
@@ -174,6 +193,7 @@ model Candidate {
   // Étape 1 — Vous
   fullName       String
   whatsapp       String
+  email          String? // facultatif en base : les dossiers antérieurs à la v1.1 n'en ont pas
   dateOfBirth    DateTime
   age            Int?
   country        String
@@ -252,6 +272,7 @@ enum NotificationChannel {
 enum NotificationStatus {
   PENDING
   SENT
+  SKIPPED // canal non configuré ou personne à notifier : rien n'est parti
   FAILED
 }
 

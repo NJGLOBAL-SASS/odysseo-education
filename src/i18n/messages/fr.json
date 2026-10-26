@@ -80,6 +80,7 @@
   },
   "intake": {
     "progress": "Étape {current} sur {total}",
+    "referral": { "banner": "Vous avez été recommandé(e) par {name} — le parrainage sera appliqué automatiquement.", "lockedTitle": "Parrainage appliqué automatiquement", "lockedText": "Vous venez du lien de {name}. Code :" },
     "steps": {
       "vous": { "name": "Vous", "title": "Vous", "intro": "Pour vous identifier et vous contacter." },
       "parcours": { "name": "Parcours", "title": "Votre parcours", "intro": "Les universités regardent d'abord votre dernier diplôme." },
@@ -89,6 +90,8 @@
     "fields": {
       "fullName": { "label": "Nom et prénom", "placeholder": "Ex. KAMGA Paul" },
       "whatsapp": { "label": "Numéro WhatsApp (avec indicatif)", "placeholder": "+237 6XX XX XX XX" },
+      "email": { "label": "Adresse email", "placeholder": "Ex. paul.kamga@gmail.com" },
+      "contactNotice": { "title": "Vos canaux de contact", "text": "Toutes les informations liées à votre procédure (avancement du dossier, documents à fournir, propositions) vous seront communiquées uniquement sur ce numéro WhatsApp et cette adresse email. Vérifiez-les bien." },
       "dateOfBirth": { "label": "Date de naissance" },
       "country": { "label": "Pays", "placeholder": "Choisir…" },
       "city": { "label": "Ville", "placeholder": "Ex. Douala" },
@@ -165,12 +168,13 @@
         "optional": "(facultatif)",
         "options": { "tiktok": "TikTok", "facebook": "Facebook", "friend": "Ami ou famille", "partner": "Partenaire", "other": "Autre" }
       },
-      "consent": { "label": "J'accepte qu'Odysseo Education utilise mes informations pour étudier mon dossier et me contacter sur WhatsApp." }
+      "consent": { "label": "J'accepte qu'Odysseo Education utilise mes informations pour étudier mon dossier et me contacter sur WhatsApp et par email." }
     },
     "errors": {
       "required": "Ce champ est obligatoire.",
       "fullName": "Indiquez le nom ET le prénom.",
       "whatsapp": "Numéro invalide. Commencez par l'indicatif, ex. +237 6XX XX XX XX.",
+      "email": "Adresse email invalide, ex. paul.kamga@gmail.com.",
       "dateOfBirth": "Date de naissance invalide.",
       "consent": "Cochez cette case pour envoyer votre dossier.",
       "generic": "L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez."
@@ -180,10 +184,11 @@
       "title": "Merci {name} !",
       "subtitle": "Votre dossier est bien enregistré.",
       "codeNote": "Gardez ce code : il sert à suivre votre dossier.",
+      "emailNote": "Un email de confirmation avec votre code vient de vous être envoyé à {email}.",
       "whatsappButton": "Envoyer mon code sur WhatsApp",
       "steps": {
         "analysis": { "title": "Étude de votre profil", "text": "Notre équipe analyse vos réponses et les offres adaptées." },
-        "firstAnswer": { "title": "Premier avis sous 48 heures", "text": "Nous vous écrivons sur WhatsApp au numéro indiqué." },
+        "firstAnswer": { "title": "Premier avis sous 48 heures", "text": "Nous vous écrivons sur WhatsApp et par email aux coordonnées indiquées." },
         "proposal": { "title": "Votre proposition personnalisée", "text": "Nous vous présentons en privé sur WhatsApp les offres adaptées à votre profil." }
       }
     }
@@ -216,7 +221,43 @@
       "submit": "Se connecter",
       "googleButton": "Continuer avec Google",
       "or": "ou",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "capsLock": "Attention : la touche Verr. Maj est activée.",
+      "submitting": "Connexion…",
+      "forgot": "Mot de passe oublié ?",
+      "googleDenied": "Ce compte Google n'a pas accès à l'espace équipe. Demandez à un administrateur de vous ajouter.",
+      "googleError": "La connexion avec Google a échoué. Réessayez.",
       "error": "Identifiants invalides."
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "subtitle": "Indiquez l'email de votre compte : nous vous enverrons un lien pour choisir un nouveau mot de passe.",
+      "email": "Email",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi…",
+      "sentTitle": "Vérifiez votre boîte mail",
+      "sentText": "Si un compte existe pour {email}, un lien de réinitialisation vient d'être envoyé. Il est valable 1 heure. Pensez à regarder dans les spams.",
+      "back": "Retour à la connexion",
+      "error": "L'envoi n'a pas abouti. Réessayez dans un instant."
+    },
+    "reset": {
+      "inviteTitle": "Bienvenue dans l'équipe",
+      "inviteSubtitle": "Choisissez votre mot de passe pour activer votre compte : au moins 8 caractères, avec une lettre et un chiffre.",
+      "title": "Nouveau mot de passe",
+      "subtitle": "Choisissez un mot de passe d'au moins 8 caractères, avec au moins une lettre et un chiffre.",
+      "password": "Nouveau mot de passe",
+      "confirm": "Confirmer le mot de passe",
+      "mismatch": "Les deux mots de passe ne correspondent pas.",
+      "submit": "Enregistrer le mot de passe",
+      "submitting": "Enregistrement…",
+      "doneTitle": "Mot de passe modifié",
+      "doneText": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+      "invalidTitle": "Lien invalide ou expiré",
+      "invalidText": "Ce lien de réinitialisation a expiré ou a déjà été utilisé. Faites une nouvelle demande.",
+      "newRequest": "Faire une nouvelle demande",
+      "goLogin": "Se connecter",
+      "rules": { "length": "8 caractères minimum", "letter": "Au moins une lettre", "digit": "Au moins un chiffre" }
     },
     "verify2fa": {
       "title": "Vérification en deux étapes",
@@ -232,6 +273,7 @@
       "candidates": "Candidatures",
       "partners": "Partenaires",
       "newsletter": "Newsletter",
+      "team": "Équipe",
       "settings": "Paramètres",
       "signOut": "Déconnexion"
     },
@@ -282,5 +324,6 @@
     "legalNotice": "Mentions légales",
     "terms": "Conditions générales d'utilisation",
     "manageCookies": "Gérer mes cookies"
-  }
+  },
+  "notFound": {"eyebrow": "Erreur 404", "title": "Cette page s'est perdue en chemin", "text": "La page que vous cherchez n'existe pas, a été déplacée ou n'est pas disponible ici. Pas d'inquiétude : votre projet d'études, lui, est toujours sur la bonne route.", "home": "Retour à l'accueil", "apply": "Déposer mon dossier", "helpTitle": "Vous cherchiez peut-être :", "services": "Nos services", "partners": "Devenir partenaire", "whatsapp": "Nous écrire sur WhatsApp", "teamTitle": "Page introuvable dans l'espace équipe", "teamText": "Ce lien ne mène nulle part : la page a peut-être été supprimée, ou l'adresse est mal saisie.", "dashboard": "Retour au tableau de bord", "candidates": "Candidatures", "partnersTeam": "Partenaires", "itemTitle": "Élément introuvable", "itemText": "Ce dossier ou cette page n'existe pas, ou a été supprimé. Vérifiez le lien ou revenez à la liste.", "partnerTitle": "Code partenaire inconnu", "partnerText": "Ce code de parrainage n'existe pas ou n'est plus actif. Vérifiez le code reçu par email, en respectant les tirets (ex. AUDY-012).", "partnerRetry": "Saisir un autre code", "rights": "Tous droits réservés."}
 }

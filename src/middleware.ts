@@ -2,6 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 import { locales, defaultLocale } from "@/i18n/config";
+import { isTeamHost } from "@/lib/hosts";
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -10,14 +11,7 @@ const intlMiddleware = createMiddleware({
 });
 
 // Chemins (hors préfixe de langue) réservés au sous-domaine équipe.
-const TEAM_ONLY_PREFIXES = ["/dashboard", "/login", "/verify-2fa"];
-
-function isTeamHost(host: string) {
-  const bare = host.split(":")[0];
-  const configured = (process.env.TEAM_HOSTNAME || "team.odysseo-education.com").split(":")[0];
-  // "team." en préfixe couvre aussi team.localhost en développement.
-  return bare === configured || bare.startsWith("team.");
-}
+const TEAM_ONLY_PREFIXES = ["/dashboard", "/login", "/verify-2fa", "/forgot-password", "/reset-password"];
 
 /** Déclenche la page 404 native de Next.js (aucune route ne correspond). */
 function blockWithNotFound(req: NextRequest, locale: string) {
@@ -26,6 +20,11 @@ function blockWithNotFound(req: NextRequest, locale: string) {
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // Liens de parrainage /r/CODE : route handler hors i18n, valable sur tous
+  // les domaines (il redirige lui-même vers le formulaire du site public).
+  if (pathname.startsWith("/r/")) return NextResponse.next();
+
   const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
   const onTeamHost = isTeamHost(host);
 
@@ -45,7 +44,7 @@ export default async function middleware(req: NextRequest) {
     if (pathWithoutLocale === "/") {
       return NextResponse.redirect(new URL(`/${locale}/dashboard`, req.url));
     }
-    if (!isTeamOnlyPath && !pathWithoutLocale.startsWith("/r/")) {
+    if (!isTeamOnlyPath) {
       return blockWithNotFound(req, locale);
     }
   }
