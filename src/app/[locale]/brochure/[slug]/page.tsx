@@ -10,7 +10,16 @@ import { ProgramBody, ClosingCta } from "@/components/programs/program-sections"
  * (en-tête et pied de page ajoutés par Chrome). Non indexée : les visiteurs
  * utilisent /cursus/[slug] et téléchargent le PDF.
  */
-export const metadata = { robots: { index: false, follow: false } };
+export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
+  const program = getProgram(params.slug);
+  const locale = (params.locale === "en" ? "en" : "fr") as Locale;
+  const t = await getTranslations({ locale, namespace: "programs.brochure" });
+  return {
+    // Repris comme titre du PDF par Chrome (ex. « Odysseo Education – Bachelor fee schedule »).
+    title: { absolute: `Odysseo Education – ${program ? t("header", { name: program.short[locale] }) : ""}` },
+    robots: { index: false, follow: false },
+  };
+}
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => PROGRAMS.map((p) => ({ locale, slug: p.slug })));
@@ -27,9 +36,10 @@ export default async function BrochurePrintPage({ params }: { params: { locale: 
     <div className="brochure mx-auto bg-white text-texte">
       {/* Couverture (haut de la page 1) */}
       <section className="brochure-bleed relative mb-7 overflow-hidden bg-noir !px-0 text-white">
+        {/* Seul le portrait (à droite de l'image) est gardé : le grand logo en filigrane gênait la lecture. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/hero/hero-banner-home.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-right" />
-        <div className="absolute inset-0 bg-gradient-to-r from-noir via-noir/75 to-transparent" />
+        <img src="/images/hero/hero-banner-home.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-[52%] object-cover object-right" />
+        <div className="absolute inset-y-0 left-[47%] w-[31%] bg-gradient-to-r from-noir from-60% to-transparent" />
         <div className="brochure-gutter relative pb-5 pt-[10mm]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/logo/logo-full-white-tight.png" alt="Odysseo" className="h-[17mm] w-auto" />

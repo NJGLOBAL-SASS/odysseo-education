@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Check, Plane, Car, Landmark, BedDouble, ArrowRight } from "lucide-react";
 
 import { formatFcfa, ENGLISH_TEST_OPTION_PRICE, type Locale, type Program } from "@/lib/programs";
@@ -275,6 +275,7 @@ export async function TimelineSection({ program, locale }: { program: Program; l
 /** Exemple chiffré de bourse partielle en Bachelor (Jiangsu University of Science and Technology). */
 export async function BachelorExampleSection() {
   const t = await getTranslations("programs.example");
+  const locale = (await getLocale()) as Locale;
   const waves = [
     { n: 1, amount: 800_000, cls: "bg-rouge text-white", h: "h-[140px] print:h-[120px]" },
     { n: 2, amount: 600_000, cls: "bg-rouge-fonce text-white", h: "h-[105px] print:h-[92px]" },
@@ -291,7 +292,7 @@ export async function BachelorExampleSection() {
         <div className="grid grid-cols-[minmax(0,150px)_1fr_auto] items-center gap-3 text-[15px] sm:grid-cols-[200px_1fr_110px]">
           <span>{t("withoutScholarship")}</span>
           <span className="h-5 rounded-sm bg-[#E3E3E8]" />
-          <b className="text-right">{formatFcfa(1_400_000)}</b>
+          <b className="text-right">{formatFcfa(1_400_000, locale)}</b>
         </div>
         <div className="grid grid-cols-[minmax(0,150px)_1fr_auto] items-center gap-3 text-[15px] sm:grid-cols-[200px_1fr_110px]">
           <span>{t("partial")}</span>
@@ -302,7 +303,7 @@ export async function BachelorExampleSection() {
             </span>
           </span>
           <span className="text-right">
-            <b className="text-rouge">{formatFcfa(700_000)}</b>
+            <b className="text-rouge">{formatFcfa(700_000, locale)}</b>
             <span className="block text-xs text-gris">{t("perYear")}</span>
           </span>
         </div>
@@ -314,7 +315,7 @@ export async function BachelorExampleSection() {
           {waves.map((w) => (
             <div key={w.n} className="flex flex-col">
               <div className={cn("flex flex-col justify-start rounded-t-[3px] px-1.5 py-2 text-center", w.cls, w.h)}>
-                <span className="text-sm font-extrabold tabular-nums sm:text-lg">{formatFcfa(w.amount)}</span>
+                <span className="text-sm font-extrabold tabular-nums sm:text-lg">{formatFcfa(w.amount, locale)}</span>
                 <span className="text-[11px] sm:text-sm">FCFA</span>
               </div>
               <span className="mt-1.5 text-center text-xs font-bold sm:text-sm">{t("wave", { n: w.n })}</span>
@@ -449,7 +450,7 @@ export async function PriceSection({ program, locale }: { program: Program; loca
       <SectionTitle eyebrow={t("eyebrow")} title={t("title", { name: program.name[locale] })} />
       <Eyebrow>{program.name[locale]}</Eyebrow>
       <div className="mb-3 border-b-[4px] border-rouge bg-noir px-5 py-5 text-white">
-        <span className="text-[38px] font-extrabold leading-none tracking-tight sm:text-[46px]">{formatFcfa(program.price)}</span>{" "}
+        <span className="text-[38px] font-extrabold leading-none tracking-tight sm:text-[46px]">{formatFcfa(program.price, locale)}</span>{" "}
         <span className="text-[17px] font-bold">{t("allInclusive")}</span>
       </div>
       <p className="mb-3 text-[15px] leading-relaxed">{program.priceText[locale]}</p>
@@ -461,7 +462,7 @@ export async function PriceSection({ program, locale }: { program: Program; loca
             <span className="text-[15px] text-gris">{t("optionText")}</span>
           </div>
           <div className="text-center sm:w-32 sm:border-l sm:border-rouge">
-            <b className="block text-2xl text-rouge">{formatFcfa(ENGLISH_TEST_OPTION_PRICE)}</b>
+            <b className="block text-2xl text-rouge">{formatFcfa(ENGLISH_TEST_OPTION_PRICE, locale)}</b>
             <span className="text-sm">FCFA</span>
           </div>
         </div>
@@ -497,12 +498,12 @@ export async function PaymentSection({ program, locale }: { program: Program; lo
                     </b>
                     <span className={cn("text-sm", p.refundable ? "text-rouge-fonce" : "text-gris")}>{p.when[locale]}</span>
                   </td>
-                  <td className="px-4 py-3 text-right text-lg font-bold tabular-nums">{formatFcfa(p.amount)}</td>
+                  <td className="px-4 py-3 text-right text-lg font-bold tabular-nums">{formatFcfa(p.amount, locale)}</td>
                 </tr>
               ))}
               <tr className="bg-rouge text-white">
                 <td className="px-4 py-3 font-extrabold uppercase">{tp("total")}</td>
-                <td className="px-4 py-3 text-right text-xl font-extrabold tabular-nums">{formatFcfa(total)}</td>
+                <td className="px-4 py-3 text-right text-xl font-extrabold tabular-nums">{formatFcfa(total, locale)}</td>
               </tr>
             </tbody>
           </table>
@@ -532,7 +533,7 @@ export async function RefundSection({ program }: { program: Program }) {
         ))}
       </ul>
       <p className="mb-1 mt-3 text-[15px] font-bold">{t("notIf")}</p>
-      <ul className="space-y-1 pl-5 text-[15px]">
+      <ul className="list-disc space-y-1 pl-5 text-[15px] marker:text-rouge">
         {notIf.map((n) => (
           <li key={n}>{n}</li>
         ))}

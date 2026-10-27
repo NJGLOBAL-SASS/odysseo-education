@@ -29,7 +29,7 @@ const locales = (process.argv.find((a) => a.startsWith("--locales="))?.split("="
 
 const CONTACT = { fr: "Contact : contact.odysseo@gmail.com", en: "Contact: contact.odysseo@gmail.com" };
 const footer = (locale: Locale) => `
-  <div style="width:100%;padding:0 14mm;font-family:Inter,Arial,sans-serif;font-size:10px;color:#5B5B66;
+  <div style="width:100%;padding:0 14mm;font-family:Inter,Arial,sans-serif;font-size:12.5px;color:#5B5B66;
               -webkit-print-color-adjust:exact;">
     <div style="border-top:1.5px solid #FF0000;padding-top:2.5mm;display:flex;justify-content:space-between;">
       <span>${CONTACT[locale]}</span>
@@ -37,7 +37,22 @@ const footer = (locale: Locale) => `
     </div>
   </div>`;
 
+/** Refuse de générer si l'application ne sert pas la mise en page brochure (serveur arrêté, erreur…). */
+async function assertServer() {
+  const url = `${BASE_URL}/${locales[0]}/brochure/${PROGRAMS[0].slug}`;
+  let res: Response;
+  try {
+    res = await fetch(url);
+  } catch {
+    throw new Error(`Application injoignable sur ${BASE_URL} : lancez « npm run dev » ou « npm start » avant de générer les brochures.`);
+  }
+  if (!res.ok || !(await res.text()).includes('class="brochure')) {
+    throw new Error(`${url} ne renvoie pas la brochure (HTTP ${res.status}).`);
+  }
+}
+
 async function main() {
+  await assertServer();
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), "odysseo-brochures-"));
   const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`, "about:blank"], {
     stdio: "ignore",
@@ -92,6 +107,13 @@ async function main() {
         }
         await new Promise((r) => setTimeout(r, 400));
 
+        // Garde-fou : on n'imprime jamais une page d'erreur à la place de la brochure.
+        const { result: check } = await send("Runtime.evaluate", {
+          expression: `location.pathname.endsWith("/brochure/${program.slug}") && !!document.querySelector(".brochure") && document.documentElement.lang === "${locale}"`,
+          returnByValue: true,
+        });
+        if (!check.value) throw new Error(`${url} : la page chargée n'est pas la brochure attendue, aucun PDF écrit.`);
+
         const { data } = await send("Page.printToPDF", {
           printBackground: true,
           preferCSSPageSize: true,
@@ -102,7 +124,9 @@ async function main() {
           footerTemplate: footer(locale),
         });
         const out = path.join(process.cwd(), "public", program.pdf[locale]);
-        fs.writeFileSync(out, Buffer.from(data, "base64"));
+        // Écriture atomique : un PDF existant n'est remplacé que par un fichier complet.
+        fs.writeFileSync(`${out}.tmp`, Buffer.from(data, "base64"));
+        fs.renameSync(`${out}.tmp`, out);
         console.log(`✓ ${locale.toUpperCase()} ${program.slug} → public${program.pdf[locale]}`);
       }
     }

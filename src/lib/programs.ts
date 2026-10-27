@@ -322,7 +322,9 @@ export function getProgram(slug: string) {
 }
 
 /** 2 900 000 → "2 900 000" (espace fine insécable, comme sur les brochures). */
-export function formatFcfa(amount: number) {
+export function formatFcfa(amount: number, locale: Locale = "fr") {
+  // Anglais : 1,500,000 ; français : 1 500 000 (espace fine insécable).
+  if (locale === "en") return amount.toLocaleString("en-US");
   return amount.toLocaleString("fr-FR").replace(/[  ]/g, " ");
 }
 

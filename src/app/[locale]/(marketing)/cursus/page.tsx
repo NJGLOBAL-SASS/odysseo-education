@@ -57,7 +57,7 @@ export default async function ProgramsIndexPage({ params }: { params: { locale: 
                 </ul>
                 <div className="mt-5 border-t border-bord pt-4">
                   <p className="text-2xl font-extrabold tabular-nums">
-                    {formatFcfa(p.price)} <span className="text-sm font-bold">FCFA</span>
+                    {formatFcfa(p.price, locale)} <span className="text-sm font-bold">FCFA</span>
                   </p>
                   <p className="text-xs text-gris">{t("index.from")}</p>
                 </div>
