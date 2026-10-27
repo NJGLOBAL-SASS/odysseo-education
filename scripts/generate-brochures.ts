@@ -92,6 +92,10 @@ async function main() {
       });
 
     await send("Page.enable");
+    // Mesures de BrochurePaginator faites avec les styles d'impression et la largeur
+    // de page (A4 à l'échelle 0,9 ≈ 882 px), pour que les sauts de page tombent juste.
+    await send("Emulation.setEmulatedMedia", { media: "print" });
+    await send("Emulation.setDeviceMetricsOverride", { width: 882, height: 1180, deviceScaleFactor: 1, mobile: false });
     for (const locale of locales) {
       for (const program of PROGRAMS) {
         const url = `${BASE_URL}/${locale}/brochure/${program.slug}`;
@@ -99,7 +103,8 @@ async function main() {
         // Attente : chargement, polices et images prêtes.
         for (let i = 0; i < 80; i++) {
           const { result } = await send("Runtime.evaluate", {
-            expression: `document.readyState === "complete" && document.fonts.status === "loaded" && [...document.images].every(i => i.complete)`,
+            // data-paginated : sauts de page calculés par BrochurePaginator une fois polices et images prêtes.
+            expression: `document.readyState === "complete" && document.documentElement.dataset.paginated === "1"`,
             returnByValue: true,
           });
           if (result.value) break;
@@ -107,9 +112,9 @@ async function main() {
         }
         await new Promise((r) => setTimeout(r, 400));
 
-        // Garde-fou : on n'imprime jamais une page d'erreur à la place de la brochure.
+        // Garde-fou : on n'imprime jamais une page d'erreur ni une brochure non paginée.
         const { result: check } = await send("Runtime.evaluate", {
-          expression: `location.pathname.endsWith("/brochure/${program.slug}") && !!document.querySelector(".brochure") && document.documentElement.lang === "${locale}"`,
+          expression: `location.pathname.endsWith("/brochure/${program.slug}") && !!document.querySelector(".brochure") && document.documentElement.lang === "${locale}" && document.documentElement.dataset.paginated === "1"`,
           returnByValue: true,
         });
         if (!check.value) throw new Error(`${url} : la page chargée n'est pas la brochure attendue, aucun PDF écrit.`);

@@ -151,7 +151,9 @@ body {
     print-color-adjust: exact;
     background: #fff !important;
   }
-  .brochure section,
+  /* Sous-blocs insécables ; les sauts de page sont placés par BrochurePaginator. */
+  .brochure section > *,
+  .brochure section[data-no-split],
   .brochure table,
   .brochure tr {
     break-inside: avoid;

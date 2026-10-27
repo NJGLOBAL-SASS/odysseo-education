@@ -4,6 +4,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { locales } from "@/i18n/config";
 import { PROGRAMS, getProgram, type Locale } from "@/lib/programs";
 import { ProgramBody, ClosingCta } from "@/components/programs/program-sections";
+import { BrochurePaginator } from "@/components/programs/brochure-paginator";
 
 /**
  * Mise en page A4 des brochures, imprimée en PDF par scripts/generate-brochures.mjs
@@ -35,7 +36,7 @@ export default async function BrochurePrintPage({ params }: { params: { locale: 
   return (
     <div className="brochure mx-auto bg-white text-texte">
       {/* Couverture (haut de la page 1) */}
-      <section className="brochure-bleed relative mb-7 overflow-hidden bg-noir !px-0 text-white">
+      <section data-cover className="brochure-bleed relative mb-7 overflow-hidden bg-noir !px-0 text-white">
         {/* Seul le portrait (à droite de l'image) est gardé : le grand logo en filigrane gênait la lecture. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/hero/hero-banner-home.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-[52%] object-cover object-right" />
@@ -56,6 +57,7 @@ export default async function BrochurePrintPage({ params }: { params: { locale: 
       </section>
 
       <ProgramBody program={program} locale={locale} print closing={<ClosingCta key="cta" program={program} locale={locale} />} />
+      <BrochurePaginator />
     </div>
   );
 }

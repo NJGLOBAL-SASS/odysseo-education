@@ -35,12 +35,17 @@ const b = (chunks: ReactNode) => <b className="font-bold">{chunks}</b>;
 const r = (chunks: ReactNode) => <b className="font-bold text-rouge">{chunks}</b>;
 
 function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="mb-1 text-[13px] font-extrabold uppercase tracking-[0.04em] text-rouge">{children}</p>;
+  return (
+    <p className="mb-1 text-[13px] font-extrabold uppercase tracking-[0.04em] text-rouge" data-keep-next>
+      {children}
+    </p>
+  );
 }
 
 function SectionTitle({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: string }) {
   return (
-    <div className="mb-5">
+    // data-keep-next : en PDF, un titre n'est jamais laissé seul en bas de page.
+    <div className="mb-5" data-keep-next>
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <h2 className="text-[26px] font-extrabold leading-tight tracking-tight sm:text-[30px]">{title}</h2>
       {intro && <p className="mt-1.5 max-w-3xl text-[15px] text-gris">{intro}</p>}
@@ -449,7 +454,7 @@ export async function PriceSection({ program, locale }: { program: Program; loca
     <section>
       <SectionTitle eyebrow={t("eyebrow")} title={t("title", { name: program.name[locale] })} />
       <Eyebrow>{program.name[locale]}</Eyebrow>
-      <div className="mb-3 border-b-[4px] border-rouge bg-noir px-5 py-5 text-white">
+      <div className="mb-3 border-b-[4px] border-rouge bg-noir px-5 py-5 text-white" data-keep-next>
         <span className="text-[38px] font-extrabold leading-none tracking-tight sm:text-[46px]">{formatFcfa(program.price, locale)}</span>{" "}
         <span className="text-[17px] font-bold">{t("allInclusive")}</span>
       </div>
@@ -520,7 +525,8 @@ export async function RefundSection({ program }: { program: Program }) {
   const rules = t.raw(degree ? "degree" : "language") as string[];
   const notIf = t.raw(degree ? "notIfDegree" : "notIfLanguage") as string[];
   return (
-    <section>
+    // data-no-split : bloc court, imprimé d'un seul tenant.
+    <section data-no-split>
       <h3 className="mb-2 text-xl font-bold">{t("title")}</h3>
       <ul className="space-y-1.5">
         {rules.map((rule) => (
@@ -532,7 +538,9 @@ export async function RefundSection({ program }: { program: Program }) {
           </li>
         ))}
       </ul>
-      <p className="mb-1 mt-3 text-[15px] font-bold">{t("notIf")}</p>
+      <p className="mb-1 mt-3 text-[15px] font-bold" data-keep-next>
+        {t("notIf")}
+      </p>
       <ul className="list-disc space-y-1 pl-5 text-[15px] marker:text-rouge">
         {notIf.map((n) => (
           <li key={n}>{n}</li>
@@ -610,7 +618,8 @@ async function PrintPageHeader({ program, locale }: { program: Program; locale: 
 
 /**
  * Ordre des sections, identique aux brochures (la langue n'a pas de grille de bourses).
- * En impression, chaque groupe occupe une page A4 avec son bandeau.
+ * En impression, les sections s'enchaînent et ne passent à la page suivante que
+ * lorsqu'elles n'y tiennent plus (voir BrochurePaginator).
  * Le CTA final (ClosingCta) est ajouté par la page : boutons différents en web et en PDF.
  */
 export async function ProgramBody({
@@ -660,15 +669,20 @@ export async function ProgramBody({
     );
   }
 
+  // Impression : blocs à la suite, sauts de page placés au plus juste par BrochurePaginator
+  // (bandeau cloné en tête de chaque nouvelle page).
   return (
     <>
-      {groups.map((nodes, i) => (
-        // La première page porte la couverture : son contenu suit directement.
-        <div key={i} className={cn("space-y-7", i > 0 && "break-before-page")}>
-          {i > 0 && <PrintPageHeader program={program} locale={locale} />}
-          {nodes}
-        </div>
-      ))}
+      <div data-print-header hidden>
+        <PrintPageHeader program={program} locale={locale} />
+      </div>
+      <div data-paginate>
+        {groups.flat().map((node, i) => (
+          <div key={i} data-block className="mb-7">
+            {node}
+          </div>
+        ))}
+      </div>
     </>
   );
 }
