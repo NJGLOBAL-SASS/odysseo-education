@@ -10,6 +10,7 @@ export function StatCard({
   hint,
   delta,
   accent,
+  deltaLabels = { new: "nouveau", newTitle: "", title: "" },
 }: {
   icon: LucideIcon;
   label: string;
@@ -19,6 +20,8 @@ export function StatCard({
   /** Variation en % par rapport à la période précédente. */
   delta?: number | null;
   accent?: boolean;
+  /** Libellés traduits du badge d'évolution. */
+  deltaLabels?: { new: string; newTitle: string; title: string };
 }) {
   const DeltaIcon = delta == null || delta === 0 ? Minus : delta > 0 ? ArrowUpRight : ArrowDownRight;
 
@@ -39,10 +42,10 @@ export function StatCard({
                   ? "bg-[#E1F6EA] text-ok"
                   : "bg-erreur-fond text-erreur"
             )}
-            title={delta == null ? "Aucun dossier la semaine précédente" : "Par rapport aux 7 jours précédents"}
+            title={delta == null ? deltaLabels.newTitle : deltaLabels.title}
           >
             {delta == null ? (
-              "nouveau"
+              deltaLabels.new
             ) : (
               <>
                 <DeltaIcon className="h-3.5 w-3.5" />

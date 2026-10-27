@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Mail, Smartphone, BellRing } from "lucide-react";
+import { Mail, Smartphone, BellRing, Sheet, ExternalLink } from "lucide-react";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -22,12 +22,14 @@ const LOG_STATUS = {
   FAILED: "bg-erreur-fond text-erreur",
   PENDING: "bg-[#FFF3D6] text-[#8A6200]",
 };
-const LOG_LABEL = { SENT: "Envoyé", SKIPPED: "Non envoyé", FAILED: "Échec", PENDING: "En attente" };
 const CHANNEL_ICONS = { EMAIL: Mail, WHATSAPP: Smartphone, PUSH: BellRing };
 
 export default async function DashboardSettingsPage({ params }: { params: { locale: string } }) {
-  const t = await getTranslations("dashboard.settings");
-  const session = await auth();
+  const [t, tCand, session] = await Promise.all([
+    getTranslations("dashboard.settings"),
+    getTranslations("dashboard.candidate"),
+    auth(),
+  ]);
   const userId = session?.user?.id;
 
   const [user, brevo, sheets, pushSubs, mySubs, logs, recentFailures] = await Promise.all([
@@ -44,44 +46,43 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
     }),
   ]);
 
+  const health = (r: { code: string; params?: Record<string, string | number> }) => t(`health.${r.code}`, r.params ?? {});
   const failures = new Map(recentFailures.map((f) => [f.channel, f._count]));
+  const emailFailures = failures.get("EMAIL") ?? 0;
   const waConfigured = Boolean(process.env.WHATSAPP_PHONE_NUMBER_ID && process.env.WHATSAPP_ACCESS_TOKEN);
+  const sheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+  const sheetUrl = sheetId ? `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/edit` : null;
 
   const channels: ChannelHealth[] = [
     {
       key: "EMAIL",
-      name: "Email (Brevo)",
-      state: brevo.ok ? (failures.get("EMAIL") ? "warning" : "ok") : "error",
+      name: t("channel.email"),
+      state: brevo.ok ? (emailFailures ? "warning" : "ok") : "error",
       detail: brevo.ok
-        ? `${brevo.detail} · expéditeur ${process.env.BREVO_SENDER_EMAIL ?? "par défaut"}${
-            failures.get("EMAIL") ? ` · ${failures.get("EMAIL")} échec(s) cette semaine` : ""
-          }`
-        : brevo.detail,
+        ? t("emailOk", { detail: health(brevo), sender: process.env.BREVO_SENDER_EMAIL ?? "—" }) +
+          (emailFailures ? t("emailFailures", { count: emailFailures }) : "")
+        : health(brevo),
       testable: brevo.ok,
     },
     {
       key: "PUSH",
-      name: "Notifications push",
+      name: t("channel.push"),
       state: !isPushConfigured() ? "error" : pushSubs === 0 ? "warning" : "ok",
-      detail: !isPushConfigured()
-        ? "Clés VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY manquantes"
-        : `${pushSubs} appareil(s) abonné(s) dans l'équipe, dont ${mySubs} pour vous`,
+      detail: !isPushConfigured() ? t("pushMissing") : t("pushDevices", { total: pushSubs, mine: mySubs }),
       testable: isPushConfigured() && mySubs > 0,
     },
     {
       key: "WHATSAPP",
-      name: "WhatsApp (Cloud API Meta)",
+      name: t("channel.whatsapp"),
       state: waConfigured ? "ok" : "error",
-      detail: waConfigured
-        ? `Alertes envoyées au ${process.env.WHATSAPP_ADMIN_NUMBER ?? "—"} (messages libres : fenêtre de 24 h)`
-        : "WHATSAPP_PHONE_NUMBER_ID et WHATSAPP_ACCESS_TOKEN non renseignés",
+      detail: waConfigured ? t("waOk", { number: process.env.WHATSAPP_ADMIN_NUMBER ?? "—" }) : t("waMissing"),
       testable: waConfigured,
     },
     {
       key: "SHEETS",
-      name: "Copie Google Sheets",
+      name: t("channel.sheets"),
       state: sheets.ok ? "ok" : "error",
-      detail: sheets.detail,
+      detail: health(sheets),
       testable: false,
     },
   ];
@@ -91,20 +92,42 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
   return (
     <div className="max-w-4xl">
       <div className="mb-6">
-        <p className="page-eyebrow">Compte & système</p>
+        <p className="page-eyebrow">{t("eyebrow")}</p>
         <h1 className="page-title">{t("title")}</h1>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <section className="card p-5 lg:col-span-2">
-          <h2 className="section-title mb-1">Canaux de notification</h2>
-          <p className="mb-4 text-xs text-gris">État vérifié en direct à l&apos;ouverture de cette page.</p>
+          <h2 className="section-title mb-1">{t("channels")}</h2>
+          <p className="mb-4 text-xs text-gris">{t("channelsHint")}</p>
           <ChannelHealthList channels={channels} />
+        </section>
+
+        <section className="card flex flex-col gap-4 p-5 sm:flex-row sm:items-center lg:col-span-2">
+          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#E6F4EA] text-[#188038]">
+            <Sheet className="h-5 w-5" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <h2 className="section-title">{t("sheetTitle")}</h2>
+            <p className="text-xs text-gris">{t("sheetText")}</p>
+            {process.env.GOOGLE_SHEETS_CLIENT_EMAIL && (
+              <p className="mt-1 truncate text-[11px] text-gris">
+                {t("sheetShare", { email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL })}
+              </p>
+            )}
+          </div>
+          {sheetUrl ? (
+            <a href={sheetUrl} target="_blank" rel="noopener noreferrer" className="btn-sm-dark flex-shrink-0">
+              <ExternalLink className="h-4 w-4" /> {t("sheetOpen")}
+            </a>
+          ) : (
+            <p className="text-sm text-erreur">{t("sheetMissing")}</p>
+          )}
         </section>
 
         <section className="card p-5">
           <h2 className="section-title mb-1">{t("notifications")}</h2>
-          <p className="mb-4 text-xs text-gris">Ce que vous recevez à l&apos;arrivée d&apos;un dossier.</p>
+          <p className="mb-4 text-xs text-gris">{t("notificationsHint")}</p>
           <NotificationPreferences
             initial={{
               // Sans préférence enregistrée, l'email part seulement si l'adresse figure dans NOTIFY_ADMIN_EMAILS.
@@ -119,38 +142,35 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
             }}
           />
           <div className="mt-5 border-t border-bord pt-4">
-            <p className="mb-2 text-sm font-semibold">Cet appareil</p>
+            <p className="mb-2 text-sm font-semibold">{t("thisDevice")}</p>
             <PushSubscribeButton />
           </div>
+        </section>
+
+        <section className="card p-5">
+          <h2 className="section-title mb-1">{t("twoFactor")}</h2>
+          <p className="mb-4 text-xs text-gris">{t("twoFactorHint")}</p>
+          <TwoFactorSetup enabled={Boolean(user?.twoFactorEnabled)} />
         </section>
 
         <div className="lg:col-span-2">
           <InstallAppCard />
         </div>
 
-        <section className="card p-5">
-          <h2 className="section-title mb-1">{t("twoFactor")}</h2>
-          <p className="mb-4 text-xs text-gris">
-            Ajoutez une couche de sécurité avec une application d&apos;authentification (Google Authenticator,
-            Authy...).
-          </p>
-          <TwoFactorSetup enabled={Boolean(user?.twoFactorEnabled)} />
-        </section>
-
         <section className="card overflow-hidden lg:col-span-2">
           <div className="p-5 pb-3">
-            <h2 className="section-title">Journal des notifications</h2>
-            <p className="text-xs text-gris">Les 12 derniers envois, tous canaux confondus.</p>
+            <h2 className="section-title">{t("log")}</h2>
+            <p className="text-xs text-gris">{t("logHint")}</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[620px] text-left text-sm">
               <thead className="table-head">
                 <tr>
-                  <th className="px-5 py-2.5">Canal</th>
-                  <th className="px-5 py-2.5">Destinataire</th>
-                  <th className="px-5 py-2.5">Objet / détail</th>
-                  <th className="px-5 py-2.5">Statut</th>
-                  <th className="px-5 py-2.5 text-right">Date</th>
+                  <th className="px-5 py-2.5">{t("logColumns.channel")}</th>
+                  <th className="px-5 py-2.5">{t("logColumns.recipient")}</th>
+                  <th className="px-5 py-2.5">{t("logColumns.subject")}</th>
+                  <th className="px-5 py-2.5">{t("logColumns.status")}</th>
+                  <th className="px-5 py-2.5 text-right">{t("logColumns.date")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-bord">
@@ -172,19 +192,17 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
                       </td>
                       <td className="px-5 py-2.5">
                         <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${LOG_STATUS[log.status]}`}>
-                          {LOG_LABEL[log.status]}
+                          {tCand(`logStatus.${log.status}`)}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-5 py-2.5 text-right text-xs text-gris">
-                        {dateTime.format(log.createdAt)}
-                      </td>
+                      <td className="whitespace-nowrap px-5 py-2.5 text-right text-xs text-gris">{dateTime.format(log.createdAt)}</td>
                     </tr>
                   );
                 })}
                 {logs.length === 0 && (
                   <tr>
                     <td colSpan={5} className="px-5 py-8 text-center text-gris">
-                      Aucun envoi journalisé.
+                      {t("noLog")}
                     </td>
                   </tr>
                 )}

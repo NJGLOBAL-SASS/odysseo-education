@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { STATUS_LABELS_FR, STATUS_LABELS_EN } from "./status-badge";
 import { Spinner } from "@/components/ui/spinner";
@@ -17,6 +18,8 @@ export function StatusUpdater({
   locale: string;
 }) {
   const router = useRouter();
+  const t = useTranslations("dashboard.candidate");
+  const tc = useTranslations("dashboard.common");
   const toast = useToast();
   const [status, setStatus] = useState(currentStatus);
   const [saving, setSaving] = useState(false);
@@ -46,11 +49,11 @@ export function StatusUpdater({
         body: JSON.stringify({ status: next }),
       });
       if (!res.ok) throw new Error();
-      toast({ tone: "success", title: "Statut mis à jour", description: labels[next] });
+      toast({ tone: "success", title: t("statusUpdated"), description: labels[next] });
       router.refresh();
     } catch {
       setStatus(previous);
-      toast({ tone: "error", title: "Échec de la mise à jour du statut", description: "Réessayez dans un instant." });
+      toast({ tone: "error", title: t("statusFailed"), description: tc("retry") });
     } finally {
       setSaving(false);
     }
@@ -61,10 +64,10 @@ export function StatusUpdater({
       <select
         value={status}
         disabled={saving || isOffline}
-        title={isOffline ? "Changement de statut indisponible hors-ligne" : undefined}
+        title={isOffline ? t("statusOffline") : undefined}
         onChange={(e) => updateStatus(e.target.value)}
         className="field-input !min-h-[38px] !w-auto pr-9 text-sm font-semibold disabled:opacity-60"
-        aria-label="Statut du dossier"
+        aria-label={t("statusAria")}
       >
         {Object.entries(labels).map(([value, label]) => (
           <option key={value} value={value}>

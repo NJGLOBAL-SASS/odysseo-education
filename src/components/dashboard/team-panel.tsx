@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   UserPlus,
   ShieldCheck,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { Spinner } from "@/components/ui/spinner";
+import { ConfirmDialog } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 
@@ -66,6 +68,9 @@ export function TeamPanel({
   currentUserId: string;
   isAdmin: boolean;
 }) {
+  const t = useTranslations("dashboard.team");
+  const tc = useTranslations("dashboard.common");
+  const b = (chunks: React.ReactNode) => <b>{chunks}</b>;
   const router = useRouter();
   const toast = useToast();
   const [showForm, setShowForm] = useState(false);
@@ -95,8 +100,8 @@ export function TeamPanel({
       }
       toast(
         json.emailSent
-          ? { tone: "success", title: "Invitation envoyée", description: `Un lien d'activation a été envoyé à ${email}.` }
-          : { tone: "error", title: "Membre ajouté, mais l'email n'est pas parti", description: "Utilisez « Renvoyer l'invitation »." }
+          ? { tone: "success", title: t("invited"), description: t("invitedText", { email }) }
+          : { tone: "error", title: t("invitedNoEmail"), description: t("invitedNoEmailText") }
       );
       setName("");
       setEmail("");
@@ -104,7 +109,7 @@ export function TeamPanel({
       setShowForm(false);
       router.refresh();
     } catch {
-      setFormError("Connexion impossible. Réessayez.");
+      setFormError(t("form.network"));
     } finally {
       setInviting(false);
     }
@@ -129,17 +134,18 @@ export function TeamPanel({
       const json = await res.json();
       if (!res.ok) throw new Error(json.error);
 
+      const name = member.name || member.email;
       const messages = {
-        promote: `${member.name || member.email} est maintenant administrateur.`,
-        demote: `${member.name || member.email} est maintenant membre de l'équipe.`,
-        reset2fa: "2FA désactivée : le membre pourra la réactiver dans ses paramètres.",
-        resend: json.emailSent ? `Nouveau lien envoyé à ${member.email}.` : "L'email n'a pas pu partir.",
-        delete: `${member.name || member.email} n'a plus accès au dashboard.`,
+        promote: t("done.promote", { name }),
+        demote: t("done.demote", { name }),
+        reset2fa: t("done.reset2fa"),
+        resend: json.emailSent ? t("done.resend", { email: member.email }) : t("done.resendFailed"),
+        delete: t("done.delete", { name }),
       };
       toast({ tone: kind === "resend" && !json.emailSent ? "error" : "success", title: messages[kind] });
       router.refresh();
     } catch (err) {
-      toast({ tone: "error", title: "Action impossible", description: err instanceof Error ? err.message : undefined });
+      toast({ tone: "error", title: t("failed"), description: err instanceof Error ? err.message : undefined });
     } finally {
       setBusy(null);
       setConfirmDelete(null);
@@ -153,38 +159,35 @@ export function TeamPanel({
     <div>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="page-eyebrow">Accès au dashboard</p>
-          <h1 className="page-title">Membres de l&apos;équipe</h1>
+          <p className="page-eyebrow">{t("eyebrow")}</p>
+          <h1 className="page-title">{t("title")}</h1>
           <p className="mt-1 text-sm text-gris">
-            {members.length} membre(s) · {admins} administrateur(s)
-            {pending > 0 && ` · ${pending} invitation(s) en attente`}
+            {t("summary", { count: members.length, admins })}
+            {pending > 0 && t("pendingSummary", { count: pending })}
           </p>
         </div>
         {isAdmin && (
           <button onClick={() => setShowForm((v) => !v)} className="btn-sm-primary">
-            <UserPlus className="h-4 w-4" /> Inviter un membre
+            <UserPlus className="h-4 w-4" /> {t("invite")}
           </button>
         )}
       </div>
 
       {!isAdmin && (
         <p className="mb-4 rounded-brand border border-bord bg-white px-4 py-3 text-sm text-gris">
-          Seuls les administrateurs peuvent inviter, modifier ou retirer des membres.
+          {t("adminOnlyNotice")}
         </p>
       )}
 
       {showForm && isAdmin && (
         <form onSubmit={invite} className="card mb-6 animate-fade-up p-5">
-          <h2 className="section-title mb-1">Inviter un membre</h2>
-          <p className="mb-4 text-xs text-gris">
-            Il recevra un email pour choisir son mot de passe (lien valable 7 jours). Il pourra aussi se connecter avec
-            Google si cette adresse est un compte Google.
-          </p>
+          <h2 className="section-title mb-1">{t("form.title")}</h2>
+          <p className="mb-4 text-xs text-gris">{t("form.hint")}</p>
           <div className="grid gap-3 md:grid-cols-[1fr_1fr_180px]">
             <input
               required
               minLength={2}
-              placeholder="Nom complet *"
+              placeholder={t("form.name")}
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={inviting}
@@ -193,7 +196,7 @@ export function TeamPanel({
             <input
               required
               type="email"
-              placeholder="Email *"
+              placeholder={t("form.email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={inviting}
@@ -204,24 +207,21 @@ export function TeamPanel({
               onChange={(e) => setRole(e.target.value as "STAFF" | "ADMIN")}
               disabled={inviting}
               className="field-input !min-h-[42px] text-sm"
-              aria-label="Rôle"
+              aria-label={t("form.role")}
             >
-              <option value="STAFF">Membre de l&apos;équipe</option>
-              <option value="ADMIN">Administrateur</option>
+              <option value="STAFF">{t("form.roleStaff")}</option>
+              <option value="ADMIN">{t("form.roleAdmin")}</option>
             </select>
           </div>
-          <p className="mt-2 text-xs text-gris">
-            <b>Membre</b> : candidatures, partenaires, newsletter. <b>Administrateur</b> : tout, plus la gestion de
-            l&apos;équipe.
-          </p>
+          <p className="mt-2 text-xs text-gris">{t.rich("form.rolesHint", { b })}</p>
           {formError && <p className="mt-3 text-sm font-semibold text-erreur">{formError}</p>}
-          <div className="mt-4 flex justify-end gap-2">
+          <div className="mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <button type="button" onClick={() => setShowForm(false)} disabled={inviting} className="btn-sm-ghost">
-              Annuler
+              {tc("cancel")}
             </button>
             <button type="submit" disabled={inviting} className="btn-sm-dark">
               {inviting ? <Spinner /> : <Send className="h-4 w-4" />}
-              {inviting ? "Envoi…" : "Envoyer l'invitation"}
+              {inviting ? tc("sending") : t("form.submit")}
             </button>
           </div>
         </form>
@@ -231,7 +231,7 @@ export function TeamPanel({
         {members.length === 0 ? (
           <div className="px-4 py-14 text-center">
             <Users className="mx-auto mb-2 h-8 w-8 text-bord" />
-            <p className="font-semibold">Aucun membre</p>
+            <p className="font-semibold">{t("empty")}</p>
           </div>
         ) : (
           <ul className="divide-y divide-bord">
@@ -251,10 +251,10 @@ export function TeamPanel({
                   <div className="min-w-0 flex-1">
                     <p className="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
                       <span className="truncate">{m.name || "—"}</span>
-                      {isSelf && <Pill>Vous</Pill>}
+                      {isSelf && <Pill>{t("you")}</Pill>}
                       {m.role === "ADMIN" && (
                         <Pill tone="dark">
-                          <Crown className="h-3 w-3" /> Administrateur
+                          <Crown className="h-3 w-3" /> {t("admin")}
                         </Pill>
                       )}
                     </p>
@@ -265,22 +265,22 @@ export function TeamPanel({
                     {m.pending ? (
                       <Pill tone="warn">
                         <Clock className="h-3 w-3" />
-                        {m.inviteExpiresAt ? "Invitation en attente" : "Invitation expirée"}
+                        {m.inviteExpiresAt ? t("pending") : t("expired")}
                       </Pill>
                     ) : (
                       <>
                         {m.hasPassword && (
                           <Pill>
-                            <KeyRound className="h-3 w-3" /> Mot de passe
+                            <KeyRound className="h-3 w-3" /> {t("password")}
                           </Pill>
                         )}
-                        {m.hasGoogle && <Pill>Google</Pill>}
+                        {m.hasGoogle && <Pill>{t("google")}</Pill>}
                         {m.twoFactorEnabled ? (
                           <Pill tone="ok">
-                            <ShieldCheck className="h-3 w-3" /> 2FA
+                            <ShieldCheck className="h-3 w-3" /> {t("twoFactor")}
                           </Pill>
                         ) : (
-                          m.hasPassword && <Pill tone="warn">Sans 2FA</Pill>
+                          m.hasPassword && <Pill tone="warn">{t("noTwoFactor")}</Pill>
                         )}
                       </>
                     )}
@@ -292,7 +292,7 @@ export function TeamPanel({
                         onClick={() => setMenuFor(menuFor === m.id ? null : m.id)}
                         disabled={busy === m.id}
                         className="flex h-9 w-9 items-center justify-center rounded-[10px] text-gris hover:bg-fond hover:text-noir"
-                        aria-label={`Actions pour ${m.name || m.email}`}
+                        aria-label={tc("actionsFor", { name: m.name || m.email })}
                         aria-expanded={menuFor === m.id}
                       >
                         {busy === m.id ? <Spinner /> : <MoreHorizontal className="h-5 w-5" />}
@@ -303,26 +303,26 @@ export function TeamPanel({
                           <div className="absolute right-0 top-10 z-50 w-60 animate-fade-up overflow-hidden rounded-brand bg-white py-1.5 shadow-pop">
                             {m.role === "STAFF" ? (
                               <MenuItem icon={Crown} onClick={() => action(m, "promote")}>
-                                Nommer administrateur
+                                {t("actions.promote")}
                               </MenuItem>
                             ) : (
                               <MenuItem icon={Users} onClick={() => action(m, "demote")}>
-                                Repasser en membre
+                                {t("actions.demote")}
                               </MenuItem>
                             )}
                             {(m.pending || !m.hasPassword) && (
                               <MenuItem icon={Send} onClick={() => action(m, "resend")}>
-                                {m.pending ? "Renvoyer l'invitation" : "Envoyer un lien mot de passe"}
+                                {m.pending ? t("actions.resend") : t("actions.sendPasswordLink")}
                               </MenuItem>
                             )}
                             {m.twoFactorEnabled && (
                               <MenuItem icon={ShieldOff} onClick={() => action(m, "reset2fa")}>
-                                Réinitialiser la 2FA
+                                {t("actions.reset2fa")}
                               </MenuItem>
                             )}
                             <div className="my-1 border-t border-bord" />
                             <MenuItem icon={Trash2} danger onClick={() => (setMenuFor(null), setConfirmDelete(m))}>
-                              Retirer de l&apos;équipe
+                              {t("actions.remove")}
                             </MenuItem>
                           </div>
                         </>
@@ -337,30 +337,15 @@ export function TeamPanel({
       </div>
 
       {confirmDelete && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-noir/50 p-4 backdrop-blur-[2px]">
-          <div className="w-full max-w-sm animate-fade-up rounded-brand bg-white p-5 shadow-pop" role="dialog" aria-modal="true">
-            <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-erreur-fond text-erreur">
-              <Trash2 className="h-5 w-5" />
-            </span>
-            <h2 className="text-lg font-extrabold">Retirer {confirmDelete.name || confirmDelete.email} ?</h2>
-            <p className="mt-1 text-sm text-gris">
-              Son accès au dashboard est coupé immédiatement, sur tous ses appareils. Les dossiers et partenaires ne sont
-              pas affectés. Vous pourrez le réinviter plus tard.
-            </p>
-            <div className="mt-5 flex justify-end gap-2">
-              <button onClick={() => setConfirmDelete(null)} disabled={busy !== null} className="btn-sm-ghost">
-                Annuler
-              </button>
-              <button
-                onClick={() => action(confirmDelete, "delete")}
-                disabled={busy !== null}
-                className="btn-sm bg-erreur text-white hover:bg-rouge-fonce"
-              >
-                {busy === confirmDelete.id && <Spinner />} Retirer
-              </button>
-            </div>
-          </div>
-        </div>
+        <ConfirmDialog
+          title={t("removeTitle", { name: confirmDelete.name || confirmDelete.email })}
+          text={t("removeText")}
+          confirmLabel={t("removeConfirm")}
+          icon={<Trash2 className="h-5 w-5" />}
+          busy={busy === confirmDelete.id}
+          onConfirm={() => action(confirmDelete, "delete")}
+          onClose={() => setConfirmDelete(null)}
+        />
       )}
     </div>
   );

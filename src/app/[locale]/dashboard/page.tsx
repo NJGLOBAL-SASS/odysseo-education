@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Users, TrendingUp, Percent, GraduationCap, Link2, ArrowRight } from "lucide-react";
+import { Users, TrendingUp, Percent, GraduationCap, Link2, ArrowRight, Inbox } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
@@ -48,6 +48,7 @@ function Card({
 
 export default async function DashboardOverviewPage({ params }: { params: { locale: string } }) {
   const t = await getTranslations("dashboard.overview");
+  const tc = await getTranslations("dashboard.common");
   const session = await auth();
   const locale = params.locale;
   const statusLabels = locale === "en" ? STATUS_LABELS_EN : STATUS_LABELS_FR;
@@ -70,6 +71,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
     referredSubmissions30,
     latest,
     topPartners,
+    pendingRequests,
   ] = await Promise.all([
     prisma.candidate.count(),
     prisma.candidate.count({ where: { createdAt: { gte: since7 } } }),
@@ -106,6 +108,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
         _count: { select: { candidates: true } },
       },
     }),
+    prisma.partnerApplication.count({ where: { status: "PENDING" } }),
   ]);
 
   const statusCount = new Map(byStatus.map((s) => [s.status as string, s._count]));
@@ -128,44 +131,62 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
 
   const firstName = session?.user?.name?.split(/\s+/)[0];
   const today = new Intl.DateTimeFormat(locale, { weekday: "long", day: "numeric", month: "long", timeZone: APP_TIME_ZONE }).format(new Date());
+  const b = (chunks: React.ReactNode) => <b className="tabular-nums">{chunks}</b>;
+  const deltaLabels = { new: t("deltaNew"), newTitle: t("deltaNewTitle"), title: t("deltaTitle") };
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="page-eyebrow">{today}</p>
-          <h1 className="page-title">{firstName ? `Bonjour ${firstName}` : t("title")}</h1>
-          <p className="mt-1 text-sm text-gris">Voici l&apos;activité de votre pipeline de candidatures.</p>
+          <h1 className="page-title">{firstName ? t("hello", { name: firstName }) : t("title")}</h1>
+          <p className="mt-1 text-sm text-gris">{t("intro")}</p>
         </div>
         <Link href="/dashboard/candidatures" className="btn-sm-dark">
-          Voir les candidatures <ArrowRight className="h-4 w-4" />
+          {t("viewCandidates")} <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
 
+      {pendingRequests > 0 && (
+        <Link
+          href="/dashboard/partenaires?onglet=demandes"
+          className="flex items-center gap-3 rounded-brand border border-rouge/25 bg-[#FFF6F6] px-4 py-3 text-sm transition-colors hover:bg-[#FFEDED]"
+        >
+          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-rouge text-white">
+            <Inbox className="h-4 w-4" />
+          </span>
+          <span className="flex-1 font-semibold">{t("pendingRequests", { count: pendingRequests })}</span>
+          <span className="hidden items-center gap-1 text-xs font-semibold text-rouge-fonce sm:flex">
+            {t("review")} <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </Link>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard icon={Users} label={t("totalCandidates")} value={total} hint="Depuis le lancement" accent />
+        <StatCard icon={Users} label={t("totalCandidates")} value={total} hint={t("sinceLaunch")} accent />
         <StatCard
           icon={TrendingUp}
           label={t("last7Days")}
           value={last7}
           delta={pctDelta(last7, prev7)}
-          hint={`${prev7} la semaine précédente`}
+          deltaLabels={deltaLabels}
+          hint={t("previousWeek", { count: prev7 })}
         />
-        <StatCard icon={Percent} label={t("conversion")} value={`${conversion}%`} hint={`${qualified} dossiers qualifiés ou plus`} />
-        <StatCard icon={GraduationCap} label="Admis / visa" value={admitted} hint="Objectif final du pipeline" />
+        <StatCard icon={Percent} label={t("conversion")} value={`${conversion}%`} hint={t("qualifiedHint", { count: qualified })} />
+        <StatCard icon={GraduationCap} label={t("admitted")} value={admitted} hint={t("admittedHint")} />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-3">
-        <Card title={t("trend")} subtitle={`${recent30.length} dossier(s) sur les 30 derniers jours`} className="xl:col-span-2">
+        <Card title={t("trend")} subtitle={t("trendHint", { count: recent30.length })} className="xl:col-span-2">
           <TrendChart data={trend} locale={locale} />
         </Card>
 
-        <Card title="Parrainage" subtitle="Liens partenaires · 30 derniers jours">
+        <Card title={t("referral")} subtitle={t("referralHint")}>
           <div className="grid grid-cols-3 gap-3 text-center">
             {[
-              { label: "Clics", value: clicks30 },
-              { label: "Dossiers", value: referredSubmissions30 },
-              { label: "Conversion", value: linkConversion == null ? "—" : `${linkConversion}%` },
+              { label: t("clicks"), value: clicks30 },
+              { label: t("files"), value: referredSubmissions30 },
+              { label: t("conversionShort"), value: linkConversion == null ? "—" : `${linkConversion}%` },
             ].map((k) => (
               <div key={k.label} className="rounded-[10px] bg-fond px-2 py-3">
                 <p className="text-xl font-extrabold tabular-nums">{k.value}</p>
@@ -175,43 +196,43 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
           </div>
           <div className="mt-4 flex items-center gap-2 rounded-[10px] border border-bord px-3 py-2.5 text-sm">
             <Link2 className="h-4 w-4 text-rouge" />
-            <span>
-              <b className="tabular-nums">{partnerShare}%</b> des dossiers viennent d&apos;un partenaire
-            </span>
+            <span>{t.rich("partnerShare", { pct: partnerShare, b })}</span>
           </div>
         </Card>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <Card title="Pipeline" subtitle="Dossiers par statut">
+        <Card title={t("pipeline")} subtitle={t("pipelineHint")}>
           <BarList
+            emptyLabel={t("noData")}
             total={total}
             rows={PIPELINE.map((s) => ({ label: statusLabels[s] ?? s, value: statusCount.get(s) ?? 0 })).filter(
               (r) => r.value > 0
             )}
           />
         </Card>
-        <Card title="Sources" subtitle="Comment les candidats nous ont connus">
+        <Card title={t("sources")} subtitle={t("sourcesHint")}>
           <BarList
+            emptyLabel={t("noData")}
             rows={bySource
               .map((s) => ({
-                label: s.discoverySource ? optionLabel("discoverySource", s.discoverySource, locale) : "Non précisé",
+                label: s.discoverySource ? optionLabel("discoverySource", s.discoverySource, locale) : t("notSpecified"),
                 value: s._count,
               }))
               .sort((a, b) => b.value - a.value)}
           />
         </Card>
-        <Card title="Pays" subtitle="Top 6 des pays d'origine">
-          <BarList total={total} rows={byCountry.map((c) => ({ label: c.country, value: c._count }))} />
+        <Card title={t("countries")} subtitle={t("countriesHint")}>
+          <BarList emptyLabel={t("noData")} total={total} rows={byCountry.map((c) => ({ label: c.country, value: c._count }))} />
         </Card>
       </div>
 
       <div className="grid gap-6 xl:grid-cols-3">
         <section className="card overflow-hidden xl:col-span-2">
           <div className="flex items-start justify-between gap-3 px-5 pb-2 pt-5">
-            <h2 className="section-title">Derniers dossiers</h2>
+            <h2 className="section-title">{t("latest")}</h2>
             <Link href="/dashboard/candidatures" className="text-xs font-semibold text-gris hover:text-noir">
-              Tout voir →
+              {tc("seeAll")}
             </Link>
           </div>
           <div className="overflow-x-auto">
@@ -227,7 +248,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
                     </td>
                     <td className="px-3 py-3 text-gris">
                       {c.country} · {optionLabel("targetLevel", c.targetLevel, locale)}
-                      {c.partner && <p className="text-[11px]">via {c.partner.fullName}</p>}
+                      {c.partner && <p className="text-[11px]">{t("via", { name: c.partner.fullName })}</p>}
                     </td>
                     <td className="px-3 py-3">
                       <StatusBadge status={c.status} locale={locale} />
@@ -239,7 +260,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
                 ))}
                 {latest.length === 0 && (
                   <tr>
-                    <td className="px-5 py-10 text-center text-gris">Aucun dossier pour l&apos;instant.</td>
+                    <td className="px-5 py-10 text-center text-gris">{t("noFiles")}</td>
                   </tr>
                 )}
               </tbody>
@@ -251,12 +272,12 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
           title={t("topPartners")}
           action={
             <Link href="/dashboard/partenaires" className="text-xs font-semibold text-gris hover:text-noir">
-              Gérer →
+              {tc("manage")}
             </Link>
           }
         >
           {topPartners.length === 0 ? (
-            <p className="py-6 text-center text-sm text-gris">Aucun partenaire.</p>
+            <p className="py-6 text-center text-sm text-gris">{t("noPartners")}</p>
           ) : (
             <ol className="space-y-3">
               {topPartners.map((p, i) => (
@@ -271,10 +292,10 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-semibold">{p.fullName}</span>
                     <span className="block font-mono text-[11px] text-gris">
-                      {p.referralCode} · {p._count.candidates} dossier(s)
+                      {t("partnerFiles", { code: p.referralCode, count: p._count.candidates })}
                     </span>
                   </span>
-                  <span className="font-bold tabular-nums">{p.pointsBalance} pts</span>
+                  <span className="font-bold tabular-nums">{t("pts", { count: p.pointsBalance })}</span>
                 </li>
               ))}
             </ol>

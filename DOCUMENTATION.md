@@ -180,6 +180,21 @@ signature :
 Les liens pointent toujours vers `NEXT_PUBLIC_SITE_URL` (jamais vers le
 sous-domaine équipe) : renseigner l'URL publique en production.
 
+**v1.2 — demande de partenariat dans l'application :**
+
+1. Le formulaire de `/partenaires` (nom, email, WhatsApp, pays/ville, profil,
+   motivation) crée une `PartnerApplication` (statut `PENDING`). Le demandeur
+   reçoit un accusé de réception par email ; l'équipe est alertée (email, push,
+   cloche, compteur de la sidebar).
+2. Dashboard → Partenaires → onglet **Demandes** : l'équipe accepte ou refuse en
+   rédigeant un message. Accepter crée le partenaire (code + lien).
+3. Le demandeur reçoit la décision **par email** (avec son code, son lien et son
+   espace partenaire en cas d'acceptation).
+
+Les partenaires et abonnés newsletter se modifient (icône crayon) et se
+suppriment (icône corbeille, administrateurs). Supprimer un partenaire conserve
+ses dossiers (détachés) mais efface son historique de clics et de points.
+
 ### 6.1 Barème de points (`src/lib/points.ts`)
 
 | Événement | Points |
@@ -308,6 +323,24 @@ un lien `/reset-password?token=…` (Brevo).
   changement de rôle s'applique sans reconnexion.
 - Garde-fous : impossible de se retirer soi-même ou de retirer / rétrograder le
   dernier administrateur.
+
+### 8.3 Emails aux candidats (v1.2)
+
+Fiche candidat → **Écrire un email** : objet, texte mis en forme (gras,
+italique, souligné, barré, titre, listes, citation, lien), modèles, pièces
+jointes (3 Mo au total, 8 fichiers ; exécutables refusés). Envoi via Brevo, les
+réponses du candidat arrivent sur l'adresse du membre de l'équipe (reply-to).
+
+- Le HTML est nettoyé côté serveur par liste blanche (`src/lib/html-sanitize.ts`) :
+  aucun script, attribut ou lien `javascript:` ne peut passer.
+- Chaque email est archivé (`CandidateMessage`) et visible dans l'historique de
+  la fiche ; les pièces jointes elles-mêmes ne sont pas stockées (seuls leurs noms).
+
+### 8.4 Langue du dashboard
+
+Bouton **FR / EN** dans la barre du haut : tout le tableau de bord est traduit
+(`src/i18n/messages/*.json`, clé `dashboard`). Les valeurs saisies par les
+candidats restent dans la langue du formulaire.
 
 ## 9. Exports CSV / Excel / PDF aux couleurs Odysseo
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Mail, Smartphone, BellRing, Sheet, CheckCircle2, AlertTriangle, XCircle, Send } from "lucide-react";
 
 import { Spinner } from "@/components/ui/spinner";
@@ -18,12 +19,13 @@ export type ChannelHealth = {
 
 const ICONS = { EMAIL: Mail, WHATSAPP: Smartphone, PUSH: BellRing, SHEETS: Sheet };
 const STATE = {
-  ok: { Icon: CheckCircle2, cls: "text-ok", label: "Opérationnel" },
-  warning: { Icon: AlertTriangle, cls: "text-[#8A6200]", label: "À vérifier" },
-  error: { Icon: XCircle, cls: "text-erreur", label: "Hors service" },
+  ok: { Icon: CheckCircle2, cls: "text-ok" },
+  warning: { Icon: AlertTriangle, cls: "text-[#8A6200]" },
+  error: { Icon: XCircle, cls: "text-erreur" },
 };
 
 export function ChannelHealthList({ channels }: { channels: ChannelHealth[] }) {
+  const t = useTranslations("dashboard.settings");
   const toast = useToast();
   const router = useRouter();
   const [testing, setTesting] = useState<string | null>(null);
@@ -39,12 +41,12 @@ export function ChannelHealthList({ channels }: { channels: ChannelHealth[] }) {
       const json = (await res.json()) as { ok: boolean; status?: string; error?: string };
       toast(
         json.ok
-          ? { tone: "success", title: "Test envoyé", description: "Vérifiez la réception." }
-          : { tone: "error", title: "Le test n'est pas parti", description: json.error ?? json.status }
+          ? { tone: "success", title: t("testSent"), description: t("testSentText") }
+          : { tone: "error", title: t("testFailed"), description: json.error ?? json.status }
       );
       router.refresh();
     } catch {
-      toast({ tone: "error", title: "Test impossible", description: "Connexion au serveur perdue." });
+      toast({ tone: "error", title: t("testError"), description: t("testNetwork") });
     } finally {
       setTesting(null);
     }
@@ -64,7 +66,7 @@ export function ChannelHealthList({ channels }: { channels: ChannelHealth[] }) {
               <p className="flex items-center gap-2 text-sm font-semibold">
                 {c.name}
                 <span className={cn("inline-flex items-center gap-1 text-xs font-semibold", s.cls)}>
-                  <s.Icon className="h-3.5 w-3.5" /> {s.label}
+                  <s.Icon className="h-3.5 w-3.5" /> {t(`state.${c.state}`)}
                 </span>
               </p>
               <p className="text-xs text-gris">{c.detail}</p>
@@ -76,7 +78,7 @@ export function ChannelHealthList({ channels }: { channels: ChannelHealth[] }) {
                 className="btn-sm-ghost !min-h-[34px] text-xs"
               >
                 {testing === c.key ? <Spinner className="h-3.5 w-3.5" /> : <Send className="h-3.5 w-3.5" />}
-                {testing === c.key ? "Envoi…" : "Tester"}
+                {testing === c.key ? t("testing") : t("test")}
               </button>
             )}
           </li>
@@ -132,6 +134,7 @@ export function NotificationPreferences({
 }: {
   initial: { emailOnNewLead: boolean; pushOnNewLead: boolean };
 }) {
+  const t = useTranslations("dashboard.settings");
   const toast = useToast();
   const [prefs, setPrefs] = useState(initial);
   const [saving, setSaving] = useState<keyof typeof initial | null>(null);
@@ -147,10 +150,10 @@ export function NotificationPreferences({
         body: JSON.stringify({ [key]: value }),
       });
       if (!res.ok) throw new Error();
-      toast({ tone: "success", title: "Préférence enregistrée" });
+      toast({ tone: "success", title: t("prefSaved") });
     } catch {
       setPrefs(previous);
-      toast({ tone: "error", title: "Impossible d'enregistrer la préférence" });
+      toast({ tone: "error", title: t("prefFailed") });
     } finally {
       setSaving(null);
     }
@@ -159,15 +162,15 @@ export function NotificationPreferences({
   return (
     <div className="divide-y divide-bord">
       <Toggle
-        label="Email à chaque nouveau dossier"
-        description="Envoyé à votre adresse de connexion, en plus de la liste NOTIFY_ADMIN_EMAILS."
+        label={t("prefEmail")}
+        description={t("prefEmailHint")}
         checked={prefs.emailOnNewLead}
         disabled={saving !== null}
         onChange={(v) => update("emailOnNewLead", v)}
       />
       <Toggle
-        label="Notification push à chaque nouveau dossier"
-        description="Sur tous les appareils où vous avez activé les notifications push."
+        label={t("prefPush")}
+        description={t("prefPushHint")}
         checked={prefs.pushOnNewLead}
         disabled={saving !== null}
         onChange={(v) => update("pushOnNewLead", v)}

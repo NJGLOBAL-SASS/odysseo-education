@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 /**
  * Graphiques légers du dashboard (SVG/HTML, sans dépendance).
@@ -14,6 +15,7 @@ export function TrendChart({
   data: { date: string; count: number }[];
   locale: string;
 }) {
+  const t = useTranslations("dashboard.overview");
   const [hover, setHover] = useState<number | null>(null);
   const max = Math.max(1, ...data.map((d) => d.count));
   const ticks = [max, Math.round(max / 2), 0].filter((v, i, a) => a.indexOf(v) === i);
@@ -49,7 +51,7 @@ export function TrendChart({
                 onFocus={() => setHover(i)}
                 onBlur={() => setHover(null)}
                 className="group relative flex h-full flex-1 items-end focus:outline-none"
-                aria-label={`${fmt.format(new Date(d.date))} : ${d.count} dossier(s)`}
+                aria-label={`${fmt.format(new Date(d.date))} : ${t("trendTooltip", { count: d.count })}`}
               >
                 <span
                   className={
@@ -74,7 +76,7 @@ export function TrendChart({
               className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 -translate-y-[calc(100%+6px)] whitespace-nowrap rounded-lg bg-noir px-2.5 py-1.5 text-xs text-white shadow-pop"
               style={{ left: `${((hover + 0.5) / data.length) * 100}%` }}
             >
-              <span className="font-bold tabular-nums">{active.count}</span> dossier{active.count > 1 ? "s" : ""}
+              <span className="font-bold">{t("trendTooltip", { count: active.count })}</span>
               <span className="text-[#B4B4BE]"> · {fmt.format(new Date(active.date))}</span>
             </div>
           )}
@@ -88,7 +90,7 @@ export function TrendChart({
 export function BarList({
   rows,
   total,
-  emptyLabel = "Aucune donnée",
+  emptyLabel,
 }: {
   rows: { label: string; value: number; hint?: string }[];
   total?: number;
@@ -98,7 +100,7 @@ export function BarList({
   const max = Math.max(1, ...rows.map((r) => r.value));
 
   if (rows.length === 0 || sum === 0) {
-    return <p className="py-6 text-center text-sm text-gris">{emptyLabel}</p>;
+    return <p className="py-6 text-center text-sm text-gris">{emptyLabel ?? "—"}</p>;
   }
 
   return (

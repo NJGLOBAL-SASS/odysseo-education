@@ -63,6 +63,47 @@ body {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
   }
 
+  /* Éditeur d'email (contentEditable) : placeholder et rendu proche de l'email envoyé */
+  .rich-editor:empty::before {
+    content: attr(data-placeholder);
+    @apply pointer-events-none text-gris;
+  }
+  .rich-editor p,
+  .rich-editor div {
+    @apply mb-3;
+  }
+  .rich-editor h2 {
+    @apply mb-2 mt-4 text-lg font-extrabold;
+  }
+  .rich-editor ul {
+    @apply mb-3 list-disc pl-6;
+  }
+  .rich-editor ol {
+    @apply mb-3 list-decimal pl-6;
+  }
+  .rich-editor blockquote {
+    @apply mb-3 border-l-[3px] border-rouge bg-fond px-3.5 py-2 text-gris;
+  }
+  .rich-editor a,
+  .rich-content a {
+    @apply font-semibold text-rouge-fonce underline;
+  }
+  .rich-content p {
+    @apply mb-2;
+  }
+  .rich-content ul {
+    @apply mb-2 list-disc pl-5;
+  }
+  .rich-content ol {
+    @apply mb-2 list-decimal pl-5;
+  }
+  .rich-content h2 {
+    @apply mb-1 text-base font-bold;
+  }
+  .rich-content blockquote {
+    @apply mb-2 border-l-2 border-rouge pl-3 text-gris;
+  }
+
   /* Dashboard */
   .page-eyebrow {
     @apply mb-1 text-xs font-semibold uppercase tracking-[0.08em] text-gris;

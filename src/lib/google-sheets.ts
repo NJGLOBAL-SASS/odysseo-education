@@ -102,9 +102,9 @@ export async function appendCandidateRow(candidate: Candidate) {
 }
 
 /** Vérifie que le compte de service peut ouvrir le Sheet et que l'onglet existe (page Paramètres). */
-export async function checkSheetsAccess() {
+export async function checkSheetsAccess(): Promise<{ ok: boolean; code: string; params?: Record<string, string> }> {
   const client = getSheetsClient();
-  if (!client) return { ok: false, detail: "Variables GOOGLE_SHEETS_* non renseignées" };
+  if (!client) return { ok: false, code: "sheetsMissing" };
 
   const tab = process.env.GOOGLE_SHEETS_TAB_NAME || "Candidatures";
   try {
@@ -114,17 +114,17 @@ export async function checkSheetsAccess() {
     });
     const tabs = res.data.sheets?.map((s) => s.properties?.title) ?? [];
     if (!tabs.includes(tab)) {
-      return { ok: false, detail: `Sheet « ${res.data.properties?.title} » trouvé, mais pas d'onglet « ${tab} »` };
+      return { ok: false, code: "sheetsNoTab", params: { title: res.data.properties?.title ?? "", tab } };
     }
-    return { ok: true, detail: `Sheet « ${res.data.properties?.title} » · onglet « ${tab} »` };
+    return { ok: true, code: "sheetsOk", params: { title: res.data.properties?.title ?? "", tab } };
   } catch (err: unknown) {
     const status = (err as { code?: number })?.code;
     if (status === 404) {
-      return { ok: false, detail: "Sheet introuvable : vérifiez GOOGLE_SHEETS_SPREADSHEET_ID (l'ID est dans l'URL du Sheet)" };
+      return { ok: false, code: "sheetsNotFound" };
     }
     if (status === 403) {
-      return { ok: false, detail: `Accès refusé : partagez le Sheet en « Éditeur » avec ${process.env.GOOGLE_SHEETS_CLIENT_EMAIL}` };
+      return { ok: false, code: "sheetsDenied", params: { email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL ?? "" } };
     }
-    return { ok: false, detail: `Google Sheets injoignable : ${String(err).slice(0, 160)}` };
+    return { ok: false, code: "unreachable", params: { service: "Google Sheets", error: String(err).slice(0, 160) } };
   }
 }

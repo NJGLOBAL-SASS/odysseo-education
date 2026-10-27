@@ -5,19 +5,22 @@ import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog } from "l
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { useDashboardCounts, type DashboardCounts } from "./dashboard-counts";
 
-const NAV = [
+const NAV: { href: string; icon: typeof Users; key: string; count?: keyof DashboardCounts }[] = [
   { href: "/dashboard", icon: LayoutDashboard, key: "overview" },
-  { href: "/dashboard/candidatures", icon: Users, key: "candidates" },
-  { href: "/dashboard/partenaires", icon: Handshake, key: "partners" },
-  { href: "/dashboard/newsletter", icon: Mail, key: "newsletter" },
+  { href: "/dashboard/candidatures", icon: Users, key: "candidates", count: "candidates" },
+  { href: "/dashboard/partenaires", icon: Handshake, key: "partners", count: "partnerRequests" },
+  { href: "/dashboard/newsletter", icon: Mail, key: "newsletter", count: "newsletter" },
   { href: "/dashboard/equipe", icon: UserCog, key: "team" },
   { href: "/dashboard/parametres", icon: Settings, key: "settings" },
-] as const;
+];
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useTranslations("dashboard.nav");
+  const tRoot = useTranslations("dashboard");
   const pathname = usePathname();
+  const { counts } = useDashboardCounts();
 
   const isActive = (href: string) =>
     href === "/dashboard" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
@@ -48,19 +51,20 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           <button
             onClick={onClose}
             className="rounded-lg p-1.5 text-[#C9C9D1] hover:bg-white/10 hover:text-white lg:hidden"
-            aria-label="Fermer le menu"
+            aria-label={t("closeMenu")}
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         <p className="px-6 pb-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#7C7C88]">
-          Espace équipe
+          {t("teamSpace")}
         </p>
 
-        <nav className="flex-1 space-y-0.5 px-3">
+        <nav className="flex-1 space-y-0.5 overflow-y-auto px-3">
           {NAV.map((item) => {
             const active = isActive(item.href);
+            const count = item.count ? counts[item.count] : 0;
             return (
               <Link
                 key={item.href}
@@ -81,7 +85,15 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                   )}
                 />
                 <item.icon className={cn("h-[18px] w-[18px]", active ? "text-rouge" : "text-current")} />
-                {t(item.key)}
+                <span className="flex-1">{t(item.key)}</span>
+                {count > 0 && (
+                  <span
+                    className="flex h-5 min-w-[20px] animate-fade-up items-center justify-center rounded-full bg-rouge px-1.5 text-[11px] font-bold tabular-nums text-white"
+                    aria-label={t("newItems", { count })}
+                  >
+                    {count > 99 ? "99+" : count}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -96,7 +108,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             className="pointer-events-none absolute -bottom-3 -right-3 w-20 opacity-10"
           />
           <p className="text-xs font-semibold">Odysseo Education</p>
-          <p className="mt-0.5 text-[11px] text-[#9A9AA6]">Tableau de bord · v1.1</p>
+          <p className="mt-0.5 text-[11px] text-[#9A9AA6]">{tRoot("version")}</p>
         </div>
       </aside>
     </>

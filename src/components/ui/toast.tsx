@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
 import { CheckCircle2, AlertCircle, Info, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,7 @@ const TONES = {
 };
 
 export function ToastProvider({ children }: { children: ReactNode }) {
+  const tc = useTranslations("dashboard.common");
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const dismiss = useCallback((id: number) => setToasts((all) => all.filter((t) => t.id !== id)), []);
@@ -30,7 +32,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const push = useCallback(
     (toast: Omit<Toast, "id">) => {
       const id = Date.now() + Math.random();
-      setToasts((all) => [...all.slice(-3), { ...toast, id }]);
+      setToasts((all) => [...all.slice(-2), { ...toast, id }]);
       setTimeout(() => dismiss(id), 4500);
     },
     [dismiss]
@@ -40,7 +42,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     <ToastContext.Provider value={push}>
       {children}
       <div
-        className="pointer-events-none fixed bottom-4 right-4 z-[60] flex w-[calc(100%-2rem)] max-w-sm flex-col gap-2"
+        className="pointer-events-none fixed inset-x-3 bottom-[max(12px,env(safe-area-inset-bottom))] z-[90] flex flex-col gap-2 sm:inset-x-auto sm:bottom-4 sm:right-4 sm:w-full sm:max-w-sm"
         role="status"
         aria-live="polite"
       >
@@ -59,7 +61,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               <button
                 onClick={() => dismiss(t.id)}
                 className="rounded p-0.5 text-gris hover:bg-fond hover:text-noir"
-                aria-label="Fermer"
+                aria-label={tc("close")}
               >
                 <X className="h-4 w-4" />
               </button>

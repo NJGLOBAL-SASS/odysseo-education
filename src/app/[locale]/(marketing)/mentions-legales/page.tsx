@@ -6,7 +6,7 @@ import {
   LegalSection,
 } from "@/components/legal/legal-page-shell";
 
-const LAST_UPDATED = "24 octobre 2026";
+const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
 const PLACEHOLDER_NOTICE_FR =
   "Les informations marquées [à compléter] doivent être renseignées par Odysseo Education avant la mise en ligne, conformément à la réglementation applicable dans son pays d'immatriculation.";
 const PLACEHOLDER_NOTICE_EN =
@@ -24,7 +24,7 @@ export default function LegalNoticePage({
     return (
       <LegalPageShell
         title="Legal Notice"
-        updatedAt={`Last updated: ${LAST_UPDATED}`}
+        updatedAt={`Last updated: ${LAST_UPDATED.en}`}
       >
         <div className="mb-8 rounded-brand border-[1.5px] border-[#E8D26B] bg-[#FFF8D6] p-3.5 text-sm text-[#5B4A00]">
           {PLACEHOLDER_NOTICE_EN}
@@ -47,10 +47,16 @@ export default function LegalNoticePage({
         </LegalSection>
 
         <LegalSection title="2. Hosting">
-          <p>
-            This website is hosted by: [hosting provider name and address — to
-            complete].
-          </p>
+          <ul>
+            <li>
+              Website and dashboard: <strong>Vercel Inc.</strong>, 440 N Barranca Ave #4133,
+              Covina, CA 91723, United States — vercel.com
+            </li>
+            <li>
+              Database: <strong>Neon</strong> (Databricks, Inc.), cloud hosting in the United
+              States — neon.tech
+            </li>
+          </ul>
         </LegalSection>
 
         <LegalSection title="3. Intellectual property">
@@ -83,7 +89,7 @@ export default function LegalNoticePage({
   return (
     <LegalPageShell
       title="Mentions légales"
-      updatedAt={`Dernière mise à jour : ${LAST_UPDATED}`}
+      updatedAt={`Dernière mise à jour : ${LAST_UPDATED.fr}`}
     >
       <div className="mb-8 rounded-brand border-[1.5px] border-[#E8D26B] bg-[#FFF8D6] p-3.5 text-sm text-[#5B4A00]">
         {PLACEHOLDER_NOTICE_FR}
@@ -106,10 +112,16 @@ export default function LegalNoticePage({
       </LegalSection>
 
       <LegalSection title="2. Hébergement">
-        <p>
-          Ce site est hébergé par : [nom et adresse de l'hébergeur — à
-          compléter].
-        </p>
+        <ul>
+          <li>
+            Site et tableau de bord : <strong>Vercel Inc.</strong>, 440 N Barranca Ave #4133,
+            Covina, CA 91723, États-Unis — vercel.com
+          </li>
+          <li>
+            Base de données : <strong>Neon</strong> (Databricks, Inc.), hébergement cloud aux
+            États-Unis — neon.tech
+          </li>
+        </ul>
       </LegalSection>
 
       <LegalSection title="3. Propriété intellectuelle">

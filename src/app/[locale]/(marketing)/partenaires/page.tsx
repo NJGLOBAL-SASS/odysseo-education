@@ -1,6 +1,9 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link2, Gift, TrendingUp } from "lucide-react";
 
+import { PartnerApplicationForm } from "@/components/marketing/partner-application-form";
+import { BrandWatermark } from "@/components/layout/brand-watermark";
+
 export default async function PartnersPublicPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
   const t = await getTranslations("partner");
@@ -19,37 +22,33 @@ export default async function PartnersPublicPage({ params }: { params: { locale:
       ];
 
   return (
-    <div className="wrap-site py-14">
-      <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">
-          {isFr ? "Devenez partenaire Odysseo" : "Become an Odysseo partner"}
-        </h1>
-        <p className="mt-3 text-gris">
-          {isFr
-            ? "Un programme simple et transparent pour récompenser celles et ceux qui nous apportent des étudiants sérieux."
-            : "A simple, transparent program to reward those who bring us serious students."}
-        </p>
-      </div>
+    <div className="relative isolate">
+      <BrandWatermark />
+      <div className="wrap-site relative py-14">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-extrabold sm:text-4xl">
+            {isFr ? "Devenez partenaire Odysseo" : "Become an Odysseo partner"}
+          </h1>
+          <p className="mt-3 text-gris">
+            {isFr
+              ? "Un programme simple et transparent pour récompenser celles et ceux qui nous apportent des étudiants sérieux."
+              : "A simple, transparent program to reward those who bring us serious students."}
+          </p>
+        </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-3">
-        {steps.map((s) => (
-          <div key={s.title} className="card p-5">
-            <s.icon className="mb-3 h-6 w-6 text-rouge" />
-            <h3 className="mb-1 font-extrabold">{s.title}</h3>
-            <p className="text-sm text-gris">{s.text}</p>
-          </div>
-        ))}
-      </div>
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {steps.map((s) => (
+            <div key={s.title} className="card p-5">
+              <s.icon className="mb-3 h-6 w-6 text-rouge" />
+              <h3 className="mb-1 font-extrabold">{s.title}</h3>
+              <p className="text-sm text-gris">{s.text}</p>
+            </div>
+          ))}
+        </div>
 
-      <div className="mx-auto mt-10 max-w-md text-center">
-        <a href="mailto:partenaires@odysseo-education.com" className="btn-primary !w-auto">
-          {isFr ? "Devenir partenaire" : "Become a partner"}
-        </a>
-        <p className="mt-3 text-xs text-gris">
-          {isFr
-            ? "Un membre de l'équipe vous crée un compte et un code de parrainage."
-            : "A team member will set up your account and referral code."}
-        </p>
+        <div id="demande" className="mx-auto mt-12 max-w-2xl scroll-mt-6">
+          <PartnerApplicationForm />
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,14 @@ import { publicSiteUrl } from "@/lib/referral";
  * Documentation : https://developers.brevo.com/reference/sendtransacemail
  * La clé API commence par "xkeysib-" (et non "xsmtpsib-", qui est une clé SMTP).
  */
-export async function sendEmail(to: string, subject: string, html: string) {
+export type EmailAttachment = { name: string; content: string /* base64 */ };
+
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string,
+  opts: { attachments?: EmailAttachment[]; replyTo?: { email: string; name?: string } } = {}
+) {
   const apiKey = process.env.BREVO_API_KEY;
 
   if (!apiKey) {
@@ -28,6 +35,8 @@ export async function sendEmail(to: string, subject: string, html: string) {
       to: [{ email: to }],
       subject,
       htmlContent: html,
+      ...(opts.replyTo ? { replyTo: opts.replyTo } : {}),
+      ...(opts.attachments?.length ? { attachment: opts.attachments } : {}),
     }),
   });
 
@@ -39,23 +48,25 @@ export async function sendEmail(to: string, subject: string, html: string) {
   return { sent: true as const };
 }
 
-/** Vérifie la clé Brevo sans envoyer d'email (utilisé par la page Paramètres). */
-export async function checkBrevoAccount() {
+export type HealthResult = { ok: boolean; code: string; params?: Record<string, string | number> };
+
+/** Vérifie la clé Brevo sans envoyer d'email (page Paramètres ; texte traduit côté page). */
+export async function checkBrevoAccount(): Promise<HealthResult> {
   const apiKey = process.env.BREVO_API_KEY;
-  if (!apiKey) return { ok: false, detail: "BREVO_API_KEY non configurée" };
+  if (!apiKey) return { ok: false, code: "brevoMissing" };
   try {
     const res = await fetch("https://api.brevo.com/v3/account", {
       headers: { "api-key": apiKey, Accept: "application/json" },
       cache: "no-store",
     });
     const json = await res.json();
-    if (!res.ok) return { ok: false, detail: `Clé refusée par Brevo (${json.message ?? res.status})` };
-    const credits = (json.plan as { type: string; credits: number }[] | undefined)
-      ?.map((p) => `${p.type} · ${p.credits} crédits`)
-      .join(", ");
-    return { ok: true, detail: credits ? `Compte actif — ${credits}` : "Compte actif" };
+    if (!res.ok) return { ok: false, code: "brevoRejected", params: { reason: String(json.message ?? res.status) } };
+    const plan = (json.plan as { type: string; credits: number }[] | undefined)?.[0];
+    return plan
+      ? { ok: true, code: "brevoActive", params: { type: plan.type, credits: plan.credits } }
+      : { ok: true, code: "brevoActiveNoCredits" };
   } catch (err) {
-    return { ok: false, detail: `Brevo injoignable : ${String(err)}` };
+    return { ok: false, code: "unreachable", params: { service: "Brevo", error: String(err).slice(0, 160) } };
   }
 }
 
@@ -77,11 +88,13 @@ export function emailLayout({
   intro,
   bodyHtml,
   cta,
+  footer = "Odysseo Education — message automatique, merci de ne pas y répondre directement.",
 }: {
   title: string;
   intro?: string;
   bodyHtml: string;
   cta?: { label: string; url: string };
+  footer?: string;
 }) {
   const logo = `${publicSiteUrl()}/images/logo/logo-full-white-tight.png`;
   return `<!doctype html>
@@ -104,7 +117,7 @@ export function emailLayout({
           }
         </td></tr>
         <tr><td style="padding:14px 24px;border-top:1px solid #E3E3E8;font-size:12px;color:#5B5B66">
-          Odysseo Education — message automatique, merci de ne pas y répondre directement.
+          ${escapeHtml(footer)}
         </td></tr>
       </table>
     </td></tr>
@@ -122,4 +135,25 @@ export function emailRows(rows: [string, string | number | null | undefined][]) 
     )
     .join("");
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${cells}</table>`;
+}
+
+/** Texte saisi par l'équipe (sans mise en forme) → paragraphes HTML échappés. */
+export function textToHtml(text: string) {
+  return escapeHtml(text.trim())
+    .split(/\n{2,}/)
+    .map((p) => `<p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#0B0B0D">${p.replace(/\n/g, "<br>")}</p>`)
+    .join("");
+}
+
+/** Mise en forme e-mail du HTML (déjà nettoyé) produit par l'éditeur du dashboard. */
+export function styleRichHtml(html: string) {
+  return html
+    .replace(/<p>/g, '<p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#0B0B0D">')
+    .replace(/<div>/g, '<div style="font-size:15px;line-height:1.6;color:#0B0B0D">')
+    .replace(/<h2>/g, '<h2 style="margin:18px 0 8px;font-size:18px;font-weight:800">')
+    .replace(/<h3>/g, '<h3 style="margin:16px 0 6px;font-size:16px;font-weight:700">')
+    .replace(/<ul>/g, '<ul style="margin:0 0 12px;padding-left:22px;font-size:15px;line-height:1.6">')
+    .replace(/<ol>/g, '<ol style="margin:0 0 12px;padding-left:22px;font-size:15px;line-height:1.6">')
+    .replace(/<blockquote>/g, '<blockquote style="margin:0 0 12px;padding:8px 14px;border-left:3px solid #FF0000;background:#F4F4F6;color:#5B5B66">')
+    .replace(/<a href=/g, '<a style="color:#D60000;font-weight:600" href=');
 }

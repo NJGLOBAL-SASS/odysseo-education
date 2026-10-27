@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FileDown, FileSpreadsheet, FileText } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { toCsv } from "@/lib/export/csv";
 import { Spinner } from "@/components/ui/spinner";
@@ -36,6 +37,8 @@ export function ExportButtons<T>({
   offlineRows?: T[];
   offlineColumns?: ExportColumn<T>[];
 }) {
+  const t = useTranslations("dashboard.export");
+  const tc = useTranslations("dashboard.common");
   const toast = useToast();
   const [pending, setPending] = useState<ExportFormat | null>(null);
 
@@ -60,7 +63,7 @@ export function ExportButtons<T>({
         `odysseo-${resource}-${new Date().toISOString().slice(0, 10)}.${format}`;
       saveBlob(await res.blob(), filename);
     } catch {
-      toast({ tone: "error", title: "Export impossible", description: "Réessayez dans un instant." });
+      toast({ tone: "error", title: t("failed"), description: tc("retry") });
     } finally {
       setPending(null);
     }
@@ -78,7 +81,7 @@ export function ExportButtons<T>({
               disabled={!offlineRows?.length}
               className="btn-sm-ghost"
             >
-              <Icon className="h-4 w-4" /> CSV (hors-ligne)
+              <Icon className="h-4 w-4" /> {t("offlineCsv")}
             </button>
           );
         }
@@ -88,7 +91,7 @@ export function ExportButtons<T>({
             type="button"
             onClick={() => download(format)}
             disabled={isOffline || pending !== null}
-            title={isOffline ? `${label} nécessite une connexion internet` : `Exporter en ${label}`}
+            title={isOffline ? t("needsConnection", { format: label }) : t("exportAs", { format: label })}
             className="btn-sm-ghost"
           >
             {pending === format ? <Spinner /> : <Icon className="h-4 w-4" />} {label}

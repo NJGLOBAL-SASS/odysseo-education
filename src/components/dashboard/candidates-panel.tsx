@@ -17,6 +17,7 @@ type Row = CandidateExportRow & { partner?: { referralCode: string; fullName?: s
 
 export function CandidatesPanel({ locale }: { locale: string }) {
   const t = useTranslations("dashboard.candidates");
+  const tc = useTranslations("dashboard.common");
   const statusLabels = locale === "en" ? STATUS_LABELS_EN : STATUS_LABELS_FR;
   const { data, loading, isOffline, cachedAt } = useOfflineDataset<Row>(
     "candidatures",
@@ -49,10 +50,14 @@ export function CandidatesPanel({ locale }: { locale: string }) {
     <div>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="page-eyebrow">Suivi</p>
+          <p className="page-eyebrow">{t("eyebrow")}</p>
           <h1 className="page-title">{t("title")}</h1>
           <p className="mt-1 text-sm text-gris">
-            {loading ? "Chargement…" : `${filtered.length} dossier(s)${hasFilters ? ` sur ${data.length}` : ""}`}
+            {loading
+              ? t("loading")
+              : hasFilters
+                ? t("countOf", { count: filtered.length, total: data.length })
+                : t("count", { count: filtered.length })}
           </p>
         </div>
         <ExportButtons
@@ -77,7 +82,7 @@ export function CandidatesPanel({ locale }: { locale: string }) {
           />
         </div>
         <select value={status} onChange={(e) => setStatus(e.target.value)} className="field-input !min-h-[42px] text-sm lg:w-48">
-          <option value="">Tous les statuts</option>
+          <option value="">{t("allStatuses")}</option>
           {Object.entries(statusLabels).map(([value, label]) => (
             <option key={value} value={value}>
               {label}
@@ -85,7 +90,7 @@ export function CandidatesPanel({ locale }: { locale: string }) {
           ))}
         </select>
         <select value={level} onChange={(e) => setLevel(e.target.value)} className="field-input !min-h-[42px] text-sm lg:w-44">
-          <option value="">Tous les niveaux</option>
+          <option value="">{t("allLevels")}</option>
           {optionEntries("targetLevel", locale).map(([value, label]) => (
             <option key={value} value={value}>
               {label}
@@ -97,9 +102,9 @@ export function CandidatesPanel({ locale }: { locale: string }) {
           onChange={(e) => setSource(e.target.value as typeof source)}
           className="field-input !min-h-[42px] text-sm lg:w-44"
         >
-          <option value="">Toutes les sources</option>
-          <option value="partner">Via un partenaire</option>
-          <option value="direct">Sans partenaire</option>
+          <option value="">{t("allSources")}</option>
+          <option value="partner">{t("viaPartner")}</option>
+          <option value="direct">{t("direct")}</option>
         </select>
         {hasFilters && (
           <button
@@ -111,7 +116,7 @@ export function CandidatesPanel({ locale }: { locale: string }) {
             }}
             className="btn-sm-ghost !min-h-[42px]"
           >
-            <X className="h-4 w-4" /> Effacer
+            <X className="h-4 w-4" /> {tc("clear")}
           </button>
         )}
       </div>
@@ -124,10 +129,10 @@ export function CandidatesPanel({ locale }: { locale: string }) {
             <thead className="table-head">
               <tr>
                 <th className="px-4 py-3">{t("columns.name")}</th>
-                <th className="px-4 py-3">Contact</th>
+                <th className="px-4 py-3">{t("columns.contact")}</th>
                 <th className="px-4 py-3">{t("columns.country")}</th>
                 <th className="px-4 py-3">{t("columns.level")}</th>
-                <th className="px-4 py-3">Géré par</th>
+                <th className="px-4 py-3">{t("columns.managedBy")}</th>
                 <th className="px-4 py-3">{t("source")}</th>
                 <th className="px-4 py-3">{t("columns.status")}</th>
                 <th className="px-4 py-3 text-right">{t("columns.date")}</th>
@@ -170,7 +175,7 @@ export function CandidatesPanel({ locale }: { locale: string }) {
                       </span>
                     ) : (
                       <span className="text-xs text-gris">
-                        {optionLabel("discoverySource", c.discoverySource, locale) || "Direct"}
+                        {optionLabel("discoverySource", c.discoverySource, locale) || t("directLabel")}
                       </span>
                     )}
                   </td>
@@ -188,10 +193,8 @@ export function CandidatesPanel({ locale }: { locale: string }) {
                 <tr>
                   <td colSpan={8} className="px-4 py-14 text-center">
                     <Inbox className="mx-auto mb-2 h-8 w-8 text-bord" />
-                    <p className="font-semibold">{hasFilters ? "Aucun dossier ne correspond" : "Aucun dossier"}</p>
-                    <p className="text-sm text-gris">
-                      {hasFilters ? "Modifiez ou effacez les filtres." : "Les candidatures apparaîtront ici."}
-                    </p>
+                    <p className="font-semibold">{hasFilters ? t("noMatch") : t("empty")}</p>
+                    <p className="text-sm text-gris">{hasFilters ? t("noMatchHint") : t("emptyHint")}</p>
                   </td>
                 </tr>
               )}

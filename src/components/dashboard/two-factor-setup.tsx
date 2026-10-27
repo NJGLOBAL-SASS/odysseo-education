@@ -8,6 +8,7 @@ import { Spinner } from "@/components/ui/spinner";
 
 export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
   const t = useTranslations("dashboard.settings");
+  const tc = useTranslations("dashboard.common");
   const [enrolling, setEnrolling] = useState(false);
   const [qr, setQr] = useState<string | null>(null);
   const [secret, setSecret] = useState<string | null>(null);
@@ -22,12 +23,12 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
     try {
       const res = await fetch("/api/auth/2fa/setup", { method: "POST" });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Erreur");
+      if (!res.ok) throw new Error(json.error || tc("error"));
       setQr(json.qrDataUrl);
       setSecret(json.secret);
       setEnrolling(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur");
+      setError(err instanceof Error ? err.message : tc("error"));
     } finally {
       setLoading(false);
     }
@@ -44,7 +45,7 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
       });
       const json = await res.json();
       if (!res.ok) {
-        setError(json.error || "Erreur");
+        setError(json.error || tc("error"));
         return;
       }
       setDone(true);
@@ -57,7 +58,7 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
   if (done) {
     return (
       <p className="flex items-center gap-2 text-sm font-semibold text-ok">
-        <ShieldCheck className="h-4 w-4" /> 2FA activée sur ce compte.
+        <ShieldCheck className="h-4 w-4" /> {t("twoFactorOn")}
       </p>
     );
   }
@@ -79,7 +80,7 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {qr && <img src={qr} alt="QR code 2FA" width={180} height={180} />}
       <p className="my-2 text-xs text-gris">
-        Scannez ce QR code avec Google Authenticator ou Authy, puis entrez le code généré.
+        {t("scanQr")}
       </p>
       <input
         value={code}
@@ -91,7 +92,7 @@ export function TwoFactorSetup({ enabled }: { enabled: boolean }) {
       {error && <p className="mb-2 text-sm text-erreur">{error}</p>}
       <button onClick={confirm} disabled={code.length !== 6 || loading} className="btn-sm-primary w-full">
         {loading && <Spinner />}
-        {loading ? "Vérification…" : "Confirmer"}
+        {loading ? t("verifying") : t("confirm")}
       </button>
     </div>
   );

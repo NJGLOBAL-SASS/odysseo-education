@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { BellRing, Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Spinner } from "@/components/ui/spinner";
 
@@ -15,6 +16,7 @@ function urlBase64ToUint8Array(base64String: string) {
 type Status = "checking" | "idle" | "working" | "done" | "unsupported" | "denied" | "error";
 
 export function PushSubscribeButton() {
+  const t = useTranslations("dashboard.settings.push");
   const [status, setStatus] = useState<Status>("checking");
   const [error, setError] = useState("");
 
@@ -76,21 +78,20 @@ export function PushSubscribeButton() {
   if (status === "done") {
     return (
       <p className="flex items-center gap-2 text-sm font-semibold text-ok">
-        <Check className="h-4 w-4" /> Notifications push activées sur cet appareil.
+        <Check className="h-4 w-4" /> {t("enabled")}
       </p>
     );
   }
 
   if (status === "unsupported") {
-    return <p className="text-sm text-gris">Ce navigateur ne prend pas en charge les notifications push.</p>;
+    // Sur iPhone, Safari n'expose PushManager que dans l'application installée.
+    const ios = typeof navigator !== "undefined" && /iphone|ipad|ipod/i.test(navigator.userAgent);
+    return <p className="text-sm text-gris">{ios ? t("iosHint") : t("unsupported")}</p>;
   }
 
   if (status === "denied") {
     return (
-      <p className="text-sm text-erreur">
-        Les notifications sont bloquées pour ce site. Autorisez-les dans les réglages du navigateur
-        (icône cadenas à gauche de l&apos;adresse), puis rechargez la page.
-      </p>
+      <p className="text-sm text-erreur">{t("denied")}</p>
     );
   }
 
@@ -98,7 +99,7 @@ export function PushSubscribeButton() {
     <div>
       <button onClick={enable} disabled={status === "working"} className="btn-sm-dark">
         {status === "working" ? <Spinner /> : <BellRing className="h-4 w-4" />}
-        {status === "working" ? "Activation…" : "Activer les notifications push"}
+        {status === "working" ? t("enabling") : t("enable")}
       </button>
       {status === "error" && <p className="mt-2 text-sm text-erreur">{error}</p>}
     </div>
