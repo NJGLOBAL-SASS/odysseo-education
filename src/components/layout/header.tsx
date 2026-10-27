@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "./locale-switcher";
+import { MobileNav } from "./mobile-nav";
 
 export async function Header() {
   const t = await getTranslations("nav");
@@ -38,6 +39,7 @@ export async function Header() {
           <Link href="/postuler" className="btn-primary hidden !min-h-[38px] !px-4 text-sm sm:inline-flex">
             {t("apply")}
           </Link>
+          <MobileNav />
         </div>
       </div>
     </header>

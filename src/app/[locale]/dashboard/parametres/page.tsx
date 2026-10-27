@@ -109,7 +109,7 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
         <h1 className="page-title">{t("title")}</h1>
       </div>
 
-      <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[220px_minmax(0,900px)]">
+      <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[220px_minmax(0,1fr)] 2xl:grid-cols-[240px_minmax(0,1100px)]">
         <aside>
           <SettingsNav />
         </aside>

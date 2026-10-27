@@ -3,7 +3,7 @@
     "home": "Accueil",
     "services": "Nos services",
     "apply": "Déposer mon dossier",
-    "partners": "Devenir partenaire", "programs": "Nos cursus",
+    "partners": "Devenir partenaire", "programs": "Nos cursus", "openMenu": "Ouvrir le menu", "closeMenu": "Fermer le menu", "menu": "Menu",
     "brand": "Odysseo Education"
   },
   "home": {
@@ -694,6 +694,30 @@
       }
     },
     "team": {
+      "stats": {
+        "members": "Membres",
+        "admins": "Administrateurs",
+        "pending": "Invitations en attente",
+        "twoFactor": "2FA activée",
+        "twoFactorValue": "{on} / {total}"
+      },
+      "columns": {
+        "member": "Membre",
+        "role": "Rôle",
+        "access": "Connexion",
+        "security": "Sécurité",
+        "added": "Ajouté le",
+        "actions": "Actions"
+      },
+      "filters": {
+        "all": "Tous",
+        "admins": "Administrateurs",
+        "staff": "Membres",
+        "pending": "En attente"
+      },
+      "roleStaff": "Membre",
+      "noAccess": "Aucune connexion encore",
+      "emptyFilter": "Aucun membre dans ce filtre.",
       "eyebrow": "Accès au dashboard",
       "title": "Membres de l'équipe",
       "summary": "{count} membre(s) · {admins} administrateur(s)",

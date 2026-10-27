@@ -7,7 +7,7 @@ export default async function TeamPage() {
   const members = await listMembers();
 
   return (
-    <div className="max-w-4xl">
+    <div>
       <TeamPanel
         members={members.map((m) => ({
           ...m,

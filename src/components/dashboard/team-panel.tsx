@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   UserPlus,
   ShieldCheck,
@@ -16,6 +16,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { StatCard } from "@/components/dashboard/stat-card";
 import { Spinner } from "@/components/ui/spinner";
 import { ConfirmDialog } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/toast";
@@ -33,6 +34,9 @@ type Member = {
   pending: boolean;
   inviteExpiresAt: string | null;
 };
+
+const FILTERS = ["all", "admins", "staff", "pending"] as const;
+type Filter = (typeof FILTERS)[number];
 
 function initials(m: Member) {
   return (m.name || m.email)
@@ -82,6 +86,8 @@ export function TeamPanel({
   const [busy, setBusy] = useState<string | null>(null);
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Member | null>(null);
+  const [filter, setFilter] = useState<Filter>("all");
+  const locale = useLocale();
 
   async function invite(e: FormEvent) {
     e.preventDefault();
@@ -154,6 +160,126 @@ export function TeamPanel({
 
   const admins = members.filter((m) => m.role === "ADMIN").length;
   const pending = members.filter((m) => m.pending).length;
+  const active = members.filter((m) => !m.pending);
+  const withTwoFactor = active.filter((m) => m.twoFactorEnabled).length;
+
+  const counts: Record<Filter, number> = {
+    all: members.length,
+    admins,
+    staff: members.length - admins,
+    pending,
+  };
+  const visible = members.filter((m) =>
+    filter === "admins" ? m.role === "ADMIN" : filter === "staff" ? m.role === "STAFF" : filter === "pending" ? m.pending : true
+  );
+  const dateFmt = new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", year: "numeric" });
+
+  function renderMenu(m: Member) {
+    if (!isAdmin || m.id === currentUserId) return null;
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setMenuFor(menuFor === m.id ? null : m.id)}
+          disabled={busy === m.id}
+          className="flex h-9 w-9 items-center justify-center rounded-[10px] text-gris hover:bg-fond hover:text-noir"
+          aria-label={tc("actionsFor", { name: m.name || m.email })}
+          aria-expanded={menuFor === m.id}
+        >
+          {busy === m.id ? <Spinner /> : <MoreHorizontal className="h-5 w-5" />}
+        </button>
+        {menuFor === m.id && (
+          <>
+            <div className="fixed inset-0 z-40" onClick={() => setMenuFor(null)} />
+            <div className="absolute right-0 top-10 z-50 w-60 animate-fade-up overflow-hidden rounded-brand bg-white py-1.5 shadow-pop">
+              {m.role === "STAFF" ? (
+                <MenuItem icon={Crown} onClick={() => action(m, "promote")}>
+                  {t("actions.promote")}
+                </MenuItem>
+              ) : (
+                <MenuItem icon={Users} onClick={() => action(m, "demote")}>
+                  {t("actions.demote")}
+                </MenuItem>
+              )}
+              {(m.pending || !m.hasPassword) && (
+                <MenuItem icon={Send} onClick={() => action(m, "resend")}>
+                  {m.pending ? t("actions.resend") : t("actions.sendPasswordLink")}
+                </MenuItem>
+              )}
+              {m.twoFactorEnabled && (
+                <MenuItem icon={ShieldOff} onClick={() => action(m, "reset2fa")}>
+                  {t("actions.reset2fa")}
+                </MenuItem>
+              )}
+              <div className="my-1 border-t border-bord" />
+              <MenuItem icon={Trash2} danger onClick={() => (setMenuFor(null), setConfirmDelete(m))}>
+                {t("actions.remove")}
+              </MenuItem>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  const avatar = (m: Member) => (
+    <span
+      className={cn(
+        "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold",
+        m.pending ? "border-2 border-dashed border-bord text-gris" : "bg-noir text-white"
+      )}
+    >
+      {initials(m)}
+    </span>
+  );
+
+  const roleBadge = (m: Member) =>
+    m.role === "ADMIN" ? (
+      <Pill tone="dark">
+        <Crown className="h-3 w-3" /> {t("admin")}
+      </Pill>
+    ) : (
+      <Pill>{t("roleStaff")}</Pill>
+    );
+
+  const accessPills = (m: Member) =>
+    m.pending ? (
+      <Pill tone="warn">
+        <Clock className="h-3 w-3" />
+        {m.inviteExpiresAt ? t("pending") : t("expired")}
+      </Pill>
+    ) : m.hasPassword || m.hasGoogle ? (
+      <>
+        {m.hasPassword && (
+          <Pill>
+            <KeyRound className="h-3 w-3" /> {t("password")}
+          </Pill>
+        )}
+        {m.hasGoogle && <Pill>{t("google")}</Pill>}
+      </>
+    ) : (
+      <span className="text-xs text-gris">{t("noAccess")}</span>
+    );
+
+  const securityPill = (m: Member) =>
+    m.twoFactorEnabled ? (
+      <Pill tone="ok">
+        <ShieldCheck className="h-3 w-3" /> {t("twoFactor")}
+      </Pill>
+    ) : m.hasPassword && !m.pending ? (
+      <Pill tone="warn">{t("noTwoFactor")}</Pill>
+    ) : (
+      <span className="text-xs text-gris">—</span>
+    );
+
+  const identity = (m: Member) => (
+    <div className="min-w-0">
+      <p className="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
+        <span className="[overflow-wrap:anywhere]">{m.name || "—"}</span>
+        {m.id === currentUserId && <Pill>{t("you")}</Pill>}
+      </p>
+      <p className="text-xs text-gris [overflow-wrap:anywhere]">{m.email}</p>
+    </div>
+  );
 
   return (
     <div>
@@ -171,6 +297,17 @@ export function TeamPanel({
             <UserPlus className="h-4 w-4" /> {t("invite")}
           </button>
         )}
+      </div>
+
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+        <StatCard icon={Users} label={t("stats.members")} value={members.length} accent />
+        <StatCard icon={Crown} label={t("stats.admins")} value={admins} />
+        <StatCard icon={Clock} label={t("stats.pending")} value={pending} />
+        <StatCard
+          icon={ShieldCheck}
+          label={t("stats.twoFactor")}
+          value={t("stats.twoFactorValue", { on: withTwoFactor, total: active.length })}
+        />
       </div>
 
       {!isAdmin && (
@@ -227,112 +364,90 @@ export function TeamPanel({
         </form>
       )}
 
+      <div className="-mx-4 mb-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="tablist">
+        {FILTERS.map((f) => (
+          <button
+            key={f}
+            role="tab"
+            aria-selected={filter === f}
+            onClick={() => setFilter(f)}
+            className={cn(
+              "inline-flex flex-shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors",
+              filter === f ? "border-noir bg-noir text-white" : "border-bord bg-white text-gris hover:text-noir"
+            )}
+          >
+            {t(`filters.${f}`)}
+            <span className={cn("tabular-nums text-xs", filter === f ? "text-white/70" : "text-gris")}>{counts[f]}</span>
+          </button>
+        ))}
+      </div>
+
       <div className="card">
-        {members.length === 0 ? (
+        {members.length === 0 || visible.length === 0 ? (
           <div className="px-4 py-14 text-center">
             <Users className="mx-auto mb-2 h-8 w-8 text-bord" />
-            <p className="font-semibold">{t("empty")}</p>
+            <p className="font-semibold">{members.length === 0 ? t("empty") : t("emptyFilter")}</p>
           </div>
         ) : (
-          <ul className="divide-y divide-bord">
-            {members.map((m) => {
-              const isSelf = m.id === currentUserId;
-              return (
-                <li key={m.id} className="flex flex-wrap items-center gap-3 px-4 py-3.5 sm:flex-nowrap sm:px-5">
-                  <span
-                    className={cn(
-                      "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold",
-                      m.pending ? "border-2 border-dashed border-bord text-gris" : "bg-noir text-white"
-                    )}
-                  >
-                    {initials(m)}
-                  </span>
+          <>
+            {/* Ordinateur : colonnes alignées */}
+            <table className="hidden w-full text-left text-sm lg:table">
+              <thead>
+                <tr className="border-b border-bord text-xs font-semibold uppercase tracking-wide text-gris">
+                  <th className="px-5 py-3 font-semibold">{t("columns.member")}</th>
+                  <th className="px-3 py-3 font-semibold">{t("columns.role")}</th>
+                  <th className="px-3 py-3 font-semibold">{t("columns.access")}</th>
+                  <th className="px-3 py-3 font-semibold">{t("columns.security")}</th>
+                  <th className="whitespace-nowrap px-3 py-3 font-semibold">{t("columns.added")}</th>
+                  <th className="w-14 px-3 py-3">
+                    <span className="sr-only">{t("columns.actions")}</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-bord">
+                {visible.map((m) => (
+                  <tr key={m.id} className="transition-colors hover:bg-fond/60">
+                    <td className="px-5 py-3.5">
+                      <div className="flex items-center gap-3">
+                        {avatar(m)}
+                        {identity(m)}
+                      </div>
+                    </td>
+                    <td className="px-3 py-3.5">{roleBadge(m)}</td>
+                    <td className="px-3 py-3.5">
+                      <div className="flex flex-wrap gap-1.5">{accessPills(m)}</div>
+                    </td>
+                    <td className="px-3 py-3.5">{securityPill(m)}</td>
+                    <td className="whitespace-nowrap px-3 py-3.5 text-gris tabular-nums">
+                      {dateFmt.format(new Date(m.createdAt))}
+                    </td>
+                    <td className="px-3 py-3.5 text-right">{renderMenu(m)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
-                      <span className="truncate">{m.name || "—"}</span>
-                      {isSelf && <Pill>{t("you")}</Pill>}
-                      {m.role === "ADMIN" && (
-                        <Pill tone="dark">
-                          <Crown className="h-3 w-3" /> {t("admin")}
-                        </Pill>
-                      )}
-                    </p>
-                    <p className="truncate text-xs text-gris">{m.email}</p>
+            {/* Mobile et tablette : cartes empilées */}
+            <ul className="divide-y divide-bord lg:hidden">
+              {visible.map((m) => (
+                <li key={m.id} className="px-4 py-4 sm:px-5">
+                  <div className="flex items-start gap-3">
+                    {avatar(m)}
+                    <div className="min-w-0 flex-1">{identity(m)}</div>
+                    {renderMenu(m)}
                   </div>
-
-                  <div className="flex flex-wrap items-center gap-1.5 sm:justify-end">
-                    {m.pending ? (
-                      <Pill tone="warn">
-                        <Clock className="h-3 w-3" />
-                        {m.inviteExpiresAt ? t("pending") : t("expired")}
-                      </Pill>
-                    ) : (
-                      <>
-                        {m.hasPassword && (
-                          <Pill>
-                            <KeyRound className="h-3 w-3" /> {t("password")}
-                          </Pill>
-                        )}
-                        {m.hasGoogle && <Pill>{t("google")}</Pill>}
-                        {m.twoFactorEnabled ? (
-                          <Pill tone="ok">
-                            <ShieldCheck className="h-3 w-3" /> {t("twoFactor")}
-                          </Pill>
-                        ) : (
-                          m.hasPassword && <Pill tone="warn">{t("noTwoFactor")}</Pill>
-                        )}
-                      </>
-                    )}
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5 pl-[52px]">
+                    {roleBadge(m)}
+                    {accessPills(m)}
+                    {m.twoFactorEnabled || (m.hasPassword && !m.pending) ? securityPill(m) : null}
                   </div>
-
-                  {isAdmin && !isSelf && (
-                    <div className="relative">
-                      <button
-                        onClick={() => setMenuFor(menuFor === m.id ? null : m.id)}
-                        disabled={busy === m.id}
-                        className="flex h-9 w-9 items-center justify-center rounded-[10px] text-gris hover:bg-fond hover:text-noir"
-                        aria-label={tc("actionsFor", { name: m.name || m.email })}
-                        aria-expanded={menuFor === m.id}
-                      >
-                        {busy === m.id ? <Spinner /> : <MoreHorizontal className="h-5 w-5" />}
-                      </button>
-                      {menuFor === m.id && (
-                        <>
-                          <div className="fixed inset-0 z-40" onClick={() => setMenuFor(null)} />
-                          <div className="absolute right-0 top-10 z-50 w-60 animate-fade-up overflow-hidden rounded-brand bg-white py-1.5 shadow-pop">
-                            {m.role === "STAFF" ? (
-                              <MenuItem icon={Crown} onClick={() => action(m, "promote")}>
-                                {t("actions.promote")}
-                              </MenuItem>
-                            ) : (
-                              <MenuItem icon={Users} onClick={() => action(m, "demote")}>
-                                {t("actions.demote")}
-                              </MenuItem>
-                            )}
-                            {(m.pending || !m.hasPassword) && (
-                              <MenuItem icon={Send} onClick={() => action(m, "resend")}>
-                                {m.pending ? t("actions.resend") : t("actions.sendPasswordLink")}
-                              </MenuItem>
-                            )}
-                            {m.twoFactorEnabled && (
-                              <MenuItem icon={ShieldOff} onClick={() => action(m, "reset2fa")}>
-                                {t("actions.reset2fa")}
-                              </MenuItem>
-                            )}
-                            <div className="my-1 border-t border-bord" />
-                            <MenuItem icon={Trash2} danger onClick={() => (setMenuFor(null), setConfirmDelete(m))}>
-                              {t("actions.remove")}
-                            </MenuItem>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  )}
+                  <p className="mt-2 pl-[52px] text-xs text-gris">
+                    {t("columns.added")} {dateFmt.format(new Date(m.createdAt))}
+                  </p>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          </>
         )}
       </div>
 

@@ -3,7 +3,7 @@
     "home": "Home",
     "services": "Our services",
     "apply": "Submit my application",
-    "partners": "Become a partner", "programs": "Our programs",
+    "partners": "Become a partner", "programs": "Our programs", "openMenu": "Open menu", "closeMenu": "Close menu", "menu": "Menu",
     "brand": "Odysseo Education"
   },
   "home": {
@@ -694,6 +694,30 @@
       }
     },
     "team": {
+      "stats": {
+        "members": "Members",
+        "admins": "Administrators",
+        "pending": "Pending invitations",
+        "twoFactor": "2FA enabled",
+        "twoFactorValue": "{on} / {total}"
+      },
+      "columns": {
+        "member": "Member",
+        "role": "Role",
+        "access": "Sign-in",
+        "security": "Security",
+        "added": "Added",
+        "actions": "Actions"
+      },
+      "filters": {
+        "all": "All",
+        "admins": "Administrators",
+        "staff": "Members",
+        "pending": "Pending"
+      },
+      "roleStaff": "Member",
+      "noAccess": "No sign-in yet",
+      "emptyFilter": "No members in this filter.",
       "eyebrow": "Dashboard access",
       "title": "Team members",
       "summary": "{count} member(s) · {admins} administrator(s)",
