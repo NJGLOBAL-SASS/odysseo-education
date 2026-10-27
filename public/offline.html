@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B0B0D" />
+    <title>Hors-ligne — Odysseo</title>
+    <link rel="icon" href="/images/logo/favicon-64.png" />
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; }
+      body {
+        display: flex; flex-direction: column; background: #f4f4f6; color: #0b0b0d;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      header { background: #0b0b0d; padding: 16px 20px; padding-top: max(16px, env(safe-area-inset-top)); }
+      header img { height: 28px; width: auto; display: block; }
+      main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 32px 16px; }
+      .card {
+        width: 100%; max-width: 420px; background: #fff; border-radius: 12px; padding: 32px 24px; text-align: center;
+        box-shadow: 0 1px 2px rgba(11, 11, 13, .04), 0 0 0 1px rgba(11, 11, 13, .05);
+      }
+      .badge {
+        width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; background: #0b0b0d; color: #fff;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .bar { width: 40px; height: 3px; border-radius: 999px; background: #ff0000; margin: 0 auto 16px; }
+      h1 { font-size: 22px; font-weight: 800; margin: 0 0 8px; letter-spacing: -0.01em; }
+      p { margin: 0 0 8px; color: #5b5b66; font-size: 15px; line-height: 1.5; }
+      .hint { font-size: 13px; }
+      button {
+        margin-top: 20px; width: 100%; min-height: 50px; border: 0; border-radius: 12px; background: #ff0000; color: #fff;
+        font: inherit; font-weight: 700; font-size: 16px; cursor: pointer;
+      }
+      button:active { background: #d60000; }
+      .status { margin-top: 12px; font-size: 13px; color: #5b5b66; }
+    </style>
+  </head>
+  <body>
+    <header><img src="/images/logo/logo-full-white-tight.png" alt="Odysseo Education" /></header>
+    <main>
+      <div class="card">
+        <div class="badge" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h.01" /><path d="M8.5 16.43a5 5 0 0 1 7 0" /><path d="M5 12.86a10 10 0 0 1 5.17-2.69" />
+            <path d="M19 12.86a10 10 0 0 0-2.01-1.52" /><path d="M2 8.82a15 15 0 0 1 4.17-2.65" />
+            <path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76" /><path d="m2 2 20 20" />
+          </svg>
+        </div>
+        <div class="bar"></div>
+        <h1>Vous êtes hors-ligne</h1>
+        <p>Cette page n'a pas encore été consultée sur cet appareil, elle n'est donc pas disponible sans connexion.</p>
+        <p class="hint">Les pages déjà ouvertes (candidatures, partenaires…) restent consultables hors-ligne.</p>
+        <button type="button" onclick="location.reload()">Réessayer</button>
+        <p class="status" id="status" aria-live="polite"></p>
+      </div>
+    </main>
+    <script>
+      // Recharge automatiquement dès le retour de la connexion.
+      window.addEventListener("online", function () {
+        document.getElementById("status").textContent = "Connexion rétablie, rechargement…";
+        location.reload();
+      });
+    </script>
+  </body>
+</html>

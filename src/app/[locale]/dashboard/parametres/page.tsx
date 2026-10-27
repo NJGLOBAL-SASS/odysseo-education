@@ -9,6 +9,7 @@ import { checkSheetsAccess } from "@/lib/google-sheets";
 import { APP_TIME_ZONE } from "@/lib/utils";
 import { TwoFactorSetup } from "@/components/dashboard/two-factor-setup";
 import { PushSubscribeButton } from "@/components/dashboard/push-subscribe-button";
+import { InstallAppCard } from "@/components/dashboard/install-app";
 import {
   ChannelHealthList,
   NotificationPreferences,
@@ -122,6 +123,10 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
             <PushSubscribeButton />
           </div>
         </section>
+
+        <div className="lg:col-span-2">
+          <InstallAppCard />
+        </div>
 
         <section className="card p-5">
           <h2 className="section-title mb-1">{t("twoFactor")}</h2>

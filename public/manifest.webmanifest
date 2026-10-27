@@ -1,17 +1,42 @@
 {
-  "name": "Odysseo Education — Tableau de bord",
-  "short_name": "Odysseo Team",
-  "description": "Tableau de bord équipe Odysseo Education (candidatures, partenaires, newsletter).",
-  "start_url": "/dashboard",
+  "id": "/dashboard",
+  "name": "Odysseo Education — Espace équipe",
+  "short_name": "Odysseo",
+  "description": "Tableau de bord de l'équipe Odysseo Education : candidatures, partenaires, newsletter et notifications.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/fr/dashboard?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#F4F4F6",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#0B0B0D",
   "theme_color": "#0B0B0D",
+  "categories": ["business", "education", "productivity"],
   "icons": [
+    { "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
     {
-      "src": "/images/logo/favicon-64.png",
-      "sizes": "64x64",
-      "type": "image/png"
+      "name": "Candidatures",
+      "short_name": "Candidatures",
+      "url": "/fr/dashboard/candidatures?source=pwa",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Partenaires",
+      "short_name": "Partenaires",
+      "url": "/fr/dashboard/partenaires?source=pwa",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Paramètres & notifications",
+      "short_name": "Paramètres",
+      "url": "/fr/dashboard/parametres?source=pwa",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
     }
   ]
 }

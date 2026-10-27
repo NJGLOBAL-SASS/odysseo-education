@@ -2,12 +2,19 @@ import type { ReactNode } from "react";
 
 import { Link } from "@/i18n/navigation";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
+import { ServiceWorkerRegister } from "@/components/dashboard/service-worker-register";
+import { teamAppMetadata, teamAppViewport } from "@/lib/pwa/metadata";
+
+// La connexion fait partie de l'application installable (même manifest que le dashboard).
+export const metadata = teamAppMetadata;
+export const viewport = teamAppViewport;
 
 // Coquille minimale, sans navigation publique : utilisée uniquement sur le
 // sous-domaine team.odysseo-education.com (voir src/middleware.ts).
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-fond">
+      <ServiceWorkerRegister />
       <header className="relative z-10 bg-noir py-4">
         <div className="wrap-site">
           <Link href="/dashboard">

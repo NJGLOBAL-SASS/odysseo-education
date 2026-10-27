@@ -57,3 +57,12 @@ export async function loadDataset<T>(resource: string): Promise<CachedDataset<T>
   db.close();
   return result;
 }
+
+/** Supprime toutes les données mises en cache (appelé à la déconnexion). */
+export async function clearAllDatasets(): Promise<void> {
+  if (typeof indexedDB === "undefined") return;
+  await new Promise<void>((resolve) => {
+    const req = indexedDB.deleteDatabase(DB_NAME);
+    req.onsuccess = req.onerror = req.onblocked = () => resolve();
+  });
+}

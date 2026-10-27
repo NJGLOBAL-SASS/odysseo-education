@@ -4,14 +4,13 @@ import { auth } from "@/lib/auth";
 import { redirect } from "@/i18n/navigation";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { ServiceWorkerRegister } from "@/components/dashboard/service-worker-register";
+import { teamAppMetadata, teamAppViewport } from "@/lib/pwa/metadata";
 
 // Back-office protégé par session : jamais de rendu statique / cache.
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Odysseo Education — Équipe",
-  manifest: "/manifest.webmanifest",
-};
+export const metadata = teamAppMetadata;
+export const viewport = teamAppViewport;
 
 export default async function DashboardLayout({
   children,
@@ -27,7 +26,7 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <ServiceWorkerRegister />
+      <ServiceWorkerRegister warm />
       <DashboardShell
         user={{ name: session?.user?.name, email: session?.user?.email, role: session?.user?.role }}
       >

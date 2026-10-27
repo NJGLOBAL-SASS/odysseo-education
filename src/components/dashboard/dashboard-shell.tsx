@@ -9,6 +9,8 @@ import { Sidebar } from "./sidebar";
 import { NotificationBell } from "./notification-bell";
 import { ToastProvider } from "@/components/ui/toast";
 import { Spinner } from "@/components/ui/spinner";
+import { InstallAppBanner, InstallAppMenuItem } from "./install-app";
+import { clearOfflineData } from "@/lib/pwa/install";
 
 type ShellUser = { name?: string | null; email?: string | null; role?: string };
 
@@ -70,9 +72,12 @@ function UserMenu({ user }: { user: ShellUser }) {
           >
             <Settings className="h-4 w-4 text-gris" /> Paramètres
           </Link>
+          <InstallAppMenuItem onDone={() => setOpen(false)} />
           <button
-            onClick={() => {
+            onClick={async () => {
               setSigningOut(true);
+              // Aucune donnée de candidat ne doit rester sur l'appareil après déconnexion.
+              await clearOfflineData().catch(() => {});
               signOut({ callbackUrl: "/" });
             }}
             disabled={signingOut}
@@ -119,7 +124,10 @@ export function DashboardShell({ user, children }: { user: ShellUser; children: 
             </div>
           </header>
 
-          <main className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
+          <main className="mx-auto w-full max-w-[1320px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+            <InstallAppBanner />
+            {children}
+          </main>
         </div>
       </div>
     </ToastProvider>

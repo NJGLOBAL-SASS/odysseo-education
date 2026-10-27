@@ -407,6 +407,28 @@ données nécessairement à jour.
 
 ---
 
+### 11.1 Application installable (PWA)
+
+Le tableau de bord s'installe comme une application (Android, iPhone, Chrome /
+Edge sur ordinateur) : icône sur l'écran d'accueil, plein écran, raccourcis
+(Candidatures, Partenaires, Paramètres) par appui long sur l'icône.
+
+- `public/manifest.webmanifest` + icônes `public/icons/` (192, 512, maskable,
+  apple-touch-icon). Métadonnées partagées : `src/lib/pwa/metadata.ts`
+  (dashboard + pages de connexion, jamais indexées).
+- Proposition d'installation : menu du profil, carte « Application » dans
+  Paramètres, bandeau mobile masquable. Sur iPhone, Safari n'ayant pas de
+  bouton d'installation, une fenêtre explique « Partager → Sur l'écran
+  d'accueil ». Les notifications push iOS exigent l'application installée.
+- `public/sw.js` : à l'ouverture du dashboard (connecté, en ligne), précharge
+  les pages principales, leurs fichiers JS/CSS et les listes (IndexedDB).
+  Hors-ligne : dernière version des pages + `public/offline.html` pour une page
+  jamais consultée.
+- **Déconnexion** : pages en cache et IndexedDB effacées (aucune donnée de
+  candidat ne reste sur un appareil partagé).
+- Pour publier une nouvelle version du service worker : incrémenter `VERSION`
+  dans `public/sw.js` (les anciens caches sont alors supprimés).
+
 ## 12. Notifications
 
 `src/lib/notifications/index.ts::notifyNewCandidate()` est appelé après chaque
