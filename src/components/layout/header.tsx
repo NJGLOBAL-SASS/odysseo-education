@@ -22,6 +22,9 @@ export async function Header() {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-semibold text-[#EDEDF2] md:flex">
+          <Link href="/cursus" className="hover:text-white">
+            {t("programs")}
+          </Link>
           <Link href="/services" className="hover:text-white">
             {t("services")}
           </Link>

@@ -58,24 +58,24 @@ export function ChannelHealthList({ channels }: { channels: ChannelHealth[] }) {
         const Icon = ICONS[c.key];
         const s = STATE[c.state];
         return (
-          <li key={c.key} className="flex flex-wrap items-center gap-3 py-3.5 first:pt-0 last:pb-0">
+          <li key={c.key} className="flex items-start gap-3 py-3.5 first:pt-0 last:pb-0 sm:items-center">
             <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] bg-fond">
               <Icon className="h-[18px] w-[18px]" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-2 text-sm font-semibold">
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm font-semibold">
                 {c.name}
                 <span className={cn("inline-flex items-center gap-1 text-xs font-semibold", s.cls)}>
                   <s.Icon className="h-3.5 w-3.5" /> {t(`state.${c.state}`)}
                 </span>
               </p>
-              <p className="text-xs text-gris">{c.detail}</p>
+              <p className="text-xs text-gris [overflow-wrap:anywhere]">{c.detail}</p>
             </div>
             {c.testable && (
               <button
                 onClick={() => test(c.key)}
                 disabled={testing !== null}
-                className="btn-sm-ghost !min-h-[34px] text-xs"
+                className="btn-sm-ghost !min-h-[34px] flex-shrink-0 text-xs"
               >
                 {testing === c.key ? <Spinner className="h-3.5 w-3.5" /> : <Send className="h-3.5 w-3.5" />}
                 {testing === c.key ? t("testing") : t("test")}
@@ -103,7 +103,7 @@ function Toggle({
 }) {
   return (
     <label className="flex cursor-pointer items-start justify-between gap-4 py-3 first:pt-0 last:pb-0">
-      <span>
+      <span className="min-w-0 [overflow-wrap:anywhere]">
         <span className="block text-sm font-semibold">{label}</span>
         <span className="block text-xs text-gris">{description}</span>
       </span>

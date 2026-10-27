@@ -10,6 +10,7 @@ import { APP_TIME_ZONE } from "@/lib/utils";
 import { TwoFactorSetup } from "@/components/dashboard/two-factor-setup";
 import { PushSubscribeButton } from "@/components/dashboard/push-subscribe-button";
 import { InstallAppCard } from "@/components/dashboard/install-app";
+import { SettingsNav } from "@/components/dashboard/settings-nav";
 import {
   ChannelHealthList,
   NotificationPreferences,
@@ -89,77 +90,88 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
 
   const dateTime = new Intl.DateTimeFormat(params.locale, { dateStyle: "short", timeStyle: "short", timeZone: APP_TIME_ZONE });
 
+  const prefsInitial = {
+    // Sans préférence enregistrée, l'email part seulement si l'adresse figure dans NOTIFY_ADMIN_EMAILS.
+    emailOnNewLead:
+      user?.notificationPrefs?.emailOnNewLead ??
+      (process.env.NOTIFY_ADMIN_EMAILS ?? "")
+        .toLowerCase()
+        .split(",")
+        .map((e) => e.trim())
+        .includes(user?.email.toLowerCase() ?? ""),
+    pushOnNewLead: user?.notificationPrefs?.pushOnNewLead ?? true,
+  };
+
   return (
-    <div className="max-w-4xl">
+    <div>
       <div className="mb-6">
         <p className="page-eyebrow">{t("eyebrow")}</p>
         <h1 className="page-title">{t("title")}</h1>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <section className="card p-5 lg:col-span-2">
-          <h2 className="section-title mb-1">{t("channels")}</h2>
-          <p className="mb-4 text-xs text-gris">{t("channelsHint")}</p>
-          <ChannelHealthList channels={channels} />
-        </section>
+      <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[220px_minmax(0,900px)]">
+        <aside>
+          <SettingsNav />
+        </aside>
 
-        <section className="card flex flex-col gap-4 p-5 sm:flex-row sm:items-center lg:col-span-2">
-          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#E6F4EA] text-[#188038]">
-            <Sheet className="h-5 w-5" />
-          </span>
-          <div className="min-w-0 flex-1">
-            <h2 className="section-title">{t("sheetTitle")}</h2>
-            <p className="text-xs text-gris">{t("sheetText")}</p>
-            {process.env.GOOGLE_SHEETS_CLIENT_EMAIL && (
-              <p className="mt-1 truncate text-[11px] text-gris">
-                {t("sheetShare", { email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL })}
-              </p>
-            )}
-          </div>
-          {sheetUrl ? (
-            <a href={sheetUrl} target="_blank" rel="noopener noreferrer" className="btn-sm-dark flex-shrink-0">
-              <ExternalLink className="h-4 w-4" /> {t("sheetOpen")}
-            </a>
-          ) : (
-            <p className="text-sm text-erreur">{t("sheetMissing")}</p>
-          )}
-        </section>
+        <div className="min-w-0 space-y-10">
+          <SettingsSection id="notifications" title={t("sections.notifications")} hint={t("sectionsHint.notifications")}>
+            <section className="card p-5">
+              <h3 className="section-title mb-1">{t("channels")}</h3>
+              <p className="mb-4 text-xs text-gris">{t("channelsHint")}</p>
+              <ChannelHealthList channels={channels} />
+            </section>
+            <section className="card p-5">
+              <h3 className="section-title mb-1">{t("notifications")}</h3>
+              <p className="mb-4 text-xs text-gris">{t("notificationsHint")}</p>
+              <NotificationPreferences initial={prefsInitial} />
+              <div className="mt-5 border-t border-bord pt-4">
+                <p className="mb-2 text-sm font-semibold">{t("thisDevice")}</p>
+                <PushSubscribeButton />
+              </div>
+            </section>
+          </SettingsSection>
 
-        <section className="card p-5">
-          <h2 className="section-title mb-1">{t("notifications")}</h2>
-          <p className="mb-4 text-xs text-gris">{t("notificationsHint")}</p>
-          <NotificationPreferences
-            initial={{
-              // Sans préférence enregistrée, l'email part seulement si l'adresse figure dans NOTIFY_ADMIN_EMAILS.
-              emailOnNewLead:
-                user?.notificationPrefs?.emailOnNewLead ??
-                (process.env.NOTIFY_ADMIN_EMAILS ?? "")
-                  .toLowerCase()
-                  .split(",")
-                  .map((e) => e.trim())
-                  .includes(user?.email.toLowerCase() ?? ""),
-              pushOnNewLead: user?.notificationPrefs?.pushOnNewLead ?? true,
-            }}
-          />
-          <div className="mt-5 border-t border-bord pt-4">
-            <p className="mb-2 text-sm font-semibold">{t("thisDevice")}</p>
-            <PushSubscribeButton />
-          </div>
-        </section>
+          <SettingsSection id="integrations" title={t("sections.integrations")} hint={t("sectionsHint.integrations")}>
+            <section className="card flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
+              <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#E6F4EA] text-[#188038]">
+                <Sheet className="h-5 w-5" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <h3 className="section-title">{t("sheetTitle")}</h3>
+                <p className="text-xs text-gris">{t("sheetText")}</p>
+                {process.env.GOOGLE_SHEETS_CLIENT_EMAIL && (
+                  <p className="mt-1 text-[11px] text-gris [overflow-wrap:anywhere]">
+                    {t("sheetShare", { email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL })}
+                  </p>
+                )}
+              </div>
+              {sheetUrl ? (
+                <a href={sheetUrl} target="_blank" rel="noopener noreferrer" className="btn-sm-dark flex-shrink-0">
+                  <ExternalLink className="h-4 w-4" /> {t("sheetOpen")}
+                </a>
+              ) : (
+                <p className="text-sm text-erreur">{t("sheetMissing")}</p>
+              )}
+            </section>
+          </SettingsSection>
 
-        <section className="card p-5">
-          <h2 className="section-title mb-1">{t("twoFactor")}</h2>
-          <p className="mb-4 text-xs text-gris">{t("twoFactorHint")}</p>
-          <TwoFactorSetup enabled={Boolean(user?.twoFactorEnabled)} />
-        </section>
+          <SettingsSection id="security" title={t("sections.security")} hint={t("sectionsHint.security")}>
+            <section className="card p-5">
+              <h3 className="section-title mb-1">{t("twoFactor")}</h3>
+              <p className="mb-4 text-xs text-gris">{t("twoFactorHint")}</p>
+              <TwoFactorSetup enabled={Boolean(user?.twoFactorEnabled)} />
+            </section>
+          </SettingsSection>
 
-        <div className="lg:col-span-2">
-          <InstallAppCard />
-        </div>
+          <SettingsSection id="app" title={t("sections.app")} hint={t("sectionsHint.app")}>
+            <InstallAppCard />
+          </SettingsSection>
 
-        <section className="card overflow-hidden lg:col-span-2">
+          <SettingsSection id="log" title={t("sections.log")} hint={t("sectionsHint.log")}>
+            <section className="card overflow-hidden">
           <div className="p-5 pb-3">
-            <h2 className="section-title">{t("log")}</h2>
+            <h3 className="section-title">{t("log")}</h3>
             <p className="text-xs text-gris">{t("logHint")}</p>
           </div>
           <div className="overflow-x-auto">
@@ -210,7 +222,22 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
             </table>
           </div>
         </section>
+          </SettingsSection>
+        </div>
       </div>
+    </div>
+  );
+}
+
+/** Bloc de section des paramètres (ancre de navigation + titre). */
+function SettingsSection({ id, title, hint, children }: { id: string; title: string; hint: string; children: React.ReactNode }) {
+  return (
+    <div id={id} className="scroll-mt-32 space-y-4 lg:scroll-mt-24">
+      <div>
+        <h2 className="text-lg font-extrabold tracking-tight">{title}</h2>
+        <p className="text-sm text-gris">{hint}</p>
+      </div>
+      {children}
     </div>
   );
 }

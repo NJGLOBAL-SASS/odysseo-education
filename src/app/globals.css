@@ -137,3 +137,41 @@ body {
     animation-duration: 3s;
   }
 }
+
+/* Brochures PDF (src/app/[locale]/brochure) : A4 pleine page, couleurs conservées.
+   Marge basse réservée au pied de page ajouté par Chrome (contact + n° de page). */
+@media print {
+  @page {
+    size: A4;
+    margin: 0 0 16mm 0;
+  }
+  html,
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: #fff !important;
+  }
+  .brochure section,
+  .brochure table,
+  .brochure tr {
+    break-inside: avoid;
+  }
+}
+/* Le PDF est imprimé à l'échelle 90 % (scripts/generate-brochures.ts) : la mise
+   en page est donc dessinée sur 210 mm / 0,9 pour occuper toute la largeur A4. */
+.brochure {
+  --brochure-gutter: 15.5mm;
+  width: calc(210mm / 0.9);
+  padding: 0 var(--brochure-gutter);
+  font-size: 15px;
+}
+.brochure-bleed {
+  margin-left: calc(-1 * var(--brochure-gutter));
+  margin-right: calc(-1 * var(--brochure-gutter));
+  padding-left: var(--brochure-gutter);
+  padding-right: var(--brochure-gutter);
+}
+.brochure-gutter {
+  padding-left: var(--brochure-gutter);
+  padding-right: var(--brochure-gutter);
+}

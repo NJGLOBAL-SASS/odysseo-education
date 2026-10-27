@@ -462,6 +462,27 @@ Edge sur ordinateur) : icône sur l'écran d'accueil, plein écran, raccourcis
 - Pour publier une nouvelle version du service worker : incrémenter `VERSION`
   dans `public/sw.js` (les anciens caches sont alors supprimés).
 
+### 11.2 Cursus et brochures PDF
+
+- Pages publiques `/cursus` (liste) et `/cursus/[slug]` (`langue-chinoise`,
+  `bachelor`, `master`, `doctorat`), en français et en anglais, reprenant les
+  grilles tarifaires officielles 2027, avec boutons de téléchargement des
+  brochures dans les deux langues.
+- **Source unique** : `src/lib/programs.ts` (tarifs, échéancier, documents,
+  textes propres à chaque cursus) + clé `programs` de `src/i18n/messages/*.json`
+  (textes communs). Changer un tarif là met à jour la page **et** la brochure.
+- Brochures : `public/brochures/`. Les versions françaises sont les PDF
+  d'origine ; les versions anglaises (`*_EN.pdf`) sont générées depuis la mise
+  en page A4 `/[locale]/brochure/[slug]` :
+  ```bash
+  npm run dev                               # l'application doit tourner
+  npm run brochures                         # régénère les PDF anglais
+  npm run brochures -- --locales=fr,en      # régénère aussi les PDF français
+  ```
+  (Google Chrome requis ; `CHROME_PATH` et `BROCHURE_BASE_URL` modifiables.)
+  Après un changement de tarif, régénérer les deux langues pour que les PDF
+  restent identiques aux pages.
+
 ## 12. Notifications
 
 `src/lib/notifications/index.ts::notifyNewCandidate()` est appelé après chaque
