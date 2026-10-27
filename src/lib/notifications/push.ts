@@ -14,7 +14,7 @@ function ensureConfigured() {
   if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) return false;
 
   webpush.setVapidDetails(
-    VAPID_SUBJECT || "mailto:contact@odysseo-education.com",
+    VAPID_SUBJECT || "mailto:contact.odysseo@gmail.com",
     VAPID_PUBLIC_KEY,
     VAPID_PRIVATE_KEY
   );
