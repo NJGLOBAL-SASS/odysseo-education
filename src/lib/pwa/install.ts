@@ -67,6 +67,7 @@ export async function clearOfflineData() {
   await clearAllDatasets().catch(() => {});
   const reg = await navigator.serviceWorker?.getRegistration().catch(() => undefined);
   reg?.active?.postMessage({ type: "CLEAR_CACHE" });
+  await navigator.clearAppBadge?.().catch(() => {});
   if ("caches" in window) {
     const keys = await caches.keys();
     await Promise.all(keys.filter((k) => k.startsWith("odysseo-pages-")).map((k) => caches.delete(k)));

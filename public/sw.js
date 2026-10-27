@@ -5,9 +5,10 @@
  *     (les listes elles-mêmes sont mises en cache en IndexedDB, voir src/lib/offline/db.ts).
  *  3) Effacement de tout le cache à la déconnexion (message CLEAR_CACHE) :
  *     aucune donnée de candidat ne doit rester sur un appareil partagé.
+ *  4) Pastille de l'icône (API Badging) : total des nouveautés reçu avec chaque push.
  */
 
-const VERSION = "v3";
+const VERSION = "v4";
 const STATIC_CACHE = `odysseo-static-${VERSION}`;
 const PAGES_CACHE = `odysseo-pages-${VERSION}`;
 const OFFLINE_URL = "/offline.html";
@@ -100,7 +101,7 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("message", (event) => {
   if (event.data?.type === "CLEAR_CACHE") {
-    event.waitUntil(caches.delete(PAGES_CACHE));
+    event.waitUntil(Promise.all([caches.delete(PAGES_CACHE), setBadge(0)]));
   }
 
   // Préchargement des pages principales (envoyé par le dashboard une fois connecté et en ligne),
@@ -141,18 +142,27 @@ self.addEventListener("message", (event) => {
   }
 });
 
+/** Pastille de l'icône de l'application (Chrome/Edge ordinateur, Safari macOS et iOS 16.4+ installé). */
+function setBadge(count) {
+  if (!("setAppBadge" in navigator)) return Promise.resolve();
+  return (count > 0 ? navigator.setAppBadge(count) : navigator.clearAppBadge()).catch(() => {});
+}
+
 self.addEventListener("push", (event) => {
   if (!event.data) return;
   const payload = event.data.json();
   event.waitUntil(
-    self.registration.showNotification(payload.title || "Odysseo Education", {
-      body: payload.body,
-      icon: "/icons/icon-192.png",
-      badge: "/icons/icon-96.png",
-      tag: payload.url || "odysseo",
-      renotify: true,
-      data: { url: payload.url || "/fr/dashboard" },
-    })
+    Promise.all([
+      typeof payload.badge === "number" ? setBadge(payload.badge) : Promise.resolve(),
+      self.registration.showNotification(payload.title || "Odysseo Education", {
+        body: payload.body,
+        icon: "/icons/icon-192.png",
+        badge: "/icons/icon-96.png",
+        tag: payload.url || "odysseo",
+        renotify: true,
+        data: { url: payload.url || "/fr/dashboard" },
+      }),
+    ])
   );
 });
 

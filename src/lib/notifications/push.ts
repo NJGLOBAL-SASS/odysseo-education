@@ -1,5 +1,6 @@
 import webpush from "web-push";
 
+import { badgeTotal, getDashboardCounts } from "@/lib/dashboard-counts";
 import { prisma } from "@/lib/prisma";
 
 let configured = false;
@@ -27,8 +28,10 @@ type PushPayload = { title: string; body: string; url?: string };
 /**
  * Envoie une notification aux appareils abonnés. Sans `userId`, cible tous
  * les membres de l'équipe qui n'ont pas désactivé les alertes "nouveau dossier".
+ * Avec `badge` (alertes réelles, pas les tests), chaque appareil reçoit aussi le
+ * total de nouveautés de son membre, affiché en pastille sur l'icône de l'application.
  */
-export async function sendPush(payload: PushPayload, opts: { userId?: string } = {}) {
+export async function sendPush(payload: PushPayload, opts: { userId?: string; badge?: boolean } = {}) {
   if (!ensureConfigured()) {
     console.warn("[push] VAPID non configuré — notification push non envoyée.");
     return { sent: 0, total: 0, reason: "Clés VAPID non configurées" };
@@ -51,6 +54,14 @@ export async function sendPush(payload: PushPayload, opts: { userId?: string } =
   let sent = 0;
   let lastError = "";
 
+  const badges = new Map<string, number>();
+  if (opts.badge) {
+    const userIds = [...new Set(subscriptions.map((s) => s.userId).filter((id): id is string => !!id))];
+    await Promise.all(
+      userIds.map(async (id) => badges.set(id, badgeTotal(await getDashboardCounts(id))))
+    );
+  }
+
   await Promise.all(
     subscriptions.map(async (sub) => {
       try {
@@ -59,7 +70,7 @@ export async function sendPush(payload: PushPayload, opts: { userId?: string } =
             endpoint: sub.endpoint,
             keys: { p256dh: sub.p256dh, auth: sub.auth },
           },
-          JSON.stringify(payload)
+          JSON.stringify(sub.userId && badges.has(sub.userId) ? { ...payload, badge: badges.get(sub.userId) } : payload)
         );
         sent++;
       } catch (err: unknown) {

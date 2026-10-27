@@ -4,7 +4,9 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 
 import { usePathname } from "@/i18n/navigation";
 
-export type DashboardCounts = { candidates: number; partnerRequests: number; newsletter: number };
+import type { DashboardCounts } from "@/lib/dashboard-counts";
+
+export type { DashboardCounts };
 
 const EMPTY: DashboardCounts = { candidates: 0, partnerRequests: 0, newsletter: 0 };
 const POLL_MS = 45_000;
@@ -69,5 +71,34 @@ export function DashboardCountsProvider({ children }: { children: ReactNode }) {
     if (!SEEN_ON_VISIT[pathname]) lastSeenPath.current = null;
   }, [pathname]);
 
+  const total = counts.candidates + counts.partnerRequests + counts.newsletter;
+  useAppBadge(total);
+
   return <CountsContext.Provider value={{ counts, refresh }}>{children}</CountsContext.Provider>;
+}
+
+const TITLE_PREFIX = /^\(\d+\+?\)\s/;
+
+/**
+ * Total des nouveautés affiché comme une messagerie : pastille sur l'icône de
+ * l'application installée (API Badging) et « (3) » devant le titre de l'onglet.
+ */
+function useAppBadge(total: number) {
+  useEffect(() => {
+    if ("setAppBadge" in navigator) {
+      (total > 0 ? navigator.setAppBadge(total) : navigator.clearAppBadge()).catch(() => {});
+    }
+
+    // Next.js réécrit le titre à chaque navigation : on remet le préfixe à chaque changement.
+    const label = total > 99 ? "99+" : String(total);
+    const apply = () => {
+      const base = document.title.replace(TITLE_PREFIX, "");
+      const next = total > 0 ? `(${label}) ${base}` : base;
+      if (document.title !== next) document.title = next;
+    };
+    apply();
+    const observer = new MutationObserver(apply);
+    observer.observe(document.head, { childList: true, characterData: true, subtree: true });
+    return () => observer.disconnect();
+  }, [total]);
 }

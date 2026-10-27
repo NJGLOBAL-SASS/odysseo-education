@@ -115,7 +115,7 @@ export async function notifyNewCandidate(candidate: Candidate & { partner?: Part
     deliver(
       "PUSH",
       "équipe",
-      () => sendPush({ title: "Nouvelle candidature", body: summary, url: detailPath }),
+      () => sendPush({ title: "Nouvelle candidature", body: summary, url: detailPath }, { badge: true }),
       { subject: "Nouvelle candidature", candidateId: candidate.id }
     ),
   ]);
@@ -320,7 +320,7 @@ export async function notifyPartnerApplication(app: PartnerApplication) {
           title: "Nouvelle demande de partenariat",
           body: `${app.fullName} · ${app.country}`,
           url: "/fr/dashboard/partenaires?onglet=demandes",
-        }),
+        }, { badge: true }),
       { subject: "Demande de partenariat" }
     ),
   ]);
