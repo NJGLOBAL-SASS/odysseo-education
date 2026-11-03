@@ -25,6 +25,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# worker pdf.js copié à l'installation (scripts/copy-pdf-worker.mjs)
+/public/pdfjs/
+
 # prisma
 /prisma/dev.db
 Prompt_Odysseo_Management_Platform.txt

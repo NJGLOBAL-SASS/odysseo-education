@@ -45,6 +45,10 @@ model User {
 
   partnerApplicationsReviewed PartnerApplication[] @relation("ApplicationReviewer")
   candidateMessagesSent       CandidateMessage[]
+  pointsEntriesCreated        PointsLedgerEntry[]
+  documentFoldersCreated      DocumentFolder[]
+  documentFilesUploaded       DocumentFile[]
+  documentActivities          DocumentActivity[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -199,17 +203,25 @@ enum PointsReason {
   MANUAL_ADJUSTMENT
 }
 
+// Journal des points : le solde du partenaire est la somme de ses lignes.
+// Une ligne négative est un retrait (dossier rétrogradé, ajustement manuel) :
+// on n'efface jamais une ligne, on la compense.
 model PointsLedgerEntry {
-  id          String       @id @default(cuid())
-  partnerId   String
-  partner     Partner      @relation(fields: [partnerId], references: [id], onDelete: Cascade)
-  points      Int // peut être négatif (ajustement)
-  reason      PointsReason
-  note        String?
-  candidateId String?
-  candidate   Candidate?   @relation(fields: [candidateId], references: [id])
-  createdAt   DateTime     @default(now())
+  id           String       @id @default(cuid())
+  partnerId    String
+  partner      Partner      @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  points       Int // positif = ajout, négatif = retrait
+  reason       PointsReason
+  note         String?
+  candidateId  String?
+  candidate    Candidate?   @relation(fields: [candidateId], references: [id])
+  balanceAfter Int? // solde du partenaire juste après cette ligne (null pour les lignes antérieures à la v1.3)
+  createdById  String? // null = automatique (soumission, changement de statut par l'API publique)
+  createdBy    User?        @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt    DateTime     @default(now())
 
+  @@index([partnerId, createdAt])
+  @@index([candidateId])
   @@map("points_ledger_entries")
 }
 
@@ -280,6 +292,8 @@ model Candidate {
   pointsLedgerEntries PointsLedgerEntry[]
   notificationLogs    NotificationLog[]
   messages            CandidateMessage[]
+  documentFolders     DocumentFolder[]
+  documentActivities  DocumentActivity[]
 
   locale String @default("fr")
 
@@ -386,4 +400,86 @@ model CookieConsentLog {
   createdAt DateTime @default(now())
 
   @@map("cookie_consent_logs")
+}
+
+// ============================================================
+// DOCUMENTS (pièces des dossiers candidats + espace « Données » interne)
+// Fichiers stockés en privé sur Vercel Blob : jamais d'URL publique, tout
+// passe par /api/documents/files/[id] (session obligatoire + journal).
+// ============================================================
+
+// Un lot de fichiers envoyé en une fois : « Passeport » (2 scans), « Relevés de notes »...
+// candidateId null = document interne à l'entreprise (espace Données).
+model DocumentFolder {
+  id          String     @id @default(cuid())
+  kind        String // passport | transcript | ... (voir src/lib/documents.ts)
+  title       String
+  description String?    @db.Text
+  candidateId String?
+  candidate   Candidate? @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  createdById String?
+  createdBy   User?      @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  files      DocumentFile[]
+  activities DocumentActivity[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([candidateId, createdAt])
+  @@map("document_folders")
+}
+
+model DocumentFile {
+  id           String         @id @default(cuid())
+  folderId     String
+  folder       DocumentFolder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  name         String // nom d'origine, affiché et proposé au téléchargement
+  size         Int
+  contentType  String
+  blobUrl      String         @unique
+  uploadedById String?
+  uploadedBy   User?          @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  activities DocumentActivity[]
+
+  createdAt DateTime @default(now())
+
+  @@index([folderId])
+  @@map("document_files")
+}
+
+enum DocumentAction {
+  UPLOAD
+  VIEW
+  DOWNLOAD
+  UPDATE
+  DELETE_FILE
+  DELETE_FOLDER
+}
+
+// Traçabilité : qui a envoyé, ouvert, téléchargé ou supprimé quoi, et quand.
+// Les noms sont recopiés pour que le journal reste lisible après une suppression.
+model DocumentActivity {
+  id          String          @id @default(cuid())
+  action      DocumentAction
+  userId      String?
+  user        User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  actorName   String? // nom ou email au moment de l'action
+  folderId    String?
+  folder      DocumentFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  fileId      String?
+  file        DocumentFile?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  candidateId String?
+  candidate   Candidate?      @relation(fields: [candidateId], references: [id], onDelete: SetNull)
+  folderTitle String
+  fileName    String?
+  ip          String?
+  userAgent   String?
+  createdAt   DateTime        @default(now())
+
+  @@index([createdAt])
+  @@index([candidateId, createdAt])
+  @@index([folderId, createdAt])
+  @@map("document_activities")
 }

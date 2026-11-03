@@ -16,6 +16,7 @@ import {
   Pencil,
   Trash2,
   Inbox,
+  Coins,
 } from "lucide-react";
 import QRCode from "qrcode";
 
@@ -30,6 +31,7 @@ import { partnerColumns, type PartnerExportRow } from "@/lib/export/columns";
 import { referralLink, publicSiteUrl } from "@/lib/referral";
 import { cn } from "@/lib/utils";
 import { PartnerApplications } from "./partner-applications";
+import { PartnerPointsDialog } from "./partner-points-dialog";
 import { useDashboardCounts } from "./dashboard-counts";
 
 type Row = PartnerExportRow & { linkClicks?: number };
@@ -232,6 +234,7 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
   const [created, setCreated] = useState<{ partner: Row; emailSent: boolean } | null>(null);
   const [linkFor, setLinkFor] = useState<Row | null>(null);
   const [editing, setEditing] = useState<Row | null>(null);
+  const [pointsFor, setPointsFor] = useState<Row | null>(null);
   const [deleting, setDeleting] = useState<Row | null>(null);
   const [deleteBusy, setDeleteBusy] = useState(false);
   const { copied, copy } = useCopy();
@@ -437,7 +440,16 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
                         <td className="px-4 py-3 text-right tabular-nums text-gris">
                           {clicks > 0 ? `${Math.round((count / clicks) * 100)}%` : "—"}
                         </td>
-                        <td className="px-4 py-3 text-right font-bold tabular-nums">{p.pointsBalance}</td>
+                        <td className="px-4 py-3 text-right">
+                          <button
+                            onClick={() => setPointsFor(p)}
+                            disabled={isOffline}
+                            className="font-bold tabular-nums underline-offset-4 hover:underline disabled:no-underline"
+                            title={t("points.open")}
+                          >
+                            {p.pointsBalance}
+                          </button>
+                        </td>
                         <td className="px-4 py-3">
                           <span
                             className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
@@ -469,6 +481,15 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
                               aria-label={t("qr")}
                             >
                               <QrCode className="h-3.5 w-3.5" />
+                            </button>
+                            <button
+                              onClick={() => setPointsFor(p)}
+                              disabled={isOffline}
+                              className="btn-sm-ghost !min-h-[32px] !px-2"
+                              title={t("points.open")}
+                              aria-label={`${t("points.open")} ${p.fullName}`}
+                            >
+                              <Coins className="h-3.5 w-3.5" />
                             </button>
                             <button
                               onClick={() => setEditing(p)}
@@ -509,6 +530,7 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
         </>
       )}
 
+      {pointsFor && <PartnerPointsDialog partner={pointsFor} onClose={() => setPointsFor(null)} onChanged={refresh} />}
       {editing && <EditPartnerDialog partner={editing} onClose={() => setEditing(null)} onSaved={refresh} />}
       {deleting && (
         <ConfirmDialog

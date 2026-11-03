@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog } from "lucide-react";
+import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog, FolderOpen } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ const NAV: { href: string; icon: typeof Users; key: string; count?: keyof Dashbo
   { href: "/dashboard/candidatures", icon: Users, key: "candidates", count: "candidates" },
   { href: "/dashboard/partenaires", icon: Handshake, key: "partners", count: "partnerRequests" },
   { href: "/dashboard/newsletter", icon: Mail, key: "newsletter", count: "newsletter" },
+  { href: "/dashboard/donnees", icon: FolderOpen, key: "data" },
   { href: "/dashboard/equipe", icon: UserCog, key: "team" },
   { href: "/dashboard/parametres", icon: Settings, key: "settings" },
 ];

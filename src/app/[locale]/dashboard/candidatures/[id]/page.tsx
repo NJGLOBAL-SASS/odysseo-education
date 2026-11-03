@@ -11,6 +11,7 @@ import { StatusUpdater } from "@/components/dashboard/status-updater";
 import { StatusBadge } from "@/components/dashboard/status-badge";
 import { InternalNotes } from "@/components/dashboard/internal-notes";
 import { EmailComposerButton } from "@/components/dashboard/email-composer";
+import { CandidateDocuments } from "@/components/dashboard/documents/candidate-documents";
 
 function Row({ label, value }: { label: string; value?: string | number | null }) {
   if (value === null || value === undefined || value === "") return null;
@@ -167,6 +168,11 @@ export default async function CandidateDetailPage({ params }: { params: { locale
             />
           </Section>
 
+          <CandidateDocuments
+            candidateId={candidate.id}
+            currentUser={{ id: session?.user?.id ?? "", role: session?.user?.role ?? "STAFF" }}
+          />
+
           <section className="card p-5 md:col-span-2">
             <h2 className="section-title mb-3">{t("messages")}</h2>
             {candidate.messages.length === 0 ? (
@@ -240,9 +246,12 @@ export default async function CandidateDetailPage({ params }: { params: { locale
                   <li key={e.id} className="flex items-center justify-between gap-3">
                     <span>
                       {t(`pointsReasons.${e.reason}`)}
+                      {e.note && <span className="block text-xs text-gris">{e.note}</span>}
                       <span className="block text-xs text-gris">{dateTime.format(e.createdAt)}</span>
                     </span>
-                    <span className="font-bold tabular-nums text-ok">+{e.points}</span>
+                    <span className={`font-bold tabular-nums ${e.points > 0 ? "text-ok" : "text-erreur"}`}>
+                      {e.points > 0 ? `+${e.points}` : `−${Math.abs(e.points)}`}
+                    </span>
                   </li>
                 ))}
               </ul>

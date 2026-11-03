@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-import { awardPoints, POINTS_RULES } from "@/lib/points";
+import { syncCandidatePoints } from "@/lib/points";
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
   const session = await auth();
@@ -49,14 +49,9 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     data: body.data,
   });
 
-  // Récompense le partenaire quand le dossier franchit une étape clé du pipeline.
-  if (candidate.partnerId && body.data.status && body.data.status !== existing.status) {
-    if (body.data.status === "QUALIFIE") {
-      await awardPoints(candidate.partnerId, POINTS_RULES.QUALIFIED_LEAD, "QUALIFIED_LEAD", candidate.id);
-    }
-    if (body.data.status === "ADMIS") {
-      await awardPoints(candidate.partnerId, POINTS_RULES.ENROLLED, "ENROLLED", candidate.id);
-    }
+  // Points du partenaire : ajout si le dossier monte de palier, retrait s'il redescend.
+  if (body.data.status) {
+    await syncCandidatePoints(candidate, existing.status, body.data.status, session.user.id);
   }
 
   return NextResponse.json({ candidate });

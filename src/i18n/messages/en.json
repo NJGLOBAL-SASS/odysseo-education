@@ -268,12 +268,13 @@
     }
   },
   "dashboard": {
-    "version": "Dashboard · v1.2",
+    "version": "Dashboard · v1.3",
     "nav": {
       "overview": "Overview",
       "candidates": "Applications",
       "partners": "Partners",
       "newsletter": "Newsletter",
+      "data": "Data",
       "team": "Team",
       "settings": "Settings",
       "signOut": "Sign out",
@@ -608,6 +609,7 @@
         "points": "Points",
         "status": "Status"
       },
+      "points": {"open": "Points: history, add and remove", "title": "{name}'s points", "balance": "Balance: {balance} pts", "operation": "Operation", "add": "Add", "remove": "Remove", "amount": "Points", "note": "Reason", "notePlaceholderAdd": "e.g. end-of-quarter bonus", "notePlaceholderRemove": "e.g. duplicate file, points awarded by mistake", "submitAdd": "Add points", "submitRemove": "Remove points", "amountInvalid": "Enter a number of points greater than 0.", "noteRequired": "A reason is required (at least 3 characters).", "insufficient": "Insufficient balance: the partner only has {balance} pts.", "added": "{count} pt(s) added", "removed": "{count} pt(s) removed", "newBalance": "New balance: {balance} pts", "history": "History", "empty": "No points movements yet.", "by": "by {name}", "automatic": "automatic", "after": "balance {balance}"},
       "copyLink": "Copy the referral link",
       "linkButton": "Link",
       "qr": "QR code and sharing",
@@ -770,6 +772,7 @@
       "removeText": "Their dashboard access is cut off immediately, on all their devices. Applications and partners are not affected. You can invite them again later.",
       "removeConfirm": "Remove"
     },
+    "documents": {"candidateTitle": "File documents", "candidateHint": "Passport, transcripts, diplomas… Private storage: only signed-in team members can access them, and every opening is logged.", "add": "Add documents", "addFiles": "Add files", "open": "Open", "addedBy": "Added by {name} on {date}", "noFiles": "No files in this set.", "empty": "No documents", "emptyHintCandidate": "Add the passport, transcripts or any other document received from the candidate.", "emptyHintInternal": "Store contracts, templates, procedures and other files useful to the whole team here.", "noMatch": "No document matches your search.", "searchPlaceholder": "Search a document, a file…", "allKinds": "All categories", "storageMissing": "File storage is not configured: add the BLOB_READ_WRITE_TOKEN variable (Vercel Blob) to enable document uploads.", "deleteFolder": "Delete set", "deleteForbidden": "Only the uploader or an administrator can delete", "deletedFile": "File deleted", "deletedFolder": "Documents deleted", "confirmDeleteFile": "Delete “{name}”?", "confirmDeleteFileText": "The file is permanently erased from storage. The log keeps a record of the deletion.", "confirmDeleteFolder": "Delete “{title}”?", "confirmDeleteFolderText": "The {count} file(s) in this set are permanently erased from storage. The log keeps a record of the deletion.", "edit": {"title": "Edit details", "saved": "Details updated"}, "upload": {"title": "Add documents", "addTo": "Add files to “{title}”", "hintCandidate": "Pick the document type, then drop one or more files (front, back, pages…).", "hintInternal": "Pick a category, name the document, then drop one or more files.", "kind": "Document type", "name": "Name", "namePlaceholder": "e.g. Passport (front and back)", "description": "Description", "optional": "(optional)", "descriptionPlaceholder": "e.g. valid until 2031, sworn translation needed…", "drop": "Drop your files here or click to choose them", "limits": "PDF, images, Word, Excel, text, zip, video… · {max} max per file · {count} files max", "badType": "“{name}”: format not accepted.", "tooBig": "“{name}” exceeds {max}.", "empty": "“{name}” is empty.", "tooMany": "{max} files maximum per upload.", "remove": "Remove {name}", "titleRequired": "Give the document a name (at least 2 characters).", "filesRequired": "Add at least one file.", "someFailed": "Some files could not be uploaded. Try again: those already uploaded won't be sent twice.", "fileMissing": "An uploaded file cannot be found in storage. Try again.", "sending": "Uploading…", "submit": "{count, plural, =0 {Upload} one {Upload # file} other {Upload # files}}", "done": "{count, plural, one {# file added} other {# files added}}"}, "viewer": {"download": "Download", "previous": "Previous file", "next": "Next file", "noPreview": "No preview available for this format", "noPreviewHint": "Download the file to open it with the right app (Word, Excel…).", "loadFailed": "This file cannot be displayed", "truncated": "preview truncated, download the file to read it in full", "zoomIn": "Zoom in", "zoomOut": "Zoom out", "pages": "{count, plural, one {# page} other {# pages}}"}, "activity": {"title": "Document log", "empty": "No actions recorded yet.", "someone": "A member", "more": "Show more", "showAll": "Show all", "actions": {"UPLOAD": "added", "VIEW": "opened", "DOWNLOAD": "downloaded", "UPDATE": "edited", "DELETE_FILE": "deleted the file", "DELETE_FOLDER": "deleted the set"}}, "space": {"eyebrow": "Company files", "title": "Data", "intro": "Internal documents shared by the team: view them in the app or download them.", "tabs": {"files": "Documents", "activity": "Log"}, "journal": {"internal": "Data space", "all": "All documents"}}, "kinds": {"passport": "Passport", "transcript": "Transcripts", "diploma": "Diploma", "birthCertificate": "Birth certificate", "photo": "ID photo", "cv": "CV / résumé", "motivationLetter": "Motivation letter", "recommendation": "Recommendation letter", "languageCertificate": "Language certificate", "criminalRecord": "Criminal record", "medical": "Medical certificate", "financial": "Proof of funds", "admission": "Admission (Admission Notice, JW202)", "visa": "Visa", "contracts": "Contracts", "templates": "Templates & forms", "procedures": "Procedures & guides", "marketing": "Marketing materials", "universities": "Universities & programmes", "finance": "Finance & accounting", "hr": "Human resources", "other": "Other"}},
     "settings": {
       "eyebrow": "Account & system",
       "title": "Settings",

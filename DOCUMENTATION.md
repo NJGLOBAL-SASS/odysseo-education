@@ -66,6 +66,7 @@ Identifiants créés par le seed :
 - `GOOGLE_SHEETS_SPREADSHEET_ID` / `GOOGLE_SHEETS_CLIENT_EMAIL` / `GOOGLE_SHEETS_PRIVATE_KEY` / `GOOGLE_SHEETS_TAB_NAME` — miroir Google Sheet (voir §10)
 - `WHATSAPP_PHONE_NUMBER_ID` / `WHATSAPP_ACCESS_TOKEN` / `WHATSAPP_ADMIN_NUMBER` — WhatsApp Cloud API (Meta for Developers)
 - `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` — notifications push (`npx web-push generate-vapid-keys`)
+- `BLOB_READ_WRITE_TOKEN` — stockage privé des documents (Vercel Blob, voir §18) ; ajouté automatiquement par Vercel quand un store Blob est relié au projet
 
 Tant que ces clés ne sont pas renseignées, chaque intégration se dégrade proprement
 (log d'avertissement, entrée `NotificationLog` marquée `FAILED`) sans jamais faire
@@ -202,10 +203,34 @@ ses dossiers (détachés) mais efface son historique de clics et de points.
 | Nouveau dossier soumis avec le code | 1 |
 | Dossier passé au statut « Qualifié » | 5 |
 | Étudiant admis | 20 |
-| Ajustement manuel (admin) | libre (`/api/partners/[id]/points`) |
+| Ajustement manuel (équipe) | libre, ajout **ou retrait**, motif obligatoire (`/api/partners/[id]/points`) |
 
 Le barème est isolé dans une constante (`POINTS_RULES`) pour rester modifiable
 sans toucher à la logique métier.
+
+**v1.3 — montées et descentes de statut.** Les points ne s'additionnent plus
+aveuglément : à chaque changement de statut, `syncCandidatePoints` compare les
+bonus que le dossier *devrait* rapporter (palier `STATUS_POINTS_TIER`) à ceux
+réellement inscrits au journal pour ce dossier, et écrit la différence.
+
+| Statut | Palier | Bonus « qualifié » | Bonus « admis » |
+|---|---|---|---|
+| Nouveau, Refusé | 0 | — | — |
+| Qualifié, Dossier en cours, Bourse soumise | 1 | ✓ | — |
+| Admis, Visa en cours | 2 | ✓ | ✓ |
+| Clôturé | neutre | inchangé | inchangé |
+
+- Admis → Dossier en cours : **−20** ; Qualifié → Refusé : **−5** ; Nouveau → Admis : **+5 +20**.
+- Un aller-retour Qualifié → Nouveau → Qualifié ne crédite qu'une fois.
+- Le point « nouveau dossier » reste acquis quel que soit le statut.
+- On n'efface jamais une ligne : un retrait est une ligne négative, avec le motif
+  (« Admis → Dossier en cours »), l'auteur du changement et le solde après opération.
+  Les dossiers crédités deux fois par l'ancienne logique sont corrigés automatiquement
+  à leur prochain changement de statut.
+
+Dashboard → Partenaires → icône pièces (ou clic sur le solde) : historique complet
+des points, ajout et retrait manuels. Un retrait manuel ne peut pas rendre le solde
+négatif.
 
 ### 6.2 Tableau de bord partenaires (`/dashboard/partenaires`)
 
@@ -597,3 +622,50 @@ npm run start
    projet.
 5. Vérifier après déploiement que `GET /api/export/candidatures?format=pdf`
    fonctionne réellement (voir l'avertissement pdfkit en §9).
+
+---
+
+## 18. Documents (dossiers candidats + espace « Données »)
+
+**Où :** fiche candidat → section *Documents du dossier* ; sidebar → *Données*
+(`/dashboard/donnees`) pour les fichiers internes à l'entreprise.
+
+**Ajout :** un formulaire unique — type de document (passeport, relevés,
+diplôme… ou catégorie interne : contrats, modèles, procédures…), nom (pré-rempli
+d'après le type), description facultative, et **plusieurs fichiers d'un coup**
+(glisser-déposer, 20 fichiers / 50 Mo max par fichier). Le menu « ⋯ » d'un lot
+permet d'y ajouter des fichiers plus tard, de le renommer ou de le supprimer.
+
+**Stockage :** Vercel Blob en accès **privé**. Les fichiers partent directement
+du navigateur vers le store (`/api/documents/upload` ne délivre qu'un jeton, ce
+qui contourne la limite de 4,5 Mo des fonctions Vercel), puis `POST /api/documents`
+vérifie leur présence dans le store avant de les rattacher. Aucune URL de fichier
+n'est jamais exposée : tout passe par `/api/documents/files/[id]` (session obligatoire).
+
+**Visualisation dans l'application :** PDF (lecteur du navigateur, ou rendu
+pdf.js là où il n'existe pas — Chrome Android, PWA), images (zoom au clic), vidéo,
+audio, texte/CSV. Word, Excel, zip, HEIC se téléchargent (un aperçu fidèle
+demanderait d'envoyer le fichier à un service tiers). Le worker pdf.js est copié
+dans `public/pdfjs/` par `npm install` (`scripts/copy-pdf-worker.mjs`).
+
+**Traçabilité (`DocumentActivity`) :** ajout, ouverture, téléchargement,
+modification et suppression, avec l'auteur, la date, l'IP et le navigateur. Les
+noms sont recopiés dans le journal, qui reste lisible après une suppression. Une
+même ouverture n'est comptée qu'une fois par période de 2 minutes. Journal visible
+sur chaque fiche candidat et dans *Données → Journal* (espace Données ou tous les
+documents).
+
+**Droits :** tout membre connecté peut consulter, télécharger et ajouter ;
+seul l'auteur d'un envoi ou un administrateur peut supprimer.
+
+**Mise en service :**
+1. Vercel → Storage → *Create* → Blob, puis le relier au projet
+   (`BLOB_READ_WRITE_TOKEN` est ajouté automatiquement ; le recopier dans `.env`
+   pour le développement local).
+2. `npm run db:push` pour créer les tables `document_*` et les nouvelles colonnes
+   du journal des points.
+
+**Limites :** un fichier envoyé puis abandonné (fenêtre fermée avant validation)
+reste dans le store sans être rattaché ; le bouton de téléchargement interne du
+lecteur PDF du navigateur est journalisé comme une ouverture.
+
