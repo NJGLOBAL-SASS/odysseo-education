@@ -16,7 +16,20 @@ export async function Hero() {
         className="object-cover opacity-70"
       />
       <div className="relative wrap-site py-16 sm:py-24">
-        <div className="flex flex-wrap gap-2">
+        <h1 className="mt-4 max-w-2xl text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+          {t.rich("title", {
+            red: (chunks) => <span className="text-rouge">{chunks}</span>,
+          })}
+        </h1>
+        <p className="mt-3 max-w-lg text-[#C9C9D1] sm:text-lg">
+          {t("subtitle")}
+        </p>
+
+        <Link href="/postuler" className="btn-primary mt-6 !w-auto">
+          {t("cta")}
+        </Link>
+
+        <div className="flex flex-wrap gap-2 mt-6 text-[#EDEDF2]">
           {[t("badge1"), t("badge2"), t("badge3"), t("badge4")].map((b) => (
             <span
               key={b}
@@ -26,17 +39,6 @@ export async function Hero() {
             </span>
           ))}
         </div>
-
-        <h1 className="mt-4 max-w-2xl text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">
-          {t.rich("title", {
-            red: (chunks) => <span className="text-rouge">{chunks}</span>,
-          })}
-        </h1>
-        <p className="mt-3 max-w-lg text-[#C9C9D1] sm:text-lg">{t("subtitle")}</p>
-
-        <Link href="/postuler" className="btn-primary mt-6 !w-auto">
-          {t("cta")}
-        </Link>
       </div>
     </section>
   );
