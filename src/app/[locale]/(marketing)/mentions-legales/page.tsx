@@ -7,10 +7,10 @@ import {
 } from "@/components/legal/legal-page-shell";
 
 const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
-const PLACEHOLDER_NOTICE_FR =
-  "Les informations marquées [à compléter] doivent être renseignées par Odysseo Education avant la mise en ligne, conformément à la réglementation applicable dans son pays d'immatriculation.";
-const PLACEHOLDER_NOTICE_EN =
-  "Information marked [to complete] must be filled in by Odysseo Education before going live, in line with the regulations applicable in its country of registration.";
+// const PLACEHOLDER_NOTICE_FR =
+//   "Les informations marquées [à compléter] doivent être renseignées par Odysseo Education avant la mise en ligne, conformément à la réglementation applicable dans son pays d'immatriculation.";
+// const PLACEHOLDER_NOTICE_EN =
+//   "Information marked [to complete] must be filled in by Odysseo Education before going live, in line with the regulations applicable in its country of registration.";
 
 export default function LegalNoticePage({
   params,
@@ -26,17 +26,17 @@ export default function LegalNoticePage({
         title="Legal Notice"
         updatedAt={`Last updated: ${LAST_UPDATED.en}`}
       >
-        <div className="mb-8 rounded-brand border-[1.5px] border-[#E8D26B] bg-[#FFF8D6] p-3.5 text-sm text-[#5B4A00]">
+        {/* <div className="mb-8 rounded-brand border-[1.5px] border-[#E8D26B] bg-[#FFF8D6] p-3.5 text-sm text-[#5B4A00]">
           {PLACEHOLDER_NOTICE_EN}
-        </div>
+        </div> */}
 
         <LegalSection title="1. Website publisher">
           <ul>
             <li>Name: Odysseo Education</li>
-            <li>Legal form: [to complete]</li>
-            <li>Registered address: [to complete]</li>
-            <li>Business registration number: [to complete]</li>
-            <li>Publication director: [to complete]</li>
+            <li>Legal form: WOEF </li>
+            <li>Registered address: Zhenjiang -Dantu -212002</li>
+            {/* <li>Business registration number: [to complete]</li> */}
+            <li>Publication director: Dr Jiresse NGUETSA </li>
             <li>
               Contact:{" "}
               <a href="mailto:contact.odysseo@gmail.com">
