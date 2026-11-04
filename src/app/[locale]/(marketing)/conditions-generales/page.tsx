@@ -81,7 +81,7 @@ export default function TermsPage({ params }: { params: { locale: string } }) {
         </LegalSection>
 
         <LegalSection title="7. Governing law">
-          <p>These terms are governed by the laws of [country — to complete].</p>
+          <p>These terms are governed by the laws of China.</p>
         </LegalSection>
       </LegalPageShell>
     );
@@ -159,7 +159,7 @@ export default function TermsPage({ params }: { params: { locale: string } }) {
       </LegalSection>
 
       <LegalSection title="7. Droit applicable">
-        <p>Les présentes conditions sont régies par le droit [pays — à compléter].</p>
+        <p>Les présentes conditions sont régies par le droit Chinois.</p>
       </LegalSection>
     </LegalPageShell>
   );
