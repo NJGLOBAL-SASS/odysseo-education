@@ -4,6 +4,7 @@
  *
  *   npm run brochures                      → versions anglaises uniquement
  *   npm run brochures -- --locales=fr,en   → régénère aussi les versions françaises
+ *   npm run brochures -- --only=master,doctorat   → seulement ces cursus (slugs)
  *   BROCHURE_BASE_URL=http://localhost:3000 npm run brochures
  *
  * Prérequis : l'application tourne (npm run dev ou npm start) et Google Chrome
@@ -26,6 +27,9 @@ const CHROME =
       : "google-chrome");
 const PORT = 9400 + Math.floor(Math.random() * 400);
 const locales = (process.argv.find((a) => a.startsWith("--locales="))?.split("=")[1] ?? "en").split(",") as Locale[];
+const only = process.argv.find((a) => a.startsWith("--only="))?.split("=")[1]?.split(",");
+const programs = only ? PROGRAMS.filter((p) => only.includes(p.slug)) : PROGRAMS;
+if (programs.length === 0) throw new Error(`Aucun cursus ne correspond à --only=${only?.join(",")}`);
 
 const CONTACT = { fr: "Contact : contact.odysseo@gmail.com", en: "Contact: contact.odysseo@gmail.com" };
 const footer = (locale: Locale) => `
@@ -39,7 +43,7 @@ const footer = (locale: Locale) => `
 
 /** Refuse de générer si l'application ne sert pas la mise en page brochure (serveur arrêté, erreur…). */
 async function assertServer() {
-  const url = `${BASE_URL}/${locales[0]}/brochure/${PROGRAMS[0].slug}`;
+  const url = `${BASE_URL}/${locales[0]}/brochure/${programs[0]!.slug}`;
   let res: Response;
   try {
     res = await fetch(url);
@@ -97,7 +101,7 @@ async function main() {
     await send("Emulation.setEmulatedMedia", { media: "print" });
     await send("Emulation.setDeviceMetricsOverride", { width: 882, height: 1180, deviceScaleFactor: 1, mobile: false });
     for (const locale of locales) {
-      for (const program of PROGRAMS) {
+      for (const program of programs) {
         const url = `${BASE_URL}/${locale}/brochure/${program.slug}`;
         await send("Page.navigate", { url });
         // Attente : chargement, polices et images prêtes.

@@ -172,8 +172,16 @@ export default async function CandidateDetailPage({ params }: { params: { locale
             candidateId={candidate.id}
             currentUser={{ id: session?.user?.id ?? "", role: session?.user?.role ?? "STAFF" }}
           />
+        </div>
 
-          <section className="card p-5 md:col-span-2">
+        <div className="space-y-6">
+          <section className="card p-5">
+            <h2 className="section-title mb-1">{t("notes")}</h2>
+            <p className="mb-3 text-xs text-gris">{t("notesHint")}</p>
+            <InternalNotes candidateId={candidate.id} initial={candidate.internalNotes ?? ""} />
+          </section>
+
+          <section className="card p-5">
             <h2 className="section-title mb-3">{t("messages")}</h2>
             {candidate.messages.length === 0 ? (
               <p className="text-sm text-gris">{t("noMessages")}</p>
@@ -210,7 +218,7 @@ export default async function CandidateDetailPage({ params }: { params: { locale
                         </summary>
                         {/* HTML nettoyé à l'enregistrement (liste blanche, voir lib/html-sanitize). */}
                         <div
-                          className="rich-content mt-3 rounded-[10px] bg-fond p-3.5 text-sm leading-relaxed"
+                          className="rich-content mt-3 overflow-x-auto break-words rounded-[10px] bg-fond p-3.5 text-sm leading-relaxed"
                           dangerouslySetInnerHTML={{ __html: m.html }}
                         />
                         {files.length > 0 && (
@@ -228,14 +236,6 @@ export default async function CandidateDetailPage({ params }: { params: { locale
                 })}
               </ul>
             )}
-          </section>
-        </div>
-
-        <div className="space-y-6">
-          <section className="card p-5">
-            <h2 className="section-title mb-1">{t("notes")}</h2>
-            <p className="mb-3 text-xs text-gris">{t("notesHint")}</p>
-            <InternalNotes candidateId={candidate.id} initial={candidate.internalNotes ?? ""} />
           </section>
 
           {candidate.pointsLedgerEntries.length > 0 && (

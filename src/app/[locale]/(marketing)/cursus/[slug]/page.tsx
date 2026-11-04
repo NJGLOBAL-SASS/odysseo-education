@@ -54,7 +54,7 @@ export default async function ProgramPage({ params }: { params: { locale: string
           <p className="mt-2 max-w-2xl text-[#C9C9D1]">
             {program.name[locale]} · {program.tagline[locale]}
           </p>
-          <p className="mt-1 text-sm font-bold">{t("hero.intakes")}</p>
+          <p className="mt-1 text-sm font-bold">{t("hero.intakes", { edition: program.edition[locale] })}</p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <BrochureDownload program={program} locale={locale} tone="dark" />
             <Link href="/postuler" className="inline-flex min-h-[46px] items-center gap-2 px-1 text-sm font-bold text-white hover:underline">

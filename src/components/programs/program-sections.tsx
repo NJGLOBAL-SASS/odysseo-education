@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Check, Plane, Car, Landmark, BedDouble, ArrowRight } from "lucide-react";
 
-import { formatFcfa, ENGLISH_TEST_OPTION_PRICE, type Locale, type Program } from "@/lib/programs";
+import { formatFcfa, ENGLISH_TEST_OPTION_PRICE, VISA_ADMISSION_REFUND_RATE, type Locale, type Program } from "@/lib/programs";
 import { cn } from "@/lib/utils";
 
 /**
@@ -165,7 +165,7 @@ export async function ScholarshipsSection({ program, locale }: { program: Progra
 
       <Callout dark className="mt-4">
         <p className="mb-1 text-lg font-bold">{t("commitmentTitle")}</p>
-        <p>{t.rich("commitment", { r })}</p>
+        <p>{t.rich(program.refund === "visa" ? "commitmentDeposit" : "commitment", { r })}</p>
       </Callout>
     </section>
   );
@@ -484,7 +484,7 @@ export async function PaymentSection({ program, locale }: { program: Program; lo
       <div>
         <SectionTitle
           eyebrow={tp("eyebrow", { count: program.payments.length })}
-          title={program.kind === "language" ? tp("titleLanguage") : tp("titleDegree")}
+          title={program.kind === "language" ? tp("titleLanguage") : program.refund === "visa" ? tp("titleVisa") : tp("titleDegree")}
         />
         <div className="overflow-x-auto">
           <table className="w-full min-w-[420px] border-collapse text-[15px]">
@@ -519,7 +519,53 @@ export async function PaymentSection({ program, locale }: { program: Program; lo
   );
 }
 
-export async function RefundSection({ program }: { program: Program }) {
+/** Grilles de novembre 2026 (Master, PhD) : ce qui se passe selon l'issue des candidatures et du visa. */
+async function VisaRefundSection({ program, locale }: { program: Program; locale: Locale }) {
+  const t = await getTranslations("programs.refund.visa");
+  const [, launch, admission, afterVisa] = program.payments;
+  const fcfa = (n: number) => `${formatFcfa(n, locale)} FCFA`;
+  const rows: { situation: string; outcome: ReactNode; tone: "ok" | "neutral" | "info" }[] = [
+    { situation: t("noAdmission"), outcome: t.rich("noAdmissionOutcome", { b, amount: fcfa(launch!.amount) }), tone: "ok" },
+    {
+      situation: t("noAppointment"),
+      outcome: t.rich("noAppointmentOutcome", {
+        b,
+        amount: fcfa(Math.round(admission!.amount * VISA_ADMISSION_REFUND_RATE)),
+        step4: fcfa(afterVisa!.amount),
+      }),
+      tone: "ok",
+    },
+    { situation: t("refused"), outcome: t("refusedOutcome"), tone: "neutral" },
+    { situation: t("granted"), outcome: t("grantedOutcome"), tone: "info" },
+  ];
+  return (
+    <section data-no-split>
+      <h3 className="mb-2.5 text-xl font-bold">{t("title")}</h3>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[420px] border-collapse text-left text-[15px]">
+          <thead>
+            <tr className="bg-noir text-white">
+              <th className="w-[45%] px-4 py-3 font-bold uppercase">{t("colSituation")}</th>
+              <th className="px-4 py-3 font-bold uppercase">{t("colOutcome")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={i} className="border-b border-[#E3E3E8]">
+                <td className="px-4 py-3 font-bold">{row.situation}</td>
+                <td className={cn("px-4 py-3", row.tone === "ok" && "bg-[#FFEDED]", row.tone === "info" && "bg-[#F2F2F4]")}>{row.outcome}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-[15px]">{t.rich("noRefund", { b })}</p>
+    </section>
+  );
+}
+
+export async function RefundSection({ program, locale }: { program: Program; locale: Locale }) {
+  if (program.refund === "visa") return <VisaRefundSection program={program} locale={locale} />;
   const t = await getTranslations("programs.refund");
   const degree = program.refund === "degree";
   const rules = t.raw(degree ? "degree" : "language") as string[];
@@ -648,14 +694,14 @@ export async function ProgramBody({
         ],
         [<ArrivalSection key="arr" />, <TicketSection key="tk" />],
         [<PriceSection key="price" program={program} locale={locale} />, <PaymentSection key="pay" program={program} locale={locale} />],
-        [<RefundSection key="ref" program={program} />, <NotIncludedSection key="ni" program={program} />, <VisaSection key="visa" />, closing],
+        [<RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />, <VisaSection key="visa" />, closing],
       ]
     : [
         [<SupportSection key="support" program={program} locale={locale} />],
         [<LanguageProgramsSection key="lp" />],
         [<CalendarSection key="cal" />, <ArrivalSection key="arr" />],
         [<TicketSection key="tk" />, <PriceSection key="price" program={program} locale={locale} />],
-        [<PaymentSection key="pay" program={program} locale={locale} />, <RefundSection key="ref" program={program} />, <NotIncludedSection key="ni" program={program} />],
+        [<PaymentSection key="pay" program={program} locale={locale} />, <RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />],
         [<VisaSection key="visa" />, closing],
       ];
 

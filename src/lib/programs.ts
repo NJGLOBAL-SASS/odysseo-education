@@ -26,6 +26,8 @@ export type Program = {
   cardText: L<string>;
   image: string;
   pdf: L<string>;
+  /** Édition de la grille tarifaire (affichée sous le titre, page et brochure). */
+  edition: L<string>;
   provide: L<string[]>;
   provideNote?: L<string>;
   handle: L<string[]>;
@@ -43,7 +45,12 @@ export type Program = {
   englishTestOption: boolean;
   payments: PaymentStep[];
   paymentNote?: L<string>;
-  refund: "degree" | "language";
+  /**
+   * Modèle de remboursement : "degree" / "language" (remboursement de l'étape 2),
+   * "visa" (grilles de novembre 2026 : dernière étape due seulement si le visa est
+   * obtenu, 25 % de l'étape d'admission remboursables sans rendez-vous visa).
+   */
+  refund: "degree" | "language" | "visa";
   languageSessionNotIncluded: boolean;
   ctaAnswer: L<string>;
 };
@@ -55,6 +62,41 @@ const LAUNCH = { fr: "Lancement des candidatures", en: "Applications launch" };
 const AT_SIGNATURE = { fr: "à la signature · non remboursable", en: "on signature · non-refundable" };
 const VALIDATED = { fr: "dossier validé · remboursable", en: "file approved · refundable" };
 const AT_ADMISSION = { fr: "à l'Admission Notice + JW202", en: "on Admission Notice + JW202" };
+
+const EDITION_OCT_2026 = { fr: "octobre 2026", en: "October 2026" };
+const EDITION_NOV_2026 = { fr: "novembre 2026", en: "November 2026" };
+
+/** Part de l'étape « Admission + JW202 » remboursée si aucun rendez-vous visa n'est obtenu (modèle "visa"). */
+export const VISA_ADMISSION_REFUND_RATE = 0.25;
+
+/** Paiement en 4 étapes des grilles Master / PhD de novembre 2026 : la totalité seulement après le visa. */
+function visaPayments(opening: number, launch: number, admission: number, afterVisa: number): PaymentStep[] {
+  return [
+    { label: { fr: "À la signature", en: "On signature" }, when: { fr: "non remboursable", en: "non-refundable" }, amount: opening },
+    {
+      label: LAUNCH,
+      when: { fr: "remboursable*", en: "refundable*" },
+      amount: launch,
+      refundable: true,
+    },
+    {
+      label: { fr: "Admission + JW202", en: "Admission + JW202" },
+      when: { fr: "25 % remboursables*", en: "25% refundable*" },
+      amount: admission,
+      refundable: true,
+    },
+    {
+      label: { fr: "Après le visa", en: "After the visa" },
+      when: { fr: "seulement si le visa est obtenu", en: "only if the visa is granted" },
+      amount: afterVisa,
+    },
+  ];
+}
+
+const RESEARCH_PRICE_TEXT = {
+  fr: "Tout l'accompagnement compris, y compris le projet de recherche, les recommandations, le contact avec les superviseurs et la préparation aux entretiens.",
+  en: "All support included, including the research project, recommendations, contact with supervisors and interview preparation.",
+};
 
 const DEGREE_JOURNEY_INTRO = {
   fr: "Pour un bon dossier, la bourse totale est plus accessible en Master et en PhD qu'en Bachelor. Votre projet de recherche et l'accord d'un directeur de recherche pèsent beaucoup.",
@@ -99,6 +141,7 @@ export const PROGRAMS: Program[] = [
       fr: "/brochures/Odysseo_Education_Tarifs_Langue_2027.pdf",
       en: "/brochures/Odysseo_Education_Fees_Language_2027_EN.pdf",
     },
+    edition: EDITION_OCT_2026,
     provide: {
       fr: ["Passeport valide au moins 6 mois", "Photo 4 × 4 fond blanc, format passeport", "Diplôme", "Relevés de notes", "Casier judiciaire"],
       en: ["Passport valid for at least 6 months", "4 × 4 photo on a white background, passport format", "Diploma", "Transcripts", "Police clearance certificate"],
@@ -152,6 +195,7 @@ export const PROGRAMS: Program[] = [
       fr: "/brochures/Odysseo_Education_Tarifs_Bachelor_2027.pdf",
       en: "/brochures/Odysseo_Education_Fees_Bachelor_2027_EN.pdf",
     },
+    edition: EDITION_OCT_2026,
     provide: {
       fr: ["Passeport valide au moins 6 mois", "Diplôme et relevés de notes du baccalauréat", "Casier judiciaire", "Photo fond blanc", "Certificat d'anglais (si vous en avez un)"],
       en: ["Passport valid for at least 6 months", "High-school diploma and transcripts", "Police clearance certificate", "Photo on a white background", "English certificate (if you have one)"],
@@ -207,6 +251,7 @@ export const PROGRAMS: Program[] = [
       fr: "/brochures/Odysseo_Education_Tarifs_Master_2027.pdf",
       en: "/brochures/Odysseo_Education_Fees_Master_2027_EN.pdf",
     },
+    edition: EDITION_NOV_2026,
     provide: {
       fr: ["Passeport valide au moins 6 mois", "Diplôme et relevés de notes (Licence)", "Casier judiciaire", "Photo fond blanc", "Certificat d'anglais (si vous en avez un)", "2 enseignants pour vos recommandations"],
       en: ["Passport valid for at least 6 months", "Bachelor's diploma and transcripts", "Police clearance certificate", "Photo on a white background", "English certificate (if you have one)", "2 teachers for your recommendations"],
@@ -238,17 +283,10 @@ export const PROGRAMS: Program[] = [
       ],
     },
     price: 3_400_000,
-    priceText: {
-      fr: "Tout l'accompagnement décrit plus haut, y compris le projet de recherche, les recommandations, le contact avec les superviseurs, la préparation aux entretiens, le pick-up et l'équipement de votre chambre.",
-      en: "All the support described above, including the research project, recommendations, contact with supervisors, interview preparation, pick-up and equipment for your room.",
-    },
+    priceText: RESEARCH_PRICE_TEXT,
     englishTestOption: true,
-    payments: [
-      { label: OPENING, when: AT_SIGNATURE, amount: 250_000 },
-      { label: LAUNCH, when: VALIDATED, amount: 1_000_000, refundable: true },
-      { label: { fr: "Solde", en: "Balance" }, when: AT_ADMISSION, amount: 2_150_000 },
-    ],
-    refund: "degree",
+    payments: visaPayments(250_000, 1_000_000, 1_075_000, 1_075_000),
+    refund: "visa",
     languageSessionNotIncluded: true,
     ctaAnswer: DEGREE_CTA,
   },
@@ -270,6 +308,7 @@ export const PROGRAMS: Program[] = [
       fr: "/brochures/Odysseo_Education_Tarifs_PhD_2027.pdf",
       en: "/brochures/Odysseo_Education_Fees_PhD_2027_EN.pdf",
     },
+    edition: EDITION_NOV_2026,
     provide: {
       fr: ["Passeport valide au moins 6 mois", "Diplômes et relevés de notes (Licence et Master)", "Casier judiciaire", "Photo fond blanc", "Certificat d'anglais (si vous en avez un)", "2 enseignants pour vos recommandations", "Mémoire et travaux de recherche"],
       en: ["Passport valid for at least 6 months", "Bachelor's and Master's diplomas and transcripts", "Police clearance certificate", "Photo on a white background", "English certificate (if you have one)", "2 teachers for your recommendations", "Thesis and research work"],
@@ -301,17 +340,10 @@ export const PROGRAMS: Program[] = [
       ],
     },
     price: 3_700_000,
-    priceText: {
-      fr: "Tout l'accompagnement décrit plus haut, y compris le projet de recherche, les recommandations, le contact avec les superviseurs, la préparation aux entretiens, le pick-up et l'équipement de votre chambre.",
-      en: "All the support described above, including the research project, recommendations, contact with supervisors, interview preparation, pick-up and equipment for your room.",
-    },
+    priceText: RESEARCH_PRICE_TEXT,
     englishTestOption: true,
-    payments: [
-      { label: OPENING, when: AT_SIGNATURE, amount: 300_000 },
-      { label: LAUNCH, when: VALIDATED, amount: 1_250_000, refundable: true },
-      { label: { fr: "Solde", en: "Balance" }, when: AT_ADMISSION, amount: 2_150_000 },
-    ],
-    refund: "degree",
+    payments: visaPayments(300_000, 1_250_000, 1_075_000, 1_075_000),
+    refund: "visa",
     languageSessionNotIncluded: false,
     ctaAnswer: DEGREE_CTA,
   },

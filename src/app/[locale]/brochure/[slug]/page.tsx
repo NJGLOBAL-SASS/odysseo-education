@@ -51,7 +51,7 @@ export default async function BrochurePrintPage({ params }: { params: { locale: 
           <p className="text-[15px] text-[#C9C9D1]">
             {program.name[locale]} · {program.tagline[locale]}
           </p>
-          <p className="mt-0.5 text-[14px] font-bold">{t("hero.intakes")}</p>
+          <p className="mt-0.5 text-[14px] font-bold">{t("hero.intakes", { edition: program.edition[locale] })}</p>
         </div>
         <div className="relative h-[5px] bg-rouge" />
       </section>
