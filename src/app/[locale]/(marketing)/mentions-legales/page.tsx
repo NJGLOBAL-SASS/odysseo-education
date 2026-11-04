@@ -91,17 +91,17 @@ export default function LegalNoticePage({
       title="Mentions légales"
       updatedAt={`Dernière mise à jour : ${LAST_UPDATED.fr}`}
     >
-      <div className="mb-8 rounded-brand border-[1.5px] border-[#E8D26B] bg-[#FFF8D6] p-3.5 text-sm text-[#5B4A00]">
+      {/* <div className="mb-8 rounded-brand border-[1.5px] border-[#E8D26B] bg-[#FFF8D6] p-3.5 text-sm text-[#5B4A00]">
         {PLACEHOLDER_NOTICE_FR}
-      </div>
+      </div> */}
 
       <LegalSection title="1. Éditeur du site">
         <ul>
           <li>Nom : Odysseo Education</li>
-          <li>Forme juridique : [à compléter]</li>
-          <li>Siège social : [à compléter]</li>
-          <li>Numéro d'immatriculation (RCCM ou équivalent) : [à compléter]</li>
-          <li>Directeur de la publication : [à compléter]</li>
+          <li>Forme juridique : WOEF</li>
+          <li>Siège social : Zhenjiang -Dantu -212002</li>
+          {/* <li>Numéro d'immatriculation (RCCM ou équivalent) : [à compléter]</li> */}
+          <li>Directeur de la publication : Dr. Jiresse NGUETSA </li>
           <li>
             Contact :{" "}
             <a href="mailto:contact.odysseo@gmail.com">
@@ -114,12 +114,12 @@ export default function LegalNoticePage({
       <LegalSection title="2. Hébergement">
         <ul>
           <li>
-            Site et tableau de bord : <strong>Vercel Inc.</strong>, 440 N Barranca Ave #4133,
-            Covina, CA 91723, États-Unis — vercel.com
+            Site et tableau de bord : <strong>Vercel Inc.</strong>, 440 N
+            Barranca Ave #4133, Covina, CA 91723, États-Unis — vercel.com
           </li>
           <li>
-            Base de données : <strong>Neon</strong> (Databricks, Inc.), hébergement cloud aux
-            États-Unis — neon.tech
+            Base de données : <strong>Neon</strong> (Databricks, Inc.),
+            hébergement cloud aux États-Unis — neon.tech
           </li>
         </ul>
       </LegalSection>
