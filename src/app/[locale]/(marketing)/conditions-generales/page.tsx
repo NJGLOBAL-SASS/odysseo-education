@@ -110,7 +110,7 @@ export default function TermsPage({ params }: { params: { locale: string } }) {
 
       <LegalSection title="3. Formulaire de candidature">
         <p>
-          En soumettant le formulaire sur <Link href="/postuler">/postuler</Link>, vous
+          En soumettant le formulaire sur <Link href="/postuler">postuler</Link>, vous
           confirmez l'exactitude des informations fournies et consentez à ce qu'Odysseo
           Education les traite pour étudier votre dossier et vous contacter sur WhatsApp et
           par email, comme décrit dans notre{" "}
