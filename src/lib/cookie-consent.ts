@@ -1,5 +1,7 @@
 export const COOKIE_CONSENT_STORAGE_KEY = "odysseo_cookie_consent";
 export const OPEN_COOKIE_SETTINGS_EVENT = "odysseo:open-cookie-settings";
+/** Émis après chaque enregistrement des choix (detail : CookieConsent) — charge ou retire le Meta Pixel. */
+export const COOKIE_CONSENT_CHANGED_EVENT = "odysseo:cookie-consent-changed";
 
 export type CookieConsent = {
   necessary: true;

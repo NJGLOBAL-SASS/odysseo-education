@@ -5,6 +5,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
 
 import { locales } from "@/i18n/config";
+import { WebAnalytics } from "@/components/tracking/web-analytics";
 import { PAGE_SEO, SITE_NAME, SITE_URL, fullTitle, toLocale } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
     <html lang={params.locale} className={inter.variable}>
       <body className="font-sans antialiased">
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <WebAnalytics />
       </body>
     </html>
   );

@@ -8,6 +8,8 @@ import { findPartnerByCode, awardPoints, POINTS_RULES } from "@/lib/points";
 import { notifyNewCandidate, notifyCandidateConfirmation } from "@/lib/notifications";
 import { appendCandidateRow } from "@/lib/google-sheets";
 import { REFERRAL_COOKIE } from "@/lib/referral";
+import { looksLikeOfferRef } from "@/lib/attribution";
+import { isMetaCapiConfigured, sendMetaLeadEvent } from "@/lib/meta-capi";
 
 export async function POST(req: NextRequest) {
   const raw = await req.json();
@@ -32,8 +34,12 @@ export async function POST(req: NextRequest) {
   // Attribution de source, par ordre de fiabilité : le lien de parrainage
   // (?ref= capté côté client), puis le cookie posé par /r/CODE (visite
   // antérieure), et seulement en dernier recours le code tapé à la main.
+  // L'attribution « premier contact » (PACK-04) peut aussi porter le partenaire
+  // d'une visite antérieure (?partenaire= / ?ref=).
+  const att = d.attribution ?? null;
   const cookieRef = req.cookies.get(REFERRAL_COOKIE)?.value;
-  const srcParam = d.srcParam || cookieRef || undefined;
+  const firstTouchPartner = att?.partner || (att?.ref && !looksLikeOfferRef(att.ref) ? att.ref : undefined);
+  const srcParam = d.srcParam || cookieRef || firstTouchPartner || undefined;
   const partner =
     (await findPartnerByCode(srcParam)) || (await findPartnerByCode(d.partnerDeclared));
 
@@ -72,6 +78,16 @@ export async function POST(req: NextRequest) {
       srcParam,
       locale: d.locale,
       partnerId: partner?.id,
+      // Attribution (PACK-04) : publicité, campagne et référence d'offre.
+      utmSource: att?.utm_source,
+      utmMedium: att?.utm_medium,
+      utmCampaign: att?.utm_campaign,
+      utmContent: att?.utm_content,
+      fbclid: att?.fbclid,
+      offerRef: [att?.ref, d.srcParam].find(looksLikeOfferRef)?.trim().toUpperCase(),
+      landingPage: att?.landingPage,
+      firstVisitAt: att?.firstVisitAt && !Number.isNaN(Date.parse(att.firstVisitAt)) ? new Date(att.firstVisitAt) : undefined,
+      marketingConsent: d.marketingConsent === true,
     },
   });
 
@@ -85,6 +101,22 @@ export async function POST(req: NextRequest) {
   notifyNewCandidate({ ...candidate, partner }).catch((err) => console.error("[notify] échec :", err));
   notifyCandidateConfirmation(candidate).catch((err) => console.error("[notify] confirmation candidat :", err));
   appendCandidateRow(candidate).catch((err) => console.error("[google-sheets] échec :", err));
+
+  // API Conversions Meta : seulement avec consentement marketing. Attendu (avec délai
+  // max) pour ne pas être coupé par la fin de la fonction serverless ; ne lève jamais.
+  if (d.marketingConsent === true && isMetaCapiConfigured()) {
+    await sendMetaLeadEvent({
+      eventId: candidate.code,
+      email: candidate.email,
+      phone: candidate.whatsapp,
+      fbp: d.fbp || req.cookies.get("_fbp")?.value,
+      fbc: d.fbc || req.cookies.get("_fbc")?.value,
+      ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || undefined,
+      userAgent: req.headers.get("user-agent") || undefined,
+      sourceUrl: d.pageUrl,
+      contentCategory: candidate.targetLevel,
+    });
+  }
 
   return NextResponse.json({ ok: true, code: candidate.code });
 }

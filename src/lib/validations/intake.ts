@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { attributionSchema } from "@/lib/attribution";
+
 export function normalizePhone(v: string) {
   return String(v || "")
     .replace(/[\s.\-()/]/g, "")
@@ -62,6 +64,13 @@ export const intakeSchema = z.object({
 
   locale: z.enum(["fr", "en"]).default("fr"),
   srcParam: z.string().optional(),
+
+  // Mesure des conversions (PACK-04) — jamais bloquant : une valeur invalide est ignorée.
+  attribution: attributionSchema.nullish().catch(null),
+  marketingConsent: z.boolean().optional().catch(false),
+  fbp: z.string().max(200).optional().catch(undefined),
+  fbc: z.string().max(700).optional().catch(undefined),
+  pageUrl: z.string().max(500).optional().catch(undefined),
 });
 
 export type IntakeInput = z.infer<typeof intakeSchema>;

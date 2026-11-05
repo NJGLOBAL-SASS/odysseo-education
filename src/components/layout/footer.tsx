@@ -108,6 +108,7 @@ export async function Footer() {
                     href={`https://wa.me/${waNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track-location="footer"
                     className="flex items-center gap-2 text-texte hover:text-rouge"
                   >
                     <MessageCircle className="h-4 w-4" /> WhatsApp

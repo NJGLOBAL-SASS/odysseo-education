@@ -288,6 +288,18 @@ model Candidate {
   partner   Partner? @relation(fields: [partnerId], references: [id])
   srcParam  String? // valeur brute de ?ref= / ?src= à la soumission
 
+  // Attribution « premier contact » (PACK-04) : publicité, campagne, référence d'offre.
+  // Capturée dans l'URL à la première visite (localStorage odysseo_attribution). Pas de donnée personnelle.
+  utmSource        String?
+  utmMedium        String?
+  utmCampaign      String?
+  utmContent       String?
+  fbclid           String?
+  offerRef         String? // code d'offre de la publicité, ex. P-04, MA-07
+  landingPage      String? // page d'arrivée de la première visite
+  firstVisitAt     DateTime?
+  marketingConsent Boolean   @default(false) // consentement cookies « marketing » au moment de l'envoi
+
   referralEvents      ReferralEvent[]
   pointsLedgerEntries PointsLedgerEntry[]
   notificationLogs    NotificationLog[]

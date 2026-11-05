@@ -5,7 +5,7 @@ import { LegalPageShell, LegalSection } from "@/components/legal/legal-page-shel
 import { ManageCookiesButton } from "@/components/cookies/manage-cookies-button";
 import { legalPageMetadata } from "@/lib/seo";
 
-const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
+const LAST_UPDATED = { fr: "5 novembre 2026", en: "November 5, 2026" };
 
 const ROWS = [
   {
@@ -44,6 +44,26 @@ const ROWS = [
     },
     duration: { fr: "Fermeture de l'onglet", en: "Until the tab is closed" },
     category: { fr: "Nécessaire", en: "Necessary" },
+  },
+  {
+    name: "odysseo_attribution",
+    type: { fr: "Stockage local (localStorage)", en: "Local storage" },
+    purpose: {
+      fr: "Mémorise d'où vient votre première visite (publicité, campagne, référence d'offre — paramètres utm, ref) pour l'associer à votre dossier. Aucune donnée personnelle",
+      en: "Remembers where your first visit came from (ad, campaign, offer reference — utm, ref parameters) to link it to your application. No personal data",
+    },
+    duration: { fr: "30 jours", en: "30 days" },
+    category: { fr: "Nécessaire (suivi des dossiers)", en: "Necessary (application tracking)" },
+  },
+  {
+    name: "_fbp · _fbc",
+    type: { fr: "Cookies Meta (Facebook / Instagram)", en: "Meta cookies (Facebook / Instagram)" },
+    purpose: {
+      fr: "Mesure de l'efficacité des publicités Meta (Meta Pixel). Déposés seulement avec votre accord",
+      en: "Measuring the performance of Meta ads (Meta Pixel). Set only with your consent",
+    },
+    duration: { fr: "90 jours", en: "90 days" },
+    category: { fr: "Marketing", en: "Marketing" },
   },
   {
     name: "authjs.session-token · authjs.csrf-token · authjs.callback-url",
@@ -110,8 +130,8 @@ export default function CookiePolicyPage({ params }: { params: { locale: string 
           <ul>
             <li><strong>Necessary</strong> — required for the site and form to work. Always active.</li>
             <li><strong>Referral program</strong> — a first-party cookie that remembers which partner sent you, so their referral is credited fairly. It contains only the partner's code, never your identity.</li>
-            <li><strong>Analytics</strong> — would measure site usage. Not activated by default; only enabled with your consent, and no analytics tool is connected yet on this version of the site.</li>
-            <li><strong>Marketing</strong> — would personalize offers. Same as above: available as a consent category, not yet connected to a specific tool.</li>
+            <li><strong>Cookieless audience measurement</strong> — we use Vercel Web Analytics to count visits, form steps reached and clicks (WhatsApp, brochures). It sets no cookie, stores nothing on your device, does not follow you across sites and never receives your name, email or phone number: data is aggregated and anonymous. It is therefore active for all visitors. The "Analytics" box of the banner covers any cookie-based measurement tool; none is used today.</li>
+            <li><strong>Marketing (Meta Pixel)</strong> — only if you accept the "Marketing" category: the Meta (Facebook / Instagram) Pixel measures which ads lead to applications (page views, form submitted, WhatsApp click) and sets the <code>_fbp</code> / <code>_fbc</code> cookies. Without your consent it is never loaded. If you withdraw your consent, it stops immediately. When you submit the form with this consent, we may also send Meta your email and phone number in hashed form only (irreversible SHA-256 code), never in clear text, to measure the ad's result.</li>
           </ul>
         </LegalSection>
 
@@ -169,8 +189,8 @@ export default function CookiePolicyPage({ params }: { params: { locale: string 
         <ul>
           <li><strong>Nécessaires</strong> — indispensables au fonctionnement du site et du formulaire. Toujours actifs.</li>
           <li><strong>Programme de parrainage</strong> — un cookie propre au site qui retient le partenaire qui vous a orienté, pour que sa recommandation lui soit équitablement attribuée. Il ne contient que le code du partenaire, jamais votre identité.</li>
-          <li><strong>Mesure d'audience</strong> — permettraient de mesurer la fréquentation du site. Non activés par défaut ; uniquement activés avec votre accord, et aucun outil de mesure d'audience n'est encore connecté dans cette version du site.</li>
-          <li><strong>Marketing</strong> — permettraient de personnaliser des offres. Même principe : catégorie disponible au consentement, pas encore reliée à un outil précis.</li>
+          <li><strong>Mesure d'audience sans cookie</strong> — nous utilisons Vercel Web Analytics pour compter les visites, les étapes du formulaire atteintes et les clics (WhatsApp, brochures). Cet outil ne dépose aucun cookie, ne stocke rien sur votre appareil, ne vous suit pas d'un site à l'autre et ne reçoit jamais votre nom, votre e-mail ou votre téléphone : les données sont agrégées et anonymes. Il est donc actif pour tous les visiteurs. La case « Mesure d'audience » du bandeau concerne d'éventuels outils avec cookies : aucun n'est utilisé aujourd'hui.</li>
+          <li><strong>Marketing (Meta Pixel)</strong> — uniquement si vous acceptez la catégorie « Marketing » : le Pixel de Meta (Facebook / Instagram) mesure quelles publicités amènent des dossiers (pages vues, formulaire envoyé, clic WhatsApp) et dépose les cookies <code>_fbp</code> / <code>_fbc</code>. Sans votre accord, il n'est jamais chargé ; si vous retirez votre accord, il s'arrête immédiatement. Lorsque vous envoyez le formulaire avec cet accord, nous pouvons aussi transmettre à Meta votre e-mail et votre téléphone uniquement sous forme hachée (code SHA-256 irréversible), jamais en clair, pour mesurer le résultat de la publicité.</li>
         </ul>
       </LegalSection>
 

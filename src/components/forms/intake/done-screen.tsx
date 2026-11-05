@@ -27,6 +27,7 @@ export function DoneScreen({ code, firstName, email }: { code: string; firstName
         href={`https://wa.me/${waNumber}?text=${waText}`}
         target="_blank"
         rel="noopener noreferrer"
+        data-track-location="form_done"
         className="btn-wa"
       >
         {t("whatsappButton")}

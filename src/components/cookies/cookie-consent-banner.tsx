@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Cookie } from "lucide-react";
 
 import {
+  COOKIE_CONSENT_CHANGED_EVENT,
   COOKIE_CONSENT_STORAGE_KEY,
   OPEN_COOKIE_SETTINGS_EVENT,
   getStoredCookieConsent,
@@ -45,6 +46,7 @@ export function CookieConsentBanner() {
 
   async function save(consent: CookieConsent) {
     localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, JSON.stringify(consent));
+    window.dispatchEvent(new CustomEvent(COOKIE_CONSENT_CHANGED_EVENT, { detail: consent }));
     setVisible(false);
     setCustomize(false);
     try {

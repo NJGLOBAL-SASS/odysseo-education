@@ -31,6 +31,9 @@ export async function BrochureDownload({
           href={program.pdf[l]}
           download={fileName(l)}
           hrefLang={l}
+          data-track="brochure_download"
+          data-track-cursus={program.slug}
+          data-track-langue={l}
           className={cn(
             "inline-flex min-h-[46px] items-center gap-2 rounded-brand px-4 text-sm font-bold transition-colors",
             i === 0

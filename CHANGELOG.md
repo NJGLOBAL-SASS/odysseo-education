@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0] – 2026-11-05 · PACK-04 Mesure des conversions
+
+### Ajouté
+- **Attribution « premier contact »** (`src/lib/attribution.ts`) : `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `fbclid`, `ref` (code d'offre, ex. `P-04`) et code partenaire lus dans l'URL, gardés 30 jours dans `localStorage` (`odysseo_attribution`) avec la date et la page d'arrivée ; remplacés seulement par une nouvelle `utm_campaign`.
+- Attribution enregistrée avec chaque dossier : nouveaux champs `utmSource`, `utmMedium`, `utmCampaign`, `utmContent`, `fbclid`, `offerRef`, `landingPage`, `firstVisitAt`, `marketingConsent` (table `candidates`), visibles dans la fiche du dossier (section « Origine »).
+- **Vercel Web Analytics** (`@vercel/analytics`, sans cookie, zone équipe exclue) et événements `form_step_view` (étapes 1-4), `form_submit_success`, `whatsapp_click`, `brochure_download` (cursus, langue).
+- **Meta Pixel** chargé uniquement après consentement « Marketing » (aussi en cours de visite), retiré au retrait du consentement ; rien n'est chargé si `NEXT_PUBLIC_META_PIXEL_ID` est vide. Événements `PageView`, `ViewContent` (cursus / offres, `content_ids` = référence d'offre), `Lead` (`event_id` = code dossier, `content_category` = niveau visé), `Contact` (clic WhatsApp).
+- **API Conversions Meta** (`src/lib/meta-capi.ts`) : `Lead` serveur avec le même `event_id` (déduplication), email et téléphone hachés SHA-256, `fbp` / `fbc`, seulement avec consentement marketing ; un échec Meta ne bloque jamais l'enregistrement du dossier.
+- Variables `NEXT_PUBLIC_META_PIXEL_ID`, `META_CAPI_TOKEN`, `META_CAPI_TEST_EVENT_CODE` (facultative) dans `.env.example`.
+
+### Modifié
+- Page `/cookies` (FR/EN) : Vercel Analytics (mesure sans cookie), Meta Pixel (catégorie marketing, soumis à consentement), `odysseo_attribution`, `_fbp` / `_fbc`.
+- Bandeau cookies : émet `odysseo:cookie-consent-changed` à chaque enregistrement des choix.
+
+### Migration
+- Schéma Prisma : 9 colonnes facultatives ajoutées à `candidates` → `npm run db:push` **avant** de déployer.
+
 ## [0.2.0] – 2026-11-05 · PACK-05 Partage & référencement
 
 ### Ajouté

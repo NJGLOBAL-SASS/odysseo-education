@@ -151,6 +151,15 @@ export default async function CandidateDetailPage({ params }: { params: { locale
             )}
             <Row label={r("typedCode")} value={!viaLink ? candidate.referredByPartnerDeclared : null} />
             <Row label={r("discovery")} value={optionLabel("discoverySource", candidate.discoverySource, L)} />
+            <Row label={r("offerRef")} value={candidate.offerRef} />
+            <Row label={r("utmSource")} value={candidate.utmSource} />
+            <Row label={r("utmMedium")} value={candidate.utmMedium} />
+            <Row label={r("utmCampaign")} value={candidate.utmCampaign} />
+            <Row label={r("utmContent")} value={candidate.utmContent} />
+            <Row label={r("fbclid")} value={candidate.fbclid ? r("yes") : null} />
+            <Row label={r("landingPage")} value={candidate.landingPage} />
+            <Row label={r("firstVisit")} value={candidate.firstVisitAt ? dateTime.format(candidate.firstVisitAt) : null} />
+            <Row label={r("marketingConsent")} value={candidate.marketingConsent ? r("yes") : r("no")} />
             <Row
               label={r("formLanguage")}
               value={candidate.locale === "en" ? (L === "en" ? "English" : "Anglais") : L === "en" ? "French" : "Français"}

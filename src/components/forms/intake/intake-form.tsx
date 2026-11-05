@@ -13,6 +13,9 @@ import { StepValidation } from "./step-validation";
 import { validateStep } from "./validate-step";
 import { emptyDraft, type IntakeDraft, type StepErrors, type ReferralInfo } from "./types";
 import { Spinner } from "@/components/ui/spinner";
+import { getAttributionClient } from "@/lib/attribution";
+import { getMetaBrowserIds, hasMarketingConsent } from "@/lib/tracking/meta-pixel";
+import { trackFormStepView, trackFormSubmitSuccess } from "@/lib/tracking/events";
 
 const STEP_COUNT = 4;
 
@@ -69,6 +72,11 @@ export function IntakeForm() {
       .catch(() => {});
   }, []);
 
+  // Mesure de l'abandon : une vue par étape (1 à 4), sans aucune donnée saisie.
+  useEffect(() => {
+    trackFormStepView(step + 1);
+  }, [step]);
+
   function onChange<K extends keyof IntakeDraft>(field: K, value: IntakeDraft[K]) {
     setData((d) => ({ ...d, [field]: value }));
   }
@@ -102,11 +110,19 @@ export function IntakeForm() {
     setSubmitting(true);
     setSubmitError("");
 
+    // Origine du visiteur (UTM, ref d'offre...) et consentement marketing, pour
+    // l'attribution du dossier et l'API Conversions Meta (dédupliquée par code dossier).
+    const attribution = getAttributionClient();
+    const marketingConsent = hasMarketingConsent();
     const payload = {
       ...data,
       locale,
       srcParam: refCode,
       submissionDurationSec: Math.round((Date.now() - startedAt.current) / 1000),
+      attribution,
+      marketingConsent,
+      ...(marketingConsent && getMetaBrowserIds(attribution?.fbclid, attribution?.firstVisitAt)),
+      pageUrl: window.location.origin + window.location.pathname,
     };
 
     try {
@@ -118,6 +134,7 @@ export function IntakeForm() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "error");
       setResult({ code: json.code });
+      trackFormSubmitSuccess({ code: json.code, targetLevel: data.targetLevel });
     } catch {
       setSubmitError(t("errors.generic"));
     } finally {
