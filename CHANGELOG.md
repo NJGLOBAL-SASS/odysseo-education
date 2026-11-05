@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0] – 2026-11-05 · PACK-06 Preuves et confiance
+
+### Ajouté
+- Contenus pilotés par JSON, **vides au départ** (rien de faux ne s'affiche) : `content/temoignages.json`, `content/preuves.json`, `content/conseillers.json`, mode d'emploi dans `content/README.md`, dossiers `public/images/{temoignages,preuves,conseillers}/`.
+- **Témoignages** : cartes (photo ronde `next/image`, prénom + initiale, pays et drapeau, cursus, ville en Chine — jamais l'université —, citation ≤ 300 caractères, lien vidéo YouTube/TikTok optionnel). Accueil : 3 au hasard, carrousel horizontal sur mobile ; pages cursus : filtrés par cursus. Affichés seulement si `publie: true` et date d'accord renseignée.
+- **« Ce que vous recevez »** : jusqu'à 3 documents floutés (Admission Notice, JW202, visa X1) cliquables en plein écran, après « Nous prenons en charge » sur les pages cursus (jamais dans les brochures PDF).
+- **Conseiller visible** : carte « Votre conseiller » (pied de page, accueil) si `conseillers.json` n'est pas vide.
+- **Bouton WhatsApp flottant** (56 px, `aria-label`) sur toutes les pages publiques sauf `/postuler`, message pré-rempli avec le nom de la page ; numéro du premier conseiller, sinon `NEXT_PUBLIC_WHATSAPP_NUMBER`. Mesuré : `whatsapp_click` avec `source: "bouton_flottant"`.
+- Tests : images publiées présentes et ≤ 150 Ko, université jamais nommée, citation ≤ 300 caractères, numéro WhatsApp au bon format.
+
+### Modifié
+- Événement `whatsapp_click` : propriété `location` renommée `source`.
+- Pied de page : marge basse sur mobile pour que le bouton flottant ne cache pas le copyright.
+
 ## [0.4.0] – 2026-11-05 · PACK-09 FAQ et guide avant le départ
 
 ### Ajouté

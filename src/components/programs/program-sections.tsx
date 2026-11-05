@@ -674,6 +674,7 @@ export async function ProgramBody({
   print,
   closing,
   afterPricing,
+  afterSupport,
 }: {
   program: Program;
   locale: Locale;
@@ -681,12 +682,15 @@ export async function ProgramBody({
   closing?: ReactNode;
   /** Contenu web placé sous le bloc tarifs / échéancier (ex. lien FAQ) — jamais dans les brochures. */
   afterPricing?: ReactNode;
+  /** Contenu web placé après « Nous prenons en charge » (ex. documents d'exemple) — jamais dans les brochures. */
+  afterSupport?: ReactNode;
 }) {
   const extra = print ? null : afterPricing;
+  const support = print ? null : afterSupport;
   const degree = program.kind === "degree";
   const groups: ReactNode[][] = degree
     ? [
-        [<SupportSection key="support" program={program} locale={locale} />],
+        [<SupportSection key="support" program={program} locale={locale} />, support],
         [<ScholarshipsSection key="sch" program={program} locale={locale} />, <CalendarSection key="cal" />],
         [
           <TimelineSection key="tl" program={program} locale={locale} />,
@@ -701,7 +705,7 @@ export async function ProgramBody({
         [<RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />, <VisaSection key="visa" />, closing],
       ]
     : [
-        [<SupportSection key="support" program={program} locale={locale} />],
+        [<SupportSection key="support" program={program} locale={locale} />, support],
         [<LanguageProgramsSection key="lp" />],
         [<CalendarSection key="cal" />, <ArrivalSection key="arr" />],
         [<TicketSection key="tk" />, <PriceSection key="price" program={program} locale={locale} />],

@@ -1,14 +1,16 @@
 import Image from "next/image";
 import { MessageCircle, Mail } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 import { NewsletterForm } from "@/components/marketing/newsletter-form";
 import { ManageCookiesButton } from "@/components/cookies/manage-cookies-button";
+import { AdvisorCard } from "@/components/trust/advisor-card";
 
 export async function Footer() {
   const t = await getTranslations("footer");
   const tNav = await getTranslations("nav");
+  const locale = (await getLocale()) === "en" ? "en" : "fr";
   const year = new Date().getFullYear();
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 
@@ -129,11 +131,12 @@ export async function Footer() {
                 </a>
               </li>
             </ul>
+            <AdvisorCard locale={locale} className="mt-4" />
           </div>
         </div>
       </div>
 
-      <div className="wrap-site flex flex-col items-center gap-2 border-t border-bord py-5 text-center text-[12.5px] text-gris sm:flex-row sm:justify-between">
+      <div className="wrap-site flex flex-col items-center gap-2 border-t border-bord pb-24 pt-5 sm:py-5 text-center text-[12.5px] text-gris sm:flex-row sm:justify-between">
         <p>
           © {year} Odysseo Education · {t("rights")}
         </p>

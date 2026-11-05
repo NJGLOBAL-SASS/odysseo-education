@@ -1,0 +1,4 @@
+{
+ "_comment": "Conseillers réels (voir content/README.md). Le premier de la liste est affiché dans le pied de page et sur l'accueil ; son WhatsApp sert au bouton flottant. Liste vide = carte masquée, bouton flottant sur NEXT_PUBLIC_WHATSAPP_NUMBER.",
+ "conseillers": []
+}

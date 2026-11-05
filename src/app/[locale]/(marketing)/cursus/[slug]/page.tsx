@@ -9,6 +9,9 @@ import { PROGRAMS, getProgram, type Locale } from "@/lib/programs";
 import { ProgramBody, ClosingCta } from "@/components/programs/program-sections";
 import { BrochureDownload } from "@/components/programs/brochure-download";
 import { buildPageMetadata, PROGRAM_SEO } from "@/lib/seo";
+import { ProofDocuments } from "@/components/trust/proof-documents";
+import { getProofDocuments } from "@/lib/content/trust";
+import { Testimonials } from "@/components/trust/testimonials";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => PROGRAMS.map((p) => ({ locale, slug: p.slug })));
@@ -73,6 +76,7 @@ export default async function ProgramPage({ params }: { params: { locale: string
         <ProgramBody
           program={program}
           locale={locale}
+          afterSupport={getProofDocuments().length > 0 ? <ProofDocuments locale={locale} /> : null}
           afterPricing={
             <Link
               href="/faq#paiement"
@@ -102,6 +106,8 @@ export default async function ProgramPage({ params }: { params: { locale: string
             />
           }
         />
+
+        <Testimonials locale={locale} cursus={program.slug} className="mt-14" />
 
         <nav className="mt-12 border-t border-bord pt-6">
           <p className="mb-3 text-sm font-bold">{t("cta.other")}</p>

@@ -27,9 +27,10 @@ export function trackFormSubmitSuccess({ code, targetLevel }: { code: string; ta
   metaTrack("Lead", { content_category: targetLevel }, code);
 }
 
-export function trackWhatsappClick(location: string) {
-  vercel("whatsapp_click", { location });
-  metaTrack("Contact", { content_category: location });
+/** source : emplacement du lien (« bouton_flottant », « footer », « faq », « form_done »… ou chemin de la page). */
+export function trackWhatsappClick(source: string) {
+  vercel("whatsapp_click", { source });
+  metaTrack("Contact", { content_category: source });
 }
 
 export function trackBrochureDownload({ cursus, langue }: { cursus: string; langue: string }) {

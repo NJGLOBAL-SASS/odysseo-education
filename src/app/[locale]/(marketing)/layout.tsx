@@ -4,6 +4,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CookieConsentBanner } from "@/components/cookies/cookie-consent-banner";
 import { SiteTracking } from "@/components/tracking/site-tracking";
+import { FloatingWhatsapp } from "@/components/trust/floating-whatsapp";
+import { floatingWhatsappNumber } from "@/lib/content/trust";
 
 export default function MarketingLayout({ children }: { children: ReactNode }) {
   return (
@@ -13,6 +15,7 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
       <Footer />
       <CookieConsentBanner />
       <SiteTracking />
+      <FloatingWhatsapp number={floatingWhatsappNumber()} />
     </div>
   );
 }
