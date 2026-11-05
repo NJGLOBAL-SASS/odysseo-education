@@ -4,6 +4,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { ServicesSection } from "@/components/marketing/services-section";
 import { TrustSection } from "@/components/marketing/trust-section";
 import { Link } from "@/i18n/navigation";
+import { publicPageMetadata } from "@/lib/seo";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return publicPageMetadata("services", params.locale);
+}
 
 export default async function ServicesPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

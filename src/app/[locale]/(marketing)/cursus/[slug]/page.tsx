@@ -8,6 +8,7 @@ import { locales } from "@/i18n/config";
 import { PROGRAMS, getProgram, type Locale } from "@/lib/programs";
 import { ProgramBody, ClosingCta } from "@/components/programs/program-sections";
 import { BrochureDownload } from "@/components/programs/brochure-download";
+import { buildPageMetadata, PROGRAM_SEO } from "@/lib/seo";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => PROGRAMS.map((p) => ({ locale, slug: p.slug })));
@@ -17,10 +18,12 @@ export async function generateMetadata({ params }: { params: { locale: string; s
   const program = getProgram(params.slug);
   if (!program) return {};
   const locale = (params.locale === "en" ? "en" : "fr") as Locale;
-  return {
-    title: `${program.name[locale]} — Odysseo Education`,
-    description: program.cardText[locale],
-  };
+  return buildPageMetadata({
+    locale,
+    path: `/cursus/${program.slug}`,
+    title: program.name[locale],
+    description: PROGRAM_SEO[program.slug][locale].description,
+  });
 }
 
 export default async function ProgramPage({ params }: { params: { locale: string; slug: string } }) {

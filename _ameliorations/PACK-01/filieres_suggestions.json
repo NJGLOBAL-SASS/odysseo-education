@@ -1,0 +1,1388 @@
+{
+ "meta": {
+  "usage": "Suggestions d autocomplétion pour le champ filiereDiplome (non bloquant)",
+  "total": 345
+ },
+ "filieres": [
+  {
+   "nom": "Accounting",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Acoustics",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Aeronautical and Astronautical Science and Technology",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Agricultural Engineering",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Agricultural Engineering and Information Technology",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Agricultural Management",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Agricultural Mechanization Engineering",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Agrostology",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Aircraft Structures and Airworthiness Technology",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Analytical Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Anesthesiology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Animal Genetics, Breeding and Reproduction",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Animal Husbandry",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Animal Nutrition and Feed Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Animal Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Applied Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Applied Chemistry (Pharmaceutical Science)",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Applied Economics",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Applied Mathematics",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Applied Meteorology",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Applied Psychology",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Applied Statistics",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Aquaculture",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Aquatic Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Architecture",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Artificial Intelligence",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Atmospheric Science",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Basic Mathematics",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Basic Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Basic Veterinary Medicine",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Big Data and Business Intelligence",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Biochemical Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Biochemistry and Molecular Biology",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Biological Environmental Information Materials",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Biological Science",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology (Biochemistry and Molecular Biology)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology (Botany and Plant Science)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology (Cytobiology)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology (Genetics)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology (Microbiology)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology (Zoology)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology and Medicine",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology and Medicine (Biocatalysis and Synthetic Biology)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology and Medicine (Cellular Regulation and Molecular Pharmacology)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology and Medicine (Food Science and Nutrition Health)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biology and Medicine (Nanobiology and Drug Delivery)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biomass Chemistry and Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Biomaterials",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Biomedical Engineering",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biophysics",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Biotechnology",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Botany",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Business Administration",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Business Management",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Cell Biology",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Chemical Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Chemical Engineering and Technology",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Chemical Technology",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Chemistry (Organic Chemistry)",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Child, Adolescent and Maternal Health",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Chinese History",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Chinese International Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Chinese Language and Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Chinese Language and Literature",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Civil and Hydraulic Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Civil Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Clinical Laboratory Diagnostics",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Clinical Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Clinical Pathology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Clinical Veterinary Medicine",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Communication and Information Systems",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Communication and Transportation Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Comparative Education",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Comparative Literature and Trans-cultural Studies",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Computer and Software Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Computer Science and Technology",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Computer Technology",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Control Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Control Science and Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Corporate Management",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Critical Care Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Critical Care Nursing",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Crop Genetics and Breeding",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Crop Science (Crop Cultivation and Geoponics)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Crop Science (Crop Genetics and Breeding)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Curriculum and Teaching Theory",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Cyber Security",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Cyberspace Security",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Demography",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Dermatology and Venereology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Design",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Design Science",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Developmental Biology",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Digital Economy",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Ecology",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Ecology (Microbial Ecology)",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Ecology (Phytoecology)",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Educational Economics and Management",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Educational Technology",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Electrical Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Electro-optic Crystal and Device",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Electronic Information",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Electronic Information Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Electronic Science and Technology",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Electronic Science and Technology (Microelectronics and Solid Electronics)",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Emergency Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Energy Storage Science and Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "English Language and Literature",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "English Language Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Enterprise Management",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Environmental and Resource Protection Law",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Environmental Biomedicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Environmental Engineering",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Environmental Perception and Intelligent Control",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Environmental Science",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Environmental Science and Engineering",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Epidemiology and Health Statistics",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Ethnology",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Experimental Zoology and Comparative Medicine",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Finance",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Fine Arts and Calligraphy",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Fishery Resources",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Flight Vehicle Design",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Fluid Mechanics",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Food Engineering",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Food Processing and Security",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Food Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Food Science and Engineering",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Foreign Language and Literature",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Foreign Languages and Literatures",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Foreign Linguistics and Applied Linguistics",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Forensic Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Forensic Science",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Forestry",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "General Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Genetics",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Geographical Information Science",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Geological Engineering",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Geological Resources and Geological Engineering",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Geology",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Geophysics",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Geriatric Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Global Communication",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Health and Pharmacy Administration",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Heat Supply, Gas Supply, Ventilation and Air-conditioning Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Higher Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "History of Science and Technology",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Horticulture",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Human Geography and Urban-rural Planning",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Human Kinesiology",
+   "famille": "sport"
+  },
+  {
+   "nom": "Hydraulic Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Hydrobiology",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Imaging and Nuclear Medicine",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Industrial Catalysis",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Industrial Economics",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Industrial Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Information and Communication Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Inorganic Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Instrument Science and Technology",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Integrated Circuit Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Integrated Circuit Science and Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Intelligent Manufacturing Technology",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Intelligent Medical Engineering",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Internal Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "International Business",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "International Chinese Language and Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "International Chinese Language Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "International Law",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "International Relations",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "International Trade",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Journalism and Communication",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Landscape Architecture",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Language Teacher Education",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Law",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Law (Chinese and International Business Law)",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Library and Information Studies",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Light Industry Technology and Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Light Industry Technology and Engineering (Biomass Chemistry and Engineering)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Light Industry Technology and Engineering (Biopharmaceutical Sciences and Protein Engineering)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Light Industry Technology and Engineering (Biosynthesis and Fermentation Engineering)",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Logic",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Logistics Management Science",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Machinery",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Management Science and Engineering",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Marxist Theory",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Master of Business Administration (MBA)",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Master of Education in TEFL",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Master of Public Administration (MPA)",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Material and Chemical Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Material and Processing Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Material Physics and Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Material Processing Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Material Science",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materialogy",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials and Chemical Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Physics and Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Processing Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Science",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Science and Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Science and Engineering (Materials Physics and Chemistry)",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Science and Engineering (Materials Processing Engineering)",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Materials Science and Engineering (Materials Science)",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Mathematics",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Mathematics (Applied Mathematics)",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Mathematics (Basic Mathematics)",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Mathematics (enseignée en chinois)",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Mathematics (Operational Research and Cybernetics)",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Mathematics Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "MBA",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Mechanical Design and Theory",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanical Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanical Engineering (Mechanical Design and Theory)",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanical Engineering (Mechanical Manufacturing and Automation)",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanical Engineering (Mechatronic Engineering)",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanical Engineering / Instrument Science and Technology",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanical Manufacture and Automation",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechanics",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Mechatronic Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Medical Informatics",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Medicinal Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Meteorology",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Microbiology",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Modern Educational Technology",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Music",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Nanoscience and Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Natural Medicinal Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Naval Architecture and Marine Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Neurology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Nonlinear Optics",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Nuclear Energy Engineering",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Nuclear Medicine",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Nuclear Science and Technology",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Nursing",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Nutrition and Food Hygiene",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Nutrition Science and Technology",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Obstetrics and Gynecology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Ocean and Naval Structure Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Oncology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Ophthalmology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Optical Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Opto-electronics and Photonics Technology",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Optoelectronic Information Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Organic Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Orthopaedics and Traumatology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Otolaryngology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Otorhinolaryngology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Pathology and Pathophysiology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Pediatric Surgery",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Pediatrics",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Petroleum and Natural Gas Engineering",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Pharmaceutical Analysis",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmaceutical Engineering",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmaceutical Science",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmaceutics",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmacognosy",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmacology",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmacy",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Pharmacy Administration",
+   "famille": "pharmacie"
+  },
+  {
+   "nom": "Philosophy (Aesthetics)",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Philosophy (Chinese Philosophy)",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Philosophy (Foreign Philosophies)",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Philosophy (Marxist Philosophy)",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Physical Chemistry",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Physical Education",
+   "famille": "sport"
+  },
+  {
+   "nom": "Physical Education and Training",
+   "famille": "sport"
+  },
+  {
+   "nom": "Physical Geography and Teacher Education",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Physics",
+   "famille": "mathematiques-physique"
+  },
+  {
+   "nom": "Physiology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Plant Pathology",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Plant Protection (Agricultural Entomology and Pest Control)",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Plant Protection (Pesticide Science)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Plant Protection (Plant Pathology)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Plant Protection (Quality and Safety of Agricultural Products)",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Plant Science",
+   "famille": "biologie-biotechnologies"
+  },
+  {
+   "nom": "Polymer Chemistry and Physics",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Power Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Power Engineering and Engineering Thermophysics",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Preschool Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Preschool Pedagogy",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Preventive Veterinary Medicine",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Primary Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Principles of Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Principles of Pedagogy",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Psychological Technology",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Psychology",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Public Administration",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Public Health",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Public Health and Preventive Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Publishing",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Radiation Oncology",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Radiography",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Regional Economics",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Rehabilitation and Physiotherapy",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Rehabilitation Medicine and Physiotherapy",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Resource Utilization and Plant Protection",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Resources and Environment",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Resources Circulation Science and Engineering",
+   "famille": "environnement-ecologie-meteo"
+  },
+  {
+   "nom": "Robotics and Artificial Intelligence",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Rural Development",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Safety Science and Engineering",
+   "famille": "petrole-geologie-mines-securite"
+  },
+  {
+   "nom": "Science and Technology Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Science Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Science of Ethnic Traditional Sports",
+   "famille": "sport"
+  },
+  {
+   "nom": "Science of Law",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Science of Tea",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Selenium Science and Engineering",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Sociology",
+   "famille": "droit-administration-sciences-sociales"
+  },
+  {
+   "nom": "Software Engineering",
+   "famille": "informatique-ia-electronique-telecoms"
+  },
+  {
+   "nom": "Soil Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Special Animal Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Special Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Sport Science",
+   "famille": "sport"
+  },
+  {
+   "nom": "Sports Humanities and Social Science",
+   "famille": "sport"
+  },
+  {
+   "nom": "Stomatologic Biomedicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Stomatological Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Structural Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Study of World Languages and Applied Linguistics",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Surgery",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Teacher Education",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Teaching Chinese to Speakers of Other Languages (Bilingual Communication of Chinese Culture)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Teaching Chinese to Speakers of Other Languages (Chinese and Foreign Languages Comparison and Intercultural Communication)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Teaching Chinese to Speakers of Other Languages (Theory and Practice of Teaching Chinese as a Second Language)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Technical Economics and Management",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Tertiary Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Textile Science and Engineering",
+   "famille": "materiaux-chimie-nanotechnologies"
+  },
+  {
+   "nom": "Theoretical Economics",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Theory of Curriculum and Instruction",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Tourism Management",
+   "famille": "economie-gestion-finance-commerce"
+  },
+  {
+   "nom": "Traditional and Ethnic Sports",
+   "famille": "sport"
+  },
+  {
+   "nom": "Translation and Interpreting",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Transportation Engineering",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Ultrasonic Medicine",
+   "famille": "medecine-sante"
+  },
+  {
+   "nom": "Urban and Rural Planning",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Urban Planning",
+   "famille": "aeronautique-genie-civil-architecture-transports"
+  },
+  {
+   "nom": "Vehicle Engineering",
+   "famille": "genie-mecanique-electrique-energie-automatique"
+  },
+  {
+   "nom": "Veterinary Bioinformatics",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Veterinary Sanitary Science",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Vocational and Technical Education",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "World History",
+   "famille": "education-langues-lettres-communication"
+  },
+  {
+   "nom": "Zoology",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Zootechny (Animal Genetics, Breeding and Reproduction)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  },
+  {
+   "nom": "Zootechny (Animal Nutrition and Feed Science)",
+   "famille": "agronomie-veterinaire-agroalimentaire"
+  }
+ ]
+}

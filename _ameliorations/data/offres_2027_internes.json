@@ -1,0 +1,292 @@
+{
+ "meta": {
+  "version": "2027.09-v2",
+  "mise_a_jour": "2026-11-03",
+  "source": "Catalogue Odysseo (ODY-10)",
+  "devise": "RMB",
+  "note": "Montants indicatifs communiqués par les universités, sous réserve de confirmation à l'admission.",
+  "avertissement": "CONFIDENTIEL – serveur uniquement. Ne jamais importer dans un composant client ni exposer via une API publique."
+ },
+ "offres": [
+  {
+   "ref": "P-01",
+   "universite": "Harbin Institute of Technology, Shenzhen",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Le partenaire écrit « meilleure que la bourse CSC » : argument du partenaire, non vérifié, à ne pas reprendre tel quel."
+  },
+  {
+   "ref": "P-02",
+   "universite": "Hubei University of Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "« Inconditionnelle » : conditions réelles à faire confirmer par le partenaire."
+  },
+  {
+   "ref": "P-03",
+   "universite": "Guizhou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Allocation la plus faible du lot (800 RMB) : à présenter honnêtement."
+  },
+  {
+   "ref": "P-04",
+   "universite": "Xi'an Jiaotong University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Liste partenaire de 71 filières avec ~14 doublons : dédoublonnée à 57. Distinction académique / professionnel (doublons médecine) à clarifier."
+  },
+  {
+   "ref": "P-05",
+   "universite": "Yangzhou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "« Agricultural Engineering » apparaît 2 fois et le n°15 manque dans la source : dédoublonné."
+  },
+  {
+   "ref": "P-06",
+   "universite": "Wuhan Institute of Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "À VÉRIFIER : le nom dit « Wuhan Institute of Technology » mais le logo est celui de « Wuhan University of Technology » (deux universités différentes). Pays exclus : Bangladesh, Pakistan, Maroc, Afghanistan, Nigeria."
+  },
+  {
+   "ref": "P-07",
+   "universite": "Southwest University of Science and Technology (à confirmer)",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "À VÉRIFIER : le nom indique SWUST (Mianyang, Sichuan) mais le logo est celui de Southwest University (Chongqing). Faire confirmer l'université et la ville avant toute candidature. Indice : la liste Master RK situe SWUST à Mianyang (Sichuan). Question posée à RK."
+  },
+  {
+   "ref": "P-08",
+   "universite": "Nanjing University of Information Science and Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": null
+  },
+  {
+   "ref": "P-09",
+   "universite": "Nantong University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Allocation versée 10 mois sur 12."
+  },
+  {
+   "ref": "P-10",
+   "universite": "Changzhou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "FUSION : 2 fiches partenaire (« Changzhou University » + « PhD scholarship in Jiangsu, ChangZhou City ») = même université. Petroleum & Natural Gas n'apparaît que sur la 2e fiche. Classes : 1re 3 500 / 2e 3 000 / 3e 2 500 RMB (10 mois). Logement : charge de l'étudiant précisée seulement pour la 3e classe, à confirmer."
+  },
+  {
+   "ref": "P-11",
+   "universite": "Anhui University of Science and Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Critères d'attribution des types A/B/C à demander."
+  },
+  {
+   "ref": "P-12",
+   "universite": "Tianjin University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "13e Chine / 281e monde (partenaire)",
+   "note_interne": "Type A = bourse CSC gouvernementale (procédure et calendrier CSC). Logement non précisé."
+  },
+  {
+   "ref": "P-13",
+   "universite": "Hangzhou Normal University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Rentrée confirmée sept. 2027 par Odysseo (03/11/2026) ; la fiche partenaire mentionnait 2026 par erreur."
+  },
+  {
+   "ref": "P-14",
+   "universite": "Chang'an University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "97e Chine / 748e monde (partenaire)",
+   "note_interne": "Issue de la liste Master (fiche commune PhD & Master avec MA-17). Liste des filières PhD supposée identique à celle du Master : à confirmer."
+  },
+  {
+   "ref": "MA-01",
+   "universite": "Hangzhou Normal University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Même fiche partenaire que P-13 (offre Master & PhD). Rentrée sept. 2027 confirmée."
+  },
+  {
+   "ref": "MA-02",
+   "universite": "Taizhou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "241e Chine / 1699e monde (partenaire)",
+   "note_interne": null
+  },
+  {
+   "ref": "MA-03",
+   "universite": "Harbin Institute of Technology, Shenzhen",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "16e Chine / 174e monde (partenaire)",
+   "note_interne": "Montant de la scolarité non communiqué (utile pour chiffrer le reste à charge du type C)."
+  },
+  {
+   "ref": "MA-04",
+   "universite": "Nanjing University of Information Science and Technology (bourse OMM / WMO)",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "49e Chine / 397e monde (partenaire)",
+   "note_interne": "Bourse de l'Organisation météorologique mondiale : conditions d'éligibilité OMM à vérifier (souvent via le service météo national)."
+  },
+  {
+   "ref": "MA-05",
+   "universite": "Nanjing University of Information Science and Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": null
+  },
+  {
+   "ref": "MA-06",
+   "universite": "Hubei University of Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "268e Chine / 1355e monde (partenaire)",
+   "note_interne": "Bourse partielle : l'étudiant paie ~14 300 RMB/an. Allocation au mérite, non garantie. À expliquer clairement avant signature."
+  },
+  {
+   "ref": "MA-07",
+   "universite": "Xi'an Jiaotong University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "14e Chine / 157e monde (partenaire)",
+   "note_interne": "Liste partenaire de 81 filières avec ~23 doublons : dédoublonnée. Logement non précisé (6 000 RMB/an pour le PhD P-04)."
+  },
+  {
+   "ref": "MA-08",
+   "universite": "Yangzhou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "92e Chine / 880e monde (partenaire)",
+   "note_interne": "Le partenaire écrit « Accommodation Fees » sans préciser « free » : gratuité du logement à confirmer."
+  },
+  {
+   "ref": "MA-09",
+   "universite": "Guangdong University of Finance and Economics",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "385e Chine / 3532e monde (partenaire)",
+   "note_interne": "Bourse faible : logement 6 000 RMB/an payant dans les deux types."
+  },
+  {
+   "ref": "MA-10",
+   "universite": "Nantong University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "142e Chine / 1360e monde (partenaire)",
+   "note_interne": "Le partenaire annonce 46 filières (28 à 46 professionnelles) mais n'en liste que 45."
+  },
+  {
+   "ref": "MA-11",
+   "universite": "Shanghai University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "39e Chine / 327e monde (partenaire)",
+   "note_interne": "Type A = CSC ou SGSC (gouvernement de Shanghai) : procédure propre."
+  },
+  {
+   "ref": "MA-12",
+   "universite": "Xi'an Shiyou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "non fiable (copie de Hubei UT)",
+   "note_interne": "Le partenaire indique le même classement que Hubei UT (268e / 1355e) : copier-coller probable, à ne pas utiliser."
+  },
+  {
+   "ref": "MA-13",
+   "universite": "China West Normal University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "293e Chine / 1921e monde (partenaire)",
+   "note_interne": null
+  },
+  {
+   "ref": "MA-14",
+   "universite": "Wuhan Institute of Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "121e Chine / 917e monde (partenaire)",
+   "note_interne": "À VÉRIFIER (comme P-06) : Wuhan Institute of Technology ou Wuhan University of Technology ?"
+  },
+  {
+   "ref": "MA-15",
+   "universite": "Beijing Normal University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "26e Chine / 206e monde (partenaire)",
+   "note_interne": null
+  },
+  {
+   "ref": "MA-16",
+   "universite": "Wuhan Polytechnic University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "246e Chine / 1746e monde (partenaire)",
+   "note_interne": "« Hotel: 3000rmb/year » interprété comme logement payant. Numérotation partenaire saute le n°7."
+  },
+  {
+   "ref": "MA-17",
+   "universite": "Chang'an University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "97e Chine / 748e monde (partenaire)",
+   "note_interne": "Fiche commune PhD & Master (voir P-14). Allocation 1re année seulement ; logement 1re année non précisé."
+  },
+  {
+   "ref": "MA-18",
+   "universite": "Shanxi University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "131e Chine / 986e monde (partenaire)",
+   "note_interne": "2 doublons retirés."
+  },
+  {
+   "ref": "MA-19",
+   "universite": "Nanjing University of Information Science and Technology (bourse CSC – chinois)",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": null,
+   "note_interne": "Le partenaire écrit « English Taught » mais exige le HSK 5 : programme en réalité en chinois, à confirmer."
+  },
+  {
+   "ref": "MA-20",
+   "universite": "China University of Petroleum, Beijing",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "64e Chine / 497e monde (partenaire)",
+   "note_interne": null
+  },
+  {
+   "ref": "MA-21",
+   "universite": "Changzhou University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "220e Chine / 1571e monde (partenaire)",
+   "note_interne": "Date limite « selon les places » : candidater tôt."
+  },
+  {
+   "ref": "MA-22",
+   "universite": "Nanjing University of Posts and Telecommunications",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "95e Chine / 737e monde (partenaire)",
+   "note_interne": "Lettre d'admission provisoire NJUPT exigée dans le dossier. Coûts à avancer par l'étudiant : 800 RMB + logement."
+  },
+  {
+   "ref": "MA-23",
+   "universite": "Southwest University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "70e Chine / 527e monde (partenaire)",
+   "note_interne": "Liste partenaire de 59 filières avec doublons : dédoublonnée. Logement 9 000 RMB/an élevé."
+  },
+  {
+   "ref": "MA-24",
+   "universite": "Northwestern Polytechnical University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "33e Chine / 253e monde (partenaire)",
+   "note_interne": "Date limite la plus proche (31/01/2027). Doublons retirés (43 → 39)."
+  },
+  {
+   "ref": "MA-25",
+   "universite": "Southwest University of Science and Technology",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "161e Chine / 1467e monde (partenaire)",
+   "note_interne": "Indice pour P-07 : cette fiche situe SWUST à Mianyang (Sichuan)."
+  },
+  {
+   "ref": "MA-26",
+   "universite": "Tianjin University",
+   "partenaire": "RK Edu",
+   "classement_selon_partenaire": "13e Chine / 281e monde (partenaire)",
+   "note_interne": "« Biomedical Engineering » en double et 3 lignes « chauffage / gaz / ventilation » regroupées."
+  }
+ ]
+}

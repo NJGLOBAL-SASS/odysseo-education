@@ -2,6 +2,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 
 import { IntakeForm } from "@/components/forms/intake/intake-form";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
+import { publicPageMetadata } from "@/lib/seo";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return publicPageMetadata("apply", params.locale);
+}
 
 export default async function PostulerPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

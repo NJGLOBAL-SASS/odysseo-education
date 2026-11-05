@@ -6,10 +6,10 @@ import { Link } from "@/i18n/navigation";
 import { PROGRAMS, formatFcfa, type Locale } from "@/lib/programs";
 import { BrochureDownload } from "@/components/programs/brochure-download";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
+import { publicPageMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "programs.index" });
-  return { title: `${t("title")} — Odysseo Education`, description: t("intro") };
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return publicPageMetadata("programs", params.locale);
 }
 
 export default async function ProgramsIndexPage({ params }: { params: { locale: string } }) {

@@ -1,0 +1,5274 @@
+{
+ "meta": {
+  "version": "2027.09-v2",
+  "mise_a_jour": "2026-11-03",
+  "source": "Catalogue Odysseo (ODY-10)",
+  "devise": "RMB",
+  "note": "Montants indicatifs communiqués par les universités, sous réserve de confirmation à l'admission."
+ },
+ "familles": [
+  {
+   "slug": "biologie-biotechnologies",
+   "libelle_fr": "Biologie & biotechnologies"
+  },
+  {
+   "slug": "informatique-ia-electronique-telecoms",
+   "libelle_fr": "Informatique, IA, électronique & télécoms"
+  },
+  {
+   "slug": "petrole-geologie-mines-securite",
+   "libelle_fr": "Pétrole, géologie, mines & sécurité"
+  },
+  {
+   "slug": "genie-mecanique-electrique-energie-automatique",
+   "libelle_fr": "Génie mécanique, électrique, énergie & automatique"
+  },
+  {
+   "slug": "aeronautique-genie-civil-architecture-transports",
+   "libelle_fr": "Aéronautique, génie civil, architecture & transports"
+  },
+  {
+   "slug": "materiaux-chimie-nanotechnologies",
+   "libelle_fr": "Matériaux, chimie & nanotechnologies"
+  },
+  {
+   "slug": "agronomie-veterinaire-agroalimentaire",
+   "libelle_fr": "Agronomie, vétérinaire & agroalimentaire"
+  },
+  {
+   "slug": "pharmacie",
+   "libelle_fr": "Pharmacie"
+  },
+  {
+   "slug": "medecine-sante",
+   "libelle_fr": "Médecine & santé"
+  },
+  {
+   "slug": "environnement-ecologie-meteo",
+   "libelle_fr": "Environnement, écologie & météo"
+  },
+  {
+   "slug": "economie-gestion-finance-commerce",
+   "libelle_fr": "Économie, gestion, finance & commerce"
+  },
+  {
+   "slug": "droit-administration-sciences-sociales",
+   "libelle_fr": "Droit, administration & sciences sociales"
+  },
+  {
+   "slug": "sport",
+   "libelle_fr": "Sport"
+  },
+  {
+   "slug": "education-langues-lettres-communication",
+   "libelle_fr": "Éducation, langues, lettres & communication"
+  },
+  {
+   "slug": "mathematiques-physique",
+   "libelle_fr": "Mathématiques & physique"
+  }
+ ],
+ "offres": [
+  {
+   "ref": "P-01",
+   "cycle": "phd",
+   "ville": "Shenzhen",
+   "province": "Guangdong",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Shenzhen (Guangdong)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "4 500 RMB/mois",
+   "logement_texte": "À la charge de l'étudiant : 250 – 500 RMB/mois",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 4 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 4500,
+   "allocation_max_rmb_mois": 4500,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "biologie-biotechnologies",
+    "economie-gestion-finance-commerce",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique"
+   ],
+   "filieres": [
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Integrated Circuit Science and Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Architecture",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Communication and Transportation Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Urban and Rural Planning",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomedical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aeronautical and Astronautical Science and Technology",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-02",
+   "cycle": "phd",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "1 000 – 1 500 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : jusqu'à 1 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1000,
+   "allocation_max_rmb_mois": 1500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "biologie-biotechnologies"
+   ],
+   "filieres": [
+    {
+     "nom": "Biology and Medicine (Cellular Regulation and Molecular Pharmacology)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology and Medicine (Biocatalysis and Synthetic Biology)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Light Industry Technology and Engineering (Biopharmaceutical Sciences and Protein Engineering)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology and Medicine (Nanobiology and Drug Delivery)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology and Medicine (Food Science and Nutrition Health)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Light Industry Technology and Engineering (Biomass Chemistry and Engineering)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Light Industry Technology and Engineering (Biosynthesis and Fermentation Engineering)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "P-03",
+   "cycle": "phd",
+   "ville": "Guiyang",
+   "province": "Guizhou",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Guiyang (Guizhou)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "800 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 800 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 800,
+   "allocation_max_rmb_mois": 800,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Biology (Botany and Plant Science)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology (Microbiology)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology (Genetics)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology (Cytobiology)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology (Biochemistry and Molecular Biology)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ecology (Phytoecology)",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ecology (Microbial Ecology)",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry (Organic Chemistry)",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Science and Technology (Microelectronics and Solid Electronics)",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering (Mechanical Manufacturing and Automation)",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering (Mechatronic Engineering)",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering (Mechanical Design and Theory)",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering (Materials Physics and Chemistry)",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering (Materials Science)",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering (Materials Processing Engineering)",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology (Zoology)",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Crop Science (Crop Cultivation and Geoponics)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Crop Science (Crop Genetics and Breeding)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Plant Protection (Plant Pathology)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Plant Protection (Agricultural Entomology and Pest Control)",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Plant Protection (Quality and Safety of Agricultural Products)",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Zootechny (Animal Genetics, Breeding and Reproduction)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Zootechny (Animal Nutrition and Feed Science)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Plant Protection (Pesticide Science)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics (Basic Mathematics)",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics (Applied Mathematics)",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics (Operational Research and Cybernetics)",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Philosophy (Marxist Philosophy)",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Philosophy (Chinese Philosophy)",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Philosophy (Foreign Philosophies)",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Philosophy (Aesthetics)",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials and Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-04",
+   "cycle": "phd",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "2 500 – 4 500 RMB/mois",
+   "logement_texte": "À la charge de l'étudiant : 6 000 RMB/an",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : jusqu'à 4 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2500,
+   "allocation_max_rmb_mois": 4500,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "medecine-sante",
+    "petrole-geologie-mines-securite",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nonlinear Optics",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electro-optic Crystal and Device",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Law",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Administration",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aeronautical and Astronautical Science and Technology",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Instrument Science and Technology",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Theoretical Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomedical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physiology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biochemistry and Molecular Biology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biophysics",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pathology and Pathophysiology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Epidemiology and Health Statistics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Child, Adolescent and Maternal Health",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nutrition and Food Hygiene",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Stomatologic Biomedicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Medicinal Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutics",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacognosy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Analysis",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacology",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Forensic Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nursing",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Internal Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pediatrics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geriatric Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Neurology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Dermatology and Venereology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "General Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Rehabilitation and Physiotherapy",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Surgery",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Orthopaedics and Traumatology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Obstetrics and Gynecology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Anesthesiology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Laboratory Diagnostics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Oncology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Radiation Oncology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Radiography",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ultrasonic Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nuclear Medicine",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Stomatological Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Emergency Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Critical Care Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pediatric Surgery",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Otolaryngology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-05",
+   "cycle": "phd",
+   "ville": "Yangzhou",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Yangzhou (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "3 500 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 3 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 3500,
+   "allocation_max_rmb_mois": 3500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "agronomie-veterinaire-agroalimentaire",
+    "education-langues-lettres-communication",
+    "genie-mecanique-electrique-energie-automatique",
+    "mathematiques-physique"
+   ],
+   "filieres": [
+    {
+     "nom": "Foreign Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Agricultural Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Energy Storage Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Plant Pathology",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Horticulture",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Animal Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Agrostology",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Basic Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Preventive Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Veterinary Bioinformatics",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Veterinary Sanitary Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Experimental Zoology and Comparative Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-06",
+   "cycle": "phd",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Non précisée",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "3 000 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": "Diplôme et relevés ORIGINAUX exigés (attestation provisoire refusée)",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 3000,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "genie-mecanique-electrique-energie-automatique",
+    "materiaux-chimie-nanotechnologies"
+   ],
+   "filieres": [
+    {
+     "nom": "Material Physics and Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materialogy",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Material Processing Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biochemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Industrial Catalysis",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Industrial Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "diplomes_originaux": true,
+    "nationalites_exclues": [
+     "Bangladesh",
+     "Pakistan",
+     "Maroc",
+     "Afghanistan",
+     "Nigeria"
+    ]
+   },
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "P-07",
+   "cycle": "phd",
+   "ville": "Sichuan",
+   "province": "Sichuan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Sichuan",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "1 500 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 1 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 1500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "biologie-biotechnologies",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "materiaux-chimie-nanotechnologies"
+   ],
+   "filieres": [
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "P-08",
+   "cycle": "phd",
+   "ville": "Nanjing",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanjing (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "2 500 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 2 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2500,
+   "allocation_max_rmb_mois": 2500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "informatique-ia-electronique-telecoms",
+    "mathematiques-physique"
+   ],
+   "filieres": [
+    {
+     "nom": "Atmospheric Science",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Perception and Intelligent Control",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Optoelectronic Information Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Big Data and Business Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "History of Science and Technology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Meteorology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Meteorology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biological Environmental Information Materials",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-09",
+   "cycle": "phd",
+   "ville": "Nantong",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nantong (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "4 ans",
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "1 800 RMB/mois (10 mois/an)",
+   "logement_texte": "Offert (sur le campus)",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 1 800 RMB (10 mois/an)"
+   ],
+   "allocation_min_rmb_mois": 1800,
+   "allocation_max_rmb_mois": 1800,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "informatique-ia-electronique-telecoms",
+    "medecine-sante"
+   ],
+   "filieres": [
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Basic Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Health and Preventive Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-10",
+   "cycle": "phd",
+   "ville": "Changzhou",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Changzhou (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "4 ans",
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "2 500 RMB/mois (10 mois) en 1re année ; 2 500 – 3 500 RMB/mois ensuite selon la classe",
+   "logement_texte": "À la charge de l'étudiant : 1 750 – 4 000 RMB/an (chambre de 2 à 6 lits)",
+   "conditions_texte": "Hors bourse : assurance 800 RMB/an, permis de séjour 800 RMB/an, visite médicale 500 RMB (1re année), inscription 600 RMB",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : jusqu'à 3 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2500,
+   "allocation_max_rmb_mois": 3500,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "materiaux-chimie-nanotechnologies",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Safety Science and Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Petroleum and Natural Gas Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "P-11",
+   "cycle": "phd",
+   "ville": "Huainan",
+   "province": "Anhui",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Huainan (Anhui)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "4 ans",
+   "bourse_texte": "Scolarité + logement + assurance offerts",
+   "allocation_texte": "Type A 3 500 · Type B 2 000 · Type C sans allocation (RMB/mois)",
+   "logement_texte": "Offert",
+   "conditions_texte": "3 types de bourse ; le type C ne donne aucune allocation mensuelle",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Assurance offerte",
+    "Allocation : jusqu'à 3 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 3500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "economie-gestion-finance-commerce",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Design and Theory",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechatronic Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Manufacture and Automation",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomass Chemistry and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Material Science",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Instrument Science and Technology",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Vehicle Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-12",
+   "cycle": "phd",
+   "ville": "Tianjin",
+   "province": "Tianjin",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Tianjin",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (Mathématiques : aussi en chinois)",
+   "duree": null,
+   "bourse_texte": "Type A (bourse CSC) : scolarité, assurance et inscription offertes · Type B : scolarité offerte",
+   "allocation_texte": "Type A 3 500 · Type B 2 000 (RMB/mois)",
+   "logement_texte": "Non précisé",
+   "conditions_texte": "Type A = bourse du gouvernement chinois (CSC), procédure et calendrier propres",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Type A : assurance offerte",
+    "Allocation : jusqu'à 3 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2000,
+   "allocation_max_rmb_mois": 3500,
+   "logement_resume": "Non précisé",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "biologie-biotechnologies",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique"
+   ],
+   "filieres": [
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Chemistry (Pharmaceutical Science)",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer and Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Material and Processing Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomedical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics (enseignée en chinois)",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-13",
+   "cycle": "phd",
+   "ville": "Hangzhou",
+   "province": "Zhejiang",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Hangzhou (Zhejiang)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (chinois pour Chinese Language and Literature)",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "2 000 RMB/mois",
+   "logement_texte": "Non précisé",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 2 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2000,
+   "allocation_max_rmb_mois": 2000,
+   "logement_resume": "Non précisé",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "biologie-biotechnologies",
+    "education-langues-lettres-communication"
+   ],
+   "filieres": [
+    {
+     "nom": "Biological Science",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Psychology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chinese Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "P-14",
+   "cycle": "phd",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "4 ans (indiqué « 2nd to 4th year »)",
+   "bourse_texte": "Frais de scolarité offerts (toute la durée)",
+   "allocation_texte": "2 500 RMB/mois la 1re année uniquement",
+   "logement_texte": "Payant à partir de la 2e année : 600 – 800 RMB/mois",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 2 500 RMB/mois en 1re année"
+   ],
+   "allocation_min_rmb_mois": 2500,
+   "allocation_max_rmb_mois": 2500,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "MBA",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Communication and Transportation Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Architecture",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geophysics",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Tourism Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Accounting",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Structural Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geological Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Cyberspace Security",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Finance",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Robotics and Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Vehicle Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Logistics Management Science",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "MA-01",
+   "cycle": "master",
+   "ville": "Hangzhou",
+   "province": "Zhejiang",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Hangzhou (Zhejiang)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (2 filières en chinois)",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "1 500 RMB/mois",
+   "logement_texte": "Non précisé",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 1 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 1500,
+   "logement_resume": "Non précisé",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies"
+   ],
+   "filieres": [
+    {
+     "nom": "Global Communication",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Study of World Languages and Applied Linguistics",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Comparative Literature and Trans-cultural Studies",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Comparative Education",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Business",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "chinois"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-02",
+   "cycle": "master",
+   "ville": "Taizhou",
+   "province": "Zhejiang",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Taizhou (Zhejiang)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (5 filières en chinois)",
+   "duree": null,
+   "bourse_texte": "Scolarité et logement offerts",
+   "allocation_texte": "600 RMB/mois (sciences) · 300 RMB/mois (sciences humaines)",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : jusqu'à 600 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 300,
+   "allocation_max_rmb_mois": 600,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "biologie-biotechnologies",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "sport"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Resources and Environment",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Intelligent Manufacturing Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Business",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physical Education",
+     "famille": "sport",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ecology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology and Medicine",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nanoscience and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "English Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Resources and Environment",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Tourism Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "chinois"
+    },
+    {
+     "nom": "International Business",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "chinois"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-03",
+   "cycle": "master",
+   "ville": "Shenzhen",
+   "province": "Guangdong",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Shenzhen (Guangdong)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Type A : scolarité offerte + allocation · Type B : scolarité offerte · Type C : 80 % de la scolarité offerte",
+   "allocation_texte": "Type A 1 000 RMB/mois · Types B et C sans allocation",
+   "logement_texte": "Non précisé",
+   "conditions_texte": "Type C : 20 % des frais de scolarité restent à payer",
+   "arguments": [
+    "Scolarité offerte (types A et B) ou à 80 % (type C)",
+    "Allocation : jusqu'à 1 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 1000,
+   "logement_resume": "Non précisé",
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies"
+   ],
+   "filieres": [
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Design",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-04",
+   "cycle": "master",
+   "ville": "Nanjing",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanjing (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "2 ans",
+   "bourse_texte": "Bourse OMM (WMO) : scolarité, logement et assurance offerts",
+   "allocation_texte": "2 000 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Assurance offerte",
+    "Allocation : 2 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2000,
+   "allocation_max_rmb_mois": 2000,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "environnement-ecologie-meteo"
+   ],
+   "filieres": [
+    {
+     "nom": "Meteorology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Meteorology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "eligibilite_omm_requise": true
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-05",
+   "cycle": "master",
+   "ville": "Nanjing",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanjing (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "2 ans",
+   "bourse_texte": "Type A : scolarité et logement offerts · Type B : scolarité offerte",
+   "allocation_texte": "Aucune allocation",
+   "logement_texte": "Type A : offert · Type B : à la charge de l'étudiant",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert (type A)"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": "Selon le type",
+   "scolarite_offerte_garantie": true,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "informatique-ia-electronique-telecoms"
+   ],
+   "filieres": [
+    {
+     "nom": "Business Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Meteorology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Meteorology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Educational Technology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Science and Technology Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Finance",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Master of Education in TEFL",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-06",
+   "cycle": "master",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "BOURSE PARTIELLE : 50 % de la scolarité et 30 % du logement offerts",
+   "allocation_texte": "Selon les résultats : 15 000 · 30 000 · 50 000 RMB/an (3 classes)",
+   "logement_texte": "Partiel : 70 % de 4 000 RMB/an à payer (2 800 RMB/an)",
+   "conditions_texte": "Frais d'origine : scolarité 23 000 RMB/an, logement 4 000 RMB/an. Reste à charge estimé : ~11 500 RMB/an de scolarité + 2 800 RMB/an de logement",
+   "arguments": [
+    "Bourse partielle : 50 % de la scolarité, 30 % du logement",
+    "Allocation au mérite : 15 000 à 50 000 RMB/an"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 4170,
+   "logement_resume": "Partiel",
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biotechnology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Teaching Chinese to Speakers of Other Languages (Theory and Practice of Teaching Chinese as a Second Language)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Teaching Chinese to Speakers of Other Languages (Chinese and Foreign Languages Comparison and Intercultural Communication)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Light Industry Technology and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology and Medicine",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Teaching Chinese to Speakers of Other Languages (Bilingual Communication of Chinese Culture)",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-07",
+   "cycle": "master",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "1 500 / 2 500 / 3 500 RMB/mois",
+   "logement_texte": "Non précisé",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : jusqu'à 3 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 3500,
+   "logement_resume": "Non précisé",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "medecine-sante",
+    "petrole-geologie-mines-securite",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Law (Chinese and International Business Law)",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Administration",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aeronautical and Astronautical Science and Technology",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering / Instrument Science and Technology",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Theoretical Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Marxist Theory",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomedical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Languages and Literatures",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Epidemiology and Health Statistics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Child, Adolescent and Maternal Health",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nutrition and Food Hygiene",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Health",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Medicinal Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutics",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacognosy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Analysis",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacology",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Natural Medicinal Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacy Administration",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Forensic Science",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nursing",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Internal Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pediatrics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geriatric Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Neurology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Dermatology and Venereology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Emergency Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Critical Care Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "General Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Surgery",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Rehabilitation and Physiotherapy",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Orthopaedics and Traumatology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Obstetrics and Gynecology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ophthalmology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Otorhinolaryngology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Anesthesiology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Pathology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Laboratory Diagnostics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Oncology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Radiation Oncology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Radiography",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ultrasonic Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nuclear Medicine",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Stomatological Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Engineering",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Science",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-08",
+   "cycle": "master",
+   "ville": "Yangzhou",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Yangzhou (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "2 500 RMB/mois",
+   "logement_texte": "Offert (à confirmer)",
+   "conditions_texte": "Moyenne minimale de 70 % au diplôme ; pièce d'identité des parents demandée",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 2 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2500,
+   "allocation_max_rmb_mois": 2500,
+   "logement_resume": "À confirmer",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "agronomie-veterinaire-agroalimentaire",
+    "education-langues-lettres-communication",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "medecine-sante"
+   ],
+   "filieres": [
+    {
+     "nom": "English Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Linguistics and Applied Linguistics",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Processing Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Agricultural Mechanization Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Industrial Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Vehicle Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Animal Husbandry",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aquatic Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Agrostology",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Basic Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Preventive Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Veterinary Bioinformatics",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Veterinary Sanitary Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Experimental Zoology and Comparative Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "moyenne_min_pct": 70
+   },
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "MA-09",
+   "cycle": "master",
+   "ville": "Guangzhou",
+   "province": "Guangdong",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Guangzhou (Guangdong)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (3 filières en chinois)",
+   "duree": null,
+   "bourse_texte": "Type A : scolarité offerte + 5 000 RMB/an · Type B : scolarité réduite à 5 000 RMB/an",
+   "allocation_texte": "Type A 5 000 RMB/an (~420 RMB/mois) · Type B aucune",
+   "logement_texte": "À la charge de l'étudiant : 6 000 RMB/an",
+   "conditions_texte": null,
+   "arguments": [
+    "Scolarité offerte (type A) ou réduite (type B)",
+    "Allocation : 5 000 RMB/an (type A)"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 420,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication"
+   ],
+   "filieres": [
+    {
+     "nom": "International Trade",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Digital Economy",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Chinese Language and Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Journalism and Communication",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Publishing",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-10",
+   "cycle": "master",
+   "ville": "Nantong",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nantong (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Scolarité et logement offerts",
+   "allocation_texte": "500 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 500,
+   "allocation_max_rmb_mois": 500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "medecine-sante",
+    "petrole-geologie-mines-securite",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Principles of Pedagogy",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Curriculum and Teaching Theory",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Preschool Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Higher Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Vocational and Technical Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Educational Technology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Psychological Technology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Textile Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Health and Preventive Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physiology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pathology and Pathophysiology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Medical Informatics",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Internal Medicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Surgery",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Dermatology and Venereology",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Imaging and Nuclear Medicine",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Critical Care Nursing",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Rehabilitation Medicine and Physiotherapy",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Chinese Language Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Music",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Fine Arts and Calligraphy",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Design",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Library and Information Studies",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Modern Educational Technology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Primary Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Preschool Pedagogy",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Psychology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Health",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Resources and Environment",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil and Hydraulic Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Transportation Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Business",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Administration",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Integrated Circuit Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Statistics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-11",
+   "cycle": "master",
+   "ville": "Shanghai",
+   "province": "Shanghai",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Shanghai",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Type A (bourse CSC / bourse de Shanghai) : scolarité, logement et assurance offerts · Type B : scolarité offerte",
+   "allocation_texte": "Type A 3 000 RMB/mois · Type B aucune",
+   "logement_texte": "Type A : offert · Type B : à la charge de l'étudiant",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Type A : logement, assurance + 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Selon le type",
+   "scolarite_offerte_garantie": true,
+   "score": "bronze",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms"
+   ],
+   "filieres": [
+    {
+     "nom": "Journalism and Communication",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Trade",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Relations",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "MBA",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Business",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Manufacture and Automation",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechatronic Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Design Science",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Sociology",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Demography",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Finance",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Corporate Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Design",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Architecture",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-12",
+   "cycle": "master",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Type A : scolarité et logement offerts · Type B : scolarité offerte · Type C : 50 % scolarité et 50 % logement",
+   "allocation_texte": "2 000 RMB/mois (types A, B et C)",
+   "logement_texte": "Type A : offert · B : payant · C : 50 %",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 2 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 2000,
+   "allocation_max_rmb_mois": 2000,
+   "logement_resume": "Selon le type",
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": true,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Enterprise Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Technical Economics and Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Accounting",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Finance",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Industrial Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Regional Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Petroleum and Natural Gas Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Instrument Science and Technology",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geological Resources and Geological Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-13",
+   "cycle": "master",
+   "ville": "Nanchong",
+   "province": "Sichuan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanchong (Sichuan)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (2 filières en chinois)",
+   "duree": "3 ans",
+   "bourse_texte": "Scolarité et logement offerts",
+   "allocation_texte": "600 – 1 000 RMB/mois (selon l'entretien)",
+   "logement_texte": "Offert",
+   "conditions_texte": "Certificat d'anglais ou HSK 4 accepté",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : jusqu'à 1 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 600,
+   "allocation_max_rmb_mois": 1000,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "materiaux-chimie-nanotechnologies",
+    "sport"
+   ],
+   "filieres": [
+    {
+     "nom": "Analytical Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Organic Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Administration",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Chinese International Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Forestry",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ecology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physical Education and Training",
+     "famille": "sport",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Traditional and Ethnic Sports",
+     "famille": "sport",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Human Kinesiology",
+     "famille": "sport",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Sports Humanities and Social Science",
+     "famille": "sport",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "anglais_ou_hsk_min": 4
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-14",
+   "cycle": "master",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Scolarité et logement offerts",
+   "allocation_texte": "1 500 RMB/mois (Enterprise Management : 1 000)",
+   "logement_texte": "Offert",
+   "conditions_texte": "Diplôme et relevés ORIGINAUX exigés (attestation provisoire refusée) · Nationalités non éligibles : Bangladesh, Maroc, Pakistan, Afghanistan, Nigeria",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : jusqu'à 1 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1000,
+   "allocation_max_rmb_mois": 1500,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "materiaux-chimie-nanotechnologies",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Engineering",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Enterprise Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "diplomes_originaux": true,
+    "nationalites_exclues": [
+     "Bangladesh",
+     "Maroc",
+     "Pakistan",
+     "Afghanistan",
+     "Nigeria"
+    ]
+   },
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "MA-15",
+   "cycle": "master",
+   "ville": "Beijing",
+   "province": "Beijing",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Beijing",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Type A (CSC) : scolarité, logement, assurance · Type B : scolarité, logement, assurance · Type C : scolarité",
+   "allocation_texte": "Type A 3 000 · Type B 2 000 · Type C 1 000 (RMB/mois)",
+   "logement_texte": "Types A et B : offert · Type C : à la charge de l'étudiant",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement et assurance offerts (types A et B)",
+    "Allocation : 1 000 à 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1000,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Selon le type",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": true,
+   "familles": [
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce"
+   ],
+   "filieres": [
+    {
+     "nom": "Master of Business Administration (MBA)",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Master of Public Administration (MPA)",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-16",
+   "cycle": "master",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts",
+   "allocation_texte": "Aucune allocation (meilleurs étudiants : 20 000 RMB/an)",
+   "logement_texte": "À la charge de l'étudiant : 3 000 RMB/an",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Meilleurs étudiants : 20 000 RMB/an"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Rural Development",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology and Medicine",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Nutrition Science and Technology",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Material and Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Resource Utilization and Plant Protection",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Machinery",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Agricultural Engineering and Information Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Animal Husbandry",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Hydrobiology",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Administration",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil and Hydraulic Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Agricultural Management",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Accounting",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Finance",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Translation and Interpreting",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Selenium Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Trade",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-17",
+   "cycle": "master",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Frais de scolarité offerts (toute la durée)",
+   "allocation_texte": "2 000 RMB/mois la 1re année uniquement",
+   "logement_texte": "Payant à partir de la 2e année : 600 – 800 RMB/mois",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : 2 000 RMB/mois en 1re année"
+   ],
+   "allocation_min_rmb_mois": 2000,
+   "allocation_max_rmb_mois": 2000,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "MBA",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Communication and Transportation Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Architecture",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geophysics",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Tourism Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Accounting",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Structural Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geological Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Cyberspace Security",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Finance",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Robotics and Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Vehicle Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Logistics Management Science",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-18",
+   "cycle": "master",
+   "ville": "Taiyuan",
+   "province": "Shanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Taiyuan (Shanxi)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Bourse CSC : scolarité, logement, assurance · Bourse universitaire : scolarité, logement",
+   "allocation_texte": "CSC 3 000 · Université 1 500 (RMB/mois)",
+   "logement_texte": "Offert",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Assurance offerte",
+    "Allocation : jusqu'à 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": true,
+   "familles": [
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "environnement-ecologie-meteo",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "medecine-sante",
+    "pharmacie",
+    "sport"
+   ],
+   "filieres": [
+    {
+     "nom": "Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Organic Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Inorganic Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Analytical Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Medicinal Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Engineering",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biochemistry and Molecular Biology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "International Law",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental and Resource Protection Law",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Botany",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Science of Ethnic Traditional Sports",
+     "famille": "sport",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Resources Circulation Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Microbiology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Processing and Security",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Genetics",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Biomedicine",
+     "famille": "medecine-sante",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-19",
+   "cycle": "master",
+   "ville": "Nanjing",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanjing (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Chinois (HSK 5 exigé)",
+   "duree": "3 ans",
+   "bourse_texte": "Bourse CSC : scolarité, logement et assurance offerts",
+   "allocation_texte": "3 000 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": "HSK 5 obligatoire",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Assurance offerte",
+    "Allocation : 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 3000,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "education-langues-lettres-communication"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language and Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "hsk_min": 5
+   },
+   "statut": "a_verifier",
+   "publiable": false
+  },
+  {
+   "ref": "MA-20",
+   "cycle": "master",
+   "ville": "Beijing",
+   "province": "Beijing",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Beijing",
+   "rentree": "2027-09",
+   "date_limite": "2027-05-30",
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Type A : scolarité, logement, assurance + allocation · Type B : scolarité, logement, assurance · Type C : logement et assurance",
+   "allocation_texte": "Type A 2 000 RMB/mois · Types B et C sans allocation",
+   "logement_texte": "Offert (types A, B, C)",
+   "conditions_texte": "Type C : scolarité 31 000 RMB/an à payer · IELTS 6.0 / TOEFL 75 / Duolingo 95 · relevé bancaire 5 000 USD · hors bourse : permis de séjour 400 RMB/an, visite médicale 400 RMB, inscription 400 RMB",
+   "arguments": [
+    "Logement et assurance offerts",
+    "Scolarité offerte (types A et B)",
+    "Allocation : jusqu'à 2 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 2000,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": true,
+   "familles": [
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "materiaux-chimie-nanotechnologies",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Petroleum and Natural Gas Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geological Resources and Geological Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geophysics",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "ielts_min": 6.0,
+    "toefl_min": 75,
+    "duolingo_min": 95,
+    "releve_bancaire_usd": 5000
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-21",
+   "cycle": "master",
+   "ville": "Changzhou",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Changzhou (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": "2027-06-30",
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Frais de scolarité offerts (réévaluation annuelle)",
+   "allocation_texte": "1 500 RMB/mois (10 mois) en 1re année ; 1 500 – 2 500 RMB/mois ensuite selon la classe",
+   "logement_texte": "À la charge de l'étudiant : 1 750 – 4 000 RMB/an (chambre de 2 à 6 lits)",
+   "conditions_texte": "Moins de 28 ans · IELTS 5.5 / TOEFL 60 (sinon test d'anglais à l'arrivée) · relevé bancaire > 10 000 USD · vidéo de présentation 2-3 min · 2 lettres de professeurs · hors bourse : assurance 800 RMB/an, permis de séjour 800 RMB/an, visite médicale 500 RMB, inscription 600 RMB",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Allocation : jusqu'à 2 500 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 2500,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "materiaux-chimie-nanotechnologies",
+    "petrole-geologie-mines-securite",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering and Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Safety Science and Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Petroleum and Natural Gas Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "age_max": 27,
+    "ielts_min": 5.5,
+    "toefl_min": 60,
+    "certificat_anglais_obligatoire": false,
+    "releve_bancaire_usd": 10000
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-22",
+   "cycle": "master",
+   "ville": "Nanjing",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanjing (Jiangsu)",
+   "rentree": "2027-09",
+   "date_limite": "2027-05-30",
+   "langue": "Anglais",
+   "duree": "2 ans",
+   "bourse_texte": "1re année : scolarité offerte (1re classe) · ensuite : 50 % 1re classe (gratuit), 30 % 2e classe (-15 000 RMB), 20 % 3e classe (-10 000 RMB)",
+   "allocation_texte": "Aucune allocation de base (bourse de la ville de Nanjing : 10 000 RMB/an pour les meilleurs, sur examen)",
+   "logement_texte": "À la charge de l'étudiant : 1 500 RMB/an (chambre de 4) ou 4 000 RMB/an (chambre double)",
+   "conditions_texte": "18 à 34 ans · IELTS 5.5 / TOEFL 72 / Duolingo 100 · relevé bancaire 2 500 USD · plan d'études 3 000 mots · frais de candidature 800 RMB non remboursables · logement + frais de candidature à payer d'avance · scolarité d'origine 18 000 – 20 000 RMB/an",
+   "arguments": [
+    "Scolarité offerte en 1re année",
+    "Réductions de 10 000 à 20 000 RMB/an ensuite",
+    "Bourse de la ville : 10 000 RMB/an (sur examen)"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "informatique-ia-electronique-telecoms"
+   ],
+   "filieres": [
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Integrated Circuit Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 34,
+    "ielts_min": 5.5,
+    "toefl_min": 72,
+    "duolingo_min": 100,
+    "releve_bancaire_usd": 2500
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-23",
+   "cycle": "master",
+   "ville": "Chongqing",
+   "province": "Chongqing",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Chongqing",
+   "rentree": "2027-09",
+   "date_limite": "2027-05-30",
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Type A (CSC) : scolarité, assurance, inscription · Type B : idem · Type C : idem sans allocation",
+   "allocation_texte": "Type A 3 000 · Type B 1 400 · Type C aucune (RMB/mois)",
+   "logement_texte": "À la charge de l'étudiant : 9 000 RMB/an",
+   "conditions_texte": "Hors bourse : permis de séjour 400 RMB/an, visite médicale 500 – 600 RMB",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Assurance et inscription offertes",
+    "Allocation : jusqu'à 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Payant",
+   "scolarite_offerte_garantie": true,
+   "score": "bronze",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "agronomie-veterinaire-agroalimentaire",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "pharmacie",
+    "sport"
+   ],
+   "filieres": [
+    {
+     "nom": "Educational Economics and Management",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Comparative Education",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Special Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Theory of Curriculum and Instruction",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Tertiary Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "English Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Geographical Information Science",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Human Geography and Urban-rural Planning",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physical Geography and Teacher Education",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ecology",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Clinical Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aquaculture",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Psychology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chinese History",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Crop Genetics and Breeding",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Microbiology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Science of Tea",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science and Engineering",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmacy",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Zoology",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Plant Science",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Basic Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Cell Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Developmental Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomaterials",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biochemistry and Molecular Biology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ethnology",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Analytical Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Polymer Chemistry and Physics",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physical Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Organic Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Inorganic Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Fishery Resources",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Preventive Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Basic Veterinary Medicine",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Animal Genetics, Breeding and Reproduction",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physical Education",
+     "famille": "sport",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Food Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Soil Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "World History",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Linguistics and Applied Linguistics",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Principles of Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Special Animal Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Preschool Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Logic",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Animal Nutrition and Feed Science",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Teacher Education",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Educational Technology",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Science Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "English Language Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Language Teacher Education",
+     "famille": "agronomie-veterinaire-agroalimentaire",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-24",
+   "cycle": "master",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-09",
+   "date_limite": "2027-01-31",
+   "langue": "Anglais",
+   "duree": "3 ans",
+   "bourse_texte": "Bourse du Président ou « Belt & Road » : Type A scolarité + logement · Type B scolarité · Type C 50 % de la scolarité",
+   "allocation_texte": "Type A 2 000 RMB/mois · Belt & Road : 2 000 RMB/mois pour A, B et C",
+   "logement_texte": "Type A : offert · B et C : 7 200 RMB/an (chambre double)",
+   "conditions_texte": "35 ans max · moyenne Licence ≥ 75/100 (3,0/4) · IELTS 6.0 / TOEFL 80 / Duolingo 115 · scolarité d'origine 30 000 RMB/an · hors bourse : assurance 800 RMB/an, permis de séjour 400 RMB/an",
+   "arguments": [
+    "Scolarité offerte (types A et B) ou à 50 %",
+    "Allocation : 2 000 RMB/mois (selon le type)"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 2000,
+   "logement_resume": "Selon le type",
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "biologie-biotechnologies",
+    "droit-administration-sciences-sociales",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique"
+   ],
+   "filieres": [
+    {
+     "nom": "Flight Vehicle Design",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Fluid Mechanics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aircraft Structures and Airworthiness Technology",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Aeronautical and Astronautical Science and Technology",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Acoustics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Naval Architecture and Marine Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Processing Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Science",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Design Science",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Power Engineering and Engineering Thermophysics",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Technology",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Polymer Chemistry and Physics",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Organic Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physical Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Optical Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Materials Physics and Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Management Science and Engineering",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Public Administration",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Applied Economics",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Science of Law",
+     "famille": "droit-administration-sciences-sociales",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomedical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Linguistics and Applied Linguistics",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "English Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Cyber Security",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Communication and Information Systems",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {
+    "age_max": 35,
+    "moyenne_min_pct": 75,
+    "ielts_min": 6.0,
+    "toefl_min": 80,
+    "duolingo_min": 115
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-25",
+   "cycle": "master",
+   "ville": "Mianyang",
+   "province": "Sichuan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Mianyang (Sichuan)",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais (11 filières en chinois)",
+   "duree": null,
+   "bourse_texte": "Scolarité et logement offerts",
+   "allocation_texte": "1 200 RMB/mois",
+   "logement_texte": "Offert",
+   "conditions_texte": "IELTS 6.0 / TOEFL 75 / Duolingo 95 · relevé bancaire 5 000 USD",
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Logement offert",
+    "Allocation : 1 200 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1200,
+   "allocation_max_rmb_mois": 1200,
+   "logement_resume": "Offert",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "biologie-biotechnologies",
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "petrole-geologie-mines-securite",
+    "sport"
+   ],
+   "filieres": [
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science and Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Software Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mathematics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biology",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Foreign Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Materials Science and Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Foreign Language and Literature",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Urban and Rural Planning",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Chinese International Education",
+     "famille": "education-langues-lettres-communication",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Power Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Nuclear Science and Technology",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Nuclear Energy Engineering",
+     "famille": "petrole-geologie-mines-securite",
+     "langue": "chinois"
+    },
+    {
+     "nom": "Sport Science",
+     "famille": "sport",
+     "langue": "chinois"
+    },
+    {
+     "nom": "MBA",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "chinois"
+    }
+   ],
+   "criteres": {
+    "ielts_min": 6.0,
+    "toefl_min": 75,
+    "duolingo_min": 95,
+    "releve_bancaire_usd": 5000
+   },
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MA-26",
+   "cycle": "master",
+   "ville": "Tianjin",
+   "province": "Tianjin",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Tianjin",
+   "rentree": "2027-09",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "Type A (CSC) : scolarité, assurance, inscription · Type B : scolarité",
+   "allocation_texte": "Type A 3 000 · Type B 1 700 (RMB/mois)",
+   "logement_texte": "Non précisé",
+   "conditions_texte": null,
+   "arguments": [
+    "Frais de scolarité offerts",
+    "Type A : assurance offerte",
+    "Allocation : jusqu'à 3 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1700,
+   "allocation_max_rmb_mois": 3000,
+   "logement_resume": "Non précisé",
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": true,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "biologie-biotechnologies",
+    "economie-gestion-finance-commerce",
+    "environnement-ecologie-meteo",
+    "genie-mecanique-electrique-energie-automatique",
+    "informatique-ia-electronique-telecoms",
+    "materiaux-chimie-nanotechnologies",
+    "mathematiques-physique",
+    "pharmacie"
+   ],
+   "filieres": [
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Architecture",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Engineering",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Biomedical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electronic Information Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Electrical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Hydraulic Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Optical Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemical Engineering",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Intelligent Medical Engineering",
+     "famille": "biologie-biotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Chemistry",
+     "famille": "materiaux-chimie-nanotechnologies",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Landscape Architecture",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Pharmaceutical Science",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Information and Communication Engineering",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Instrument Science and Technology",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Environmental Science",
+     "famille": "environnement-ecologie-meteo",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Control Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Opto-electronics and Photonics Technology",
+     "famille": "informatique-ia-electronique-telecoms",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Health and Pharmacy Administration",
+     "famille": "pharmacie",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Heat Supply, Gas Supply, Ventilation and Air-conditioning Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Urban Planning",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    },
+    {
+     "nom": "Ocean and Naval Structure Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports",
+     "langue": "anglais"
+    }
+   ],
+   "criteres": {},
+   "statut": "active",
+   "publiable": true
+  }
+ ]
+}

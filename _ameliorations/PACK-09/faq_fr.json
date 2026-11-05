@@ -1,0 +1,39 @@
+{
+ "meta": {"langue": "fr", "version": "2026-11-05", "note": "Contenu rédigé pour Odysseo. Les mentions [À VALIDER] doivent être confirmées par le fondateur avant publication (masquer la question tant qu'elle contient [À VALIDER])."},
+ "categories": [
+  {"id": "general", "titre": "Odysseo et l'analyse gratuite", "questions": [
+   {"q": "Qu'est-ce qu'Odysseo Education ?", "r": "Odysseo accompagne les étudiants d'Afrique francophone qui veulent étudier en Chine avec une bourse : choix des universités, préparation et dépôt du dossier, visa, puis accueil à l'aéroport à l'arrivée."},
+   {"q": "L'analyse de mon profil est-elle vraiment gratuite ?", "r": "Oui. Vous remplissez le formulaire en 3 minutes et vous recevez un premier avis sur WhatsApp, sans engagement et sans paiement."},
+   {"q": "Pourquoi le nom de l'université n'est-il pas affiché sur les offres ?", "r": "Nos offres viennent de nos accords avec les universités. Le nom vous est communiqué dès l'ouverture de votre dossier. Il figure ensuite sur votre lettre d'admission officielle, que vous pouvez vérifier vous-même."}
+  ]},
+  {"id": "bourses", "titre": "Les bourses", "questions": [
+   {"q": "Quelle est la différence entre une bourse complète et une bourse partielle ?", "r": "Une bourse complète couvre au minimum les frais de scolarité et, selon les cas, le logement, l'assurance et une allocation mensuelle. Une bourse partielle réduit une partie des frais : il reste alors une somme à payer chaque année. Chaque offre indique précisément ce qui est couvert."},
+   {"q": "Qu'est-ce que la bourse CSC ?", "r": "C'est la bourse du gouvernement chinois. Elle est très complète mais aussi très demandée, avec une procédure et un calendrier propres. Certaines de nos offres permettent d'y candidater (type A). Nous la présentons comme une possibilité, jamais comme une promesse."},
+   {"q": "La bourse est-elle garantie ?", "r": "Non, et méfiez-vous de ceux qui la garantissent. La décision appartient à l'université (résultats, entretien, nombre de places). Notre rôle est de choisir les universités où votre profil a de vraies chances et de déposer un dossier complet et soigné."}
+  ]},
+  {"id": "conditions", "titre": "Conditions et documents", "questions": [
+   {"q": "Puis-je candidater sans IELTS ou TOEFL ?", "r": "Oui, pour une partie des offres. Certaines universités acceptent une attestation montrant que vos études ont été faites en anglais, ou font passer un test à l'arrivée. D'autres exigent un score minimum. Nous choisissons vos universités en tenant compte de votre situation."},
+   {"q": "Qu'est-ce que le relevé bancaire demandé par certaines universités ?", "r": "C'est une preuve que vous ou votre famille avez des ressources. Ce n'est pas un paiement : l'argent reste sur le compte. Il peut être au nom d'un parent. Selon l'université, le montant demandé va d'environ 2 500 à 10 000 USD. Si ce n'est pas possible pour vous, nous choisissons des universités qui ne le demandent pas."},
+   {"q": "Dois-je parler chinois ?", "r": "Non pour les programmes enseignés en anglais. Les programmes en chinois demandent un niveau HSK (souvent HSK 4 ou 5). Certaines universités proposent aussi une session de langue chinoise de mars à septembre avant le début de la filière."},
+   {"q": "Quels documents dois-je préparer ?", "r": "En général : passeport valide (au moins 6 mois), photo sur fond blanc, diplômes et relevés de notes, casier judiciaire, certificat médical, certificat d'anglais si vous en avez un, et pour le Master et le Doctorat deux lettres de recommandation. Nous vous donnons la liste exacte pour chaque université, et nous rédigeons avec vous le CV, la lettre de motivation et le plan d'études."},
+   {"q": "Faut-il les diplômes originaux ?", "r": "Certaines universités refusent les attestations provisoires et exigent le diplôme original. Indiquez-le dans le formulaire : nous en tenons compte dans le choix des universités."}
+  ]},
+  {"id": "procedure", "titre": "Procédure et visa", "questions": [
+   {"q": "Combien de temps à l'avance faut-il commencer ?", "r": "Le plus tôt possible : certaines universités mettent plusieurs mois à étudier les dossiers et organiser les entretiens, et les places partent avant la date limite. Pour une rentrée de septembre, l'idéal est de commencer dès novembre ou décembre de l'année précédente. [À VALIDER]"},
+   {"q": "Que sont l'Admission Notice et le JW202 ?", "r": "L'Admission Notice est votre lettre d'admission officielle. Le JW202 est le formulaire délivré par l'université pour votre demande de visa étudiant. Les deux documents sont nécessaires pour le visa."},
+   {"q": "Quel visa faut-il et comment l'obtenir ?", "r": "Pour des études de plus de 6 mois, c'est le visa X1. Vous le demandez à l'ambassade ou au consulat de Chine avec votre passeport, l'Admission Notice, le JW202 et le formulaire d'examen médical pour étrangers. Nous vous aidons à préparer tout le dossier. Après votre arrivée, l'université vous aide à obtenir le permis de séjour, à faire dans les 30 jours."}
+  ]},
+  {"id": "paiement", "titre": "Tarifs, paiement et garantie", "questions": [
+   {"q": "Combien coûte l'accompagnement ?", "r": "Le tarif dépend du cursus (Langue, Bachelor, Master, Doctorat). Il est indiqué sur la page « Nos cursus » et comprend tout l'accompagnement : 3 candidatures et leurs frais, traductions, visa, accueil à l'aéroport et équipement de base de la chambre."},
+   {"q": "Quand dois-je payer ?", "r": "Le paiement se fait en plusieurs étapes, et la plus grande partie se paie après la réception de l'admission et du JW202. Le détail des étapes est indiqué sur la page de chaque cursus. [À VALIDER : vérifier que la page cursus affiche bien l'échéancier]"},
+   {"q": "Que se passe-t-il si je ne suis admis nulle part ?", "r": "Si aucune de vos 3 candidatures n'aboutit à une admission avec bourse, totale ou partielle, la caution de l'étape 2 vous est remboursée."},
+   {"q": "Le billet d'avion est-il inclus ?", "r": "Non. Vous l'achetez librement, à la date d'inscription indiquée sur votre lettre d'admission. L'accueil à l'aéroport en Chine et l'équipement de base de votre chambre sont inclus."},
+   {"q": "Comment puis-je payer ?", "r": "[À VALIDER : lister les moyens réellement acceptés, par ex. Orange Money, MTN Mobile Money, virement bancaire, Wave.]"}
+  ]},
+  {"id": "parents", "titre": "Pour les parents", "questions": [
+   {"q": "Comment vérifier que ce n'est pas une arnaque ?", "r": "Vous payez par étapes et l'essentiel est payé après l'admission. L'Admission Notice et le JW202 sont des documents officiels que vous pouvez vérifier auprès de l'université et de l'ambassade de Chine. Le nom de l'université vous est communiqué dès l'ouverture du dossier."},
+   {"q": "Puis-je suivre le dossier de mon enfant ?", "r": "Oui. Dans le formulaire, indiquez que c'est un parent qui gère le projet. Vous recevez les informations sur WhatsApp et pouvez suivre l'avancement du dossier avec son code."},
+   {"q": "Combien coûte la vie en Chine ?", "r": "Cela dépend beaucoup de la ville et de la bourse obtenue. Les allocations mensuelles de nos offres vont d'environ 300 à 4 500 RMB par mois. Votre conseiller vous donne une estimation du budget pour la ville proposée."}
+  ]}
+ ]
+}

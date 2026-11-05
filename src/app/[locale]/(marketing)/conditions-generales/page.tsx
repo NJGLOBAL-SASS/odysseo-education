@@ -3,8 +3,13 @@ import { setRequestLocale } from "next-intl/server";
 
 import { LegalPageShell, LegalSection } from "@/components/legal/legal-page-shell";
 import { Link } from "@/i18n/navigation";
+import { legalPageMetadata } from "@/lib/seo";
 
 const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return legalPageMetadata("/conditions-generales", params.locale);
+}
 
 export default function TermsPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

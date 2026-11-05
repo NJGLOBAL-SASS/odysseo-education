@@ -5,12 +5,17 @@ import {
   LegalPageShell,
   LegalSection,
 } from "@/components/legal/legal-page-shell";
+import { legalPageMetadata } from "@/lib/seo";
 
 const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
 // const PLACEHOLDER_NOTICE_FR =
 //   "Les informations marquées [à compléter] doivent être renseignées par Odysseo Education avant la mise en ligne, conformément à la réglementation applicable dans son pays d'immatriculation.";
 // const PLACEHOLDER_NOTICE_EN =
 //   "Information marked [to complete] must be filled in by Odysseo Education before going live, in line with the regulations applicable in its country of registration.";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return legalPageMetadata("/mentions-legales", params.locale);
+}
 
 export default function LegalNoticePage({
   params,

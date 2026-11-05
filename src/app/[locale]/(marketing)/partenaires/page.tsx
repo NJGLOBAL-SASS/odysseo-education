@@ -3,6 +3,11 @@ import { Link2, Gift, TrendingUp } from "lucide-react";
 
 import { PartnerApplicationForm } from "@/components/marketing/partner-application-form";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
+import { publicPageMetadata } from "@/lib/seo";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return publicPageMetadata("partners", params.locale);
+}
 
 export default async function PartnersPublicPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { LegalPageShell, LegalSection } from "@/components/legal/legal-page-shell";
 import { ManageCookiesButton } from "@/components/cookies/manage-cookies-button";
+import { legalPageMetadata } from "@/lib/seo";
 
 const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
 
@@ -85,6 +86,10 @@ const ROWS = [
     category: { fr: "Nécessaire", en: "Necessary" },
   },
 ];
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return legalPageMetadata("/cookies", params.locale);
+}
 
 export default function CookiePolicyPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

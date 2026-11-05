@@ -1,0 +1,283 @@
+{
+ "profils": [
+  {
+   "id": "P1_master_genie_civil_bon",
+   "description": "Licence génie civil 14/20, 25 ans, IELTS 6.5, relevé 5 000 USD, bourse uniquement",
+   "profil": {
+    "cycle": "master",
+    "domaines": [
+     "ingenierie"
+    ],
+    "filiere_libre": "Civil Engineering",
+    "age": 25,
+    "moyenne_pct": 70,
+    "anglais": {
+     "type": "ielts",
+     "score": 6.5
+    },
+    "hsk": 0,
+    "releve_bancaire_usd_max": 5000,
+    "diplomes_originaux": true,
+    "nationalite": "Cameroun",
+    "financement": "bourse_uniquement"
+   },
+   "attendu_refs": [
+    "MA-26",
+    "MA-17",
+    "MA-10"
+   ],
+   "attendu_detail": [
+    {
+     "ref": "MA-26",
+     "role": "ambitieuse",
+     "ville": "Tianjin",
+     "total": 39.2,
+     "filieres_correspondantes": [
+      "Civil Engineering"
+     ]
+    },
+    {
+     "ref": "MA-17",
+     "role": "cible",
+     "ville": "Xi'an",
+     "total": 38.0,
+     "filieres_correspondantes": [
+      "Civil Engineering"
+     ]
+    },
+    {
+     "ref": "MA-10",
+     "role": "securite",
+     "ville": "Nantong",
+     "total": 36.5,
+     "filieres_correspondantes": [
+      "Civil Engineering",
+      "Civil and Hydraulic Engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P2_master_age30_sans_ielts",
+   "description": "Licence informatique 12/20, 30 ans, pas de certificat d'anglais, pas de relevé bancaire",
+   "profil": {
+    "cycle": "master",
+    "domaines": [
+     "informatique"
+    ],
+    "filiere_libre": "",
+    "age": 30,
+    "moyenne_pct": 60,
+    "anglais": {
+     "type": "aucun"
+    },
+    "hsk": 0,
+    "releve_bancaire_usd_max": 0,
+    "diplomes_originaux": true,
+    "nationalite": "Gabon",
+    "financement": "bourse_uniquement"
+   },
+   "attendu_refs": [
+    "MA-26",
+    "MA-07",
+    "MA-18"
+   ],
+   "attendu_detail": [
+    {
+     "ref": "MA-26",
+     "role": "ambitieuse",
+     "ville": "Tianjin",
+     "total": 29.2,
+     "filieres_correspondantes": [
+      "Electronic Information Engineering",
+      "Optical Engineering",
+      "Information and Communication Engineering"
+     ]
+    },
+    {
+     "ref": "MA-07",
+     "role": "cible",
+     "ville": "Xi'an",
+     "total": 29.0,
+     "filieres_correspondantes": [
+      "Electronic Science and Technology",
+      "Information and Communication Engineering"
+     ]
+    },
+    {
+     "ref": "MA-18",
+     "role": "securite",
+     "ville": "Taiyuan",
+     "total": 29.0,
+     "filieres_correspondantes": [
+      "Computer Science and Technology"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P3_phd_chimie",
+   "description": "Master chimie 15/20, 29 ans, études en anglais",
+   "profil": {
+    "cycle": "phd",
+    "domaines": [
+     "sciences"
+    ],
+    "filiere_libre": "Chemical Engineering",
+    "age": 29,
+    "moyenne_pct": 75,
+    "anglais": {
+     "type": "etudes_en_anglais"
+    },
+    "hsk": 0,
+    "releve_bancaire_usd_max": null,
+    "diplomes_originaux": true,
+    "nationalite": "Cameroun",
+    "financement": "bourse_uniquement"
+   },
+   "attendu_refs": [
+    "P-01",
+    "P-04",
+    "P-12"
+   ],
+   "attendu_detail": [
+    {
+     "ref": "P-01",
+     "role": "ambitieuse",
+     "ville": "Shenzhen",
+     "total": 43.5,
+     "filieres_correspondantes": [
+      "Chemical Engineering and Technology"
+     ]
+    },
+    {
+     "ref": "P-04",
+     "role": "cible",
+     "ville": "Xi'an",
+     "total": 41.5,
+     "filieres_correspondantes": [
+      "Chemical Engineering and Technology"
+     ]
+    },
+    {
+     "ref": "P-12",
+     "role": "securite",
+     "ville": "Tianjin",
+     "total": 41.0,
+     "filieres_correspondantes": [
+      "Chemical Engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P4_master_ne_sait_pas",
+   "description": "Ne sait pas encore, 23 ans, 13/20, anglais un peu",
+   "profil": {
+    "cycle": "master",
+    "domaines": [
+     "ne-sait-pas"
+    ],
+    "filiere_libre": "",
+    "age": 23,
+    "moyenne_pct": 65,
+    "anglais": {
+     "type": "aucun"
+    },
+    "hsk": 0,
+    "releve_bancaire_usd_max": null,
+    "diplomes_originaux": true,
+    "nationalite": "Tchad",
+    "financement": "partiel"
+   },
+   "attendu_refs": [
+    "MA-12",
+    "MA-26",
+    "MA-18"
+   ],
+   "attendu_detail": [
+    {
+     "ref": "MA-12",
+     "role": "ambitieuse",
+     "ville": "Xi'an",
+     "total": 19.5,
+     "filieres_correspondantes": [
+      "Enterprise Management",
+      "Computer Science and Technology",
+      "Technical Economics and Management"
+     ]
+    },
+    {
+     "ref": "MA-26",
+     "role": "cible",
+     "ville": "Tianjin",
+     "total": 19.2,
+     "filieres_correspondantes": [
+      "Mechanical Engineering",
+      "Architecture",
+      "Environmental Engineering"
+     ]
+    },
+    {
+     "ref": "MA-18",
+     "role": "securite",
+     "ville": "Taiyuan",
+     "total": 19.0,
+     "filieres_correspondantes": [
+      "Chemical Engineering",
+      "Organic Chemistry",
+      "Inorganic Chemistry"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P5_phd_medecine",
+   "description": "Master santé publique, 31 ans",
+   "profil": {
+    "cycle": "phd",
+    "domaines": [
+     "medecine"
+    ],
+    "filiere_libre": "Public Health",
+    "age": 31,
+    "moyenne_pct": 68,
+    "anglais": {
+     "type": "toefl",
+     "score": 85
+    },
+    "hsk": 0,
+    "releve_bancaire_usd_max": 3000,
+    "diplomes_originaux": true,
+    "nationalite": "Sénégal",
+    "financement": "bourse_uniquement"
+   },
+   "attendu_refs": [
+    "P-09",
+    "P-04"
+   ],
+   "attendu_detail": [
+    {
+     "ref": "P-09",
+     "role": "ambitieuse",
+     "ville": "Nantong",
+     "total": 37.8,
+     "filieres_correspondantes": [
+      "Public Health and Preventive Medicine"
+     ]
+    },
+    {
+     "ref": "P-04",
+     "role": "cible",
+     "ville": "Xi'an",
+     "total": 31.5,
+     "filieres_correspondantes": [
+      "Physiology",
+      "Pathology and Pathophysiology",
+      "Epidemiology and Health Statistics"
+     ]
+    }
+   ]
+  }
+ ]
+}

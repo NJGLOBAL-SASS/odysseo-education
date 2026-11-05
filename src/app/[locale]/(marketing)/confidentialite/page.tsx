@@ -3,9 +3,14 @@ import { setRequestLocale } from "next-intl/server";
 
 import { LegalPageShell, LegalSection } from "@/components/legal/legal-page-shell";
 import { Link } from "@/i18n/navigation";
+import { legalPageMetadata } from "@/lib/seo";
 
 const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
 const CONTACT = "contact.odysseo@gmail.com";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return legalPageMetadata("/confidentialite", params.locale);
+}
 
 export default function PrivacyPolicyPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

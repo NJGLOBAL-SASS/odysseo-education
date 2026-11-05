@@ -1,0 +1,20 @@
+{
+ "_comment": "MODÈLE. Ne pas publier cet exemple : il est fictif et ne sert qu'à montrer le format. Le vrai fichier content/temoignages.json commence avec une liste vide.",
+ "temoignages": [
+  {"id": "t-001", "prenom": "Prénom", "initiale_nom": "N.", "pays": "Cameroun", "drapeau": "🇨🇲",
+   "cursus": "master", "ville_chine": "Nanjing", "annee_depart": 2027,
+   "citation_fr": "Texte court de l'étudiant, dans ses mots (300 caractères maximum).",
+   "citation_en": "Short quote in English (optional).",
+   "photo": "/images/temoignages/t-001.jpg", "video_url": null,
+   "accord_signe_le": "AAAA-MM-JJ", "publie": false}
+ ],
+ "preuves_exemple": [
+  {"id": "p-001", "type": "admission_notice", "image": "/images/preuves/admission-floutee.jpg",
+   "legende_fr": "Admission Notice – informations personnelles masquées", "legende_en": "Admission Notice – personal details hidden",
+   "accord_signe_le": "AAAA-MM-JJ", "publie": false}
+ ],
+ "conseillers_exemple": [
+  {"prenom": "Prénom", "role_fr": "Conseiller admissions", "role_en": "Admissions advisor", "photo": "/images/conseillers/prenom.jpg",
+   "langues": ["Français", "Anglais"], "whatsapp": "8613179468571"}
+ ]
+}

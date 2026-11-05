@@ -1,0 +1,60 @@
+{
+ "meta": {"version": "2026-11-05", "usage": "Génère la checklist de documents de chaque dossier. Base par cycle + ajouts selon l'offre choisie. Les mentions [À VALIDER] sont à confirmer par Odysseo.",
+          "formats_acceptes": ["pdf", "jpg", "jpeg", "png", "heic"], "taille_max_mo": 10},
+ "documents": {
+  "passeport": {"libelle_fr": "Passeport (page avec la photo)", "libelle_en": "Passport (photo page)", "phase": "maintenant", "obligatoire": true,
+                "aide_fr": "Photo nette, à plat, sans reflet. Le passeport doit être valide au moins 6 mois après la date de rentrée.", "champ_date": "date_expiration_passeport"},
+  "photo": {"libelle_fr": "Photo d'identité sur fond blanc", "libelle_en": "ID photo, white background", "phase": "maintenant", "obligatoire": true,
+            "aide_fr": "Visage de face, fond blanc uni, sans lunettes ni couvre-chef. Pas de selfie."},
+  "bac": {"libelle_fr": "Diplôme du Bac (ou GCE A Level)", "libelle_en": "High school diploma", "phase": "maintenant", "obligatoire": true,
+          "aide_fr": "Diplôme définitif si vous l'avez. Sinon, attestation de réussite : indiquez-le dans le commentaire."},
+  "releves_lycee": {"libelle_fr": "Relevés de notes du lycée (3 dernières années)", "libelle_en": "High school transcripts (last 3 years)", "phase": "maintenant", "obligatoire": true, "aide_fr": "Un fichier par année accepté."},
+  "diplome_licence": {"libelle_fr": "Diplôme de Licence", "libelle_en": "Bachelor's degree certificate", "phase": "maintenant", "obligatoire": true,
+                      "aide_fr": "Diplôme définitif si vous l'avez. Certaines universités refusent les attestations provisoires."},
+  "releves_licence": {"libelle_fr": "Relevés de notes de Licence (toutes les années)", "libelle_en": "Bachelor's transcripts (all years)", "phase": "maintenant", "obligatoire": true, "aide_fr": "Toutes les pages, toutes les années."},
+  "diplome_master": {"libelle_fr": "Diplôme de Master", "libelle_en": "Master's degree certificate", "phase": "maintenant", "obligatoire": true, "aide_fr": "Diplôme définitif ou attestation."},
+  "releves_master": {"libelle_fr": "Relevés de notes de Master", "libelle_en": "Master's transcripts", "phase": "maintenant", "obligatoire": true, "aide_fr": "Toutes les pages."},
+  "certificat_anglais": {"libelle_fr": "Certificat d'anglais (IELTS, TOEFL, Duolingo) ou attestation d'études en anglais", "libelle_en": "English certificate or medium-of-instruction letter", "phase": "maintenant", "obligatoire": false,
+                         "aide_fr": "Si vous n'en avez pas, laissez vide : votre conseiller vous dira quoi faire."},
+  "hsk": {"libelle_fr": "Certificat HSK", "libelle_en": "HSK certificate", "phase": "maintenant", "obligatoire": false, "aide_fr": "Seulement si vous en avez un."},
+  "cv_infos": {"libelle_fr": "Vos informations pour le CV (ancien CV, stages, emplois, activités)", "libelle_en": "Information for your CV", "phase": "maintenant", "obligatoire": false,
+               "aide_fr": "Un ancien CV, même incomplet, ou une photo de notes manuscrites suffit. Odysseo rédige le CV final."},
+  "publications": {"libelle_fr": "Liste de vos publications et mémoire de Master", "libelle_en": "Publications list and Master's thesis", "phase": "maintenant", "obligatoire": false, "aide_fr": "Si vous en avez."},
+  "recommandants": {"libelle_fr": "Coordonnées de 2 enseignants pour les lettres de recommandation", "libelle_en": "Contact details of 2 referees", "phase": "maintenant", "obligatoire": true, "type": "formulaire",
+                    "champs": ["nom", "titre (Professeur, Maître de conférences…)", "établissement", "email", "whatsapp"],
+                    "aide_fr": "Pas besoin de fichier : indiquez leurs coordonnées. Odysseo vous aide à préparer les lettres."},
+  "casier": {"libelle_fr": "Casier judiciaire (extrait de moins de 6 mois)", "libelle_en": "Police clearance (less than 6 months old)", "phase": "plus_tard", "obligatoire": true, "aide_fr": "Vous pouvez le fournir plus tard, avant le dépôt de la candidature. [À VALIDER : délai]"},
+  "certificat_medical": {"libelle_fr": "Certificat médical (formulaire d'examen médical pour étrangers)", "libelle_en": "Foreigner Physical Examination Form", "phase": "plus_tard", "obligatoire": true,
+                         "aide_fr": "Votre conseiller vous envoie le formulaire à faire remplir par un médecin."},
+  "releve_bancaire": {"libelle_fr": "Relevé bancaire (à votre nom ou au nom d'un parent)", "libelle_en": "Bank statement", "phase": "plus_tard", "obligatoire": false,
+                      "aide_fr": "Ce n'est pas un paiement : c'est une preuve de ressources. Le montant demandé dépend de l'université."},
+  "piece_identite_parent": {"libelle_fr": "Pièce d'identité d'un parent", "libelle_en": "Parent's ID", "phase": "plus_tard", "obligatoire": true, "aide_fr": "Demandée par l'université choisie."},
+  "video_presentation": {"libelle_fr": "Vidéo de présentation (2 à 3 minutes, en anglais)", "libelle_en": "Self-introduction video (2-3 min, English)", "phase": "maintenant", "obligatoire": true, "formats": ["mp4", "mov"], "taille_max_mo": 100,
+                         "aide_fr": "Présentez-vous et votre projet d'études. Filmez à l'horizontale, dans un endroit calme. Votre conseiller peut vous envoyer un exemple de plan."}
+ },
+ "base_par_cycle": {
+  "langue": ["passeport", "photo", "bac", "releves_lycee", "hsk", "casier", "certificat_medical", "releve_bancaire"],
+  "bachelor": ["passeport", "photo", "bac", "releves_lycee", "certificat_anglais", "hsk", "cv_infos", "casier", "certificat_medical", "releve_bancaire"],
+  "master": ["passeport", "photo", "diplome_licence", "releves_licence", "certificat_anglais", "hsk", "cv_infos", "recommandants", "casier", "certificat_medical", "releve_bancaire"],
+  "phd": ["passeport", "photo", "diplome_licence", "releves_licence", "diplome_master", "releves_master", "certificat_anglais", "cv_infos", "publications", "recommandants", "casier", "certificat_medical", "releve_bancaire"]
+ },
+ "ajouts_par_offre": {
+  "MA-08": {"ajouter": ["piece_identite_parent"]},
+  "MA-21": {"ajouter": ["video_presentation"], "rendre_obligatoire": ["releve_bancaire"], "note_fr": "Relevé bancaire de plus de 10 000 USD demandé par l'université."},
+  "MA-20": {"rendre_obligatoire": ["releve_bancaire", "certificat_anglais"], "note_fr": "IELTS 6.0, TOEFL 75 ou Duolingo 95 ; relevé bancaire de 5 000 USD."},
+  "MA-22": {"rendre_obligatoire": ["releve_bancaire", "certificat_anglais"], "note_fr": "IELTS 5.5, TOEFL 72 ou Duolingo 100 ; relevé bancaire d'au moins 2 500 USD."},
+  "MA-24": {"rendre_obligatoire": ["certificat_anglais"], "note_fr": "IELTS 6.0, TOEFL 80 ou Duolingo 115."},
+  "MA-25": {"rendre_obligatoire": ["releve_bancaire", "certificat_anglais"], "note_fr": "Relevé bancaire de 5 000 USD."},
+  "MA-19": {"rendre_obligatoire": ["hsk"], "note_fr": "HSK 5 obligatoire."},
+  "P-06": {"note_fr": "Diplômes ORIGINAUX obligatoires (attestation provisoire refusée)."},
+  "MA-14": {"note_fr": "Diplômes ORIGINAUX obligatoires (attestation provisoire refusée)."}
+ },
+ "prepares_par_odysseo": {
+  "langue": ["lettre_motivation", "plan_etudes"],
+  "bachelor": ["cv", "lettre_motivation", "plan_etudes", "traductions"],
+  "master": ["cv", "lettre_motivation", "plan_etudes", "lettres_recommandation_brouillon", "traductions"],
+  "phd": ["cv", "lettre_motivation", "projet_recherche", "lettres_recommandation_brouillon", "traductions"],
+  "_libelles_fr": {"cv": "CV académique", "lettre_motivation": "Lettre de motivation", "plan_etudes": "Plan d'études", "projet_recherche": "Projet de recherche",
+                   "lettres_recommandation_brouillon": "Brouillons des lettres de recommandation", "traductions": "Traductions de vos diplômes et relevés"}
+ }
+}
