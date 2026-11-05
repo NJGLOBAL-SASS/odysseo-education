@@ -18,7 +18,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 type L<T> = Record<Locale, T>;
 type PageSeo = { title: string; description: string };
 
-export type PublicPage = "home" | "programs" | "services" | "partners" | "apply";
+export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide";
 
 /** Chemins (sans préfixe de langue) des pages publiques. */
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
@@ -27,6 +27,8 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   services: "/services",
   partners: "/partenaires",
   apply: "/postuler",
+  faq: "/faq",
+  guide: "/guides/avant-le-depart",
 };
 
 /** Pages légales : indexables (canonical + hreflang), titres repris des pages. */
@@ -110,6 +112,31 @@ export const PAGE_SEO: Record<PublicPage, L<PageSeo>> = {
       title: "Free profile assessment",
       description:
         "Answer a few questions in 3 minutes: we assess your profile for free and get back to you on WhatsApp with first advice to study in China in 2027.",
+    },
+  },
+  // PACK-09 : FAQ et guide « Avant le départ ».
+  faq: {
+    fr: {
+      title: "Questions fréquentes",
+      description:
+        "Bourses, IELTS, relevé bancaire, visa X1, paiement par étapes : des réponses claires aux questions des étudiants et des parents sur les études en Chine.",
+    },
+    en: {
+      title: "Frequently asked questions",
+      description:
+        "Scholarships, IELTS, bank statement, X1 visa, payment in steps: clear answers to the questions students and parents ask most often about studying in China.",
+    },
+  },
+  guide: {
+    fr: {
+      title: "Avant le départ pour la Chine",
+      description:
+        "La checklist complète avant de partir étudier en Chine : documents du bagage à main, voyage et arrivée, argent et téléphone, santé. À cocher et à imprimer.",
+    },
+    en: {
+      title: "Before leaving for China",
+      description:
+        "The complete checklist before leaving to study in China: hand-luggage documents, travel and arrival, money and phone, health. Tick it off and print it out.",
     },
   },
 };

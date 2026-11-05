@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, HelpCircle } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { locales } from "@/i18n/config";
@@ -32,6 +32,7 @@ export default async function ProgramPage({ params }: { params: { locale: string
   if (!program) notFound();
   const locale = (params.locale === "en" ? "en" : "fr") as Locale;
   const t = await getTranslations("programs");
+  const tFaq = await getTranslations("programsFaq");
 
   return (
     <div className="bg-white">
@@ -72,6 +73,19 @@ export default async function ProgramPage({ params }: { params: { locale: string
         <ProgramBody
           program={program}
           locale={locale}
+          afterPricing={
+            <Link
+              href="/faq#paiement"
+              className="flex items-center gap-3 rounded-brand border-[1.5px] border-bord bg-white p-4 text-[15px] hover:border-noir"
+            >
+              <HelpCircle className="h-5 w-5 flex-shrink-0 text-rouge" />
+              <span className="flex-1">
+                <span className="block text-gris">{tFaq("title")}</span>
+                <b>{tFaq("link")}</b>
+              </span>
+              <ArrowRight className="h-4 w-4 flex-shrink-0" />
+            </Link>
+          }
           closing={
             <ClosingCta
               key="cta"

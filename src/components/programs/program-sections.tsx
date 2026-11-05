@@ -673,12 +673,16 @@ export async function ProgramBody({
   locale,
   print,
   closing,
+  afterPricing,
 }: {
   program: Program;
   locale: Locale;
   print?: boolean;
   closing?: ReactNode;
+  /** Contenu web placé sous le bloc tarifs / échéancier (ex. lien FAQ) — jamais dans les brochures. */
+  afterPricing?: ReactNode;
 }) {
+  const extra = print ? null : afterPricing;
   const degree = program.kind === "degree";
   const groups: ReactNode[][] = degree
     ? [
@@ -693,7 +697,7 @@ export async function ProgramBody({
           ),
         ],
         [<ArrivalSection key="arr" />, <TicketSection key="tk" />],
-        [<PriceSection key="price" program={program} locale={locale} />, <PaymentSection key="pay" program={program} locale={locale} />],
+        [<PriceSection key="price" program={program} locale={locale} />, <PaymentSection key="pay" program={program} locale={locale} />, extra],
         [<RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />, <VisaSection key="visa" />, closing],
       ]
     : [
@@ -701,14 +705,14 @@ export async function ProgramBody({
         [<LanguageProgramsSection key="lp" />],
         [<CalendarSection key="cal" />, <ArrivalSection key="arr" />],
         [<TicketSection key="tk" />, <PriceSection key="price" program={program} locale={locale} />],
-        [<PaymentSection key="pay" program={program} locale={locale} />, <RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />],
+        [<PaymentSection key="pay" program={program} locale={locale} />, extra, <RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />],
         [<VisaSection key="visa" />, closing],
       ];
 
   if (!print) {
     return (
       <div className="space-y-14">
-        {groups.flat().map((node, i) => (
+        {groups.flat().filter(Boolean).map((node, i) => (
           <div key={i}>{node}</div>
         ))}
       </div>

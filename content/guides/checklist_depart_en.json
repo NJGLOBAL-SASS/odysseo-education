@@ -1,0 +1,32 @@
+{
+ "meta": {"traduction_a_relire": true, "titre": "Before leaving for China: the complete checklist", "version": "2026-11-05", "note": "English translation of checklist_depart_fr.json (to be reviewed). The [À VALIDER] markers and bracketed numbers are kept as is: the item stays hidden until validated."},
+ "sections": [
+  {"titre": "Documents (in your hand luggage)", "items": [
+   "Passport with the X1 visa",
+   "Original Admission Notice",
+   "Original JW202 form",
+   "Foreigner Physical Examination Form and test results",
+   "Original diplomas and transcripts, with their translations",
+   "8 ID photos on a white background",
+   "Paper copies and photos of all these documents on your phone"
+  ]},
+  {"titre": "Travel and arrival", "items": [
+   "Plane ticket bought to arrive on the registration date shown on the Admission Notice",
+   "Flight and arrival time sent to Odysseo for the airport pick-up, at least [7] days before departure [À VALIDER]",
+   "University address written in Chinese (ask your advisor)",
+   "Registration at the university as soon as you arrive, then residence permit within 30 days"
+  ]},
+  {"titre": "Money and phone", "items": [
+   "Enough money for the first month (housing if it is not free, insurance, residence permit, meals): your advisor gives you the amount for your city",
+   "WeChat app installed and account created before departure",
+   "Alipay app installed (everyday payments)",
+   "Unlocked phone that accepts a Chinese SIM card"
+  ]},
+  {"titre": "Health and personal items", "items": [
+   "Personal medication with its prescription",
+   "Warm clothes if your city has a cold winter (northern China)",
+   "Power plug adapter",
+   "Laptop if you have one"
+  ]}
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "meta": {"traduction_a_relire": true, "langue": "en", "version": "2026-11-05", "note": "English translation of faq_fr.json (to be reviewed). The [À VALIDER] markers are kept as is: a question stays hidden as long as it contains one, in French and in English."},
+ "categories": [
+  {"id": "general", "titre": "Odysseo and the free assessment", "questions": [
+   {"q": "What is Odysseo Education?", "r": "Odysseo supports students from French-speaking Africa who want to study in China with a scholarship: choosing universities, preparing and submitting the application, the visa, and then the airport pick-up when you arrive."},
+   {"q": "Is the profile assessment really free?", "r": "Yes. You fill in the form in 3 minutes and get a first opinion on WhatsApp, with no commitment and no payment."},
+   {"q": "Why isn't the university's name shown on the offers?", "r": "Our offers come from our agreements with universities. The name is given to you as soon as your file is opened. It then appears on your official admission letter, which you can check yourself."}
+  ]},
+  {"id": "bourses", "titre": "Scholarships", "questions": [
+   {"q": "What is the difference between a full and a partial scholarship?", "r": "A full scholarship covers at least the tuition fees and, depending on the case, housing, insurance and a monthly allowance. A partial scholarship covers part of the fees: there is then an amount left to pay each year. Each offer states exactly what is covered."},
+   {"q": "What is the CSC scholarship?", "r": "It is the Chinese government scholarship. It is very complete but also in very high demand, with its own procedure and calendar. Some of our offers allow you to apply for it (type A). We present it as a possibility, never as a promise."},
+   {"q": "Is the scholarship guaranteed?", "r": "No, and be wary of anyone who guarantees it. The decision belongs to the university (grades, interview, number of places). Our role is to choose universities where your profile has a real chance and to submit a complete, careful application."}
+  ]},
+  {"id": "conditions", "titre": "Requirements and documents", "questions": [
+   {"q": "Can I apply without IELTS or TOEFL?", "r": "Yes, for some of the offers. Some universities accept a certificate showing that your studies were taught in English, or give a test on arrival. Others require a minimum score. We choose your universities taking your situation into account."},
+   {"q": "What is the bank statement some universities ask for?", "r": "It is proof that you or your family have funds. It is not a payment: the money stays in the account. It can be in a parent's name. Depending on the university, the amount requested ranges from about 2,500 to 10,000 USD. If this is not possible for you, we choose universities that do not ask for it."},
+   {"q": "Do I need to speak Chinese?", "r": "No for programs taught in English. Programs taught in Chinese require an HSK level (often HSK 4 or 5). Some universities also offer a Chinese language session from March to September before the degree program starts."},
+   {"q": "Which documents should I prepare?", "r": "Usually: a passport valid for at least 6 months, a photo on a white background, diplomas and transcripts, a criminal record certificate, a medical certificate, an English certificate if you have one, and for a Master's or PhD two recommendation letters. We give you the exact list for each university, and we write your CV, motivation letter and study plan with you."},
+   {"q": "Are original diplomas required?", "r": "Some universities refuse provisional certificates and require the original diploma. Mention it in the form: we take it into account when choosing universities."}
+  ]},
+  {"id": "procedure", "titre": "Procedure and visa", "questions": [
+   {"q": "How far in advance should I start?", "r": "As early as possible: some universities take several months to review applications and organize interviews, and places fill up before the deadline. For a September intake, it is best to start in November or December of the previous year. [À VALIDER]"},
+   {"q": "What are the Admission Notice and the JW202?", "r": "The Admission Notice is your official admission letter. The JW202 is the form issued by the university for your student visa application. Both documents are required for the visa."},
+   {"q": "Which visa do I need and how do I get it?", "r": "For studies longer than 6 months, it is the X1 visa. You apply for it at the Chinese embassy or consulate with your passport, the Admission Notice, the JW202 and the Foreigner Physical Examination Form. We help you prepare the whole file. After you arrive, the university helps you get your residence permit, which must be done within 30 days."}
+  ]},
+  {"id": "paiement", "titre": "Fees, payment and guarantee", "questions": [
+   {"q": "How much does the support cost?", "r": "The fee depends on the program (Language, Bachelor's, Master's, PhD). It is shown on the \"Our programs\" page and includes all the support: 3 applications and their fees, translations, visa, airport pick-up and basic equipment for your room."},
+   {"q": "When do I pay?", "r": "Payment is made in several steps, and the largest part is paid after you receive the admission and the JW202. The detail of the steps is shown on each program's page. [À VALIDER : vérifier que la page cursus affiche bien l'échéancier]"},
+   {"q": "What happens if I am not admitted anywhere?", "r": "If none of your 3 applications leads to an admission with a full or partial scholarship, the step 2 deposit is refunded to you."},
+   {"q": "Is the plane ticket included?", "r": "No. You buy it yourself, for the registration date shown on your admission letter. The airport pick-up in China and the basic equipment for your room are included."},
+   {"q": "How can I pay?", "r": "[À VALIDER : lister les moyens réellement acceptés, par ex. Orange Money, MTN Mobile Money, virement bancaire, Wave.]"}
+  ]},
+  {"id": "parents", "titre": "For parents", "questions": [
+   {"q": "How can I check that this is not a scam?", "r": "You pay in steps and most of it is paid after the admission. The Admission Notice and the JW202 are official documents that you can check with the university and the Chinese embassy. The university's name is given to you as soon as the file is opened."},
+   {"q": "Can I follow my child's application?", "r": "Yes. In the form, state that a parent manages the project. You receive the information on WhatsApp and can follow the progress of the file with its code."},
+   {"q": "How much does living in China cost?", "r": "It depends a lot on the city and the scholarship obtained. The monthly allowances in our offers range from about 300 to 4,500 RMB per month. Your advisor gives you a budget estimate for the proposed city."}
+  ]}
+ ]
+}

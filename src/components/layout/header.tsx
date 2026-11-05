@@ -9,7 +9,7 @@ export async function Header() {
   const t = await getTranslations("nav");
 
   return (
-    <header className="bg-noir text-white">
+    <header className="bg-noir text-white print:hidden">
       <div className="wrap-site flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0] – 2026-11-05 · PACK-09 FAQ et guide avant le départ
+
+### Ajouté
+- Contenus dans `content/` : `faq/faq_fr.json` (fourni), `faq/faq_en.json` et `guides/checklist_depart_{fr,en}.json` (traductions EN marquées `meta.traduction_a_relire: true`).
+- Règle de publication (`src/lib/content/faq.ts`) : toute question ou tout élément contenant `[À …]` ou un nombre entre crochets à valider (`[7]`) est masqué ; il s'affiche dès que le texte est corrigé dans le JSON. 19 questions sur 22 et 18 éléments sur 19 visibles aujourd'hui.
+- Page `/[locale]/faq` : recherche instantanée (sans accents, sans librairie), 6 catégories en ancres, accordéon accessible (une question ouverte à la fois, `aria-expanded`, flèches ↑ ↓), bloc « Vous ne trouvez pas votre réponse ? » (WhatsApp + analyse gratuite), données structurées `FAQPage` (JSON-LD).
+- Page `/[locale]/guides/avant-le-depart` : checklist à cocher mémorisée dans `localStorage` (`odysseo_checklist_depart`), bouton « Imprimer / Enregistrer en PDF » avec mise en page d'impression noir sur blanc, logo, sans menu.
+- Tests `npm test` (`node:test` via tsx) : aucun texte affiché ne contient « [À », 19 questions visibles, « relevé » ne trouve que la question sur le relevé bancaire.
+- Liens « FAQ » dans le pied de page et le menu mobile ; lien « Questions fréquentes » sous l'échéancier des pages cursus (pas dans les brochures PDF).
+- Sitemap, titres, descriptions et images de partage pour les deux pages.
+
+### Modifié
+- En-tête, pied de page et bandeau cookies masqués à l'impression.
+
 ## [0.3.0] – 2026-11-05 · PACK-04 Mesure des conversions
 
 ### Ajouté

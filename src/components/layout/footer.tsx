@@ -13,7 +13,7 @@ export async function Footer() {
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 
   return (
-    <footer className="border-t border-bord bg-carte">
+    <footer className="border-t border-bord bg-carte print:hidden">
       <div className="wrap-site py-10">
         <NewsletterForm />
       </div>
@@ -59,6 +59,11 @@ export async function Footer() {
               <li>
                 <Link href="/partenaires" className="text-texte hover:text-rouge">
                   {tNav("partners")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="text-texte hover:text-rouge">
+                  {tNav("faq")}
                 </Link>
               </li>
             </ul>
