@@ -24,6 +24,24 @@ export const candidateColumns: ExportColumn<CandidateExportRow>[] = [
   { key: "highestDegree", header: "Diplôme", get: (c) => c.highestDegree, pdfWeight: 0 },
   { key: "targetLevel", header: "Niveau visé", get: (c) => optionLabel("targetLevel", c.targetLevel), pdfWeight: 1 },
   { key: "fieldOfStudy", header: "Domaine", get: (c) => c.fieldOfStudy, pdfWeight: 0 },
+  // PACK-01
+  { key: "degreeField", header: "Filière du diplôme", get: (c) => c.degreeField ?? "", pdfWeight: 0 },
+  { key: "averagePct", header: "Moyenne /100", get: (c) => (c.averagePct != null ? String(c.averagePct) : ""), pdfWeight: 0 },
+  {
+    key: "originalDiplomas",
+    header: "Diplômes originaux",
+    get: (c) => (c.originalDiplomas == null ? "" : c.originalDiplomas ? "Oui" : "Pas encore"),
+    pdfWeight: 0,
+  },
+  {
+    key: "english",
+    header: "Anglais",
+    get: (c) =>
+      [optionLabel("englishCertificate", c.englishCertificate), c.englishScore != null ? String(c.englishScore) : ""].filter(Boolean).join(" "),
+    pdfWeight: 0,
+  },
+  { key: "hsk", header: "HSK", get: (c) => (c.hskLevel != null ? optionLabel("hskLevel", String(c.hskLevel)) : ""), pdfWeight: 0 },
+  { key: "bankStatement", header: "Relevé bancaire", get: (c) => optionLabel("bankStatement", c.bankStatement), pdfWeight: 0 },
   { key: "fundingPlan", header: "Financement", get: (c) => optionLabel("fundingPlan", c.fundingPlan), pdfWeight: 0 },
   { key: "targetIntake", header: "Rentrée", get: (c) => optionLabel("targetIntake", c.targetIntake), pdfWeight: 0 },
   { key: "status", header: "Statut", get: (c) => STATUS_LABELS_FR[c.status] ?? c.status, pdfWeight: 1.1 },

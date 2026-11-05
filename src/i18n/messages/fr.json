@@ -120,28 +120,15 @@
       },
       "degreeOther": { "label": "Précisez le diplôme" },
       "degreeYear": { "label": "Année d'obtention", "placeholder": "Choisir…" },
-      "degreeAverage": { "label": "Moyenne obtenue à ce diplôme", "hint": "Ex. 13,5/20 · mention Assez bien · 3,2 GPA. Regardez votre relevé de notes." },
+      "degreeAverage": {"label": "Moyenne obtenue à ce diplôme", "hint": "Regardez votre relevé de notes.", "placeholder": "Ex. 13,5"},
+      "averageScale": {"label": "Sur quel barème ?", "options": {"20": "/20", "100": "/100 (%)", "4": "/4 (GPA)", "5": "/5", "unknown": "Je ne sais pas"}},
+      "degreeField": {"label": "Filière de ce diplôme", "placeholder": "Ex. Génie civil, Biologie, Comptabilité", "hint": "Tapez librement : des suggestions s'affichent, mais vous pouvez écrire autre chose."},
+      "originalDiplomas": {"label": "Avez-vous vos diplômes originaux ?", "options": {"yes": "Oui", "notYet": "Pas encore (attestation provisoire seulement)"}},
       "level": {
         "label": "Niveau visé",
         "options": { "language": "Année de langue", "licence": "Licence", "master": "Master", "doctorat": "Doctorat" }
       },
-      "field": {
-        "label": "Domaine d'études souhaité",
-        "placeholder": "Choisir…",
-        "options": [
-          "Médecine et santé (MBBS, pharmacie…)",
-          "Ingénierie (génie civil, mécanique, électrique…)",
-          "Informatique et numérique",
-          "Commerce, gestion, économie",
-          "Relations internationales, droit",
-          "Langue et culture chinoises",
-          "Sciences (chimie, physique, biologie…)",
-          "Agriculture et environnement",
-          "Architecture et design",
-          "Je ne sais pas encore",
-          "Autre"
-        ]
-      },
+      "field": {"label": "Domaine d'études souhaité", "hint": "2 choix maximum.", "options": {"medecine": "Médecine et santé (MBBS, pharmacie…)", "ingenierie": "Ingénierie (génie civil, mécanique, électrique…)", "informatique": "Informatique et numérique", "commerce": "Commerce, gestion, économie", "relations-droit": "Relations internationales, droit", "langue-chinoise": "Langue et culture chinoises", "sciences": "Sciences (chimie, physique, biologie…)", "agriculture-environnement": "Agriculture et environnement", "architecture-design": "Architecture et design", "education-sport": "Éducation, langues, sport", "ne-sait-pas": "Je ne sais pas encore", "autre": "Autre"}},
       "fieldOther": { "label": "Précisez le domaine" },
       "passport": {
         "label": "Passeport",
@@ -151,6 +138,10 @@
         "label": "Parlez-vous anglais ?",
         "options": { "yes": "Oui", "little": "Un peu", "no": "Non" }
       },
+      "englishCertificate": {"label": "Avez-vous un certificat d'anglais ?", "options": {"ielts": "IELTS", "toefl": "TOEFL", "duolingo": "Duolingo", "studiedInEnglish": "Pas de certificat, mais études faites en anglais", "none": "Pas de certificat"}},
+      "englishScore": {"label": "Votre score {type}", "hint": {"ielts": "Entre 0 et 9, ex. 6,5", "toefl": "Entre 0 et 120, ex. 85", "duolingo": "Entre 10 et 160, ex. 110"}},
+      "hsk": {"label": "Niveau de chinois (HSK)", "options": {"0": "Aucun", "2": "HSK 1-2", "3": "HSK 3", "4": "HSK 4", "5": "HSK 5", "6": "HSK 6"}},
+      "bankStatement": {"label": "Moi ou ma famille pouvons montrer sur un relevé bancaire environ…", "hint": "Certaines universités demandent un relevé au nom de l'étudiant ou d'un parent. Ce n'est pas un paiement.", "options": {"lt2500": "Moins de 2 500 USD", "2500-5000": "2 500 à 5 000 USD", "5000-10000": "5 000 à 10 000 USD", "gt10000": "Plus de 10 000 USD", "unknown": "Je ne sais pas"}},
       "funding": {
         "label": "Comment pensez-vous payer vos études ?",
         "options": { "scholarshipOnly": "Uniquement avec une bourse", "familyPart": "Ma famille peut payer une partie", "fullFunding": "Je (ou ma famille) peux tout payer" }
@@ -177,6 +168,9 @@
       "whatsapp": "Numéro invalide. Commencez par l'indicatif, ex. +237 6XX XX XX XX.",
       "email": "Adresse email invalide, ex. paul.kamga@gmail.com.",
       "dateOfBirth": "Date de naissance invalide.",
+      "average": "Indiquez une moyenne valide, entre 0 et {max} (ex. 13,5).",
+      "englishScore": "Indiquez votre score {type} : entre {min} et {max}{step, select, half { (par pas de 0,5)} other {}}.",
+      "domainsMax": "2 domaines maximum.",
       "consent": "Cochez cette case pour envoyer votre dossier.",
       "generic": "L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez."
     },
@@ -483,6 +477,13 @@
         "formLanguage": "Langue du formulaire",
         "duration": "Durée de remplissage",
         "durationValue": "{min} min {sec} s",
+        "degreeField": "Filière du diplôme",
+        "averagePct": "Moyenne sur 100",
+        "originalDiplomas": "Diplômes originaux",
+        "englishCertificate": "Certificat d'anglais",
+        "englishScore": "Score d'anglais",
+        "hsk": "Niveau HSK",
+        "bankStatement": "Relevé bancaire possible",
         "offerRef": "Référence d'offre",
         "utmSource": "Source (utm_source)",
         "utmMedium": "Support (utm_medium)",

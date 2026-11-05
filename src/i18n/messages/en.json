@@ -120,28 +120,15 @@
       },
       "degreeOther": { "label": "Specify the diploma" },
       "degreeYear": { "label": "Year obtained", "placeholder": "Choose…" },
-      "degreeAverage": { "label": "Average obtained for this diploma", "hint": "e.g. 13.5/20 · Upper Second · 3.2 GPA. Check your transcript." },
+      "degreeAverage": {"label": "Average obtained for this diploma", "hint": "Check your transcript.", "placeholder": "e.g. 13.5"},
+      "averageScale": {"label": "On which scale?", "options": {"20": "/20", "100": "/100 (%)", "4": "/4 (GPA)", "5": "/5", "unknown": "I don't know"}},
+      "degreeField": {"label": "Major of this diploma", "placeholder": "e.g. Civil engineering, Biology, Accounting", "hint": "Type freely: suggestions appear, but you can write something else."},
+      "originalDiplomas": {"label": "Do you have your original diplomas?", "options": {"yes": "Yes", "notYet": "Not yet (provisional certificate only)"}},
       "level": {
         "label": "Target level",
         "options": { "language": "Language year", "licence": "Bachelor's", "master": "Master's", "doctorat": "PhD" }
       },
-      "field": {
-        "label": "Desired field of study",
-        "placeholder": "Choose…",
-        "options": [
-          "Medicine and health (MBBS, pharmacy…)",
-          "Engineering (civil, mechanical, electrical…)",
-          "Computer science and digital",
-          "Business, management, economics",
-          "International relations, law",
-          "Chinese language and culture",
-          "Sciences (chemistry, physics, biology…)",
-          "Agriculture and environment",
-          "Architecture and design",
-          "I don't know yet",
-          "Other"
-        ]
-      },
+      "field": {"label": "Desired field of study", "hint": "2 choices maximum.", "options": {"medecine": "Medicine and health (MBBS, pharmacy…)", "ingenierie": "Engineering (civil, mechanical, electrical…)", "informatique": "Computer science and digital", "commerce": "Business, management, economics", "relations-droit": "International relations, law", "langue-chinoise": "Chinese language and culture", "sciences": "Sciences (chemistry, physics, biology…)", "agriculture-environnement": "Agriculture and environment", "architecture-design": "Architecture and design", "education-sport": "Education, languages, sport", "ne-sait-pas": "I don't know yet", "autre": "Other"}},
       "fieldOther": { "label": "Specify the field" },
       "passport": {
         "label": "Passport",
@@ -151,6 +138,10 @@
         "label": "Do you speak English?",
         "options": { "yes": "Yes", "little": "A little", "no": "No" }
       },
+      "englishCertificate": {"label": "Do you have an English certificate?", "options": {"ielts": "IELTS", "toefl": "TOEFL", "duolingo": "Duolingo", "studiedInEnglish": "No certificate, but I studied in English", "none": "No certificate"}},
+      "englishScore": {"label": "Your {type} score", "hint": {"ielts": "Between 0 and 9, e.g. 6.5", "toefl": "Between 0 and 120, e.g. 85", "duolingo": "Between 10 and 160, e.g. 110"}},
+      "hsk": {"label": "Chinese level (HSK)", "options": {"0": "None", "2": "HSK 1-2", "3": "HSK 3", "4": "HSK 4", "5": "HSK 5", "6": "HSK 6"}},
+      "bankStatement": {"label": "My family or I can show on a bank statement about…", "hint": "Some universities ask for a statement in the student's or a parent's name. It is not a payment.", "options": {"lt2500": "Less than 2,500 USD", "2500-5000": "2,500 to 5,000 USD", "5000-10000": "5,000 to 10,000 USD", "gt10000": "More than 10,000 USD", "unknown": "I don't know"}},
       "funding": {
         "label": "How do you plan to fund your studies?",
         "options": { "scholarshipOnly": "Scholarship only", "familyPart": "My family can pay part of it", "fullFunding": "I (or my family) can fund it fully" }
@@ -177,6 +168,9 @@
       "whatsapp": "Invalid number. Start with the country code, e.g. +237 6XX XX XX XX.",
       "email": "Invalid email address, e.g. paul.kamga@gmail.com.",
       "dateOfBirth": "Invalid date of birth.",
+      "average": "Enter a valid average, between 0 and {max} (e.g. 13.5).",
+      "englishScore": "Enter your {type} score: between {min} and {max}{step, select, half { (in steps of 0.5)} other {}}.",
+      "domainsMax": "2 fields maximum.",
       "consent": "Check this box to submit your application.",
       "generic": "The submission failed. Check your connection and try again."
     },
@@ -483,6 +477,13 @@
         "formLanguage": "Form language",
         "duration": "Time to complete",
         "durationValue": "{min} min {sec} s",
+        "degreeField": "Major of the diploma",
+        "averagePct": "Average out of 100",
+        "originalDiplomas": "Original diplomas",
+        "englishCertificate": "English certificate",
+        "englishScore": "English score",
+        "hsk": "HSK level",
+        "bankStatement": "Possible bank statement",
         "offerRef": "Offer reference",
         "utmSource": "Source (utm_source)",
         "utmMedium": "Medium (utm_medium)",

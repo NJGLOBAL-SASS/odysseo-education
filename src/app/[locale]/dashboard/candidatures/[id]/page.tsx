@@ -121,14 +121,24 @@ export default async function CandidateDetailPage({ params }: { params: { locale
             <Row label={r("situation")} value={optionLabel("currentSituation", candidate.currentSituation, L)} />
             <Row label={r("degree")} value={candidate.highestDegree} />
             <Row label={r("degreeYear")} value={candidate.degreeYear} />
+            <Row label={r("degreeField")} value={candidate.degreeField} />
             <Row label={r("average")} value={candidate.degreeAverage} />
+            <Row label={r("averagePct")} value={candidate.averagePct != null ? `${candidate.averagePct} / 100` : null} />
+            <Row
+              label={r("originalDiplomas")}
+              value={candidate.originalDiplomas == null ? null : optionLabel("originalDiplomas", candidate.originalDiplomas ? "yes" : "notYet", L)}
+            />
           </Section>
 
           <Section title={t("sections.project")}>
             <Row label={r("level")} value={optionLabel("targetLevel", candidate.targetLevel, L)} />
             <Row label={r("field")} value={candidate.fieldOfStudy} />
             <Row label={r("passport")} value={optionLabel("passportStatus", candidate.passportStatus, L)} />
+            <Row label={r("englishCertificate")} value={optionLabel("englishCertificate", candidate.englishCertificate, L)} />
+            <Row label={r("englishScore")} value={candidate.englishScore} />
             <Row label={r("english")} value={optionLabel("englishLevel", candidate.englishLevel, L)} />
+            <Row label={r("hsk")} value={candidate.hskLevel != null ? optionLabel("hskLevel", String(candidate.hskLevel), L) : null} />
+            <Row label={r("bankStatement")} value={optionLabel("bankStatement", candidate.bankStatement, L)} />
             <Row label={r("funding")} value={optionLabel("fundingPlan", candidate.fundingPlan, L)} />
             <Row label={r("intake")} value={optionLabel("targetIntake", candidate.targetIntake, L)} />
           </Section>

@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.6.0] – 2026-11-06 · PACK-01 Formulaire de qualification
+
+### Ajouté
+- Étape 2 « Parcours » :
+  - **filière du diplôme** (texte libre, obligatoire pour une Licence ou un Master, jamais pour Bac / Probatoire), avec autocomplétion non bloquante sur 345 filières (`content/filieres_suggestions.json`) ;
+  - **moyenne structurée** : barème en boutons (`/20`, `/100 (%)`, `/4 (GPA)`, `/5`, « Je ne sais pas ») et valeur décimale (virgule acceptée) ; `moyenne_pct` calculée côté serveur (13,5/20 → 67,5) ;
+  - **diplômes originaux** : Oui / Pas encore.
+- Étape 3 « Projet » :
+  - **certificat d'anglais** (IELTS, TOEFL, Duolingo, études en anglais, aucun), score borné (IELTS 0-9 au pas de 0,5, TOEFL 0-120, Duolingo 10-160) ; « Parlez-vous anglais ? » seulement sans certificat ;
+  - **niveau HSK** (0 à 6, HSK 1-2 → 2) ;
+  - **relevé bancaire** possible (tranches, `releve_bancaire_usd_max` : 0, 2 500, 5 000, 10 000 ou null) avec aide « Ce n'est pas un paiement » ;
+  - **domaines souhaités** en choix multiple (2 maximum), nouvelle option « Éducation, langues, sport », codes stockés pour le PACK-02.
+- **Brouillon** du formulaire dans `localStorage` (`odysseo_form_draft`) : restauré au retour (étape comprise), vidé après l'envoi, jamais le consentement.
+- Base (`candidates`) : 11 colonnes facultatives (`degreeField`, `averageValue`, `averageScale`, `averagePct`, `originalDiplomas`, `studyFields[]`, `englishCertificate`, `englishScore`, `hskLevel`, `bankStatement`, `bankStatementUsdMax`). Correspondance avec les noms du pack dans `src/lib/qualification.ts`.
+- Fiche dossier du dashboard et exports : filière, moyenne sur 100, diplômes originaux, certificat et score d'anglais, HSK, relevé bancaire.
+- Tests : conversions, bornes des scores, règles des étapes 2 et 3, schéma serveur.
+
+### Modifié
+- Colonnes historiques conservées et remplies avec un texte lisible : `degreeAverage` (« 13,5/20 »), `fieldOfStudy` (libellés des domaines), `englishLevel` (« Oui » si certificat ou études en anglais). Les dossiers antérieurs restent lisibles.
+- `age` : toujours calculé côté serveur à l'envoi (déjà en place).
+
+### Migration
+- `npm run db:push` (colonnes facultatives) **avant** de déployer — fait le 2026-11-06.
+
 ## [0.5.0] – 2026-11-05 · PACK-06 Preuves et confiance
 
 ### Ajouté

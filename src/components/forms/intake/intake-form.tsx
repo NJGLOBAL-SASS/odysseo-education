@@ -21,6 +21,54 @@ const STEP_COUNT = 4;
 
 const REF_STORAGE_KEY = "odysseo_ref";
 
+/** Brouillon du formulaire (PACK-01) : restauré au retour, vidé après l'envoi. Jamais le consentement. */
+const DRAFT_STORAGE_KEY = "odysseo_form_draft";
+
+type StoredDraft = { step: number; data: Partial<IntakeDraft> };
+
+function readDraft(): { step: number; data: IntakeDraft } | null {
+  try {
+    const raw = localStorage.getItem(DRAFT_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as StoredDraft;
+    if (!parsed || typeof parsed !== "object" || !parsed.data) return null;
+    const data: IntakeDraft = { ...emptyDraft };
+    for (const key of Object.keys(emptyDraft) as (keyof IntakeDraft)[]) {
+      const v = parsed.data[key];
+      if (v === undefined) continue;
+      // On ne restaure que des valeurs du bon type (brouillons d'une ancienne version du formulaire).
+      if (Array.isArray(emptyDraft[key]) ? Array.isArray(v) : typeof v === typeof emptyDraft[key]) {
+        (data as Record<string, unknown>)[key] = v;
+      }
+    }
+    data.consentGiven = false;
+    data.siteWeb = "";
+    const step = Number.isInteger(parsed.step) ? Math.min(Math.max(parsed.step, 0), STEP_COUNT - 1) : 0;
+    return { step, data };
+  } catch {
+    return null;
+  }
+}
+
+function writeDraft(step: number, data: IntakeDraft) {
+  try {
+    const rest: Partial<IntakeDraft> = { ...data };
+    delete rest.consentGiven;
+    delete rest.siteWeb;
+    localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify({ step, data: rest } satisfies StoredDraft));
+  } catch {
+    // Navigation privée / stockage plein : pas de brouillon, le formulaire fonctionne quand même.
+  }
+}
+
+function clearDraft() {
+  try {
+    localStorage.removeItem(DRAFT_STORAGE_KEY);
+  } catch {
+    // ignore
+  }
+}
+
 /** Code transmis par le lien de parrainage (?ref=), mémorisé pour toute la session. */
 function readReferralCode() {
   if (typeof window === "undefined") return "";
@@ -49,6 +97,22 @@ export function IntakeForm() {
   const startedAt = useRef(Date.now());
   const [refCode, setRefCode] = useState("");
   const [referral, setReferral] = useState<ReferralInfo | null>(null);
+  const draftRestored = useRef(false);
+  const degreeOptions = t.raw("fields.degree.options") as string[];
+
+  // Brouillon : restauré une fois au chargement, puis enregistré à chaque modification.
+  useEffect(() => {
+    const draft = readDraft();
+    if (draft) {
+      setData((d) => ({ ...draft.data, consentGiven: d.consentGiven }));
+      setStep(draft.step);
+    }
+    draftRestored.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (draftRestored.current && !result) writeDraft(step, data);
+  }, [step, data, result]);
 
   // Lien de parrainage : on vérifie le code puis on pré-remplit l'étape
   // "Validation" pour que le candidat n'ait rien à taper.
@@ -89,11 +153,20 @@ export function IntakeForm() {
       email: t("errors.email"),
       dateOfBirth: t("errors.dateOfBirth"),
       consent: t("errors.consent"),
+      domainsMax: t("errors.domainsMax"),
+      average: (max: number) => t("errors.average", { max }),
+      englishScore: ({ type, min, max, step }: { type: string; min: number; max: number; step: number }) =>
+        t("errors.englishScore", {
+          type: t(`fields.englishCertificate.options.${type}`),
+          min,
+          max,
+          step: step < 1 ? "half" : "whole",
+        }),
     };
   }
 
   async function goNext() {
-    const stepErrors = validateStep(step, data, errorMessages());
+    const stepErrors = validateStep(step, data, errorMessages(), degreeOptions);
     setErrors(stepErrors);
     if (Object.keys(stepErrors).length > 0) return;
 
@@ -134,6 +207,7 @@ export function IntakeForm() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "error");
       setResult({ code: json.code });
+      clearDraft();
       trackFormSubmitSuccess({ code: json.code, targetLevel: data.targetLevel });
     } catch {
       setSubmitError(t("errors.generic"));

@@ -2,8 +2,17 @@
 
 import { useTranslations } from "next-intl";
 
-import { Field, TextInput, SelectInput, ChipGroup } from "./fields";
+import { Field, TextInput, ChipGroup, MultiChipGroup } from "./fields";
 import type { IntakeDraft, StepErrors } from "./types";
+import { asksEnglishLevel } from "./validate-step";
+import {
+  BANK_STATEMENT_BANDS,
+  DOMAIN_CODES,
+  ENGLISH_CERTIFICATES,
+  HSK_LEVELS,
+  MAX_DOMAINS,
+  isScoredCertificate,
+} from "@/lib/qualification";
 
 export function StepProjet({
   data,
@@ -15,7 +24,6 @@ export function StepProjet({
   onChange: <K extends keyof IntakeDraft>(field: K, value: IntakeDraft[K]) => void;
 }) {
   const t = useTranslations("intake");
-  const fieldOptions = t.raw("fields.field.options") as string[];
 
   return (
     <section>
@@ -36,17 +44,16 @@ export function StepProjet({
         />
       </Field>
 
-      <Field label={t("fields.field.label")} required error={errors.fieldOfStudy}>
-        <SelectInput
-          value={data.fieldOfStudy}
-          onChange={(v) => onChange("fieldOfStudy", v)}
-          options={fieldOptions}
-          placeholder={t("fields.field.placeholder")}
-          error={errors.fieldOfStudy}
+      <Field label={t("fields.field.label")} hint={t("fields.field.hint")} required error={errors.domains}>
+        <MultiChipGroup
+          value={data.domains}
+          onChange={(v) => onChange("domains", v)}
+          max={MAX_DOMAINS}
+          options={DOMAIN_CODES.map((c) => ({ value: c, label: t(`fields.field.options.${c}`) }))}
         />
       </Field>
 
-      {data.fieldOfStudy === fieldOptions[fieldOptions.length - 1] && (
+      {data.domains.includes("autre") && (
         <Field label={t("fields.fieldOther.label")} required error={errors.fieldOther}>
           <TextInput
             value={data.fieldOther}
@@ -70,16 +77,64 @@ export function StepProjet({
         />
       </Field>
 
-      <Field label={t("fields.english.label")} required error={errors.englishLevel}>
+      <Field label={t("fields.englishCertificate.label")} required error={errors.englishCertificate}>
         <ChipGroup
-          name="english"
-          value={data.englishLevel}
-          onChange={(v) => onChange("englishLevel", v)}
-          options={[
-            { value: "yes", label: t("fields.english.options.yes") },
-            { value: "little", label: t("fields.english.options.little") },
-            { value: "no", label: t("fields.english.options.no") },
-          ]}
+          name="englishCertificate"
+          value={data.englishCertificate}
+          onChange={(v) => onChange("englishCertificate", v)}
+          options={ENGLISH_CERTIFICATES.map((c) => ({ value: c, label: t(`fields.englishCertificate.options.${c}`) }))}
+        />
+      </Field>
+
+      {isScoredCertificate(data.englishCertificate) && (
+        <Field
+          label={t("fields.englishScore.label", { type: t(`fields.englishCertificate.options.${data.englishCertificate}`) })}
+          hint={t(`fields.englishScore.hint.${data.englishCertificate}`)}
+          required
+          error={errors.englishScore}
+        >
+          <div className="w-32">
+            <TextInput
+              value={data.englishScore}
+              onChange={(v) => onChange("englishScore", v.replace(/[^\d.,]/g, ""))}
+              inputMode="decimal"
+              maxLength={5}
+              error={errors.englishScore}
+            />
+          </div>
+        </Field>
+      )}
+
+      {asksEnglishLevel(data) && (
+        <Field label={t("fields.english.label")} required error={errors.englishLevel}>
+          <ChipGroup
+            name="english"
+            value={data.englishLevel}
+            onChange={(v) => onChange("englishLevel", v)}
+            options={[
+              { value: "yes", label: t("fields.english.options.yes") },
+              { value: "little", label: t("fields.english.options.little") },
+              { value: "no", label: t("fields.english.options.no") },
+            ]}
+          />
+        </Field>
+      )}
+
+      <Field label={t("fields.hsk.label")} required error={errors.hsk}>
+        <ChipGroup
+          name="hsk"
+          value={data.hsk}
+          onChange={(v) => onChange("hsk", v)}
+          options={HSK_LEVELS.map((h) => ({ value: h, label: t(`fields.hsk.options.${h}`) }))}
+        />
+      </Field>
+
+      <Field label={t("fields.bankStatement.label")} hint={t("fields.bankStatement.hint")} required error={errors.bankStatement}>
+        <ChipGroup
+          name="bankStatement"
+          value={data.bankStatement}
+          onChange={(v) => onChange("bankStatement", v)}
+          options={BANK_STATEMENT_BANDS.map((b) => ({ value: b, label: t(`fields.bankStatement.options.${b}`) }))}
         />
       </Field>
 

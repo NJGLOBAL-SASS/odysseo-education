@@ -14,13 +14,23 @@ export type IntakeDraft = {
   highestDegree: string;
   degreeOther: string;
   degreeYear: string;
-  degreeAverage: string;
+  /** PACK-01 : filière du diplôme (filiereDiplome), moyenne structurée, diplômes originaux. */
+  degreeField: string;
+  averageValue: string;
+  averageScale: string;
+  originalDiplomas: "" | "yes" | "notYet";
 
   targetLevel: string;
-  fieldOfStudy: string;
+  /** PACK-01 : domaines souhaités (codes, 2 maximum) — remplace l'ancien choix unique. */
+  domains: string[];
   fieldOther: string;
   passportStatus: string;
+  englishCertificate: string;
+  englishScore: string;
+  /** Oui / Un peu / Non : demandé seulement sans certificat ni études en anglais. */
   englishLevel: string;
+  hsk: string;
+  bankStatement: string;
   fundingPlan: string;
   targetIntake: string;
 
@@ -47,12 +57,19 @@ export const emptyDraft: IntakeDraft = {
   highestDegree: "",
   degreeOther: "",
   degreeYear: "",
-  degreeAverage: "",
+  degreeField: "",
+  averageValue: "",
+  averageScale: "",
+  originalDiplomas: "",
   targetLevel: "",
-  fieldOfStudy: "",
+  domains: [],
   fieldOther: "",
   passportStatus: "",
+  englishCertificate: "",
+  englishScore: "",
   englishLevel: "",
+  hsk: "",
+  bankStatement: "",
   fundingPlan: "",
   targetIntake: "",
   referred: "",

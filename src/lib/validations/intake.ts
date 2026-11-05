@@ -1,6 +1,18 @@
 import { z } from "zod";
 
 import { attributionSchema } from "@/lib/attribution";
+import {
+  AVERAGE_SCALES,
+  BANK_STATEMENT_BANDS,
+  DOMAIN_CODES,
+  ENGLISH_CERTIFICATES,
+  HSK_LEVELS,
+  MAX_DOMAINS,
+  isScoredCertificate,
+  isValidAverage,
+  isValidEnglishScore,
+  parseDecimal,
+} from "@/lib/qualification";
 
 export function normalizePhone(v: string) {
   return String(v || "")
@@ -21,7 +33,7 @@ export function ageFrom(dateStr: string) {
 
 const phoneRegex = /^\+\d{9,15}$/;
 
-export const intakeSchema = z.object({
+const intakeBaseSchema = z.object({
   fullName: z
     .string()
     .trim()
@@ -43,13 +55,21 @@ export const intakeSchema = z.object({
   highestDegree: z.string().min(1, "required"),
   degreeOther: z.string().optional(),
   degreeYear: z.coerce.number().int().optional(),
-  degreeAverage: z.string().trim().min(1, "required"),
+  // PACK-01 : filière, moyenne structurée (valeur + barème), diplômes originaux.
+  degreeField: z.string().trim().max(120).optional(),
+  averageValue: z.union([z.string(), z.number()]).optional(),
+  averageScale: z.enum(AVERAGE_SCALES),
+  originalDiplomas: z.enum(["yes", "notYet"]),
 
   targetLevel: z.string().min(1, "required"),
-  fieldOfStudy: z.string().min(1, "required"),
+  domains: z.array(z.enum(DOMAIN_CODES)).min(1, "required").max(MAX_DOMAINS, "domainsMax"),
   fieldOther: z.string().optional(),
   passportStatus: z.string().min(1, "required"),
-  englishLevel: z.string().min(1, "required"),
+  englishCertificate: z.enum(ENGLISH_CERTIFICATES),
+  englishScore: z.union([z.string(), z.number()]).optional(),
+  englishLevel: z.string().optional(),
+  hsk: z.enum(HSK_LEVELS),
+  bankStatement: z.enum(BANK_STATEMENT_BANDS),
   fundingPlan: z.string().min(1, "required"),
   targetIntake: z.string().min(1, "required"),
 
@@ -71,6 +91,21 @@ export const intakeSchema = z.object({
   fbp: z.string().max(200).optional().catch(undefined),
   fbc: z.string().max(700).optional().catch(undefined),
   pageUrl: z.string().max(500).optional().catch(undefined),
+});
+
+export const intakeSchema = intakeBaseSchema.superRefine((d, ctx) => {
+  if (d.averageScale !== "unknown" && !isValidAverage(parseDecimal(d.averageValue), d.averageScale)) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["averageValue"], message: "average" });
+  }
+  if (isScoredCertificate(d.englishCertificate) && !isValidEnglishScore(d.englishCertificate, parseDecimal(d.englishScore))) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["englishScore"], message: "englishScore" });
+  }
+  if (d.englishCertificate === "none" && !["yes", "little", "no"].includes(d.englishLevel ?? "")) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["englishLevel"], message: "required" });
+  }
+  if (d.domains.includes("autre") && !d.fieldOther?.trim()) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["fieldOther"], message: "required" });
+  }
 });
 
 export type IntakeInput = z.infer<typeof intakeSchema>;

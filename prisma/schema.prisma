@@ -263,6 +263,12 @@ model Candidate {
   highestDegree    String
   degreeYear       Int?
   degreeAverage    String?
+  // PACK-01 (facultatifs : les dossiers antérieurs ne les ont pas). Noms du pack entre parenthèses.
+  degreeField      String? // filière du diplôme (filiereDiplome)
+  averageValue     Float? // moyenne saisie (moyenneValeur)
+  averageScale     String? // "20" | "100" | "4" | "5" | "unknown" (moyenneBareme)
+  averagePct       Float? // moyenne ramenée sur 100 (moyenne_pct), null si barème inconnu
+  originalDiplomas Boolean? // diplômes originaux : true = Oui, false = Pas encore (diplomesOriginaux)
 
   // Étape 3 — Projet
   targetLevel    String
@@ -271,6 +277,13 @@ model Candidate {
   englishLevel   String
   fundingPlan    String
   targetIntake   String
+  // PACK-01 (facultatifs). fieldOfStudy garde les libellés lisibles, studyFields les codes.
+  studyFields         String[] @default([]) // codes des domaines, 2 max (domaines[])
+  englishCertificate  String? // "ielts" | "toefl" | "duolingo" | "studiedInEnglish" | "none" (anglaisCertificat)
+  englishScore        Float? // score du certificat (anglaisScore)
+  hskLevel            Int? // 0 à 6, HSK 1-2 → 2 (hsk)
+  bankStatement       String? // tranche choisie (releveBancaire)
+  bankStatementUsdMax Int? // 0 | 2500 | 5000 | 10000 | null (releve_bancaire_usd_max)
 
   // Étape 4 — Validation / source
   referredByPartnerDeclared String? // code tapé librement par le candidat

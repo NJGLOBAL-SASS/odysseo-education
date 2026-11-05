@@ -1,10 +1,33 @@
 import { normalizePhone, ageFrom } from "@/lib/validations/intake";
+import {
+  DEGREE_FIELD_REQUIRED_INDEXES,
+  ENGLISH_SCORE_RULES,
+  MAX_DOMAINS,
+  averageScaleMax,
+  isScoredCertificate,
+  isValidAverage,
+  isValidEnglishScore,
+  parseDecimal,
+} from "@/lib/qualification";
 import type { IntakeDraft, StepErrors } from "./types";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-type Errors = "required" | "fullName" | "whatsapp" | "email" | "dateOfBirth" | "consent";
-type Messages = Record<Errors, string>;
+type Errors = "required" | "fullName" | "whatsapp" | "email" | "dateOfBirth" | "consent" | "domainsMax";
+export type Messages = Record<Errors, string> & {
+  average: (max: number) => string;
+  englishScore: (p: { type: string; min: number; max: number; step: number }) => string;
+};
+
+/** Options de diplôme (libellés de la langue du formulaire), pour savoir si la filière est obligatoire. */
+export function degreeIndex(degree: string, degreeOptions: string[]) {
+  return degreeOptions.indexOf(degree);
+}
+
+/** Pas de certificat ni d'études en anglais : on garde la question « Parlez-vous anglais ? ». */
+export function asksEnglishLevel(data: IntakeDraft) {
+  return data.englishCertificate === "none";
+}
 
 function isMinor(data: IntakeDraft) {
   const age = ageFrom(data.dateOfBirth);
@@ -15,7 +38,7 @@ function needsGuardian(data: IntakeDraft) {
   return isMinor(data) || data.managedBy === "parent" || data.managedBy === "guardian";
 }
 
-export function validateStep(step: number, data: IntakeDraft, m: Messages): StepErrors {
+export function validateStep(step: number, data: IntakeDraft, m: Messages, degreeOptions: string[] = []): StepErrors {
   const errors: StepErrors = {};
   const req = (cond: boolean, field: keyof IntakeDraft) => {
     if (!cond) errors[field] = m.required;
@@ -60,14 +83,34 @@ export function validateStep(step: number, data: IntakeDraft, m: Messages): Step
     req(data.currentSituation.length > 0, "currentSituation");
     req(data.highestDegree.length > 0, "highestDegree");
     req(data.degreeYear.length > 0, "degreeYear");
-    req(data.degreeAverage.trim().length > 0, "degreeAverage");
+    if (DEGREE_FIELD_REQUIRED_INDEXES.includes(degreeIndex(data.highestDegree, degreeOptions))) {
+      req(data.degreeField.trim().length > 0, "degreeField");
+    }
+    req(data.averageScale.length > 0, "averageScale");
+    if (data.averageScale && data.averageScale !== "unknown") {
+      if (!isValidAverage(parseDecimal(data.averageValue), data.averageScale)) {
+        errors.averageValue = m.average(averageScaleMax(data.averageScale) ?? 20);
+      }
+    }
+    req(data.originalDiplomas.length > 0, "originalDiplomas");
   }
 
   if (step === 2) {
     req(data.targetLevel.length > 0, "targetLevel");
-    req(data.fieldOfStudy.length > 0, "fieldOfStudy");
+    req(data.domains.length > 0, "domains");
+    if (data.domains.length > MAX_DOMAINS) errors.domains = m.domainsMax;
+    if (data.domains.includes("autre")) req(data.fieldOther.trim().length > 0, "fieldOther");
     req(data.passportStatus.length > 0, "passportStatus");
-    req(data.englishLevel.length > 0, "englishLevel");
+    req(data.englishCertificate.length > 0, "englishCertificate");
+    if (isScoredCertificate(data.englishCertificate)) {
+      const rule = ENGLISH_SCORE_RULES[data.englishCertificate];
+      if (!isValidEnglishScore(data.englishCertificate, parseDecimal(data.englishScore))) {
+        errors.englishScore = m.englishScore({ type: data.englishCertificate, ...rule });
+      }
+    }
+    if (asksEnglishLevel(data)) req(data.englishLevel.length > 0, "englishLevel");
+    req(data.hsk.length > 0, "hsk");
+    req(data.bankStatement.length > 0, "bankStatement");
     req(data.fundingPlan.length > 0, "fundingPlan");
     req(data.targetIntake.length > 0, "targetIntake");
   }

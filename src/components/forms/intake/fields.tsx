@@ -116,6 +116,49 @@ export function ChipGroup({
   );
 }
 
+/** Choix multiple en boutons (cases à cocher), avec un nombre maximum de choix. */
+export function MultiChipGroup({
+  value,
+  onChange,
+  options,
+  max,
+}: {
+  value: string[];
+  onChange: (v: string[]) => void;
+  options: { value: string; label: string }[];
+  max?: number;
+}) {
+  const full = max !== undefined && value.length >= max;
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((opt) => {
+        const checked = value.includes(opt.value);
+        const disabled = !checked && full;
+        return (
+          <label key={opt.value} className={cn("cursor-pointer", disabled && "cursor-not-allowed opacity-45")}>
+            <input
+              type="checkbox"
+              value={opt.value}
+              checked={checked}
+              disabled={disabled}
+              onChange={() => onChange(checked ? value.filter((v) => v !== opt.value) : [...value, opt.value])}
+              className="peer sr-only"
+            />
+            <span
+              className={cn(
+                checked ? "chip-selected" : "chip",
+                "peer-focus-visible:ring-2 peer-focus-visible:ring-noir peer-focus-visible:ring-offset-2"
+              )}
+            >
+              {opt.label}
+            </span>
+          </label>
+        );
+      })}
+    </div>
+  );
+}
+
 export function CheckboxField({
   checked,
   onChange,

@@ -9,6 +9,17 @@ import { notifyNewCandidate, notifyCandidateConfirmation } from "@/lib/notificat
 import { appendCandidateRow } from "@/lib/google-sheets";
 import { REFERRAL_COOKIE } from "@/lib/referral";
 import { looksLikeOfferRef } from "@/lib/attribution";
+import {
+  DEGREE_FIELD_REQUIRED_INDEXES,
+  averageDisplay,
+  averageToPct,
+  bankStatementUsdMax,
+  hskToInt,
+  isScoredCertificate,
+  parseDecimal,
+} from "@/lib/qualification";
+import fr from "@/i18n/messages/fr.json";
+import en from "@/i18n/messages/en.json";
 import { isMetaCapiConfigured, sendMetaLeadEvent } from "@/lib/meta-capi";
 
 export async function POST(req: NextRequest) {
@@ -25,6 +36,15 @@ export async function POST(req: NextRequest) {
     );
   }
   const d = parsed.data;
+
+  // Filière obligatoire pour une Licence ou un Master (libellés FR ou EN, même ordre).
+  const degreeIdx = [fr, en].map((m) => m.intake.fields.degree.options.indexOf(d.highestDegree)).find((i) => i >= 0) ?? -1;
+  if (DEGREE_FIELD_REQUIRED_INDEXES.includes(degreeIdx) && !d.degreeField?.trim()) {
+    return NextResponse.json(
+      { error: "Données invalides.", issues: { fieldErrors: { degreeField: ["required"] } } },
+      { status: 400 }
+    );
+  }
 
   if (isBot) {
     // On simule un succès sans rien enregistrer, pour ne pas alerter le robot.
@@ -47,6 +67,16 @@ export async function POST(req: NextRequest) {
   const withOther = (value: string, other?: string) =>
     /^(autre|other)$/i.test(value) && other?.trim() ? `${value} : ${other.trim()}` : value;
 
+  // PACK-01 : valeurs calculées côté serveur. Les colonnes historiques (degreeAverage,
+  // fieldOfStudy, englishLevel) gardent un texte lisible pour le dashboard, les exports et les emails.
+  const formFields = (d.locale === "en" ? en : fr).intake.fields;
+  const averageValue = d.averageScale === "unknown" ? null : parseDecimal(d.averageValue);
+  const englishScore = isScoredCertificate(d.englishCertificate) ? parseDecimal(d.englishScore) : null;
+  const domainLabels = d.domains.map((code) => {
+    const label = (formFields.field.options as Record<string, string>)[code] ?? code;
+    return code === "autre" && d.fieldOther?.trim() ? `${label} : ${d.fieldOther.trim()}` : label;
+  });
+
   const candidate = await prisma.candidate.create({
     data: {
       code: generateCandidateCode(),
@@ -64,11 +94,23 @@ export async function POST(req: NextRequest) {
       currentSituation: d.currentSituation,
       highestDegree: withOther(d.highestDegree, d.degreeOther),
       degreeYear: d.degreeYear,
-      degreeAverage: d.degreeAverage,
+      degreeAverage: averageDisplay(averageValue, d.averageScale, d.locale),
+      degreeField: d.degreeField?.trim() || undefined,
+      averageValue: averageValue ?? undefined,
+      averageScale: d.averageScale,
+      averagePct: averageToPct(averageValue, d.averageScale) ?? undefined,
+      originalDiplomas: d.originalDiplomas === "yes",
       targetLevel: d.targetLevel,
-      fieldOfStudy: withOther(d.fieldOfStudy, d.fieldOther),
+      fieldOfStudy: domainLabels.join(" + "),
+      studyFields: d.domains,
       passportStatus: d.passportStatus,
-      englishLevel: d.englishLevel,
+      // Sans certificat : réponse Oui / Un peu / Non ; avec certificat ou études en anglais : « Oui ».
+      englishLevel: d.englishCertificate === "none" ? d.englishLevel! : "yes",
+      englishCertificate: d.englishCertificate,
+      englishScore: englishScore ?? undefined,
+      hskLevel: hskToInt(d.hsk) ?? undefined,
+      bankStatement: d.bankStatement,
+      bankStatementUsdMax: bankStatementUsdMax(d.bankStatement) ?? undefined,
       fundingPlan: d.fundingPlan,
       targetIntake: d.targetIntake,
       referredByPartnerDeclared: d.partnerDeclared,
