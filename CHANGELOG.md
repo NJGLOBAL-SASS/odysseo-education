@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.0] – 2026-11-06 · PACK-02 Moteur de recommandation
+
+Catalogue : **`2027.09-v2`** (40 offres, dont 8 en vérification jamais proposées).
+
+### Ajouté
+- **Écran « Vos 3 offres recommandées »** après l'envoi du formulaire : cartes anonymisées (« Université *** – lieu »), rôle (🎯 Ambitieuse · ✅ Cible · 🛡️ Sécurité), référence, arguments, « Votre filière », date limite si connue ; message si moins de 3 offres ; repli « Nos offres [Langue / Licence] 2027 vous seront envoyées par un conseiller sur WhatsApp » ; mention « Montants indicatifs… Aucune admission n'est garantie. » ; lien vers la checklist avant le départ (PACK-09). FR/EN.
+- Bouton **« Recevoir le détail sur WhatsApp »** : message pré-rempli avec le code dossier **et** les références (« Offres recommandées : MA-26, MA-17, MA-10 »).
+- **Moteur** `src/lib/matching/` : port TypeScript à l'identique de `matching_reference.py` (`recommander.ts`), correspondance dossier → profil (`profil.ts`, OMM jamais automatique), projection publique et traduction anglaise des textes du catalogue (`public-offer.ts`).
+- Catalogue `data/offres/offres_2027.json` et correspondance confidentielle `data/offres/offres_2027_internes.json`, lus **côté serveur uniquement** (`import "server-only"`) ; mode d'emploi dans `data/offres/README.md`.
+- `/api/candidatures` : recommandations calculées et **enregistrées avec le dossier** (`recommendations` : `[{ref, role}]`, `matchingVersion`) ; la réponse ne contient que les champs publics (`ref`, `role`, `cycle`, `lieu_affiche`, `arguments`, `langue`, `duree`, `date_limite`, `filieres_correspondantes`).
+- Fiche dossier du dashboard : offres recommandées avec la **vraie université**, le partenaire et la note interne (équipe seulement). Exports : colonne « Offres recommandées » (références seulement).
+- Tests : les 5 profils de `fixtures_profils.json` (références, rôles, totaux identiques au script Python), exclusions (âge, moyenne, IELTS/TOEFL, certificat, HSK, relevé bancaire, nationalité, OMM, diplômes originaux), offres non publiables, correspondance formulaire → profil, absence de score/critères/nom réel dans la réponse publique, traduction anglaise complète.
+
+### Migration
+- `npm run db:push` (2 colonnes facultatives) **avant** de déployer — fait le 2026-11-06.
+
 ## [0.6.0] – 2026-11-06 · PACK-01 Formulaire de qualification
 
 ### Ajouté

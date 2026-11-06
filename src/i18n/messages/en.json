@@ -181,6 +181,9 @@
       "codeNote": "Keep this code: it's used to track your application.",
       "emailNote": "A confirmation email with your code has just been sent to {email}.",
       "whatsappButton": "Send my code on WhatsApp",
+      "waMessage": "Hello Odysseo Education, I have just filled in the form. My application code: {code}.",
+      "waOffers": "Recommended offers: {refs}",
+      "offers": {"title": "{count, plural, one {Your recommended offer} other {Your # recommended offers}}", "subtitle": "Indicative selection, confirmed by an Odysseo advisor within 24 hours.", "roles": {"ambitieuse": "🎯 Ambitious", "cible": "✅ Target", "securite": "🛡️ Safety"}, "cycles": {"master": "Master's", "phd": "Doctorate (PhD)"}, "university": "Univ. ***", "ref": "Ref. {ref}", "yourField": "Your field: <b>{field}</b>", "deadline": "Deadline: {date}", "fewer": "An advisor will suggest other options suited to your profile.", "none": "Our 2027 {level} offers will be sent to you by an advisor on WhatsApp.", "levels": {"language": "Language", "licence": "Bachelor's", "master": "Master's", "doctorat": "Doctorate"}, "whatsappButton": "Get the details on WhatsApp", "guide": "Prepare your departure: the checklist before leaving for China", "disclaimer": "Indicative amounts provided by the universities, subject to confirmation at admission. No admission is guaranteed."},
       "steps": {
         "analysis": { "title": "Profile review", "text": "Our team reviews your answers and the matching opportunities." },
         "firstAnswer": { "title": "Initial response within 48 hours", "text": "We'll write to you on WhatsApp and by email using the details provided." },
@@ -447,8 +450,10 @@
         "you": "Applicant",
         "background": "Background",
         "project": "Project",
-        "origin": "Origin"
+        "origin": "Origin",
+        "recommendations": "Recommended offers (engine)"
       },
+      "recommendations": {"version": "Catalogue {version}", "none": "No offer found automatically: to be suggested by an advisor.", "noneLevel": "Language or Bachelor's level: no automatic recommendation, offers to be sent by an advisor.", "partner": "Partner", "roles": {"ambitieuse": "Ambitious", "cible": "Target", "securite": "Safety"}},
       "rows": {
         "whatsapp": "WhatsApp",
         "email": "Email",

@@ -313,6 +313,10 @@ model Candidate {
   firstVisitAt     DateTime?
   marketingConsent Boolean   @default(false) // consentement cookies « marketing » au moment de l'envoi
 
+  // Moteur « Vos 3 offres » (PACK-02) : offres proposées à l'envoi, références anonymes.
+  recommendations Json? // [{ ref: "MA-26", role: "ambitieuse" | "cible" | "securite" }] (recommandations)
+  matchingVersion String? // version du catalogue, ex. 2027.09-v2 (moteur_version)
+
   referralEvents      ReferralEvent[]
   pointsLedgerEntries PointsLedgerEntry[]
   notificationLogs    NotificationLog[]

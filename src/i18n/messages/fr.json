@@ -181,6 +181,9 @@
       "codeNote": "Gardez ce code : il sert à suivre votre dossier.",
       "emailNote": "Un email de confirmation avec votre code vient de vous être envoyé à {email}.",
       "whatsappButton": "Envoyer mon code sur WhatsApp",
+      "waMessage": "Bonjour Odysseo Education, je viens de remplir le formulaire. Mon code dossier : {code}.",
+      "waOffers": "Offres recommandées : {refs}",
+      "offers": {"title": "{count, plural, one {Votre offre recommandée} other {Vos # offres recommandées}}", "subtitle": "Sélection indicative, confirmée par un conseiller Odysseo sous 24 h.", "roles": {"ambitieuse": "🎯 Ambitieuse", "cible": "✅ Cible", "securite": "🛡️ Sécurité"}, "cycles": {"master": "Master", "phd": "Doctorat (PhD)"}, "university": "Université ***", "ref": "Réf. {ref}", "yourField": "Votre filière : <b>{field}</b>", "deadline": "Date limite : {date}", "fewer": "Un conseiller vous proposera d'autres options adaptées à votre profil.", "none": "Nos offres {level} 2027 vous seront envoyées par un conseiller sur WhatsApp.", "levels": {"language": "Langue", "licence": "Licence", "master": "Master", "doctorat": "Doctorat"}, "whatsappButton": "Recevoir le détail sur WhatsApp", "guide": "Préparez votre départ : la checklist avant de partir en Chine", "disclaimer": "Montants indicatifs communiqués par les universités, sous réserve de confirmation à l'admission. Aucune admission n'est garantie."},
       "steps": {
         "analysis": { "title": "Étude de votre profil", "text": "Notre équipe analyse vos réponses et les offres adaptées." },
         "firstAnswer": { "title": "Premier avis sous 48 heures", "text": "Nous vous écrivons sur WhatsApp et par email aux coordonnées indiquées." },
@@ -447,8 +450,10 @@
         "you": "Vous",
         "background": "Parcours",
         "project": "Projet",
-        "origin": "Provenance"
+        "origin": "Provenance",
+        "recommendations": "Offres recommandées (moteur)"
       },
+      "recommendations": {"version": "Catalogue {version}", "none": "Aucune offre trouvée automatiquement : à proposer par un conseiller.", "noneLevel": "Niveau Langue ou Licence : pas de recommandation automatique, offres à envoyer par un conseiller.", "partner": "Partenaire", "roles": {"ambitieuse": "Ambitieuse", "cible": "Cible", "securite": "Sécurité"}},
       "rows": {
         "whatsapp": "WhatsApp",
         "email": "Email",

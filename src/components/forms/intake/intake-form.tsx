@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
 
 import { ProgressBar } from "./progress-bar";
-import { DoneScreen } from "./done-screen";
+import { DoneScreen, type DoneResult } from "./done-screen";
 import { StepVous } from "./step-vous";
 import { StepParcours } from "./step-parcours";
 import { StepProjet } from "./step-projet";
@@ -93,7 +93,7 @@ export function IntakeForm() {
   const [errors, setErrors] = useState<StepErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [result, setResult] = useState<{ code: string } | null>(null);
+  const [result, setResult] = useState<DoneResult | null>(null);
   const startedAt = useRef(Date.now());
   const [refCode, setRefCode] = useState("");
   const [referral, setReferral] = useState<ReferralInfo | null>(null);
@@ -206,7 +206,11 @@ export function IntakeForm() {
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "error");
-      setResult({ code: json.code });
+      setResult({
+        code: json.code,
+        cycle: json.recommendations?.cycle ?? null,
+        offers: Array.isArray(json.recommendations?.offers) ? json.recommendations.offers : [],
+      });
       clearDraft();
       trackFormSubmitSuccess({ code: json.code, targetLevel: data.targetLevel });
     } catch {
@@ -220,7 +224,7 @@ export function IntakeForm() {
     const firstName = data.fullName.trim().split(/\s+/).slice(-1)[0] || "";
     return (
       <div className="wrap py-6">
-        <DoneScreen code={result.code} firstName={firstName} email={data.email.trim()} />
+        <DoneScreen result={result} firstName={firstName} email={data.email.trim()} targetLevel={data.targetLevel} />
       </div>
     );
   }

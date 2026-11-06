@@ -21,6 +21,7 @@ import {
 import fr from "@/i18n/messages/fr.json";
 import en from "@/i18n/messages/en.json";
 import { isMetaCapiConfigured, sendMetaLeadEvent } from "@/lib/meta-capi";
+import { MOTEUR_VERSION, recommendForCandidate } from "@/lib/matching/catalogue";
 
 export async function POST(req: NextRequest) {
   const raw = await req.json();
@@ -48,7 +49,7 @@ export async function POST(req: NextRequest) {
 
   if (isBot) {
     // On simule un succès sans rien enregistrer, pour ne pas alerter le robot.
-    return NextResponse.json({ ok: true, code: "ODY-000000" });
+    return NextResponse.json({ ok: true, code: "ODY-000000", recommendations: { cycle: null, offers: [] } });
   }
 
   // Attribution de source, par ordre de fiabilité : le lien de parrainage
@@ -77,6 +78,28 @@ export async function POST(req: NextRequest) {
     return code === "autre" && d.fieldOther?.trim() ? `${label} : ${d.fieldOther.trim()}` : label;
   });
 
+  // Moteur « Vos 3 offres » (PACK-02), à partir des valeurs enregistrées ci-dessous.
+  // Seuls les champs publics des offres retenues sont renvoyés au navigateur.
+  const age = ageFrom(d.dateOfBirth);
+  const averagePct = averageToPct(averageValue, d.averageScale);
+  const matching = recommendForCandidate(
+    {
+      targetLevel: d.targetLevel,
+      studyFields: d.domains,
+      degreeField: d.degreeField,
+      age,
+      averagePct,
+      englishCertificate: d.englishCertificate,
+      englishScore,
+      hskLevel: hskToInt(d.hsk),
+      bankStatementUsdMax: bankStatementUsdMax(d.bankStatement),
+      originalDiplomas: d.originalDiplomas === "yes",
+      country: d.country,
+      fundingPlan: d.fundingPlan,
+    },
+    d.locale,
+  );
+
   const candidate = await prisma.candidate.create({
     data: {
       code: generateCandidateCode(),
@@ -84,7 +107,7 @@ export async function POST(req: NextRequest) {
       whatsapp: normalizePhone(d.whatsapp),
       email: d.email,
       dateOfBirth: new Date(d.dateOfBirth),
-      age: ageFrom(d.dateOfBirth) ?? undefined,
+      age: age ?? undefined,
       country: d.country,
       city: d.city.trim(),
       managedBy: d.managedBy,
@@ -98,7 +121,7 @@ export async function POST(req: NextRequest) {
       degreeField: d.degreeField?.trim() || undefined,
       averageValue: averageValue ?? undefined,
       averageScale: d.averageScale,
-      averagePct: averageToPct(averageValue, d.averageScale) ?? undefined,
+      averagePct: averagePct ?? undefined,
       originalDiplomas: d.originalDiplomas === "yes",
       targetLevel: d.targetLevel,
       fieldOfStudy: domainLabels.join(" + "),
@@ -130,6 +153,9 @@ export async function POST(req: NextRequest) {
       landingPage: att?.landingPage,
       firstVisitAt: att?.firstVisitAt && !Number.isNaN(Date.parse(att.firstVisitAt)) ? new Date(att.firstVisitAt) : undefined,
       marketingConsent: d.marketingConsent === true,
+      // Recommandations (PACK-02) : références et rôles seulement ([] pour Langue / Licence).
+      recommendations: matching.stored.map(({ ref, role }) => ({ ref, role })),
+      matchingVersion: MOTEUR_VERSION,
     },
   });
 
@@ -160,7 +186,11 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ ok: true, code: candidate.code });
+  return NextResponse.json({
+    ok: true,
+    code: candidate.code,
+    recommendations: { cycle: matching.cycle, offers: matching.offers },
+  });
 }
 
 /** Liste des candidatures pour le tableau de bord (protégé). */

@@ -44,6 +44,16 @@ export const candidateColumns: ExportColumn<CandidateExportRow>[] = [
   { key: "bankStatement", header: "Relevé bancaire", get: (c) => optionLabel("bankStatement", c.bankStatement), pdfWeight: 0 },
   { key: "fundingPlan", header: "Financement", get: (c) => optionLabel("fundingPlan", c.fundingPlan), pdfWeight: 0 },
   { key: "targetIntake", header: "Rentrée", get: (c) => optionLabel("targetIntake", c.targetIntake), pdfWeight: 0 },
+  {
+    // PACK-02 : références anonymes seulement (jamais la vraie université dans un export).
+    key: "recommendations",
+    header: "Offres recommandées",
+    get: (c) =>
+      Array.isArray(c.recommendations)
+        ? (c.recommendations as { ref?: string }[]).map((r) => r?.ref).filter(Boolean).join(", ")
+        : "",
+    pdfWeight: 0,
+  },
   { key: "status", header: "Statut", get: (c) => STATUS_LABELS_FR[c.status] ?? c.status, pdfWeight: 1.1 },
   { key: "partner", header: "Partenaire", get: (c) => c.partner?.referralCode ?? "", pdfWeight: 1 },
   { key: "discovery", header: "Découvert via", get: (c) => optionLabel("discoverySource", c.discoverySource), pdfWeight: 0 },

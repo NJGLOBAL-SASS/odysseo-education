@@ -12,6 +12,9 @@ import { StatusBadge } from "@/components/dashboard/status-badge";
 import { InternalNotes } from "@/components/dashboard/internal-notes";
 import { EmailComposerButton } from "@/components/dashboard/email-composer";
 import { CandidateDocuments } from "@/components/dashboard/documents/candidate-documents";
+import { getOffer } from "@/lib/matching/catalogue";
+import { getInternalOffer } from "@/lib/matching/internes";
+import type { StoredRecommendation } from "@/lib/matching/types";
 
 function Row({ label, value }: { label: string; value?: string | number | null }) {
   if (value === null || value === undefined || value === "") return null;
@@ -64,6 +67,8 @@ export default async function CandidateDetailPage({ params }: { params: { locale
   const viaLink = Boolean(candidate.partner) && candidate.srcParam?.toUpperCase() === candidate.partner?.referralCode;
   // Alertes envoyées à l'équipe uniquement (les emails au candidat ont leur propre historique).
   const teamAlerts = candidate.notificationLogs.filter((log) => log.recipient !== candidate.email);
+  // Offres proposées à l'envoi (PACK-02), avec la vraie université (fichier interne, serveur uniquement).
+  const recommendations = (Array.isArray(candidate.recommendations) ? candidate.recommendations : []) as unknown as StoredRecommendation[];
 
   return (
     <div>
@@ -142,6 +147,44 @@ export default async function CandidateDetailPage({ params }: { params: { locale
             <Row label={r("funding")} value={optionLabel("fundingPlan", candidate.fundingPlan, L)} />
             <Row label={r("intake")} value={optionLabel("targetIntake", candidate.targetIntake, L)} />
           </Section>
+
+          {candidate.matchingVersion && (
+            <section className="card p-5 md:col-span-2">
+              <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+                <h2 className="section-title">{t("sections.recommendations")}</h2>
+                <span className="text-xs text-gris">{t("recommendations.version", { version: candidate.matchingVersion })}</span>
+              </div>
+              {recommendations.length === 0 ? (
+                <p className="text-sm text-gris">
+                  {["master", "doctorat"].includes(candidate.targetLevel) ? t("recommendations.none") : t("recommendations.noneLevel")}
+                </p>
+              ) : (
+                <ol className="divide-y divide-bord">
+                  {recommendations.map((reco) => {
+                    const offer = getOffer(reco.ref);
+                    const internal = getInternalOffer(reco.ref);
+                    return (
+                      <li key={reco.ref} className="py-2.5 text-sm">
+                        <div className="flex flex-wrap items-baseline gap-x-2">
+                          <span className="font-mono text-xs font-bold">{reco.ref}</span>
+                          <span className="rounded-full bg-fond px-2 py-0.5 text-xs font-semibold">
+                            {t(`recommendations.roles.${reco.role}`)}
+                          </span>
+                          <b className="min-w-0 break-words">{internal?.universite ?? "—"}</b>
+                        </div>
+                        <p className="mt-0.5 text-xs text-gris">
+                          {[offer?.lieu_affiche, internal?.partenaire && `${t("recommendations.partner")} : ${internal.partenaire}`]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </p>
+                        {internal?.note_interne && <p className="mt-1 text-xs text-gris">{internal.note_interne}</p>}
+                      </li>
+                    );
+                  })}
+                </ol>
+              )}
+            </section>
+          )}
 
           <Section title={t("sections.origin")}>
             {candidate.partner ? (
