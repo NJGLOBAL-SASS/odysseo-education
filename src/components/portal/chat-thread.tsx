@@ -6,6 +6,7 @@ import { Send } from "lucide-react";
 
 import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
+import { requestPushPrompt } from "@/lib/portal/push-client";
 
 export type ChatMessage = {
   id: string;
@@ -83,6 +84,7 @@ export function ChatThread({
       const json = (await res.json()) as { message: ChatMessage };
       setMessages((m) => [...(m ?? []), json.message]);
       setDraft("");
+      if (side === "candidate") requestPushPrompt("message");
     } catch {
       setError(labels.failed);
     } finally {

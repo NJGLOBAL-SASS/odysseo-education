@@ -8,12 +8,7 @@ import { BellRing, CheckCircle2, Download, LogOut } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { canPromptInstall, isIos, isStandalone, promptInstall, subscribeInstall } from "@/lib/pwa/install";
 import { isAcceptablePassword } from "@/lib/portal/password";
-
-function urlBase64ToUint8Array(base64String: string) {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const raw = atob((base64String + padding).replace(/-/g, "+").replace(/_/g, "/"));
-  return Uint8Array.from([...raw].map((c) => c.charCodeAt(0)));
-}
+import { enablePush, getPushState, getServerPushState, subscribePush } from "@/lib/portal/push-client";
 
 export function PasswordChange({ hasPassword }: { hasPassword: boolean }) {
   const t = useTranslations("portal.account");
@@ -65,35 +60,11 @@ export function AppAndNotifications() {
   const t = useTranslations("portal.account");
   const promptable = useSyncExternalStore(subscribeInstall, canPromptInstall, () => false);
   const [env, setEnv] = useState({ ready: false, standalone: false, ios: false });
-  const [push, setPush] = useState<"checking" | "idle" | "working" | "on" | "denied" | "unsupported">("checking");
+  const push = useSyncExternalStore(subscribePush, getPushState, getServerPushState);
 
   useEffect(() => {
     setEnv({ ready: true, standalone: isStandalone(), ios: isIos() });
-    if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) return setPush("unsupported");
-    if (Notification.permission === "denied") return setPush("denied");
-    navigator.serviceWorker
-      .getRegistration("/sw.js")
-      .then((reg) => reg?.pushManager.getSubscription())
-      .then((sub) => setPush(sub ? "on" : "idle"))
-      .catch(() => setPush("idle"));
   }, []);
-
-  async function enablePush() {
-    setPush("working");
-    try {
-      const { publicKey } = (await (await fetch("/api/push/public-key")).json()) as { publicKey: string | null };
-      if (!publicKey) throw new Error();
-      const reg = await navigator.serviceWorker.register("/sw.js");
-      await navigator.serviceWorker.ready;
-      const permission = await Notification.requestPermission();
-      if (permission !== "granted") return setPush(permission === "denied" ? "denied" : "idle");
-      const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(publicKey) });
-      const res = await fetch("/api/portal/push", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(sub.toJSON()) });
-      setPush(res.ok ? "on" : "idle");
-    } catch {
-      setPush("idle");
-    }
-  }
 
   return (
     <div className="space-y-5">
@@ -121,7 +92,7 @@ export function AppAndNotifications() {
           </p>
         )}
         {(push === "idle" || push === "working") && (
-          <button type="button" onClick={enablePush} disabled={push === "working"} className="btn-sm-dark">
+          <button type="button" onClick={() => void enablePush()} disabled={push === "working"} className="btn-sm-dark">
             {push === "working" ? <Spinner /> : <BellRing className="h-4 w-4" />} {t("notifyEnable")}
           </button>
         )}

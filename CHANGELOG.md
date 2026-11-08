@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1] – 2026-11-09 · Page Parents retirée, invitation aux notifications
+
+### Supprimé
+- **Page Parents du site public** (décision du fondateur) : page `/parents` et son image de partage, liens du menu (ordinateur et mobile) et du pied de page, lien « Payez l'essentiel après l'admission » des pages cursus, bloc « Envoyer le lien sur WhatsApp » du formulaire, entrée du sitemap et textes FR/EN. Les anciens liens `/parents` déjà partagés redirigent vers l'accueil. L'accès parent existe toujours, dans l'espace étudiant.
+
+### Ajouté
+- **Espace étudiant — invitation à activer les notifications**, sur toutes les pages : apparaît peu après l'ouverture si l'appareil peut recevoir des notifications et qu'elles ne sont ni activées ni refusées (« Plus tard » la masque 3 jours) ; relancée avec un message adapté après l'envoi d'un message (« Soyez prévenu(e) de la réponse ») ou de documents ; sur iPhone hors application installée, explique comment l'installer. Si l'autorisation est déjà donnée, l'appareil est abonné sans rien demander et rattaché au compte connecté. État partagé avec la page « Mon compte ».
+
 ## [0.10.0] – 2026-11-08 · Espace étudiant (odysseo-application)
 
 ### Ajouté

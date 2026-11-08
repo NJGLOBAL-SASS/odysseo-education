@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, ArrowRight, HelpCircle, Wallet } from "lucide-react";
+import { ArrowLeft, ArrowRight, HelpCircle } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { locales } from "@/i18n/config";
@@ -36,7 +36,6 @@ export default async function ProgramPage({ params }: { params: { locale: string
   const locale = (params.locale === "en" ? "en" : "fr") as Locale;
   const t = await getTranslations("programs");
   const tFaq = await getTranslations("programsFaq");
-  const tParents = await getTranslations("parents.cursusLink");
 
   return (
     <div className="bg-white">
@@ -78,17 +77,6 @@ export default async function ProgramPage({ params }: { params: { locale: string
           program={program}
           locale={locale}
           afterSupport={getProofDocuments().length > 0 ? <ProofDocuments locale={locale} /> : null}
-          belowPrice={
-            <Link
-              href={`/parents?cursus=${program.slug}#paiement`}
-              className="mb-3 flex items-center gap-2 text-[15px] hover:underline"
-            >
-              <Wallet className="h-4 w-4 flex-shrink-0 text-rouge" />
-              <span>
-                {tParents("text")} → <b className="underline underline-offset-2">{tParents("link")}</b>
-              </span>
-            </Link>
-          }
           afterPricing={
             <Link
               href="/faq#paiement"

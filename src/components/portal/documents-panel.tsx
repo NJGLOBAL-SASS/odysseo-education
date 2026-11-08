@@ -9,6 +9,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { ACCEPT_ATTRIBUTE, CANDIDATE_DOCUMENT_KINDS, MAX_FILE_SIZE, formatBytes, resolveContentType } from "@/lib/documents";
 import type { PortalFolder } from "@/lib/portal/documents";
 import { cn } from "@/lib/utils";
+import { requestPushPrompt } from "@/lib/portal/push-client";
 
 const safeName = (name: string) =>
   name.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/-+/g, "-").slice(-120) || "fichier";
@@ -103,6 +104,7 @@ export function DocumentsPanel() {
           onDone={() => {
             setOpen(false);
             setNotice(t("form.sent"));
+            requestPushPrompt("document");
             load();
           }}
         />

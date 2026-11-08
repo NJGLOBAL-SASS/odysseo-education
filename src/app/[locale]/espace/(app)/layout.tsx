@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { getPortalSession } from "@/lib/portal/session";
 import { PortalNav } from "@/components/portal/portal-nav";
+import { PushPrompt } from "@/components/portal/push-prompt";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 
 export const dynamic = "force-dynamic";
@@ -36,6 +37,7 @@ export default async function PortalAppLayout({ children, params }: { children: 
         <PortalNav unread={unread} />
       </div>
       <main className="mx-auto max-w-[720px] px-4 py-6">{children}</main>
+      <PushPrompt />
     </div>
   );
 }

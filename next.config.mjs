@@ -9,6 +9,13 @@ const nextConfig = {
   },
   // PWA : le service worker et le manifest ne doivent jamais rester en cache
   // navigateur, sinon les mises à jour de l'application n'arrivent pas.
+  // Ancienne page Parents (retirée du site public) : les liens déjà partagés mènent à l'accueil.
+  async redirects() {
+    return [
+      { source: "/:locale(fr|en)/parents", destination: "/:locale", permanent: false },
+      { source: "/parents", destination: "/", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {
