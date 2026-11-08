@@ -1,4 +1,5 @@
-import { normalizePhone, ageFrom } from "@/lib/validations/intake";
+import { ageFrom } from "@/lib/validations/intake";
+import { isAcceptablePhone } from "@/lib/phone";
 import {
   DEGREE_FIELD_REQUIRED_INDEXES,
   ENGLISH_SCORE_RULES,
@@ -50,7 +51,7 @@ export function validateStep(step: number, data: IntakeDraft, m: Messages, degre
       errors.fullName = m.fullName;
     }
     req(data.whatsapp.trim().length > 0, "whatsapp");
-    if (data.whatsapp.trim() && !/^\+\d{9,15}$/.test(normalizePhone(data.whatsapp))) {
+    if (data.whatsapp.trim() && !isAcceptablePhone(data.whatsapp)) {
       errors.whatsapp = m.whatsapp;
     }
     req(data.email.trim().length > 0, "email");
@@ -70,10 +71,7 @@ export function validateStep(step: number, data: IntakeDraft, m: Messages, degre
       req(data.guardianName.trim().length > 0, "guardianName");
       req(data.guardianLink.length > 0, "guardianLink");
       req(data.guardianWhatsapp.trim().length > 0, "guardianWhatsapp");
-      if (
-        data.guardianWhatsapp.trim() &&
-        !/^\+\d{9,15}$/.test(normalizePhone(data.guardianWhatsapp))
-      ) {
+      if (data.guardianWhatsapp.trim() && !isAcceptablePhone(data.guardianWhatsapp)) {
         errors.guardianWhatsapp = m.whatsapp;
       }
     }

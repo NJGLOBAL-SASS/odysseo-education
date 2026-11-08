@@ -1,6 +1,8 @@
 export type IntakeDraft = {
   fullName: string;
   whatsapp: string;
+  /** Code ISO de l'indicatif choisi (non envoyé : sert à l'affichage, ex. USA / Canada). */
+  whatsappCountry: string;
   email: string;
   dateOfBirth: string;
   country: string;
@@ -9,6 +11,7 @@ export type IntakeDraft = {
   guardianName: string;
   guardianLink: string;
   guardianWhatsapp: string;
+  guardianWhatsappCountry: string;
 
   currentSituation: string;
   highestDegree: string;
@@ -45,6 +48,7 @@ export type IntakeDraft = {
 export const emptyDraft: IntakeDraft = {
   fullName: "",
   whatsapp: "",
+  whatsappCountry: "",
   email: "",
   dateOfBirth: "",
   country: "",
@@ -53,6 +57,7 @@ export const emptyDraft: IntakeDraft = {
   guardianName: "",
   guardianLink: "",
   guardianWhatsapp: "",
+  guardianWhatsappCountry: "",
   currentSituation: "",
   highestDegree: "",
   degreeOther: "",

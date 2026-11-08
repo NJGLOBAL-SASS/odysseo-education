@@ -5,9 +5,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Mail, Send } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
-import { COUNTRIES, dialCodeFor } from "@/lib/countries";
-import { normalizePhone } from "@/lib/validations/intake";
-import { Field, TextInput, SelectInput, ChipGroup, CheckboxField } from "@/components/forms/intake/fields";
+import { isAcceptablePhone } from "@/lib/phone";
+import { Field, TextInput, ChipGroup, CheckboxField } from "@/components/forms/intake/fields";
+import { CountrySelect, PhoneInput } from "@/components/forms/country-fields";
 import { Spinner } from "@/components/ui/spinner";
 
 const PROFILES = ["student", "teacher", "agency", "creator", "other"] as const;
@@ -42,6 +42,7 @@ export function PartnerApplicationForm() {
   const t = useTranslations("partnerApply");
   const locale = useLocale();
   const [data, setData] = useState<Draft>(EMPTY);
+  const [phoneCountry, setPhoneCountry] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof Draft, string>>>({});
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -59,7 +60,7 @@ export function PartnerApplicationForm() {
     req("email", data.email.trim().length > 0);
     if (data.email.trim() && !EMAIL_RE.test(data.email.trim())) e.email = t("emailError");
     req("whatsapp", data.whatsapp.trim().length > 0);
-    if (data.whatsapp.trim() && !/^\+\d{9,15}$/.test(normalizePhone(data.whatsapp))) e.whatsapp = t("whatsappError");
+    if (data.whatsapp.trim() && !isAcceptablePhone(data.whatsapp)) e.whatsapp = t("whatsappError");
     req("country", Boolean(data.country));
     req("city", data.city.trim().length > 0);
     req("profile", Boolean(data.profile));
@@ -134,25 +135,23 @@ export function PartnerApplicationForm() {
           />
         </Field>
         <Field label={t("whatsapp")} required error={errors.whatsapp}>
-          <TextInput
-            type="tel"
-            autoComplete="tel"
+          <PhoneInput
             value={data.whatsapp}
-            onChange={(v) => set("whatsapp", v)}
-            placeholder="+237 6XX XX XX XX"
-            maxLength={22}
+            country={phoneCountry}
+            onChange={(v, code) => {
+              set("whatsapp", v);
+              setPhoneCountry(code);
+            }}
             error={errors.whatsapp}
           />
         </Field>
         <Field label={t("country")} required error={errors.country}>
-          <SelectInput
+          <CountrySelect
             value={data.country}
-            onChange={(v) => {
+            onChange={(v, code) => {
               set("country", v);
-              const dial = dialCodeFor(v);
-              if (dial && !data.whatsapp.trim()) set("whatsapp", `${dial} `);
+              if (code && !data.whatsapp.trim()) setPhoneCountry(code);
             }}
-            options={COUNTRIES.map((c) => c.value)}
             placeholder={t("countryPlaceholder")}
             error={errors.country}
           />

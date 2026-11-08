@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1] – 2026-11-08 · Pays et numéros WhatsApp
+
+### Modifié
+- **Liste des pays complète** (245 pays et territoires, noms FR/EN figés dans `src/lib/countries-data.ts`) avec **champ de recherche** : recherche sans accents en français et en anglais (« cote », « morocco »), pays fréquents en tête, clavier ↑ ↓ Entrée Échap. La valeur enregistrée reste le nom français (« Cameroun », « RD Congo »…), comme les dossiers existants et les nationalités du catalogue d'offres.
+- **Numéro WhatsApp** : indicatif dans une liste avec recherche (par pays ou par numéro, ex. « 33 »), numéro mis au **format du pays pendant la saisie** (ex. +237 → « 6 99 12 34 56 »), exemple du pays affiché dans le champ, collage d'un numéro international reconnu. Contrôle de longueur selon l'indicatif (`libphonenumber-js`). Valeur enregistrée inchangée (format international `+237699123456`).
+- Appliqué au formulaire `/postuler` (candidat et parent/tuteur) et à la demande de partenariat. Le pays choisi devient l'indicatif par défaut tant qu'aucun numéro n'est saisi.
+
 ## [0.7.0] – 2026-11-06 · PACK-02 Moteur de recommandation
 
 Catalogue : **`2027.09-v2`** (40 offres, dont 8 en vérification jamais proposées).

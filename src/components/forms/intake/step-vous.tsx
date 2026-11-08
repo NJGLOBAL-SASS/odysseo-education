@@ -3,8 +3,8 @@
 import { useTranslations } from "next-intl";
 import { ShieldCheck } from "lucide-react";
 
-import { Field, TextInput, SelectInput, ChipGroup } from "./fields";
-import { COUNTRIES, dialCodeFor } from "@/lib/countries";
+import { Field, TextInput, ChipGroup } from "./fields";
+import { CountrySelect, PhoneInput } from "@/components/forms/country-fields";
 import { ageFrom } from "@/lib/validations/intake";
 import type { IntakeDraft, StepErrors } from "./types";
 
@@ -22,10 +22,12 @@ export function StepVous({
   const isMinor = age !== null && age >= 0 && age < 18;
   const showGuardian = isMinor || data.managedBy === "parent" || data.managedBy === "guardian";
 
-  function onCountryChange(country: string) {
+  // Le pays choisi devient l'indicatif par défaut tant qu'aucun numéro n'est saisi.
+  function onCountryChange(country: string, code: string) {
     onChange("country", country);
-    const dial = dialCodeFor(country);
-    if (dial && !data.whatsapp.trim()) onChange("whatsapp", `${dial} `);
+    if (!code) return;
+    if (!data.whatsapp.trim()) onChange("whatsappCountry", code);
+    if (!data.guardianWhatsapp.trim()) onChange("guardianWhatsappCountry", code);
   }
 
   return (
@@ -44,12 +46,13 @@ export function StepVous({
       </Field>
 
       <Field label={t("fields.whatsapp.label")} required error={errors.whatsapp}>
-        <TextInput
-          type="tel"
+        <PhoneInput
           value={data.whatsapp}
-          onChange={(v) => onChange("whatsapp", v)}
-          placeholder={t("fields.whatsapp.placeholder")}
-          maxLength={22}
+          country={data.whatsappCountry}
+          onChange={(v, code) => {
+            onChange("whatsapp", v);
+            onChange("whatsappCountry", code);
+          }}
           error={errors.whatsapp}
         />
       </Field>
@@ -89,10 +92,9 @@ export function StepVous({
       </Field>
 
       <Field label={t("fields.country.label")} required error={errors.country}>
-        <SelectInput
+        <CountrySelect
           value={data.country}
           onChange={onCountryChange}
-          options={COUNTRIES.map((c) => c.value)}
           placeholder={t("fields.country.placeholder")}
           error={errors.country}
         />
@@ -159,11 +161,13 @@ export function StepVous({
             required
             error={errors.guardianWhatsapp}
           >
-            <TextInput
-              type="tel"
+            <PhoneInput
               value={data.guardianWhatsapp}
-              onChange={(v) => onChange("guardianWhatsapp", v)}
-              maxLength={22}
+              country={data.guardianWhatsappCountry || data.whatsappCountry}
+              onChange={(v, code) => {
+                onChange("guardianWhatsapp", v);
+                onChange("guardianWhatsappCountry", code);
+              }}
               error={errors.guardianWhatsapp}
             />
           </Field>

@@ -1,6 +1,6 @@
 {
   "name": "odysseo-platform",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -28,6 +28,7 @@
     "googleapis": "^144.0.0",
     "iconv-lite": "^0.7.3",
     "jose": "^5.9.6",
+    "libphonenumber-js": "^1.13.15",
     "lucide-react": "^0.454.0",
     "next": "^14.2.18",
     "next-auth": "5.0.0-beta.25",
