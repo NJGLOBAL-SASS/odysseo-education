@@ -48,22 +48,3 @@ export function firstNameOf(fullName: string) {
   const pick = words.length === 1 ? words[0] : notUpper && words.some((w) => !/\p{Ll}/u.test(w)) ? notUpper : words[words.length - 1];
   return pick.charAt(0).toUpperCase() + pick.slice(1);
 }
-
-/** 4 derniers chiffres d'un numéro. */
-export function lastFourDigits(phone: string) {
-  return phone.replace(/\D/g, "").slice(-4);
-}
-
-/** Les 4 chiffres saisis correspondent au WhatsApp de l'étudiant, ou à celui du parent / tuteur s'il existe. */
-export function matchesPhoneDigits(c: { whatsapp: string; guardianWhatsapp?: string | null }, digits: string) {
-  if (!/^\d{4}$/.test(digits)) return false;
-  return [c.whatsapp, c.guardianWhatsapp].some((n) => !!n && n.replace(/\D/g, "").length >= 4 && lastFourDigits(n) === digits);
-}
-
-/** Code dossier saisi : majuscules, sans espaces ; « ODY » ajouté s'il manque (« 2bq9x1 » → « ODY-2BQ9X1 »). */
-export function normalizeCode(input: string) {
-  const v = input.trim().toUpperCase().replace(/\s+/g, "");
-  if (/^ODY-?[A-Z0-9]{6}$/.test(v)) return `ODY-${v.replace(/^ODY-?/, "")}`;
-  if (/^[A-Z0-9]{6}$/.test(v)) return `ODY-${v}`;
-  return v;
-}

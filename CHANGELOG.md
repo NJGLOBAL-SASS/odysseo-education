@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2] – 2026-11-08 · Retrait du suivi public
+
+### Supprimé
+- **Suivi de dossier sur le site public** (décision du fondateur) : page `/suivi`, API `/api/suivi`, lien du pied de page, bouton et lien de suivi après l'envoi du formulaire, bouton de la page Parents, entrée du sitemap. Le suivi se fera dans l'**espace étudiant** privé (sous-domaine dédié, à venir).
+- Conservé : l'étape, l'historique et la note publique sur la fiche dossier (équipe), qui alimenteront l'espace étudiant. Le message WhatsApp à copier ne contient plus de lien.
+- La table `TrackingAttempt` n'est plus utilisée (à supprimer de la base plus tard, avec accord).
+
 ## [0.9.1] – 2026-11-08 · Correctifs suivi et page d'erreur
 
 ### Modifié

@@ -10,7 +10,6 @@ import { AdvisorCard } from "@/components/trust/advisor-card";
 export async function Footer() {
   const t = await getTranslations("footer");
   const tNav = await getTranslations("nav");
-  const tSuivi = await getTranslations("suivi");
   const locale = (await getLocale()) === "en" ? "en" : "fr";
   const year = new Date().getFullYear();
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
@@ -62,11 +61,6 @@ export async function Footer() {
               <li>
                 <Link href="/postuler" className="text-texte hover:text-rouge">
                   {tNav("apply")}
-                </Link>
-              </li>
-              <li>
-                <Link href="/suivi" className="text-texte hover:text-rouge">
-                  {tSuivi("nav")}
                 </Link>
               </li>
               <li>

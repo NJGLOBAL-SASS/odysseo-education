@@ -17,7 +17,6 @@ import { getInternalOffer } from "@/lib/matching/internes";
 import type { StoredRecommendation } from "@/lib/matching/types";
 import { TrackingEditor } from "@/components/dashboard/tracking-editor";
 import { ALL_STAGES, firstNameOf, normalizeHistory } from "@/lib/tracking-stages";
-import { SITE_URL } from "@/lib/seo";
 
 function Row({ label, value }: { label: string; value?: string | number | null }) {
   if (value === null || value === undefined || value === "") return null;
@@ -77,12 +76,11 @@ export default async function CandidateDetailPage({ params }: { params: { locale
     getTranslations({ locale: "fr", namespace: "suivi.stages" }),
     getTranslations({ locale: "fr", namespace: "dashboard.candidate.tracking" }),
   ]);
-  const trackingUrl = `${SITE_URL}/fr/suivi?code=${candidate.code}`;
   const stageLabels = Object.fromEntries(ALL_STAGES.map((s) => [s, tStages(`${s}.label`)]));
   const copyMessages = Object.fromEntries(
     ALL_STAGES.map((s) => [
       s,
-      tTrackFr("copyMessage", { name: firstNameOf(candidate.fullName), stage: tStagesFr(`${s}.label`), url: trackingUrl }),
+      tTrackFr("copyMessage", { name: firstNameOf(candidate.fullName), stage: tStagesFr(`${s}.label`) }),
     ]),
   );
   const dateOnly = new Intl.DateTimeFormat(L, { dateStyle: "medium", timeZone: APP_TIME_ZONE });

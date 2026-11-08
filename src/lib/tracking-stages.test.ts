@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { appendStage, firstNameOf, lastFourDigits, normalizeCode, normalizeHistory } from "./tracking-stages";
+import { appendStage, firstNameOf, normalizeHistory } from "./tracking-stages";
 
 test("prénom seul, jamais le nom de famille", () => {
   assert.equal(firstNameOf("KAMGA Paul"), "Paul");
@@ -9,13 +9,6 @@ test("prénom seul, jamais le nom de famille", () => {
   assert.equal(firstNameOf("Paul Kamga"), "Kamga", "sans majuscules : dernier mot, comme l'écran de fin");
   assert.equal(firstNameOf("paul"), "Paul");
   assert.equal(firstNameOf(""), "");
-});
-
-test("code dossier et 4 derniers chiffres", () => {
-  assert.equal(normalizeCode(" ody-2bq9x1 "), "ODY-2BQ9X1");
-  assert.equal(normalizeCode("2BQ9X1"), "ODY-2BQ9X1");
-  assert.equal(normalizeCode("ODY2BQ9X1"), "ODY-2BQ9X1");
-  assert.equal(lastFourDigits("+237699123456"), "3456");
 });
 
 test("historique : « reçu » ajouté pour les anciens dossiers, une ligne par changement", () => {
@@ -39,14 +32,3 @@ test("erreur de version périmée reconnue (rechargement automatique)", () => {
   assert.equal(isChunkLoadError(null), false);
 });
 
-import { matchesPhoneDigits } from "./tracking-stages";
-
-test("4 chiffres : WhatsApp de l'étudiant ou du parent", () => {
-  const c = { whatsapp: "+237699123456", guardianWhatsapp: "+237677001122" };
-  assert.equal(matchesPhoneDigits(c, "3456"), true, "étudiant");
-  assert.equal(matchesPhoneDigits(c, "1122"), true, "parent");
-  assert.equal(matchesPhoneDigits(c, "0000"), false);
-  assert.equal(matchesPhoneDigits({ whatsapp: "+237699123456", guardianWhatsapp: null }, "1122"), false, "pas de parent");
-  assert.equal(matchesPhoneDigits({ whatsapp: "+237699123456", guardianWhatsapp: "" }, ""), false, "vide refusé");
-  assert.equal(matchesPhoneDigits({ whatsapp: "+237699123456", guardianWhatsapp: "12" }, "12"), false);
-});

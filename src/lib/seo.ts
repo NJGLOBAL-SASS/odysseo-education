@@ -18,7 +18,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 type L<T> = Record<Locale, T>;
 type PageSeo = { title: string; description: string };
 
-export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "parents" | "tracking";
+export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "parents";
 
 /** Chemins (sans préfixe de langue) des pages publiques. */
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
@@ -30,7 +30,6 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   faq: "/faq",
   guide: "/guides/avant-le-depart",
   parents: "/parents",
-  tracking: "/suivi",
 };
 
 /** Pages légales : indexables (canonical + hreflang), titres repris des pages. */
@@ -152,19 +151,6 @@ export const PAGE_SEO: Record<PublicPage, L<PageSeo>> = {
       title: "Parents: costs, payment and guarantees",
       description:
         "Parents: what studying in China with Odysseo costs, when to pay (most of it after the admission), what is refunded and how to follow your child's application.",
-    },
-  },
-  // PACK-08 : suivi de dossier.
-  tracking: {
-    fr: {
-      title: "Suivre mon dossier",
-      description:
-        "Suivez votre dossier Odysseo Education en ligne avec votre code dossier et les 4 derniers chiffres de votre WhatsApp : étape actuelle et prochaine action.",
-    },
-    en: {
-      title: "Track my application",
-      description:
-        "Track your Odysseo Education application online with your application code and the last 4 digits of your WhatsApp number: current step and next action.",
     },
   },
 };
