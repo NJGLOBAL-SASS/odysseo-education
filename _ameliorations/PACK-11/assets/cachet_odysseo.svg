@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <path id="top" d="M 300 300 m -218 0 a 218 218 0 1 1 436 0"/>
+    <path id="bot" d="M 300 300 m -246 0 a 246 246 0 0 0 492 0"/>
+  </defs>
+  <g fill="none" stroke="#C4161C">
+    <circle cx="300" cy="300" r="286" stroke-width="10"/>
+    <circle cx="300" cy="300" r="266" stroke-width="3"/>
+    <circle cx="300" cy="300" r="170" stroke-width="3"/>
+  </g>
+  <g fill="#C4161C" font-family="Inter, Arial, sans-serif" font-weight="700">
+    <text font-size="44" letter-spacing="7"><textPath href="#top" startOffset="50%" text-anchor="middle">ODYSSEO EDUCATION</textPath></text>
+    <text font-size="30" letter-spacing="5"><textPath href="#bot" startOffset="50%" text-anchor="middle">ÉTUDIER EN CHINE</textPath></text>
+    <text x="68" y="312" font-size="34">★</text>
+    <text x="508" y="312" font-size="34">★</text>
+    <text x="300" y="300" font-size="118" text-anchor="middle" letter-spacing="-4">Od</text>
+    <rect x="160" y="324" width="280" height="4"/>
+    <text x="300" y="372" font-size="30" text-anchor="middle" letter-spacing="3">LA DIRECTION</text>
+  </g>
+</svg>

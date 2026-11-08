@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowRight, BadgeCheck, Building2, FileCheck2, Landmark, MessageCircle, ReceiptText, ShieldCheck, Smartphone, Wallet } from "lucide-react";
+import { ArrowRight, BadgeCheck, MapPinned, Building2, FileCheck2, Landmark, MessageCircle, ReceiptText, ShieldCheck, Smartphone, Wallet } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { Rich } from "@/components/programs/program-sections";
@@ -27,6 +27,7 @@ export default async function ParentsPage({ params }: { params: { locale: string
   setRequestLocale(params.locale);
   const locale = toLocale(params.locale);
   const t = await getTranslations("parents");
+  const tSuivi = await getTranslations("suivi");
   const tSch = await getTranslations("programs.scholarships");
   const tRefund = await getTranslations("programs.refund");
   const waNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, "");
@@ -147,15 +148,20 @@ export default async function ParentsPage({ params }: { params: { locale: string
             {t("follow.title")}
           </h2>
           <p className="mt-1.5 text-[15px] text-gris">{t("follow.text")}</p>
-          <a
-            href={wa(t("follow.waMessage"))}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track-location="parents_suivi"
-            className="btn-wa mt-4"
-          >
-            <MessageCircle className="h-4 w-4" /> {t("follow.button")}
-          </a>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            <Link href="/suivi" className="btn-primary">
+              <MapPinned className="h-4 w-4" /> {tSuivi("nav")}
+            </Link>
+            <a
+              href={wa(t("follow.waMessage"))}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track-location="parents_suivi"
+              className="btn-wa"
+            >
+              <MessageCircle className="h-4 w-4" /> {t("follow.button")}
+            </a>
+          </div>
         </section>
 
         {parentsFaq && parentsFaq.questions.length > 0 && (

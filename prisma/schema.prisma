@@ -317,6 +317,12 @@ model Candidate {
   recommendations Json? // [{ ref: "MA-26", role: "ambitieuse" | "cible" | "securite" }] (recommandations)
   matchingVersion String? // version du catalogue, ex. 2027.09-v2 (moteur_version)
 
+  // Suivi en ligne (PACK-08) : étape visible par l'étudiant sur /suivi (distincte du statut interne).
+  stage          String    @default("recu") // recu | analyse | ouvert | documents | depose | admis | visa | depart | arrive | en_attente_etudiant | clos (etape)
+  stageUpdatedAt DateTime? // etape_maj_le
+  stageHistory   Json      @default("[]") // [{ stage, date }] (historique_etapes)
+  publicNote     String?   @db.VarChar(200) // note_publique, visible par l'étudiant
+
   referralEvents      ReferralEvent[]
   pointsLedgerEntries PointsLedgerEntry[]
   notificationLogs    NotificationLog[]
@@ -378,6 +384,15 @@ model NotificationLog {
 }
 
 // Email rédigé dans le dashboard et envoyé au candidat (historique sur sa fiche).
+/// Essais sur /api/suivi (PACK-08) : 5 par heure et par IP. IP hachée, purgée après 24 h.
+model TrackingAttempt {
+  id        String   @id @default(cuid())
+  ipHash    String
+  createdAt DateTime @default(now())
+
+  @@index([ipHash, createdAt])
+}
+
 model CandidateMessage {
   id          String             @id @default(cuid())
   candidateId String

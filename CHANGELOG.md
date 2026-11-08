@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.0] – 2026-11-08 · PACK-08 Suivi de dossier
+
+### Ajouté
+- **Page `/suivi`** (FR/EN), sans compte ni mot de passe : code dossier (pré-rempli par `?code=`, « ODY- » facultatif) + 4 derniers chiffres du WhatsApp → « Bonjour [Prénom] », frise des 9 étapes (passées cochées, actuelle en rouge, suivantes grisées), « Prochaine étape », note du conseiller, références recommandées, bouton WhatsApp « Une question sur mon dossier ». Statuts « En attente de votre part » et « Dossier clôturé » affichés à la place de la frise. Rien n'est gardé sur l'appareil, sauf le code si « Se souvenir de ce code » est coché.
+- **API `POST /api/suivi`** : réponse seulement si le code **et** les 4 chiffres correspondent, sinon « Dossier introuvable » (sans dire lequel est faux). Renvoie uniquement prénom, niveau visé, étape, date, note publique, historique et références d'offres — jamais nom de famille, e-mail, téléphone, université réelle ni partenaire. **5 essais par heure et par IP** (table `TrackingAttempt`, IP hachée, purge après 24 h).
+- **Base** : `stage` (défaut `recu`, appliqué aux dossiers existants), `stageUpdatedAt`, `stageHistory` (`[{stage, date}]`), `publicNote` (200 caractères max.). Distinct du statut interne du pipeline.
+- **Fiche dossier (équipe)** : carte « Suivi visible par l'étudiant » — liste « Étape », « Note publique », « Enregistrer » (chaque changement ajoute une ligne à l'historique), historique, bouton « Copier le message WhatsApp » (dans la langue du candidat, avec le lien de suivi ; envoi manuel). L'espace équipe existant (connexion, `noindex`) sert d'administration : pas de `/admin/dossiers` séparé.
+- **Liens** : « Suivre mon dossier : [lien] » ajouté au message WhatsApp après l'envoi du formulaire ; bouton « Suivre mon dossier » sur l'écran de résultat et sur la page Parents ; lien dans le pied de page. Sitemap et titre/description.
+- Tests : prénom sans nom de famille, code saisi, 4 chiffres, historique.
+
+### Migration
+- `npm run db:push` (4 colonnes + table `TrackingAttempt`) **avant** de déployer — fait le 2026-11-08.
+
 ## [0.8.0] – 2026-11-08 · PACK-07 Page Parents et paiement
 
 ### Ajouté

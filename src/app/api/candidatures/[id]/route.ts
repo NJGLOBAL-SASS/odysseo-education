@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { syncCandidatePoints } from "@/lib/points";
+import { ALL_STAGES, PUBLIC_NOTE_MAX, appendStage, normalizeHistory } from "@/lib/tracking-stages";
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
   const session = await auth();
@@ -32,6 +33,9 @@ const patchSchema = z.object({
     ])
     .optional(),
   internalNotes: z.string().optional(),
+  // Suivi en ligne (PACK-08) : étape visible par l'étudiant et note publique.
+  stage: z.enum(ALL_STAGES).optional(),
+  publicNote: z.string().trim().max(PUBLIC_NOTE_MAX).optional(),
 });
 
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
@@ -44,9 +48,20 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   const existing = await prisma.candidate.findUnique({ where: { id: params.id } });
   if (!existing) return NextResponse.json({ error: "Introuvable." }, { status: 404 });
 
+  const { stage, publicNote, ...rest } = body.data;
+  const stageChanged = stage !== undefined && stage !== existing.stage;
+  const now = new Date();
   const candidate = await prisma.candidate.update({
     where: { id: params.id },
-    data: body.data,
+    data: {
+      ...rest,
+      ...(publicNote !== undefined && { publicNote: publicNote || null }),
+      ...(stageChanged && {
+        stage,
+        stageUpdatedAt: now,
+        stageHistory: appendStage(normalizeHistory(existing.stageHistory, existing.createdAt), existing.stage, stage, now),
+      }),
+    },
   });
 
   // Points du partenaire : ajout si le dossier monte de palier, retrait s'il redescend.

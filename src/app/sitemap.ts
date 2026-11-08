@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: PUBLIC_PAGE_PATHS.partners, priority: 0.5, changeFrequency: "monthly" },
     { path: PUBLIC_PAGE_PATHS.faq, priority: 0.7, changeFrequency: "monthly" },
     { path: PUBLIC_PAGE_PATHS.parents, priority: 0.7, changeFrequency: "monthly" },
+    { path: PUBLIC_PAGE_PATHS.tracking, priority: 0.4, changeFrequency: "yearly" },
     { path: PUBLIC_PAGE_PATHS.guide, priority: 0.6, changeFrequency: "monthly" },
     ...LEGAL_PAGE_PATHS.map((path) => ({ path, priority: 0.2, changeFrequency: "yearly" as const })),
   ];

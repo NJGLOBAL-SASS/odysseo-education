@@ -15,6 +15,9 @@ import { CandidateDocuments } from "@/components/dashboard/documents/candidate-d
 import { getOffer } from "@/lib/matching/catalogue";
 import { getInternalOffer } from "@/lib/matching/internes";
 import type { StoredRecommendation } from "@/lib/matching/types";
+import { TrackingEditor } from "@/components/dashboard/tracking-editor";
+import { ALL_STAGES, firstNameOf, normalizeHistory } from "@/lib/tracking-stages";
+import { SITE_URL } from "@/lib/seo";
 
 function Row({ label, value }: { label: string; value?: string | number | null }) {
   if (value === null || value === undefined || value === "") return null;
@@ -68,6 +71,26 @@ export default async function CandidateDetailPage({ params }: { params: { locale
   // Alertes envoyées à l'équipe uniquement (les emails au candidat ont leur propre historique).
   const teamAlerts = candidate.notificationLogs.filter((log) => log.recipient !== candidate.email);
   // Offres proposées à l'envoi (PACK-02), avec la vraie université (fichier interne, serveur uniquement).
+  // Suivi en ligne (PACK-08) : libellés pour l'équipe, message WhatsApp dans la langue du candidat.
+  const candLocale = candidate.locale === "en" ? "en" : "fr";
+  const [tStages, tStagesCand, tTrackCand] = await Promise.all([
+    getTranslations({ locale: L, namespace: "suivi.stages" }),
+    getTranslations({ locale: candLocale, namespace: "suivi.stages" }),
+    getTranslations({ locale: candLocale, namespace: "dashboard.candidate.tracking" }),
+  ]);
+  const trackingUrl = `${SITE_URL}/${candLocale}/suivi?code=${candidate.code}`;
+  const stageLabels = Object.fromEntries(ALL_STAGES.map((s) => [s, tStages(`${s}.label`)]));
+  const copyMessages = Object.fromEntries(
+    ALL_STAGES.map((s) => [
+      s,
+      tTrackCand("copyMessage", { name: firstNameOf(candidate.fullName), stage: tStagesCand(`${s}.label`), url: trackingUrl }),
+    ]),
+  );
+  const dateOnly = new Intl.DateTimeFormat(L, { dateStyle: "medium", timeZone: APP_TIME_ZONE });
+  const stageHistory = normalizeHistory(candidate.stageHistory, candidate.createdAt).map((h) => ({
+    label: stageLabels[h.stage] ?? h.stage,
+    date: dateOnly.format(new Date(h.date)),
+  }));
   const recommendations = (Array.isArray(candidate.recommendations) ? candidate.recommendations : []) as unknown as StoredRecommendation[];
 
   return (
@@ -237,6 +260,18 @@ export default async function CandidateDetailPage({ params }: { params: { locale
         </div>
 
         <div className="space-y-6">
+          <section className="card p-5">
+            <h2 className="section-title mb-3">{t("tracking.title")}</h2>
+            <TrackingEditor
+              candidateId={candidate.id}
+              initialStage={candidate.stage}
+              initialNote={candidate.publicNote ?? ""}
+              history={stageHistory}
+              stageLabels={stageLabels}
+              copyMessages={copyMessages}
+            />
+          </section>
+
           <section className="card p-5">
             <h2 className="section-title mb-1">{t("notes")}</h2>
             <p className="mb-3 text-xs text-gris">{t("notesHint")}</p>

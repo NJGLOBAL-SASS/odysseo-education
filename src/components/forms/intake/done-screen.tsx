@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowRight, Check, ListChecks } from "lucide-react";
+import { ArrowRight, Check, ListChecks, MapPinned } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import type { PublicRecommendation } from "@/lib/matching/types";
@@ -37,7 +37,14 @@ export function DoneScreen({
   const refs = offers.map((o) => o.ref);
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
-  const waText = [t("waMessage", { code }), refs.length ? t("waOffers", { refs: refs.join(", ") }) : ""]
+  // Lien de suivi (PACK-08) ajouté au message WhatsApp.
+  const trackingPath = `/suivi?code=${encodeURIComponent(code)}`;
+  const trackingUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/${locale}${trackingPath}`;
+  const waText = [
+    t("waMessage", { code }),
+    refs.length ? t("waOffers", { refs: refs.join(", ") }) : "",
+    t("waTracking", { url: trackingUrl }),
+  ]
     .filter(Boolean)
     .join(" ");
   const dateFmt = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "fr-FR", {
@@ -137,6 +144,9 @@ export function DoneScreen({
         >
           {t("offers.whatsappButton")}
         </a>
+        <Link href={trackingPath} className="btn-ghost w-full">
+          <MapPinned className="h-4 w-4" /> {t("trackButton")}
+        </Link>
         {email && <p className="text-center text-[13px] text-gris">{t("emailNote", { email })}</p>}
 
         <ol className="list-none space-y-3 pt-2 text-left text-[15px]">
