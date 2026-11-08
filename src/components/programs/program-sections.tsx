@@ -448,7 +448,16 @@ export async function TicketSection() {
   );
 }
 
-export async function PriceSection({ program, locale }: { program: Program; locale: Locale }) {
+export async function PriceSection({
+  program,
+  locale,
+  belowPrice,
+}: {
+  program: Program;
+  locale: Locale;
+  /** Contenu web sous le prix (ex. lien vers la page Parents) — jamais dans les brochures. */
+  belowPrice?: ReactNode;
+}) {
   const t = await getTranslations("programs.pricing");
   return (
     <section>
@@ -458,6 +467,7 @@ export async function PriceSection({ program, locale }: { program: Program; loca
         <span className="text-[38px] font-extrabold leading-none tracking-tight sm:text-[46px]">{formatFcfa(program.price, locale)}</span>{" "}
         <span className="text-[17px] font-bold">{t("allInclusive")}</span>
       </div>
+      {belowPrice}
       <p className="mb-3 text-[15px] leading-relaxed">{program.priceText[locale]}</p>
       <div className="rounded-r-[6px] border-l-[5px] border-rouge bg-[#FFEDED] px-5 py-4 text-[15px]">{t.rich("included", { b })}</div>
       {program.englishTestOption && (
@@ -675,10 +685,13 @@ export async function ProgramBody({
   closing,
   afterPricing,
   afterSupport,
+  belowPrice,
 }: {
   program: Program;
   locale: Locale;
   print?: boolean;
+  /** Contenu web placé juste sous le prix (lien Parents, PACK-07) — jamais dans les brochures. */
+  belowPrice?: ReactNode;
   closing?: ReactNode;
   /** Contenu web placé sous le bloc tarifs / échéancier (ex. lien FAQ) — jamais dans les brochures. */
   afterPricing?: ReactNode;
@@ -687,6 +700,7 @@ export async function ProgramBody({
 }) {
   const extra = print ? null : afterPricing;
   const support = print ? null : afterSupport;
+  const price = <PriceSection key="price" program={program} locale={locale} belowPrice={print ? null : belowPrice} />;
   const degree = program.kind === "degree";
   const groups: ReactNode[][] = degree
     ? [
@@ -701,14 +715,14 @@ export async function ProgramBody({
           ),
         ],
         [<ArrivalSection key="arr" />, <TicketSection key="tk" />],
-        [<PriceSection key="price" program={program} locale={locale} />, <PaymentSection key="pay" program={program} locale={locale} />, extra],
+        [price, <PaymentSection key="pay" program={program} locale={locale} />, extra],
         [<RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />, <VisaSection key="visa" />, closing],
       ]
     : [
         [<SupportSection key="support" program={program} locale={locale} />, support],
         [<LanguageProgramsSection key="lp" />],
         [<CalendarSection key="cal" />, <ArrivalSection key="arr" />],
-        [<TicketSection key="tk" />, <PriceSection key="price" program={program} locale={locale} />],
+        [<TicketSection key="tk" />, price],
         [<PaymentSection key="pay" program={program} locale={locale} />, extra, <RefundSection key="ref" program={program} locale={locale} />, <NotIncludedSection key="ni" program={program} />],
         [<VisaSection key="visa" />, closing],
       ];

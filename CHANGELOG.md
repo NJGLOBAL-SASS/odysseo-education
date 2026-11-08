@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.8.0] – 2026-11-08 · PACK-07 Page Parents et paiement
+
+### Ajouté
+- **Page `/parents`** (FR/EN), 6 blocs courts : frise des paiements avec sélecteur Langue / Bachelor / Master / PhD (verticale sur mobile), « X % du total est payé après la réception de l'admission » calculé automatiquement (Langue 60 %, Bachelor 58 %, Master 63 %, PhD 58 %, arrondi inférieur) ; engagement de remboursement repris mot pour mot des pages cursus ; « Comment payer » ; « Vérifiez par vous-même » (+ documents d'exemple du PACK-06 s'ils existent) ; suivi du dossier sur WhatsApp (pas encore de page `/suivi`) ; questions « Pour les parents » de la FAQ ; bouton « Parler à un conseiller sur WhatsApp » (message parent pré-rempli).
+- **Montants et étapes lus dans `src/lib/programs.ts`** (même source que les pages cursus et les brochures) : nouveau marqueur `afterAdmission` sur les étapes payées à l'admission ou après, fonction `paidAfterAdmission()`.
+- **`content/paiement.json`** : moyens de paiement affichés seulement s'ils sont `"actif": true` (confirmés par le fondateur). Tous inactifs pour l'instant → « Les moyens de paiement vous sont indiqués par votre conseiller. » Règles affichées en FR/EN (reçu, ne jamais payer sur un numéro non communiqué par le conseiller).
+- **Navigation** : « Parents » dans le menu (entre « Nos services » et « Devenir partenaire »), le menu mobile et le pied de page. Sitemap, titre/description et image de partage.
+- **Pages cursus** : sous le prix, « Payez l'essentiel après l'admission → voir le détail », vers `/parents?cursus=<cursus>#paiement` (cursus présélectionné). Absent des brochures PDF.
+- **Formulaire** : si « Un parent » gère le projet, « Vous pouvez partager la page Parents avec lui » + bouton « Envoyer le lien sur WhatsApp ».
+- Tests : somme des étapes = prix, pourcentage par cursus, moyens de paiement actifs seulement.
+
 ## [0.7.1] – 2026-11-08 · Pays et numéros WhatsApp
 
 ### Modifié

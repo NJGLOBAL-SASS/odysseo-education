@@ -12,7 +12,14 @@ type L<T> = Record<Locale, T>;
 
 export type ProgramSlug = "langue-chinoise" | "bachelor" | "master" | "doctorat";
 
-export type PaymentStep = { label: L<string>; when: L<string>; amount: number; refundable?: boolean };
+export type PaymentStep = {
+  label: L<string>;
+  when: L<string>;
+  amount: number;
+  refundable?: boolean;
+  /** Payé à la réception de l'admission (Admission Notice + JW202) ou après (visa) — page Parents (PACK-07). */
+  afterAdmission?: true;
+};
 export type Step = { title: L<string>; text: L<string> };
 
 export type Program = {
@@ -84,11 +91,13 @@ function visaPayments(opening: number, launch: number, admission: number, afterV
       when: { fr: "25 % remboursables*", en: "25% refundable*" },
       amount: admission,
       refundable: true,
+      afterAdmission: true,
     },
     {
       label: { fr: "Après le visa", en: "After the visa" },
       when: { fr: "seulement si le visa est obtenu", en: "only if the visa is granted" },
       amount: afterVisa,
+      afterAdmission: true,
     },
   ];
 }
@@ -166,8 +175,8 @@ export const PROGRAMS: Program[] = [
     payments: [
       { label: OPENING, when: AT_SIGNATURE, amount: 150_000 },
       { label: LAUNCH, when: VALIDATED, amount: 450_000, refundable: true },
-      { label: { fr: "Admission", en: "Admission" }, when: AT_ADMISSION, amount: 600_000 },
-      { label: { fr: "Solde", en: "Balance" }, when: { fr: "après l'obtention du visa", en: "after the visa is granted" }, amount: 300_000 },
+      { label: { fr: "Admission", en: "Admission" }, when: AT_ADMISSION, amount: 600_000, afterAdmission: true },
+      { label: { fr: "Solde", en: "Balance" }, when: { fr: "après l'obtention du visa", en: "after the visa is granted" }, amount: 300_000, afterAdmission: true },
     ],
     paymentNote: {
       fr: "Le solde se règle après l'obtention de votre visa. Il couvre notamment votre accueil à l'aéroport et l'équipement de votre chambre.",
@@ -227,7 +236,7 @@ export const PROGRAMS: Program[] = [
     payments: [
       { label: OPENING, when: AT_SIGNATURE, amount: 200_000 },
       { label: LAUNCH, when: VALIDATED, amount: 1_000_000, refundable: true },
-      { label: { fr: "Solde", en: "Balance" }, when: AT_ADMISSION, amount: 1_700_000 },
+      { label: { fr: "Solde", en: "Balance" }, when: AT_ADMISSION, amount: 1_700_000, afterAdmission: true },
     ],
     refund: "degree",
     languageSessionNotIncluded: true,
@@ -348,6 +357,16 @@ export const PROGRAMS: Program[] = [
     ctaAnswer: DEGREE_CTA,
   },
 ];
+
+/**
+ * Part du total payée à la réception de l'admission ou après (page Parents, PACK-07).
+ * Pourcentage arrondi à l'unité inférieure : on n'annonce jamais plus que la réalité.
+ */
+export function paidAfterAdmission(program: Pick<Program, "payments">) {
+  const total = program.payments.reduce((s, p) => s + p.amount, 0);
+  const after = program.payments.filter((p) => p.afterAdmission).reduce((s, p) => s + p.amount, 0);
+  return { total, after, pct: total > 0 ? Math.floor((after / total) * 100) : 0 };
+}
 
 export function getProgram(slug: string) {
   return PROGRAMS.find((p) => p.slug === slug) ?? null;

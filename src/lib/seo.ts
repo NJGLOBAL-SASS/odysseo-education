@@ -18,7 +18,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 type L<T> = Record<Locale, T>;
 type PageSeo = { title: string; description: string };
 
-export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide";
+export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "parents";
 
 /** Chemins (sans préfixe de langue) des pages publiques. */
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
@@ -29,6 +29,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   apply: "/postuler",
   faq: "/faq",
   guide: "/guides/avant-le-depart",
+  parents: "/parents",
 };
 
 /** Pages légales : indexables (canonical + hreflang), titres repris des pages. */
@@ -137,6 +138,19 @@ export const PAGE_SEO: Record<PublicPage, L<PageSeo>> = {
       title: "Before leaving for China",
       description:
         "The complete checklist before leaving to study in China: hand-luggage documents, travel and arrival, money and phone, health. Tick it off and print it out.",
+    },
+  },
+  // PACK-07 : page Parents.
+  parents: {
+    fr: {
+      title: "Parents : coûts, paiement et garanties",
+      description:
+        "Parents : combien coûtent les études en Chine avec Odysseo, quand payer (l'essentiel après l'admission), ce qui est remboursé et comment suivre le dossier.",
+    },
+    en: {
+      title: "Parents: costs, payment and guarantees",
+      description:
+        "Parents: what studying in China with Odysseo costs, when to pay (most of it after the admission), what is refunded and how to follow your child's application.",
     },
   },
 };

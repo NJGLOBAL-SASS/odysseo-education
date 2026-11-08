@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { ShieldCheck } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { MessageCircle, ShieldCheck } from "lucide-react";
 
 import { Field, TextInput, ChipGroup } from "./fields";
 import { CountrySelect, PhoneInput } from "@/components/forms/country-fields";
@@ -18,6 +18,8 @@ export function StepVous({
   onChange: <K extends keyof IntakeDraft>(field: K, value: IntakeDraft[K]) => void;
 }) {
   const t = useTranslations("intake");
+  const tShare = useTranslations("parents.share");
+  const locale = useLocale();
   const age = ageFrom(data.dateOfBirth);
   const isMinor = age !== null && age >= 0 && age < 18;
   const showGuardian = isMinor || data.managedBy === "parent" || data.managedBy === "guardian";
@@ -122,6 +124,26 @@ export function StepVous({
           ]}
         />
       </Field>
+
+      {/* PACK-07 : un parent finance le projet → partager la page Parents. */}
+      {data.managedBy === "parent" && (
+        <div className="mb-3.5 -mt-1.5 rounded-[10px] border border-bord bg-fond p-3">
+          <p className="text-[14px]">{tShare("text")}</p>
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(
+              tShare("waMessage", {
+                url: `${typeof window !== "undefined" ? window.location.origin : ""}/${locale}/parents`,
+              }),
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track-location="formulaire_parent"
+            className="btn-wa mt-2 !min-h-[42px] text-[14px]"
+          >
+            <MessageCircle className="h-4 w-4" /> {tShare("button")}
+          </a>
+        </div>
+      )}
 
       {showGuardian && (
         <div className="mb-3.5 -mt-0.5 rounded-r-[10px] border-l-[3px] border-rouge bg-[#FAFAFB] p-2.5">

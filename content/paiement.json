@@ -1,0 +1,10 @@
+{
+ "_comment": "Lister UNIQUEMENT les moyens confirmés par le fondateur (\"actif\": true pour les afficher). Ne jamais mettre de numéro de compte ou de numéro Mobile Money ici : ils sont donnés en privé avec la facture.",
+ "moyens": [
+  {"id": "orange-money", "type": "mobile", "libelle_fr": "Orange Money", "libelle_en": "Orange Money", "pays": ["Cameroun", "Côte d'Ivoire", "Sénégal", "Mali", "Guinée"], "actif": false},
+  {"id": "mtn-momo", "type": "mobile", "libelle_fr": "MTN Mobile Money", "libelle_en": "MTN Mobile Money", "pays": ["Cameroun", "Côte d'Ivoire", "Bénin", "Congo"], "actif": false},
+  {"id": "virement", "type": "banque", "libelle_fr": "Virement bancaire", "libelle_en": "Bank transfer", "pays": [], "actif": false}
+ ],
+ "regles_affichees_fr": ["Chaque paiement donne lieu à un reçu.", "Ne payez jamais sur un numéro qui ne vous a pas été communiqué par votre conseiller Odysseo."],
+ "regles_affichees_en": ["Every payment comes with a receipt.", "Never pay to a number that was not given to you by your Odysseo advisor."]
+}
