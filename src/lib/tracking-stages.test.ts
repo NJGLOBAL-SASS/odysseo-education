@@ -29,3 +29,24 @@ test("historique : « reçu » ajouté pour les anciens dossiers, une ligne par 
   assert.equal(appendStage(h2, "analyse", "analyse", now).length, 2, "même étape : pas de ligne");
   assert.equal(normalizeHistory([{ stage: "pirate", date: "x" }, null], created).length, 1, "entrées invalides ignorées");
 });
+
+import { isChunkLoadError } from "./chunk-error";
+
+test("erreur de version périmée reconnue (rechargement automatique)", () => {
+  assert.equal(isChunkLoadError({ name: "ChunkLoadError", message: "Loading chunk 4447 failed." }), true);
+  assert.equal(isChunkLoadError(new Error("Failed to fetch dynamically imported module: https://x/_next/a.js")), true);
+  assert.equal(isChunkLoadError(new TypeError("Cannot read properties of undefined (reading 'map')")), false);
+  assert.equal(isChunkLoadError(null), false);
+});
+
+import { matchesPhoneDigits } from "./tracking-stages";
+
+test("4 chiffres : WhatsApp de l'étudiant ou du parent", () => {
+  const c = { whatsapp: "+237699123456", guardianWhatsapp: "+237677001122" };
+  assert.equal(matchesPhoneDigits(c, "3456"), true, "étudiant");
+  assert.equal(matchesPhoneDigits(c, "1122"), true, "parent");
+  assert.equal(matchesPhoneDigits(c, "0000"), false);
+  assert.equal(matchesPhoneDigits({ whatsapp: "+237699123456", guardianWhatsapp: null }, "1122"), false, "pas de parent");
+  assert.equal(matchesPhoneDigits({ whatsapp: "+237699123456", guardianWhatsapp: "" }, ""), false, "vide refusé");
+  assert.equal(matchesPhoneDigits({ whatsapp: "+237699123456", guardianWhatsapp: "12" }, "12"), false);
+});

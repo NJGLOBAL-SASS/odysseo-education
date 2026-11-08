@@ -54,6 +54,12 @@ export function lastFourDigits(phone: string) {
   return phone.replace(/\D/g, "").slice(-4);
 }
 
+/** Les 4 chiffres saisis correspondent au WhatsApp de l'étudiant, ou à celui du parent / tuteur s'il existe. */
+export function matchesPhoneDigits(c: { whatsapp: string; guardianWhatsapp?: string | null }, digits: string) {
+  if (!/^\d{4}$/.test(digits)) return false;
+  return [c.whatsapp, c.guardianWhatsapp].some((n) => !!n && n.replace(/\D/g, "").length >= 4 && lastFourDigits(n) === digits);
+}
+
 /** Code dossier saisi : majuscules, sans espaces ; « ODY » ajouté s'il manque (« 2bq9x1 » → « ODY-2BQ9X1 »). */
 export function normalizeCode(input: string) {
   const v = input.trim().toUpperCase().replace(/\s+/g, "");

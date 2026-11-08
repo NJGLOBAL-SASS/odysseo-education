@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.1] – 2026-11-08 · Correctifs suivi et page d'erreur
+
+### Modifié
+- **Suivi (`/suivi`)** : les 4 derniers chiffres du WhatsApp du **parent ou tuteur** (s'il est indiqué dans le formulaire) sont acceptés en plus de ceux de l'étudiant. Textes FR/EN adaptés.
+- **Limite d'essais** : 5 par heure par adresse IP **et par dossier** (protège les 4 chiffres d'un dossier), plus 30 par heure par adresse IP tous dossiers confondus. Avant : 5 par IP, ce qui pouvait bloquer des abonnés mobiles partageant la même adresse.
+- **Message WhatsApp copié** depuis la fiche dossier : toujours en français, lien vers `/fr/suivi`.
+
+### Ajouté
+- **Page d'erreur** (FR/EN) à la place de l'écran brut « Application error » : « Un problème est survenu » + « Recharger la page » / « Retour à l'accueil ». Après un déploiement, un onglet resté ouvert affiche « Une nouvelle version du site est disponible » et se recharge une fois automatiquement. Filet de sécurité `global-error` bilingue.
+
 ## [0.9.0] – 2026-11-08 · PACK-08 Suivi de dossier
 
 ### Ajouté
