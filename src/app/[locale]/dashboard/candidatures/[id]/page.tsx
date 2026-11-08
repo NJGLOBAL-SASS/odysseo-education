@@ -71,19 +71,18 @@ export default async function CandidateDetailPage({ params }: { params: { locale
   // Alertes envoyées à l'équipe uniquement (les emails au candidat ont leur propre historique).
   const teamAlerts = candidate.notificationLogs.filter((log) => log.recipient !== candidate.email);
   // Offres proposées à l'envoi (PACK-02), avec la vraie université (fichier interne, serveur uniquement).
-  // Suivi en ligne (PACK-08) : libellés pour l'équipe, message WhatsApp dans la langue du candidat.
-  const candLocale = candidate.locale === "en" ? "en" : "fr";
-  const [tStages, tStagesCand, tTrackCand] = await Promise.all([
+  // Suivi en ligne (PACK-08) : libellés pour l'équipe ; message WhatsApp à copier toujours en français.
+  const [tStages, tStagesFr, tTrackFr] = await Promise.all([
     getTranslations({ locale: L, namespace: "suivi.stages" }),
-    getTranslations({ locale: candLocale, namespace: "suivi.stages" }),
-    getTranslations({ locale: candLocale, namespace: "dashboard.candidate.tracking" }),
+    getTranslations({ locale: "fr", namespace: "suivi.stages" }),
+    getTranslations({ locale: "fr", namespace: "dashboard.candidate.tracking" }),
   ]);
-  const trackingUrl = `${SITE_URL}/${candLocale}/suivi?code=${candidate.code}`;
+  const trackingUrl = `${SITE_URL}/fr/suivi?code=${candidate.code}`;
   const stageLabels = Object.fromEntries(ALL_STAGES.map((s) => [s, tStages(`${s}.label`)]));
   const copyMessages = Object.fromEntries(
     ALL_STAGES.map((s) => [
       s,
-      tTrackCand("copyMessage", { name: firstNameOf(candidate.fullName), stage: tStagesCand(`${s}.label`), url: trackingUrl }),
+      tTrackFr("copyMessage", { name: firstNameOf(candidate.fullName), stage: tStagesFr(`${s}.label`), url: trackingUrl }),
     ]),
   );
   const dateOnly = new Intl.DateTimeFormat(L, { dateStyle: "medium", timeZone: APP_TIME_ZONE });
