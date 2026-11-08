@@ -357,7 +357,7 @@ export function DocumentsManager({
                   <h3 className="break-words font-bold leading-snug">{folder.title}</h3>
                   <p className="text-xs text-gris">
                     {t("addedBy", {
-                      name: folder.createdBy?.name || folder.createdBy?.email || t("activity.someone"),
+                      name: folder.createdBy?.name || folder.createdBy?.email || folder.uploadedByPortal?.name || t("activity.someone"),
                       date: dateFmt.format(new Date(folder.createdAt)),
                     })}
                   </p>
@@ -369,6 +369,7 @@ export function DocumentsManager({
                   deletable={canDelete(currentUser, folder.createdById)}
                 />
               </header>
+              {scope === "candidate" && <SharingControl folder={folder} onChange={upsert} />}
               {folder.description && <p className="mb-2 whitespace-pre-line text-sm text-gris">{folder.description}</p>}
               <ul className="divide-y divide-bord rounded-[10px] border border-bord">
                 {folder.files.map((file, i) => {
@@ -457,6 +458,66 @@ export function DocumentsManager({
           onClose={() => setDeleting(null)}
         />
       )}
+    </div>
+  );
+}
+
+/**
+ * Espace étudiant : un envoi de l'étudiant lui reste visible ; un document de l'équipe reste
+ * privé jusqu'à « Approuver et rendre visible » (après consultation par l'équipe).
+ */
+function SharingControl({ folder, onChange }: { folder: DocumentFolderView; onChange: (f: DocumentFolderView) => void }) {
+  const t = useTranslations("dashboard.documents.sharing");
+  const toast = useToast();
+  const [busy, setBusy] = useState(false);
+
+  if (folder.uploadedByPortalId) {
+    return (
+      <p className="mb-2 inline-flex rounded-full bg-[#E8F0FF] px-2 py-0.5 text-[11px] font-semibold text-[#1E4FB8]">
+        {t("fromPortal")}
+        {folder.uploadedByPortal?.name ? ` · ${folder.uploadedByPortal.name}` : ""}
+      </p>
+    );
+  }
+
+  async function toggle(visible: boolean) {
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/documents/${folder.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ visibleToCandidate: visible }),
+      });
+      if (!res.ok) throw new Error();
+      onChange((await res.json()).folder);
+      toast({ tone: "success", title: visible ? t("approved") : t("hidden"), description: folder.title });
+    } catch {
+      toast({ tone: "error", title: t("failed") });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="mb-2 flex flex-wrap items-center gap-2">
+      <span
+        className={cn(
+          "inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold",
+          folder.visibleToCandidate ? "bg-[#E1F6EA] text-ok" : "bg-fond text-gris",
+        )}
+        title={folder.visibleToCandidate && folder.approvedBy ? t("approvedBy", { name: folder.approvedBy.name || folder.approvedBy.email }) : undefined}
+      >
+        {folder.visibleToCandidate ? t("visible") : t("private")}
+      </span>
+      <button
+        type="button"
+        disabled={busy}
+        onClick={() => toggle(!folder.visibleToCandidate)}
+        className={cn("btn-sm !min-h-[30px] !px-2.5 text-xs", folder.visibleToCandidate ? "border border-bord bg-white" : "bg-noir text-white")}
+      >
+        {busy && <Spinner />}
+        {folder.visibleToCandidate ? t("hide") : t("approve")}
+      </button>
     </div>
   );
 }

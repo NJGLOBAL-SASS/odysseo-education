@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { syncCandidatePoints } from "@/lib/points";
 import { ALL_STAGES, PUBLIC_NOTE_MAX, appendStage, normalizeHistory } from "@/lib/tracking-stages";
+import { notifyPortalAccounts } from "@/lib/notifications";
+import fr from "@/i18n/messages/fr.json";
+import en from "@/i18n/messages/en.json";
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
   const session = await auth();
@@ -63,6 +66,19 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       }),
     },
   });
+
+  // Espace étudiant : l'étudiant et le parent sont prévenus du changement d'étape.
+  if (stageChanged && stage) {
+    notifyPortalAccounts(
+      candidate.id,
+      "stage",
+      {
+        fr: `Votre dossier passe à l'étape : ${fr.suivi.stages[stage].label}.`,
+        en: `Your application moves to the step: ${en.suivi.stages[stage].label}.`,
+      },
+      "/espace",
+    ).catch((err) => console.error("[portal] alerte étape :", err));
+  }
 
   // Points du partenaire : ajout si le dossier monte de palier, retrait s'il redescend.
   if (body.data.status) {

@@ -2,8 +2,8 @@
 
 import { Analytics, type BeforeSendEvent } from "@vercel/analytics/next";
 
-/** Zone équipe (tableau de bord, connexion) : exclue de la mesure d'audience. */
-const TEAM_PATH = /^\/(?:fr|en)\/(?:dashboard|login|verify-2fa|forgot-password|reset-password)(?:\/|$)/;
+/** Zone équipe et espace étudiant (connexion, liens d activation) : exclus de la mesure d'audience. */
+const TEAM_PATH = /^\/(?:fr|en)\/(?:dashboard|login|verify-2fa|forgot-password|reset-password|espace)(?:\/|$)/;
 
 /**
  * Vercel Web Analytics (PACK-04) : mesure d'audience sans cookie ni donnée

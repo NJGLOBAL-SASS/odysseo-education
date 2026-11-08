@@ -6,6 +6,7 @@ export type DocumentFileView = {
   contentType: string;
   createdAt: string;
   uploadedById: string | null;
+  uploadedByPortalId?: string | null;
   uploadedBy: { name: string | null; email: string } | null;
 };
 
@@ -17,6 +18,12 @@ export type DocumentFolderView = {
   candidateId: string | null;
   createdById: string | null;
   createdBy: { id: string; name: string | null; email: string } | null;
+  // Espace étudiant : visibilité, approbation, envoi depuis l'espace.
+  visibleToCandidate?: boolean;
+  approvedAt?: string | null;
+  approvedBy?: { name: string | null; email: string } | null;
+  uploadedByPortalId?: string | null;
+  uploadedByPortal?: { name: string; role: "STUDENT" | "PARENT" } | null;
   createdAt: string;
   updatedAt: string;
   files: DocumentFileView[];

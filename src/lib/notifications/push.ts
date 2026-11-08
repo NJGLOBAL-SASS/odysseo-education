@@ -23,7 +23,7 @@ function ensureConfigured() {
   return true;
 }
 
-type PushPayload = { title: string; body: string; url?: string };
+type PushPayload = { title: string; body: string; url?: string; icon?: string };
 
 /**
  * Envoie une notification aux appareils abonnés. Sans `userId`, cible tous
@@ -31,13 +31,16 @@ type PushPayload = { title: string; body: string; url?: string };
  * Avec `badge` (alertes réelles, pas les tests), chaque appareil reçoit aussi le
  * total de nouveautés de son membre, affiché en pastille sur l'icône de l'application.
  */
-export async function sendPush(payload: PushPayload, opts: { userId?: string; badge?: boolean } = {}) {
+export async function sendPush(
+  payload: PushPayload,
+  opts: { userId?: string; badge?: boolean; portalAccountIds?: string[] } = {}
+) {
   if (!ensureConfigured()) {
     console.warn("[push] VAPID non configuré — notification push non envoyée.");
     return { sent: 0, total: 0, reason: "Clés VAPID non configurées" };
   }
 
-  const optedOut = opts.userId
+  const optedOut = opts.userId || opts.portalAccountIds
     ? []
     : (
         await prisma.notificationPreference.findMany({
@@ -46,10 +49,14 @@ export async function sendPush(payload: PushPayload, opts: { userId?: string; ba
         })
       ).map((p) => p.userId);
 
+  // Espace étudiant : seulement les appareils des comptes visés. Équipe : jamais un appareil
+  // de l'espace étudiant (portalAccountId renseigné).
   const subscriptions = await prisma.pushSubscription.findMany({
-    where: opts.userId
-      ? { userId: opts.userId }
-      : { OR: [{ userId: null }, { userId: { notIn: optedOut } }] },
+    where: opts.portalAccountIds
+      ? { portalAccountId: { in: opts.portalAccountIds } }
+      : opts.userId
+        ? { userId: opts.userId }
+        : { portalAccountId: null, OR: [{ userId: null }, { userId: { notIn: optedOut } }] },
   });
   let sent = 0;
   let lastError = "";

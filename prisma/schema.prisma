@@ -49,6 +49,9 @@ model User {
   documentFoldersCreated      DocumentFolder[]
   documentFilesUploaded       DocumentFile[]
   documentActivities          DocumentActivity[]
+  portalAccountsCreated       PortalAccount[]
+  portalMessagesSent          PortalMessage[]
+  documentFoldersApproved     DocumentFolder[]     @relation("DocumentFolderApprover")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -271,12 +274,12 @@ model Candidate {
   originalDiplomas Boolean? // diplômes originaux : true = Oui, false = Pas encore (diplomesOriginaux)
 
   // Étape 3 — Projet
-  targetLevel    String
-  fieldOfStudy   String
-  passportStatus String
-  englishLevel   String
-  fundingPlan    String
-  targetIntake   String
+  targetLevel         String
+  fieldOfStudy        String
+  passportStatus      String
+  englishLevel        String
+  fundingPlan         String
+  targetIntake        String
   // PACK-01 (facultatifs). fieldOfStudy garde les libellés lisibles, studyFields les codes.
   studyFields         String[] @default([]) // codes des domaines, 2 max (domaines[])
   englishCertificate  String? // "ielts" | "toefl" | "duolingo" | "studiedInEnglish" | "none" (anglaisCertificat)
@@ -328,6 +331,8 @@ model Candidate {
   notificationLogs    NotificationLog[]
   messages            CandidateMessage[]
   documentFolders     DocumentFolder[]
+  portalAccounts      PortalAccount[]
+  portalMessages      PortalMessage[]
   documentActivities  DocumentActivity[]
 
   locale String @default("fr")
@@ -384,13 +389,91 @@ model NotificationLog {
 }
 
 // Email rédigé dans le dashboard et envoyé au candidat (historique sur sa fiche).
-/// Essais sur /api/suivi (PACK-08) : 5 par heure et par IP. IP hachée, purgée après 24 h.
+/// Compteur d'essais (empreintes, jamais d'IP en clair) : connexions à l'espace étudiant,
+/// demandes de mot de passe oublié. Lignes purgées après 24 h.
 model TrackingAttempt {
   id        String   @id @default(cuid())
   ipHash    String
   createdAt DateTime @default(now())
 
   @@index([ipHash, createdAt])
+}
+
+// ============================================================
+// ESPACE ÉTUDIANT (odysseo-application.vercel.app)
+// Comptes créés par l'équipe ; connexion e-mail + mot de passe ou Google.
+// ============================================================
+
+enum PortalRole {
+  STUDENT
+  PARENT
+}
+
+model PortalAccount {
+  id             String     @id @default(cuid())
+  candidateId    String
+  candidate      Candidate  @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  role           PortalRole @default(STUDENT)
+  email          String     @unique
+  name           String
+  passwordHash   String? // null tant que le lien d'activation n'a pas servi (Google reste possible)
+  locale         String     @default("fr")
+  activatedAt    DateTime?
+  lastLoginAt    DateTime?
+  disabledAt     DateTime?
+  sessionVersion Int        @default(0) // +1 : déconnecte tous les appareils (mot de passe changé, compte désactivé)
+  createdById    String?
+  createdBy      User?      @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  tokens          PortalToken[]
+  messages        PortalMessage[]
+  documentFolders DocumentFolder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([candidateId])
+  @@map("portal_accounts")
+}
+
+/// Liens à usage unique envoyés par e-mail : activation (invite) ou mot de passe oublié (reset).
+model PortalToken {
+  id        String        @id @default(cuid())
+  accountId String
+  account   PortalAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  purpose   String // invite | reset
+  tokenHash String        @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime      @default(now())
+
+  @@map("portal_tokens")
+}
+
+enum MessageAuthor {
+  TEAM
+  STUDENT
+  PARENT
+}
+
+/// Messagerie d'un dossier entre l'équipe et l'étudiant / le parent.
+model PortalMessage {
+  id                String         @id @default(cuid())
+  candidateId       String
+  candidate         Candidate      @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  authorType        MessageAuthor
+  userId            String?
+  user              User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  portalAccountId   String?
+  portalAccount     PortalAccount? @relation(fields: [portalAccountId], references: [id], onDelete: SetNull)
+  authorName        String // nom affiché au moment de l'envoi
+  body              String         @db.Text
+  readByTeamAt      DateTime?
+  readByCandidateAt DateTime?
+  createdAt         DateTime       @default(now())
+
+  @@index([candidateId, createdAt])
+  @@map("portal_messages")
 }
 
 model CandidateMessage {
@@ -411,12 +494,13 @@ model CandidateMessage {
 }
 
 model PushSubscription {
-  id        String   @id @default(cuid())
-  userId    String?
-  endpoint  String   @unique
-  p256dh    String
-  auth      String
-  createdAt DateTime @default(now())
+  id              String   @id @default(cuid())
+  userId          String?
+  portalAccountId String? // appareil de l'espace étudiant (jamais destinataire des alertes équipe)
+  endpoint        String   @unique
+  p256dh          String
+  auth            String
+  createdAt       DateTime @default(now())
 
   @@map("push_subscriptions")
 }
@@ -464,6 +548,15 @@ model DocumentFolder {
   createdById String?
   createdBy   User?      @relation(fields: [createdById], references: [id], onDelete: SetNull)
 
+  // Espace étudiant : un lot envoyé par l'étudiant / le parent lui reste visible ; un lot de
+  // l'équipe reste privé tant qu'un membre ne l'a pas approuvé (« Approuver et rendre visible »).
+  visibleToCandidate Boolean        @default(false)
+  approvedById       String?
+  approvedBy         User?          @relation("DocumentFolderApprover", fields: [approvedById], references: [id], onDelete: SetNull)
+  approvedAt         DateTime?
+  uploadedByPortalId String?
+  uploadedByPortal   PortalAccount? @relation(fields: [uploadedByPortalId], references: [id], onDelete: SetNull)
+
   files      DocumentFile[]
   activities DocumentActivity[]
 
@@ -475,15 +568,16 @@ model DocumentFolder {
 }
 
 model DocumentFile {
-  id           String         @id @default(cuid())
-  folderId     String
-  folder       DocumentFolder @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  name         String // nom d'origine, affiché et proposé au téléchargement
-  size         Int
-  contentType  String
-  blobUrl      String         @unique
-  uploadedById String?
-  uploadedBy   User?          @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  id                 String         @id @default(cuid())
+  folderId           String
+  folder             DocumentFolder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  name               String // nom d'origine, affiché et proposé au téléchargement
+  size               Int
+  contentType        String
+  blobUrl            String         @unique
+  uploadedById       String?
+  uploadedBy         User?          @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedByPortalId String? // envoyé depuis l'espace étudiant (PortalAccount.id)
 
   activities DocumentActivity[]
 
@@ -505,22 +599,23 @@ enum DocumentAction {
 // Traçabilité : qui a envoyé, ouvert, téléchargé ou supprimé quoi, et quand.
 // Les noms sont recopiés pour que le journal reste lisible après une suppression.
 model DocumentActivity {
-  id          String          @id @default(cuid())
-  action      DocumentAction
-  userId      String?
-  user        User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
-  actorName   String? // nom ou email au moment de l'action
-  folderId    String?
-  folder      DocumentFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
-  fileId      String?
-  file        DocumentFile?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
-  candidateId String?
-  candidate   Candidate?      @relation(fields: [candidateId], references: [id], onDelete: SetNull)
-  folderTitle String
-  fileName    String?
-  ip          String?
-  userAgent   String?
-  createdAt   DateTime        @default(now())
+  id              String          @id @default(cuid())
+  action          DocumentAction
+  userId          String?
+  user            User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  portalAccountId String? // action faite depuis l'espace étudiant
+  actorName       String? // nom ou email au moment de l'action
+  folderId        String?
+  folder          DocumentFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  fileId          String?
+  file            DocumentFile?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  candidateId     String?
+  candidate       Candidate?      @relation(fields: [candidateId], references: [id], onDelete: SetNull)
+  folderTitle     String
+  fileName        String?
+  ip              String?
+  userAgent       String?
+  createdAt       DateTime        @default(now())
 
   @@index([createdAt])
   @@index([candidateId, createdAt])

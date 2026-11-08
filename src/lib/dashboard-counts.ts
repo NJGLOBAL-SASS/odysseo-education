@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
-export type DashboardCounts = { candidates: number; partnerRequests: number; newsletter: number };
+/** messages : messages de l'espace étudiant non lus par l'équipe (tous dossiers). */
+export type DashboardCounts = { candidates: number; partnerRequests: number; newsletter: number; messages: number };
 
 /**
  * Nouveautés d'un membre de l'équipe : dossiers et inscriptions newsletter depuis
@@ -14,14 +15,15 @@ export async function getDashboardCounts(userId: string): Promise<DashboardCount
   });
   const since = (d?: Date | null) => d ?? user?.createdAt ?? new Date(0);
 
-  const [candidates, partnerRequests, newsletter] = await Promise.all([
+  const [candidates, partnerRequests, newsletter, messages] = await Promise.all([
     prisma.candidate.count({ where: { createdAt: { gt: since(user?.candidatesSeenAt) } } }),
     prisma.partnerApplication.count({ where: { status: "PENDING" } }),
     prisma.newsletterSubscriber.count({ where: { createdAt: { gt: since(user?.newsletterSeenAt) } } }),
+    prisma.portalMessage.count({ where: { authorType: { not: "TEAM" }, readByTeamAt: null } }),
   ]);
-  return { candidates, partnerRequests, newsletter };
+  return { candidates, partnerRequests, newsletter, messages };
 }
 
 export function badgeTotal(c: DashboardCounts) {
-  return c.candidates + c.partnerRequests + c.newsletter;
+  return c.candidates + c.partnerRequests + c.newsletter + (c.messages ?? 0);
 }

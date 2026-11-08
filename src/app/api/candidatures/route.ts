@@ -218,7 +218,11 @@ export async function GET(req: NextRequest) {
     },
     orderBy: { createdAt: "desc" },
     take: 500,
-    include: { partner: { select: { fullName: true, referralCode: true } } },
+    include: {
+      partner: { select: { fullName: true, referralCode: true } },
+      // Messages de l'espace étudiant non lus par l'équipe (pastille dans la liste).
+      _count: { select: { portalMessages: { where: { authorType: { not: "TEAM" }, readByTeamAt: null } } } },
+    },
   });
 
   return NextResponse.json({ candidates });

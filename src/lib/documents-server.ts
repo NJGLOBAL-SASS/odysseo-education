@@ -6,7 +6,8 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { MAX_FILES_PER_UPLOAD } from "@/lib/documents";
 
-type Actor = { id: string; name?: string | null; email?: string | null };
+/** `portal` : action faite depuis l'espace étudiant (id = PortalAccount.id). */
+type Actor = { id: string; name?: string | null; email?: string | null; portal?: boolean };
 
 /** Les fichiers sont toujours rangés sous ce préfixe du store Blob. */
 export const BLOB_PREFIX = "documents/";
@@ -32,7 +33,8 @@ export function logDocumentActivity(
   return db.documentActivity.create({
     data: {
       action,
-      userId: actor.id,
+      userId: actor.portal ? null : actor.id,
+      portalAccountId: actor.portal ? actor.id : null,
       actorName: actor.name || actor.email || null,
       folderId: deleted === "folder" ? null : folder.id,
       fileId: deleted || !file ? null : file.id,
@@ -58,6 +60,8 @@ export function canDelete(user: { id: string; role?: string }, authorId: string 
 
 export const folderInclude = {
   createdBy: { select: { id: true, name: true, email: true } },
+  approvedBy: { select: { name: true, email: true } },
+  uploadedByPortal: { select: { name: true, role: true } },
   files: {
     orderBy: { createdAt: "asc" },
     select: {
@@ -67,6 +71,7 @@ export const folderInclude = {
       contentType: true,
       createdAt: true,
       uploadedById: true,
+      uploadedByPortalId: true,
       uploadedBy: { select: { name: true, email: true } },
     },
   },

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { locales, defaultLocale } from "@/i18n/config";
 import { isTeamHost } from "@/lib/hosts";
+import { PORTAL_COOKIE, PORTAL_PUBLIC_PATHS, isPortalHost } from "@/lib/portal/host";
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -27,10 +28,27 @@ export default async function middleware(req: NextRequest) {
 
   const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
   const onTeamHost = isTeamHost(host);
+  const onPortalHost = isPortalHost(host);
 
   const locale = locales.find((l) => pathname.startsWith(`/${l}`)) || defaultLocale;
   const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "") || "/";
   const isTeamOnlyPath = TEAM_ONLY_PREFIXES.some((p) => pathWithoutLocale.startsWith(p));
+  const isPortalPath = pathWithoutLocale === "/espace" || pathWithoutLocale.startsWith("/espace/");
+
+  // Espace étudiant (odysseo-application.vercel.app) : uniquement /espace, rien du site
+  // public ni de l'équipe. Ailleurs, /espace n'existe pas.
+  if (onPortalHost) {
+    if (pathWithoutLocale === "/") return NextResponse.redirect(new URL(`/${locale}/espace`, req.url));
+    if (!isPortalPath) return blockWithNotFound(req, locale);
+    const isPublic = PORTAL_PUBLIC_PATHS.some((p) => pathWithoutLocale.startsWith(p));
+    if (!isPublic && !req.cookies.get(PORTAL_COOKIE)) {
+      const loginUrl = new URL(`/${locale}/espace/connexion`, req.url);
+      if (pathWithoutLocale !== "/espace") loginUrl.searchParams.set("next", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    return intlMiddleware(req);
+  }
+  if (isPortalPath) return blockWithNotFound(req, locale);
 
   // Site public (odysseo-education.com, previews, etc.) : la zone équipe
   // n'existe tout simplement pas — aucune URL ni aucun lien ne doit y mener.

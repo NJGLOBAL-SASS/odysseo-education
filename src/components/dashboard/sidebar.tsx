@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog, FolderOpen } from "lucide-react";
+import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog, FolderOpen, MessageCircle } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -87,6 +87,14 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                 />
                 <item.icon className={cn("h-[18px] w-[18px]", active ? "text-rouge" : "text-current")} />
                 <span className="flex-1">{t(item.key)}</span>
+                {item.key === "candidates" && counts.messages > 0 && (
+                  <span
+                    className="flex h-5 items-center gap-1 rounded-full bg-white px-1.5 text-[11px] font-bold tabular-nums text-noir"
+                    title={tRoot("candidate.portalMessages.title")}
+                  >
+                    <MessageCircle className="h-3 w-3" /> {counts.messages > 99 ? "99+" : counts.messages}
+                  </span>
+                )}
                 {count > 0 && (
                   <span
                     className="flex h-5 min-w-[20px] animate-fade-up items-center justify-center rounded-full bg-rouge px-1.5 text-[11px] font-bold tabular-nums text-white"

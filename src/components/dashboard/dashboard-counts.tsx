@@ -8,7 +8,7 @@ import type { DashboardCounts } from "@/lib/dashboard-counts";
 
 export type { DashboardCounts };
 
-const EMPTY: DashboardCounts = { candidates: 0, partnerRequests: 0, newsletter: 0 };
+const EMPTY: DashboardCounts = { candidates: 0, partnerRequests: 0, newsletter: 0, messages: 0 };
 const POLL_MS = 45_000;
 
 const CountsContext = createContext<{ counts: DashboardCounts; refresh: () => void }>({
@@ -71,7 +71,7 @@ export function DashboardCountsProvider({ children }: { children: ReactNode }) {
     if (!SEEN_ON_VISIT[pathname]) lastSeenPath.current = null;
   }, [pathname]);
 
-  const total = counts.candidates + counts.partnerRequests + counts.newsletter;
+  const total = counts.candidates + counts.partnerRequests + counts.newsletter + (counts.messages ?? 0);
   useAppBadge(total);
 
   return <CountsContext.Provider value={{ counts, refresh }}>{children}</CountsContext.Provider>;

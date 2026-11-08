@@ -16,6 +16,8 @@ import { getOffer } from "@/lib/matching/catalogue";
 import { getInternalOffer } from "@/lib/matching/internes";
 import type { StoredRecommendation } from "@/lib/matching/types";
 import { TrackingEditor } from "@/components/dashboard/tracking-editor";
+import { PortalAccess } from "@/components/dashboard/portal-access";
+import { ChatThread } from "@/components/portal/chat-thread";
 import { ALL_STAGES, firstNameOf, normalizeHistory } from "@/lib/tracking-stages";
 
 function Row({ label, value }: { label: string; value?: string | number | null }) {
@@ -56,6 +58,10 @@ export default async function CandidateDetailPage({ params }: { params: { locale
         notificationLogs: { orderBy: { createdAt: "desc" } },
         pointsLedgerEntries: { orderBy: { createdAt: "desc" } },
         messages: { orderBy: { createdAt: "desc" }, include: { sentBy: { select: { name: true, email: true } } } },
+        portalAccounts: {
+          orderBy: { createdAt: "asc" },
+          select: { id: true, role: true, name: true, email: true, activatedAt: true, lastLoginAt: true, disabledAt: true },
+        },
       },
     }),
     auth(),
@@ -257,6 +263,47 @@ export default async function CandidateDetailPage({ params }: { params: { locale
         </div>
 
         <div className="space-y-6">
+          <section className="card p-5">
+            <h2 className="section-title mb-1">{t("portal.title")}</h2>
+            <PortalAccess
+              candidateId={candidate.id}
+              accounts={candidate.portalAccounts.map((a) => ({
+                ...a,
+                activatedAt: a.activatedAt?.toISOString() ?? null,
+                lastLoginAt: a.lastLoginAt?.toISOString() ?? null,
+                disabledAt: a.disabledAt?.toISOString() ?? null,
+              }))}
+              prefill={{
+                studentName: candidate.fullName,
+                studentEmail: candidate.email ?? "",
+                parentName: candidate.guardianName ?? "",
+                locale: candidate.locale === "en" ? "en" : "fr",
+              }}
+            />
+          </section>
+
+          <section className="card flex max-h-[560px] flex-col p-5">
+            <h2 className="section-title mb-1">{t("portalMessages.title")}</h2>
+            <p className="mb-3 text-xs text-gris">{t("portalMessages.intro")}</p>
+            {candidate.portalAccounts.length === 0 ? (
+              <p className="text-sm text-gris">{t("portalMessages.noSpace")}</p>
+            ) : (
+              <ChatThread
+                url={`/api/candidatures/${candidate.id}/portal-messages`}
+                side="team"
+                className="min-h-0 flex-1"
+                labels={{
+                  empty: t("portalMessages.empty"),
+                  placeholder: t("portalMessages.placeholder"),
+                  send: t("portalMessages.send"),
+                  failed: t("portalMessages.failed"),
+                  you: "Odysseo",
+                  read: t("portalMessages.read"),
+                }}
+              />
+            )}
+          </section>
+
           <section className="card p-5">
             <h2 className="section-title mb-3">{t("tracking.title")}</h2>
             <TrackingEditor

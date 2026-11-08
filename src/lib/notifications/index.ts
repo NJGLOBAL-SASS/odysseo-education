@@ -7,6 +7,7 @@ import { publicSiteUrl, referralLink } from "@/lib/referral";
 import { sendEmail, emailLayout, emailRows, escapeHtml, textToHtml, styleRichHtml, type EmailAttachment } from "./email";
 import { sendWhatsAppMessage } from "./whatsapp";
 import { sendPush } from "./push";
+import { portalUrl } from "@/lib/portal/host";
 
 type ChannelResult = { sent: boolean | number; reason?: string };
 
@@ -403,4 +404,126 @@ export async function sendCandidateEmail(
     { subject: message.subject, candidateId: candidate.id }
   );
   return { ok, error };
+}
+
+// ============================================================
+// ESPACE ÉTUDIANT (e-mails dans la langue du compte, FR ou EN)
+// ============================================================
+
+type PortalRecipient = { id: string; email: string; name: string; locale: string; role: "STUDENT" | "PARENT" };
+const firstWord = (name: string) => name.trim().split(/\s+/)[0] || "";
+const PORTAL_ICON = "/icons/portal-192.png";
+
+/** Invitation : lien pour choisir son mot de passe (valable 14 jours) ; Google possible aussi. */
+export async function sendPortalInvitation(account: PortalRecipient, candidateCode: string, link: string) {
+  const en = account.locale === "en";
+  const parent = account.role === "PARENT";
+  const subject = en ? "Your personal Odysseo Education space" : "Votre espace personnel Odysseo Education";
+  const html = emailLayout({
+    title: en ? `Welcome, ${firstWord(account.name)}!` : `Bienvenue, ${firstWord(account.name)} !`,
+    intro: en
+      ? `Your Odysseo advisor has opened ${parent ? "a parent access to" : "your personal space for"} application ${candidateCode}.`
+      : `Votre conseiller Odysseo a ouvert ${parent ? "un accès parent au" : "votre espace personnel pour le"} dossier ${candidateCode}.`,
+    bodyHtml: `<p style="margin:0;font-size:14px;color:#5B5B66">${
+      en
+        ? "Follow every step of the application, exchange documents and write to the team. Choose your password with the button below (link valid for <b>14 days</b>, single use)."
+        : "Suivez chaque étape du dossier, échangez vos documents et écrivez à l'équipe. Choisissez votre mot de passe avec le bouton ci-dessous (lien valable <b>14 jours</b>, à usage unique)."
+    }</p>
+      <p style="margin:12px 0 0;font-size:14px;color:#5B5B66">${
+        en
+          ? `You can also sign in with <b>Google</b> if ${escapeHtml(account.email)} is a Google address.`
+          : `Vous pouvez aussi vous connecter avec <b>Google</b> si ${escapeHtml(account.email)} est une adresse Google.`
+      }</p>
+      <p style="margin:16px 0 0;font-size:12px;color:#5B5B66;word-break:break-all">${en ? "Direct link" : "Lien direct"} : ${escapeHtml(link)}</p>`,
+    cta: { label: en ? "Activate my space" : "Activer mon espace", url: link },
+  });
+  return deliver("EMAIL", account.email, () => sendEmail(account.email, subject, html), { subject });
+}
+
+export async function sendPortalPasswordReset(account: PortalRecipient, link: string) {
+  const en = account.locale === "en";
+  const subject = en ? "Reset your password — Odysseo" : "Réinitialisation de votre mot de passe — Odysseo";
+  const html = emailLayout({
+    title: en ? "Reset your password" : "Réinitialiser votre mot de passe",
+    intro: en ? `Hello ${firstWord(account.name)}, a password reset was requested for your personal space.` : `Bonjour ${firstWord(account.name)}, une réinitialisation a été demandée pour votre espace personnel.`,
+    bodyHtml: `<p style="margin:0;font-size:14px;color:#5B5B66">${
+      en
+        ? "This link is valid for <b>2 hours</b> and can be used once. If you did not ask for it, ignore this email."
+        : "Ce lien est valable <b>2 heures</b> et ne sert qu'une fois. Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail."
+    }</p><p style="margin:16px 0 0;font-size:12px;color:#5B5B66;word-break:break-all">${escapeHtml(link)}</p>`,
+    cta: { label: en ? "Choose a new password" : "Choisir un nouveau mot de passe", url: link },
+  });
+  return deliver("EMAIL", account.email, () => sendEmail(account.email, subject, html), { subject });
+}
+
+/** Comptes actifs (étudiant et parents) d'un dossier, destinataires des alertes. */
+async function portalRecipients(candidateId: string): Promise<PortalRecipient[]> {
+  return prisma.portalAccount.findMany({
+    where: { candidateId, disabledAt: null },
+    select: { id: true, email: true, name: true, locale: true, role: true },
+  });
+}
+
+/** Alerte l'étudiant / le parent (e-mail + notification) : nouveau message, document, étape. */
+export async function notifyPortalAccounts(
+  candidateId: string,
+  kind: "message" | "document" | "stage",
+  detail: { fr: string; en: string },
+  path: string,
+  exceptAccountId?: string
+) {
+  const accounts = (await portalRecipients(candidateId)).filter((a) => a.id !== exceptAccountId);
+  if (accounts.length === 0) return;
+  const titles = {
+    message: { fr: "Nouveau message de l'équipe Odysseo", en: "New message from the Odysseo team" },
+    document: { fr: "Nouveau document dans votre espace", en: "New document in your space" },
+    stage: { fr: "Votre dossier avance", en: "Your application is moving forward" },
+  }[kind];
+  await Promise.all([
+    ...accounts.map((a) => {
+      const en = a.locale === "en";
+      const subject = en ? titles.en : titles.fr;
+      const html = emailLayout({
+        title: subject,
+        intro: en ? `Hello ${firstWord(a.name)},` : `Bonjour ${firstWord(a.name)},`,
+        bodyHtml: `<p style="margin:0;font-size:15px;color:#0B0B0D">${escapeHtml(en ? detail.en : detail.fr)}</p>`,
+        cta: { label: en ? "Open my space" : "Ouvrir mon espace", url: portalUrl(`/${en ? "en" : "fr"}${path}`) },
+      });
+      return deliver("EMAIL", a.email, () => sendEmail(a.email, subject, html), { subject, candidateId });
+    }),
+    deliver(
+      "PUSH",
+      "espace étudiant",
+      () => sendPush({ title: titles.fr, body: detail.fr.slice(0, 160), url: `/fr${path}`, icon: PORTAL_ICON }, { portalAccountIds: accounts.map((a) => a.id) }),
+      { subject: titles.fr, candidateId }
+    ),
+  ]);
+}
+
+/** Alerte l'équipe : message ou document reçu depuis l'espace étudiant. */
+export async function notifyTeamFromPortal(
+  candidate: { id: string; code: string; fullName: string },
+  kind: "message" | "document",
+  authorName: string,
+  preview: string
+) {
+  const subject =
+    kind === "message" ? `Nouveau message — ${candidate.fullName} (${candidate.code})` : `Nouveau document — ${candidate.fullName} (${candidate.code})`;
+  const detailPath = `/fr/dashboard/candidatures/${candidate.id}`;
+  const html = emailLayout({
+    title: kind === "message" ? "Nouveau message dans l'espace étudiant" : "Nouveau document envoyé",
+    intro: `${authorName} · dossier ${candidate.code}`,
+    bodyHtml: `<p style="margin:0;font-size:15px;color:#0B0B0D;white-space:pre-line">${escapeHtml(preview.slice(0, 600))}</p>`,
+    cta: { label: "Ouvrir le dossier", url: teamUrl(detailPath) },
+  });
+  const recipients = await staffEmailRecipients();
+  await Promise.all([
+    ...recipients.map((to) => deliver("EMAIL", to, () => sendEmail(to, subject, html), { subject, candidateId: candidate.id })),
+    deliver(
+      "PUSH",
+      "équipe",
+      () => sendPush({ title: kind === "message" ? "Nouveau message" : "Nouveau document", body: `${candidate.fullName} : ${preview.slice(0, 120)}`, url: detailPath }, { badge: true }),
+      { subject, candidateId: candidate.id }
+    ),
+  ]);
 }

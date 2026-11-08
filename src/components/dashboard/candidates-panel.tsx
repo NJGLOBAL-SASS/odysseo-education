@@ -13,7 +13,7 @@ import { SkeletonTable } from "@/components/ui/skeleton";
 import { candidateColumns, type CandidateExportRow } from "@/lib/export/columns";
 import { optionLabel, optionEntries } from "@/lib/intake-labels";
 
-type Row = CandidateExportRow & { partner?: { referralCode: string; fullName?: string } | null };
+type Row = CandidateExportRow & { partner?: { referralCode: string; fullName?: string } | null; _count?: { portalMessages?: number } };
 
 export function CandidatesPanel({ locale }: { locale: string }) {
   const t = useTranslations("dashboard.candidates");
@@ -147,6 +147,11 @@ export function CandidatesPanel({ locale }: { locale: string }) {
                     ) : (
                       <Link href={`/dashboard/candidatures/${c.id}`} className="font-semibold hover:underline">
                         {c.fullName}
+                        {(c._count?.portalMessages ?? 0) > 0 && (
+                          <span className="ml-1.5 inline-flex items-center rounded-full bg-rouge px-1.5 align-middle text-[11px] font-bold text-white" title="Messages non lus">
+                            💬 {c._count?.portalMessages}
+                          </span>
+                        )}
                       </Link>
                     )}
                     <p className="font-mono text-[11px] text-gris">{c.code}</p>

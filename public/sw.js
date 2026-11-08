@@ -156,7 +156,7 @@ self.addEventListener("push", (event) => {
       typeof payload.badge === "number" ? setBadge(payload.badge) : Promise.resolve(),
       self.registration.showNotification(payload.title || "Odysseo Education", {
         body: payload.body,
-        icon: "/icons/icon-192.png",
+        icon: payload.icon || "/icons/icon-192.png",
         badge: "/icons/icon-96.png",
         tag: payload.url || "odysseo",
         renotify: true,

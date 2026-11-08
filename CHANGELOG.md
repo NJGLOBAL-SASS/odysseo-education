@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.10.0] – 2026-11-08 · Espace étudiant (odysseo-application)
+
+### Ajouté
+- **Espace étudiant privé** sur un sous-domaine dédié (`odysseo-application.vercel.app`, configurable par `PORTAL_HOSTNAME`), séparé du site public et de l'espace équipe : le middleware n'y sert que `/espace`, et `/espace` n'existe pas ailleurs. Jamais indexé.
+- **Comptes créés par l'équipe** depuis la fiche dossier (carte « Espace étudiant ») : accès **étudiant** et **parent(s)**, invitation par e-mail (FR/EN), « Renvoyer le lien », « Copier un lien » (pour WhatsApp), désactivation (déconnexion de tous les appareils).
+- **Connexion** : e-mail + mot de passe choisi via le lien d'activation (14 jours, usage unique), ou **Google** (OAuth fait côté serveur avec PKCE ; uniquement pour une adresse déjà invitée). Mot de passe oublié (lien 2 h), changement de mot de passe. Session propre à l'espace (cookie `odysseo_portal`, 90 jours), totalement distincte de celle de l'équipe. Limites d'essais en base.
+- **Suivi du dossier** : frise des 9 étapes, prochaine action, note du conseiller, offres recommandées anonymisées. L'étudiant et le parent sont prévenus (e-mail + notification) à chaque changement d'étape.
+- **Documents** : l'étudiant / le parent envoie ses pièces ; il ne voit que ses envois et les documents **approuvés** par l'équipe. Un document ajouté par l'équipe reste privé jusqu'à « Approuver et rendre visible » sur la fiche dossier (qui, quand). Accès journalisé.
+- **Messagerie** dossier ↔ équipe : fil dans l'espace et sur la fiche dossier (rafraîchi toutes les 15 s), lu / non lu, pastille dans le menu et la liste des candidatures. Alertes e-mail + notification dans les deux sens.
+- **Application installable « Mon dossier »** (logo blanc Odysseo sur fond noir, manifeste dédié), bouton d'installation, notifications sur le téléphone. Les appareils de l'espace ne reçoivent jamais les alertes de l'équipe.
+- Page Parents : mention de l'accès parent. Tests : visibilité des documents, isolement des domaines, règles du mot de passe.
+
+### Migration
+- `npm run db:push` (tables `portal_accounts`, `portal_tokens`, `portal_messages` + colonnes facultatives) — fait le 2026-11-08.
+
+### À configurer
+- Vercel : ajouter le domaine `odysseo-application.vercel.app` au projet.
+- Google Cloud : URI de redirection `https://odysseo-application.vercel.app/api/portal/oauth/google/callback`.
+
 ## [0.9.2] – 2026-11-08 · Retrait du suivi public
 
 ### Supprimé
