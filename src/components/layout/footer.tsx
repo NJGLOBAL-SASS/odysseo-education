@@ -49,6 +49,11 @@ export async function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/offres" className="text-texte hover:text-rouge">
+                  {tNav("offers")}
+                </Link>
+              </li>
+              <li>
                 <Link href="/services" className="text-texte hover:text-rouge">
                   {tNav("services")}
                 </Link>

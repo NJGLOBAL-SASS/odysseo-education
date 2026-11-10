@@ -12,6 +12,7 @@ import { LocaleSwitcher } from "./locale-switcher";
 const LINKS = [
   { href: "/", key: "home" },
   { href: "/cursus", key: "programs" },
+  { href: "/offres", key: "offers" },
   { href: "/services", key: "services" },
   { href: "/partenaires", key: "partners" },
   { href: "/faq", key: "faq" },

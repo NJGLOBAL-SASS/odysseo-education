@@ -84,6 +84,8 @@ const intakeBaseSchema = z.object({
 
   locale: z.enum(["fr", "en"]).default("fr"),
   srcParam: z.string().optional(),
+  /** Offre choisie sur /offres (PACK-03), ex. « MA-24 ». */
+  offerRef: z.string().trim().max(10).optional().catch(undefined),
 
   // Mesure des conversions (PACK-04) — jamais bloquant : une valeur invalide est ignorée.
   attribution: attributionSchema.nullish().catch(null),

@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.11.0] – 2026-11-10 · PACK-03 Pages offres publiques
+
+### Ajouté
+- **Catalogue `/offres`** : les 32 offres publiables du catalogue 2027 (jamais les offres « à vérifier »), noms d'universités masqués (« Université *** – lieu »). Filtres Niveau (boutons), Domaine et Ville, gardés dans l'URL (`?cycle=&famille=&ville=`). Tri : date limite la plus proche, puis allocation maximale. Page statique ; sans JavaScript, la liste complète s'affiche.
+- **Une page par offre `/offres/[ref]`** (ex. `/fr/offres/ma-24`, 64 pages statiques FR/EN) :
+  - bandeau référence, niveau, rentrée et date limite ;
+  - tableau (langue, durée, bourse, allocation, logement, conditions, date limite) ;
+  - filières regroupées par langue d'enseignement ;
+  - encadré « Pourquoi le nom de l'université n'est pas affiché ? » ;
+  - bouton « Vérifier mon éligibilité » et bouton WhatsApp avec la référence ;
+  - titre « Master boursier à Xi'an – MA-24 », image de partage propre à l'offre ;
+  - adresse en majuscules redirigée vers les minuscules ; référence inconnue ou non publiable → 404 avec un lien vers le catalogue.
+- **Formulaire** : `/postuler?ref=MA-24&level=master` pré-sélectionne le niveau, affiche « Offre choisie : MA-24 » et enregistre la référence dans le dossier (champ `offerRef` existant, affiché sur la fiche dossier). Aucune modification de la base.
+- **Accueil** : bloc « Offres à date limite proche » (3 offres, recalculé chaque jour). **Menu** : « Nos offres » / « Scholarships » entre « Nos cursus » et « Nos services », et dans le pied de page. **Sitemap** : catalogue et 32 offres.
+- Traduction anglaise des textes du catalogue : `data/offres/offres_2027_en.json` (à compléter quand le catalogue change). Libellés anglais des domaines.
+
+### Corrigé
+- Une référence d'offre dans `?ref=` ne remplace plus le code partenaire mémorisé : le parrainage (lien, cookie, session) reste attribué.
+
 ## [0.10.1] – 2026-11-09 · Page Parents retirée, invitation aux notifications
 
 ### Supprimé

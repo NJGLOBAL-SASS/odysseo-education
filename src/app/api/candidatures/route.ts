@@ -60,7 +60,8 @@ export async function POST(req: NextRequest) {
   const att = d.attribution ?? null;
   const cookieRef = req.cookies.get(REFERRAL_COOKIE)?.value;
   const firstTouchPartner = att?.partner || (att?.ref && !looksLikeOfferRef(att.ref) ? att.ref : undefined);
-  const srcParam = d.srcParam || cookieRef || firstTouchPartner || undefined;
+  // Une référence d'offre (?ref=MA-24) n'est jamais un code partenaire : elle ne masque pas le cookie.
+  const srcParam = (d.srcParam && !looksLikeOfferRef(d.srcParam) ? d.srcParam : undefined) || cookieRef || firstTouchPartner || undefined;
   const partner =
     (await findPartnerByCode(srcParam)) || (await findPartnerByCode(d.partnerDeclared));
 
@@ -149,7 +150,7 @@ export async function POST(req: NextRequest) {
       utmCampaign: att?.utm_campaign,
       utmContent: att?.utm_content,
       fbclid: att?.fbclid,
-      offerRef: [att?.ref, d.srcParam].find(looksLikeOfferRef)?.trim().toUpperCase(),
+      offerRef: [att?.ref, d.offerRef, d.srcParam].find(looksLikeOfferRef)?.trim().toUpperCase(),
       landingPage: att?.landingPage,
       firstVisitAt: att?.firstVisitAt && !Number.isNaN(Date.parse(att.firstVisitAt)) ? new Date(att.firstVisitAt) : undefined,
       marketingConsent: d.marketingConsent === true,

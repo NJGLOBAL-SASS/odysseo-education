@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
+import { ChevronLeft, ChevronRight, BadgeCheck, Tag } from "lucide-react";
 
 import { ProgressBar } from "./progress-bar";
 import { DoneScreen, type DoneResult } from "./done-screen";
@@ -13,7 +13,7 @@ import { StepValidation } from "./step-validation";
 import { validateStep } from "./validate-step";
 import { emptyDraft, type IntakeDraft, type StepErrors, type ReferralInfo } from "./types";
 import { Spinner } from "@/components/ui/spinner";
-import { getAttributionClient } from "@/lib/attribution";
+import { getAttributionClient, looksLikeOfferRef } from "@/lib/attribution";
 import { getMetaBrowserIds, hasMarketingConsent } from "@/lib/tracking/meta-pixel";
 import { trackFormStepView, trackFormSubmitSuccess } from "@/lib/tracking/events";
 
@@ -69,11 +69,16 @@ function clearDraft() {
   }
 }
 
-/** Code transmis par le lien de parrainage (?ref=), mémorisé pour toute la session. */
+/**
+ * Code transmis par le lien de parrainage (?ref=), mémorisé pour toute la session.
+ * Une référence d'offre (?ref=MA-24, page /offres) n'est pas un code partenaire : elle ne
+ * remplace pas le parrainage déjà mémorisé (voir readOfferFromUrl).
+ */
 function readReferralCode() {
   if (typeof window === "undefined") return "";
   const url = new URLSearchParams(window.location.search);
-  const fromUrl = (url.get("ref") || url.get("partenaire") || url.get("src") || "").trim();
+  const rawRef = (url.get("ref") || "").trim();
+  const fromUrl = ((looksLikeOfferRef(rawRef) ? "" : rawRef) || url.get("partenaire") || url.get("src") || "").trim();
   try {
     if (fromUrl) {
       sessionStorage.setItem(REF_STORAGE_KEY, fromUrl);
@@ -85,8 +90,35 @@ function readReferralCode() {
   }
 }
 
+const OFFER_STORAGE_KEY = "odysseo_offer";
+const URL_LEVELS: Record<string, string> = {
+  language: "language",
+  licence: "licence",
+  master: "master",
+  doctorat: "doctorat",
+  phd: "doctorat",
+};
+
+/** Offre choisie sur /offres (?ref=MA-24&level=master), mémorisée pour la session. */
+function readOfferFromUrl(): { offerRef: string; level: string | null } {
+  if (typeof window === "undefined") return { offerRef: "", level: null };
+  const url = new URLSearchParams(window.location.search);
+  const ref = (url.get("ref") || "").trim().toUpperCase();
+  const level = URL_LEVELS[(url.get("level") || "").toLowerCase()] ?? null;
+  try {
+    if (looksLikeOfferRef(ref)) {
+      sessionStorage.setItem(OFFER_STORAGE_KEY, ref);
+      return { offerRef: ref, level };
+    }
+    return { offerRef: sessionStorage.getItem(OFFER_STORAGE_KEY) || "", level };
+  } catch {
+    return { offerRef: looksLikeOfferRef(ref) ? ref : "", level };
+  }
+}
+
 export function IntakeForm() {
   const t = useTranslations("intake");
+  const tOffer = useTranslations("offers.form");
   const locale = useLocale();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<IntakeDraft>(emptyDraft);
@@ -97,6 +129,7 @@ export function IntakeForm() {
   const startedAt = useRef(Date.now());
   const [refCode, setRefCode] = useState("");
   const [referral, setReferral] = useState<ReferralInfo | null>(null);
+  const [offerRef, setOfferRef] = useState("");
   const draftRestored = useRef(false);
   const degreeOptions = t.raw("fields.degree.options") as string[];
 
@@ -108,6 +141,13 @@ export function IntakeForm() {
       setStep(draft.step);
     }
     draftRestored.current = true;
+  }, []);
+
+  // Offre choisie sur /offres : niveau pré-sélectionné (après le brouillon, qu'il remplace).
+  useEffect(() => {
+    const { offerRef: ref, level } = readOfferFromUrl();
+    setOfferRef(ref);
+    if (level) setData((d) => ({ ...d, targetLevel: level }));
   }, []);
 
   useEffect(() => {
@@ -191,6 +231,7 @@ export function IntakeForm() {
       ...data,
       locale,
       srcParam: refCode,
+      offerRef: offerRef || undefined,
       submissionDurationSec: Math.round((Date.now() - startedAt.current) / 1000),
       attribution,
       marketingConsent,
@@ -241,6 +282,13 @@ export function IntakeForm() {
           <span>
             {t("referral.banner", { name: referral.partnerName })}
           </span>
+        </div>
+      )}
+
+      {offerRef && (step === 0 || step === 2) && (
+        <div className="mt-2 flex items-center gap-2.5 rounded-brand border border-bord bg-white px-3.5 py-2.5 text-sm">
+          <Tag className="h-4 w-4 flex-shrink-0 text-rouge" />
+          <span>{tOffer.rich("selected", { ref: offerRef, b: (chunks) => <b>{chunks}</b> })}</span>
         </div>
       )}
 

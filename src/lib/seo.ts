@@ -18,7 +18,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 type L<T> = Record<Locale, T>;
 type PageSeo = { title: string; description: string };
 
-export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide";
+export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "offers";
 
 /** Chemins (sans préfixe de langue) des pages publiques. */
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
@@ -29,6 +29,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   apply: "/postuler",
   faq: "/faq",
   guide: "/guides/avant-le-depart",
+  offers: "/offres",
 };
 
 /** Pages légales : indexables (canonical + hreflang), titres repris des pages. */
@@ -137,6 +138,19 @@ export const PAGE_SEO: Record<PublicPage, L<PageSeo>> = {
       title: "Before leaving for China",
       description:
         "The complete checklist before leaving to study in China: hand-luggage documents, travel and arrival, money and phone, health. Tick it off and print it out.",
+    },
+  },
+  // PACK-03 : catalogue public des offres.
+  offers: {
+    fr: {
+      title: "Offres boursières en Chine – rentrée 2027",
+      description:
+        "Master et Doctorat boursiers en Chine pour la rentrée 2027 : scolarité offerte, allocation, logement, filières en anglais. Filtrez par domaine et par ville.",
+    },
+    en: {
+      title: "Scholarship offers in China – 2027 intake",
+      description:
+        "Scholarship Master's and PhD programmes in China for the 2027 intake: tuition covered, allowance, accommodation, English-taught programmes. Filter by field and city.",
     },
   },
 };
