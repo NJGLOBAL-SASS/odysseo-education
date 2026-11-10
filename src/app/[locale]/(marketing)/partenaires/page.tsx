@@ -1,7 +1,7 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { Link2, Gift, TrendingUp } from "lucide-react";
+import { ArrowRight, Link2, Gift, TrendingUp } from "lucide-react";
 
-import { PartnerApplicationForm } from "@/components/marketing/partner-application-form";
+import { Link } from "@/i18n/navigation";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
 import { publicPageMetadata } from "@/lib/seo";
 
@@ -12,6 +12,7 @@ export function generateMetadata({ params }: { params: { locale: string } }) {
 export default async function PartnersPublicPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
   const t = await getTranslations("partner");
+  const tApply = await getTranslations("partnerApply.v2");
   const isFr = params.locale === "fr";
 
   const steps = isFr
@@ -51,8 +52,11 @@ export default async function PartnersPublicPage({ params }: { params: { locale:
           ))}
         </div>
 
-        <div id="demande" className="mx-auto mt-12 max-w-2xl scroll-mt-6">
-          <PartnerApplicationForm />
+        <div id="demande" className="card mx-auto mt-12 max-w-2xl scroll-mt-6 p-6 text-center sm:p-8">
+          <p className="text-[15px] text-gris">{tApply("ctaText")}</p>
+          <Link href="/partenaires/inscription" className="btn-primary mx-auto mt-4 !w-auto px-6">
+            {tApply("cta")} <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </div>

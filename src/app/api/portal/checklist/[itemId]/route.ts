@@ -115,7 +115,7 @@ export async function POST(req: NextRequest, { params }: { params: { itemId: str
     if ((d.language === "fr" || d.language === "other") && !(await tx.translationTask.findFirst({ where: { itemId: item.id, doneAt: null } }))) {
       await tx.translationTask.create({ data: { candidateId: s.candidateId, itemId: item.id, language: d.language } });
     }
-  });
+  }, { timeout: 20_000 });
   await notifyDocs(s.candidate, s.name, `${item.labelFr} (${files.length} fichier${files.length > 1 ? "s" : ""})`);
   return json({ ok: true });
 }

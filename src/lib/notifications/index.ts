@@ -269,6 +269,9 @@ const PROFILE_LABELS: Record<string, { fr: string; en: string }> = {
   teacher: { fr: "Enseignant(e) / encadrant(e)", en: "Teacher / mentor" },
   agency: { fr: "Agence / consultant(e)", en: "Agency / consultant" },
   creator: { fr: "Créateur(trice) de contenu", en: "Content creator" },
+  counselor: { fr: "Conseiller(ère) d'orientation", en: "Guidance counsellor" },
+  alumni_china: { fr: "Ancien(ne) étudiant(e) en Chine", en: "Former student in China" },
+  association: { fr: "Association / école", en: "Association / school" },
   other: { fr: "Autre", en: "Other" },
 };
 
@@ -285,8 +288,8 @@ export async function notifyPartnerApplication(app: PartnerApplication) {
   const ackHtml = emailLayout({
     title: en ? `Thank you ${firstName}!` : `Merci ${firstName} !`,
     intro: en
-      ? "Your request to join the Odysseo Education partner program has been received. Our team reviews every request and will reply to you by email."
-      : "Votre demande pour rejoindre le programme partenaires d'Odysseo Education est bien enregistrée. Notre équipe étudie chaque demande et vous répondra par email.",
+      ? "Your request to join the Odysseo Education partner program has been received. Our team checks it within 48 hours and sends you your contract on WhatsApp and by email."
+      : "Votre demande pour rejoindre le programme partenaires d'Odysseo Education est bien enregistrée. Notre équipe la vérifie sous 48 h et vous envoie votre contrat sur WhatsApp et par e-mail.",
     bodyHtml: emailRows([
       [en ? "Name" : "Nom", app.fullName],
       ["WhatsApp", app.whatsapp],
@@ -305,7 +308,8 @@ export async function notifyPartnerApplication(app: PartnerApplication) {
       ["WhatsApp", app.whatsapp],
       ["Pays / ville", `${app.country}, ${app.city}`],
       ["Profil", partnerProfileLabel(app.profile)],
-    ])}<p style="margin:16px 0 4px;font-size:13px;color:#5B5B66">Motivation :</p>${textToHtml(app.motivation)}`,
+      ...(app.estimate ? [["Étudiants / an", app.estimate] as [string, string]] : []),
+    ])}${app.motivation ? `<p style="margin:16px 0 4px;font-size:13px;color:#5B5B66">Motivation :</p>${textToHtml(app.motivation)}` : ""}`,
     cta: { label: "Examiner la demande", url: teamUrl("/fr/dashboard/partenaires?onglet=demandes") },
   });
 
@@ -553,4 +557,61 @@ export async function notifyRetentionList(
   });
   const recipients = await staffEmailRecipients();
   await Promise.all(recipients.map((to) => deliver("EMAIL", to, () => sendEmail(to, subject, html), { subject })));
+}
+
+// ─── PACK-11 : contrat partenaire ───
+
+/** Lien de signature du contrat (objet « Votre contrat de partenariat Odysseo »). */
+export async function sendPartnerContractLink(app: PartnerApplication, link: string, note = "") {
+  const en = app.locale === "en";
+  const firstName = app.firstName || app.fullName.trim().split(/\s+/)[0] || "";
+  const subject = en ? "Your Odysseo partnership contract" : "Votre contrat de partenariat Odysseo";
+  const html = emailLayout({
+    title: en ? `Welcome, ${firstName}! 🎉` : `Bienvenue, ${firstName} ! 🎉`,
+    intro: en
+      ? "Your partnership request has been accepted. Read and sign your contract online (2 minutes): your referral link is activated as soon as it is signed."
+      : "Votre demande de partenariat est acceptée. Lisez et signez votre contrat en ligne (2 minutes) : votre lien de parrainage est activé dès la signature.",
+    bodyHtml: `${note.trim() ? textToHtml(note) : ""}<p style="margin:16px 0 0;font-size:12px;color:#5B5B66;word-break:break-all">${en ? "Direct link" : "Lien direct"} : ${escapeHtml(link)}</p>`,
+    cta: { label: en ? "Read and sign my contract" : "Lire et signer mon contrat", url: link },
+  });
+  return deliver("EMAIL", app.email, () => sendEmail(app.email, subject, html), { subject });
+}
+
+/** Code à usage unique pour signer. */
+export async function sendContractOtp(email: string, code: string, minutes: number, locale = "fr") {
+  const en = locale === "en";
+  const subject = en ? `Your signing code: ${code}` : `Votre code de signature : ${code}`;
+  const html = emailLayout({
+    title: en ? "Your signing code" : "Votre code de signature",
+    intro: en ? `Enter this code to sign your Odysseo partnership contract. It is valid for ${minutes} minutes.` : `Saisissez ce code pour signer votre contrat de partenariat Odysseo. Il est valable ${minutes} minutes.`,
+    bodyHtml: `<p style="margin:8px 0;font-size:32px;font-weight:800;letter-spacing:6px;color:#0B0B0D">${escapeHtml(code)}</p><p style="margin:0;font-size:13px;color:#5B5B66">${
+      en ? "If you did not request it, ignore this email." : "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail."
+    }</p>`,
+  });
+  return deliver("EMAIL", email, () => sendEmail(email, subject, html), { subject });
+}
+
+/** Contrat signé (PDF joint) au partenaire, copie à l'adresse de contact d'Odysseo. */
+export async function sendSignedContract(partner: Partner, number: string, pdf: Buffer, locale = "fr") {
+  const en = locale === "en";
+  const link = referralLink(partner.referralCode);
+  const portal = `${publicSiteUrl()}/${en ? "en" : "fr"}/espace-partenaire/${partner.referralCode}`;
+  const subject = en ? `Contract signed ✅ – your link is active (${number})` : `Contrat signé ✅ – votre lien est actif (${number})`;
+  const html = emailLayout({
+    title: en ? "Your contract is signed" : "Votre contrat est signé",
+    intro: en
+      ? "Thank you! Your signed contract is attached. Your referral link is now active: everyone who applies through it is credited to you."
+      : "Merci ! Votre contrat signé est en pièce jointe. Votre lien de parrainage est maintenant actif : chaque étudiant qui dépose son dossier depuis ce lien vous est attribué.",
+    bodyHtml: `${emailRows([
+      [en ? "Your code" : "Votre code", partner.referralCode],
+      [en ? "Your link" : "Votre lien", link],
+    ])}<p style="margin:16px 0 0;font-size:14px;color:#5B5B66">${en ? "Your partner area:" : "Votre espace partenaire :"} <a href="${escapeHtml(portal)}" style="color:#0B0B0D;font-weight:700">${escapeHtml(portal)}</a></p>`,
+    cta: { label: en ? "Open my link" : "Ouvrir mon lien", url: link },
+  });
+  const attachments = [{ name: `Contrat_${number}.pdf`, content: pdf.toString("base64") }];
+  const copyTo = process.env.CONTRACT_COPY_EMAIL || "contact.odysseo@gmail.com";
+  return Promise.all([
+    deliver("EMAIL", partner.email, () => sendEmail(partner.email, subject, html, { attachments }), { subject }),
+    deliver("EMAIL", copyTo, () => sendEmail(copyTo, `[Copie] Contrat ${number} signé — ${partner.fullName}`, html, { attachments }), { subject }),
+  ]);
 }

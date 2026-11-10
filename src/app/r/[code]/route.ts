@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
-import { findPartnerByCode } from "@/lib/points";
+import { findPartnerByCode, logBlockedAttribution } from "@/lib/points";
 import { locales, defaultLocale } from "@/i18n/config";
 import {
   REFERRAL_COOKIE,
@@ -21,6 +21,7 @@ export async function GET(req: NextRequest, { params }: { params: { code: string
   const partner = await findPartnerByCode(code);
   const userAgent = req.headers.get("user-agent");
 
+  if (!partner && !isLinkPreviewBot(userAgent)) await logBlockedAttribution(code, userAgent);
   if (partner && !isLinkPreviewBot(userAgent)) {
     await prisma.referralEvent.create({
       data: { partnerId: partner.id, type: "LINK_CLICK", userAgent: userAgent || undefined },

@@ -4,8 +4,9 @@ import QRCode from "qrcode";
 import { Trophy, Users, MousePointerClick } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
-import { findPartnerByCode } from "@/lib/points";
+import { findPartnerForSpace } from "@/lib/points";
 import { CopyLinkButton } from "@/components/dashboard/copy-link-button";
+import { EmailContractButton } from "@/components/contracts/email-contract-button";
 import { StatusBadge } from "@/components/dashboard/status-badge";
 import { referralLink } from "@/lib/referral";
 import { APP_TIME_ZONE } from "@/lib/utils";
@@ -17,7 +18,7 @@ export default async function PartnerStatsPage({
   params: { locale: string; code: string };
 }) {
   const t = await getTranslations("partner");
-  const partner = await findPartnerByCode(params.code);
+  const partner = await findPartnerForSpace(params.code);
   if (!partner) notFound();
 
   const [candidates, rank, clicks] = await Promise.all([
@@ -32,6 +33,11 @@ export default async function PartnerStatsPage({
     prisma.referralEvent.count({ where: { partnerId: partner.id, type: "LINK_CLICK" } }),
   ]);
 
+  const signedContract = await prisma.partnerContract.findFirst({
+    where: { partnerId: partner.id, signedAt: { not: null } },
+    orderBy: { signedAt: "desc" },
+    select: { number: true },
+  });
   const link = referralLink(partner.referralCode);
   const qr = await QRCode.toDataURL(link, { width: 280, margin: 1 });
 
@@ -39,6 +45,19 @@ export default async function PartnerStatsPage({
     <div>
       <h1 className="mb-1 text-2xl font-extrabold">{t("title")}</h1>
       <p className="mb-6 text-gris">{partner.fullName}</p>
+
+      {/* PACK-11 : lien inactif tant que le contrat n'est pas signé. */}
+      {(partner.contractStatus === "contrat_envoye" || partner.contractStatus === "lien_expire") && (
+        <p className="mb-6 rounded-brand border-l-[4px] border-rouge bg-[#FFEDED] p-4 text-[15px] font-semibold">
+          {t(partner.contractStatus === "contrat_envoye" ? "contract.contractPending" : "contract.contractExpired")}
+        </p>
+      )}
+      {signedContract && (
+        <div className="card mb-6 flex flex-wrap items-center justify-between gap-3 p-4">
+          <p className="text-sm font-semibold">{t("contract.contractNumber", { number: signedContract.number })}</p>
+          <EmailContractButton code={partner.referralCode} label={t("contract.emailContract")} doneLabel={t("contract.emailSent")} />
+        </div>
+      )}
 
       <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="card p-5">

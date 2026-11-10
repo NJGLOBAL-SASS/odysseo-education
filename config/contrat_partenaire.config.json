@@ -1,0 +1,100 @@
+{
+  "contrat_version": "1.0",
+  "date_version": "2026-11-08",
+  "modele": "content/contrats/contrat_partenaire_v1.fr.md",
+  "devise": "FCFA",
+  "prix_date": "04/11/2026",
+  "prix_services": {
+    "langue": 1500000,
+    "bachelor": 2900000,
+    "master": 3400000,
+    "phd": 3700000
+  },
+  "paliers": [
+    {
+      "id": "partenaire",
+      "libelle": "Partenaire",
+      "dossiers_min": 1,
+      "dossiers_max": 3,
+      "taux": 0.1
+    },
+    {
+      "id": "argent",
+      "libelle": "Argent",
+      "dossiers_min": 4,
+      "dossiers_max": 9,
+      "taux": 0.15
+    },
+    {
+      "id": "or",
+      "libelle": "Or",
+      "dossiers_min": 10,
+      "dossiers_max": null,
+      "taux": 0.2
+    }
+  ],
+  "fenetre_palier_mois": 12,
+  "prime_ouverture": 50000,
+  "repartition_reste": {
+    "etape_2_rendez_vous_visa": 0.5,
+    "etape_3_visa_obtenu": 0.5
+  },
+  "delai_paiement_jours": 7,
+  "attribution_mois": 12,
+  "duree_mois": 12,
+  "preavis_jours": 30,
+  "tribunal_ville": "Douala",
+  "fuseau": "Africa/Douala",
+  "fuseau_libelle": "Douala",
+  "lien_base": "https://odysseo-education.vercel.app/?ref=",
+  "lien_contrat_validite_jours": 14,
+  "otp": {
+    "canal_par_defaut": "email",
+    "canaux_disponibles": [
+      "email",
+      "whatsapp"
+    ],
+    "longueur": 6,
+    "validite_minutes": 10,
+    "tentatives_max": 5,
+    "renvois_max_par_heure": 3
+  },
+  "signataire_odysseo": {
+    "nom": "Dr Jiresse Nguetsa Kuate Loïc",
+    "fonction": "Fondateur",
+    "signature_image": "content/contrats/signature_fondateur.png",
+    "cachet_image": "content/contrats/cachet_odysseo.png"
+  },
+  "operateurs_paiement": [
+    "Orange Money",
+    "MTN Mobile Money",
+    "Wave",
+    "Moov Money",
+    "Airtel Money",
+    "Virement bancaire"
+  ],
+  "pays": [
+    "Cameroun",
+    "Gabon",
+    "Tchad",
+    "Côte d'Ivoire",
+    "Sénégal",
+    "Mali",
+    "Guinée",
+    "Congo",
+    "RD Congo",
+    "Bénin",
+    "Togo",
+    "Burkina Faso",
+    "Niger",
+    "Chine",
+    "Autre"
+  ],
+  "pieces_identite": [
+    "CNI",
+    "Passeport",
+    "Récépissé de CNI",
+    "Carte de séjour"
+  ],
+  "_note": "Lu côté serveur uniquement. Images de signature et de cachet hors de public/ : jamais servies telles quelles. Les prix doivent rester alignés sur src/lib/programs.ts (vérifié par un test)."
+}

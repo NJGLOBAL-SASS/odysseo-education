@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { intakeSchema, normalizePhone, ageFrom } from "@/lib/validations/intake";
 import { generateCandidateCode } from "@/lib/utils";
-import { findPartnerByCode, awardPoints, POINTS_RULES } from "@/lib/points";
+import { findPartnerByCode, awardPoints, logBlockedAttribution, POINTS_RULES } from "@/lib/points";
 import { notifyNewCandidate, notifyCandidateConfirmation } from "@/lib/notifications";
 import { appendCandidateRow } from "@/lib/google-sheets";
 import { REFERRAL_COOKIE } from "@/lib/referral";
@@ -64,6 +64,8 @@ export async function POST(req: NextRequest) {
   const srcParam = (d.srcParam && !looksLikeOfferRef(d.srcParam) ? d.srcParam : undefined) || cookieRef || firstTouchPartner || undefined;
   const partner =
     (await findPartnerByCode(srcParam)) || (await findPartnerByCode(d.partnerDeclared));
+  // PACK-11 : code d'un partenaire au contrat non signé → aucune attribution, événement journalisé.
+  if (!partner) await logBlockedAttribution(srcParam || d.partnerDeclared, req.headers.get("user-agent"));
 
   // "Autre" + précision : on garde la précision, sinon elle était perdue.
   const withOther = (value: string, other?: string) =>

@@ -63,7 +63,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       await logDocumentActivity(tx, { action: "UPLOAD", actor, folder, file, req });
     }
     await tx.checklistItem.update({ where: { id: item.id }, data: { folderId: folder.id, status: "a_valider", studentComment: null, submittedAt: new Date() } });
-  });
+  }, { timeout: 20_000 });
   notifyPortalAccounts(
     item.candidateId,
     "document",

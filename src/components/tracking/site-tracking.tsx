@@ -10,6 +10,9 @@ import { trackBrochureDownload, trackWhatsappClick } from "@/lib/tracking/events
 
 /** Pages qui déclenchent ViewContent : /fr/cursus/master, /en/offres/P-04 (PACK-03)... */
 const CONTENT_PAGE = /^\/(?:fr|en)\/(cursus|offres)\/([^/?#]+)/;
+/** Page de signature du contrat partenaire (PACK-11) : le jeton est dans l'URL, aucune mesure. */
+const PRIVATE_PAGE = /^\/(?:fr|en)\/partenaires\/contrat\//;
+const isPrivatePage = (path: string) => PRIVATE_PAGE.test(path);
 
 /**
  * Mesure du site public (PACK-04), montée dans le layout (marketing) :
@@ -23,6 +26,7 @@ export function SiteTracking() {
 
   // Consentement : au chargement, puis à chaque changement dans le bandeau.
   useEffect(() => {
+    if (isPrivatePage(window.location.pathname)) return;
     pixelReady.current = loadMetaPixel();
 
     function onConsentChanged() {
@@ -42,6 +46,7 @@ export function SiteTracking() {
 
   // Chaque page (y compris navigation côté client).
   useEffect(() => {
+    if (isPrivatePage(pathname)) return;
     captureAttributionClient();
     if (pixelReady.current) trackPage(pathname);
   }, [pathname]);

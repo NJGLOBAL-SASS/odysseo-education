@@ -1,5 +1,56 @@
 # Changelog
 
+## [0.13.0] – 2026-11-10 · PACK-11 Inscription partenaire, validation et contrat signé en ligne
+
+**Avant :** le partenaire déposait une demande courte sur `/partenaires` (nom, contact, profil, motivation). L'équipe l'acceptait dans le tableau de bord, et il recevait aussitôt son code et son lien de parrainage, actifs immédiatement.
+**Maintenant :** demande complète, confirmation par l'équipe, contrat généré avec ses informations et signé en ligne (case, nom, code à usage unique). Le lien de parrainage ne s'active qu'à la signature. Les 3 partenaires inscrits avant ce pack ne sont pas concernés (décision du fondateur) : statut « non_requis », lien inchangé.
+
+### Ajouté
+- **`/partenaires/inscription`** : prénom, nom, pays, ville, WhatsApp, e-mail, pièce d'identité (type + numéro), profil, réseaux, estimation, moyen et numéro de paiement (le WhatsApp par défaut), accord.
+  - Au plus 3 demandes par numéro et par IP sur 24 h.
+  - Une seule demande par numéro ou par e-mail.
+  - `/partenaires` garde sa présentation, avec un bouton vers ce formulaire.
+- **Tableau de bord → Partenaires → Demandes** :
+  - statuts : demande reçue / refusée / contrat envoyé / lien expiré / actif ;
+  - **Confirmer et envoyer le contrat** : code partenaire au format existant, contrat `ODY-P-AAAA-NNNN`, lien de signature valable 14 jours envoyé par e-mail ;
+  - **Refuser** ; **Modifier** (avant confirmation) ; **Renvoyer le lien** (l'ancien ne marche plus) ;
+  - **Ouvrir WhatsApp** avec le message prérempli ; **Télécharger le contrat signé** ;
+  - historique des statuts (date, auteur) ;
+  - « nouvelle version disponible » et **Demander la signature de la nouvelle version**.
+- **Page de signature `/partenaires/contrat/[jeton]`** :
+  - contrat rempli lisible sur mobile, avec le tableau des commissions calculé depuis la configuration (Master palier Argent = 510 000 FCFA) ;
+  - aperçu PDF avec le filigrane « APERÇU », sans la signature du fondateur ;
+  - case active seulement en bas du contrat ; nom identique à la demande (sans tenir compte des majuscules ni des accents) ;
+  - code à 6 chiffres par e-mail : valable 10 min, 5 essais, 3 envois par heure ;
+  - écran final avec le lien, le bouton Copier, le PDF signé (24 h) et l'accès au tableau de bord ;
+  - lien expiré ou déjà utilisé : page « Ce lien n'est plus valable ».
+  - Page jamais indexée, sans Meta Pixel ni mesure d'audience (le jeton est dans l'URL), sans « Referer ».
+- **PDF signé** (pdfkit, A4, 2 pages) :
+  - logo ; signature du fondateur et cachet superposé (rotation −8°, opacité 0,85) ;
+  - « Signé électroniquement par… le… · code confirmé sur… » ;
+  - pied de page « Contrat n° · version · empreinte · page X/Y ».
+  - Empreinte SHA-256 du contenu et du fichier.
+  - Envoyé par e-mail au partenaire, avec copie à contact.odysseo@gmail.com (`CONTRACT_COPY_EMAIL`).
+- **Preuve d'acceptation** (`partner_contract_acceptances`) : instantané des champs, nom saisi, canal et destination masquée, date, IP, navigateur, empreinte. Aucune modification ni suppression depuis l'interface.
+- **Attribution** : un code dont le contrat n'est pas signé n'attribue aucun étudiant (lien `/r/`, formulaire, cookie). L'événement `ATTRIBUTION_BLOCKED` est journalisé.
+- **Espace partenaire** : rappel « signez votre contrat » et « Recevoir mon contrat signé par e-mail ». Le PDF n'y est pas téléchargeable : la page s'ouvre avec le seul code, qui est public.
+
+### Sécurité et données
+- Signature du fondateur et cachet rangés dans `content/contrats/`, **hors de `public/`** : jamais servis par le site.
+- Tant que `content/contrats/signature_fondateur.png` manque, « Confirmer » affiche « Signature du fondateur manquante » et aucun contrat ne part.
+- Pièce d'identité et numéro de paiement : visibles seulement dans le tableau de bord et le PDF, jamais dans l'espace partenaire ni dans les e-mails d'alerte.
+- PDF signés stockés dans la base (jamais d'URL publique).
+- Configuration (`config/contrat_partenaire.config.json`) lue côté serveur uniquement. Un test vérifie que ses prix restent égaux à ceux des cursus.
+
+### Corrigé
+- Transactions de la base plus robustes quand la connexion est lente : la signature est groupée en un seul envoi, et les autres transactions ont un délai de 20 s.
+
+### Migration
+- `npm run db:push` : colonnes facultatives sur `partners` et `partner_applications`, tables `partner_contracts`, `partner_contract_otps`, `partner_contract_acceptances`, `partner_status_events`, valeur `ATTRIBUTION_BLOCKED`. Fait le 2026-11-10 ; ajouts uniquement.
+
+### À fournir
+- `content/contrats/signature_fondateur.png` (scan PNG, fond transparent, 600 px de large minimum), à ajouter au dépôt.
+
 ## [0.12.0] – 2026-11-10 · PACK-10 Espace dossier (rapport, validation, documents)
 
 Adapté aux décisions du fondateur : tout se passe dans l'**espace étudiant existant** (pas de lien magique ni de code à 4 chiffres) ; le **nom réel de l'université** n'apparaît jamais automatiquement ; le **parent** ne voit que l'état des documents.

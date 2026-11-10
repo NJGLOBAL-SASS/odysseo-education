@@ -2,6 +2,13 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+const CONTRACT_FILES = [
+  "./content/contrats/**/*",
+  "./src/assets/fonts/*.ttf",
+  "./public/images/logo/logo-full-black-tight.png",
+  "./node_modules/pdfkit/js/data/**/*",
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -43,6 +50,11 @@ const nextConfig = {
     // ...et on force l'inclusion des polices dans la fonction serverless Vercel.
     outputFileTracingIncludes: {
       "/api/export/[resource]": ["./node_modules/pdfkit/js/data/**/*"],
+      // PACK-11 : contrat partenaire (modèle, signature et cachet privés, polices, logo, pdfkit).
+      "/api/partner-contract/**/*": CONTRACT_FILES,
+      "/api/partner-applications/[id]": CONTRACT_FILES,
+      "/api/partners/[id]/contract": CONTRACT_FILES,
+      "/[locale]/partenaires/contrat/[token]": CONTRACT_FILES,
     },
   },
 };

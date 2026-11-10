@@ -1,3 +1,4 @@
+import { ATTRIBUTING_CONTRACT_STATUSES } from "@/lib/contracts/rules";
 import type { CandidatePipelineStatus, PointsReason, Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
@@ -116,10 +117,27 @@ export async function syncCandidatePoints(
   });
 }
 
-/** Retrouve un partenaire actif à partir d'un code de parrainage saisi ou transmis en URL. */
+/**
+ * Retrouve un partenaire qui peut recevoir des étudiants : actif ET contrat signé
+ * (ou inscrit avant le contrat en ligne). PACK-11 : un contrat non signé n'attribue rien.
+ */
 export async function findPartnerByCode(code: string | null | undefined) {
   if (!code) return null;
   return prisma.partner.findFirst({
-    where: { referralCode: code.trim().toUpperCase(), status: "ACTIVE" },
+    where: { referralCode: code.trim().toUpperCase(), status: "ACTIVE", contractStatus: { in: ATTRIBUTING_CONTRACT_STATUSES } },
   });
+}
+
+/** Espace partenaire : le partenaire quel que soit l'état de son contrat. */
+export async function findPartnerForSpace(code: string | null | undefined) {
+  if (!code) return null;
+  return prisma.partner.findFirst({ where: { referralCode: code.trim().toUpperCase(), status: "ACTIVE" } });
+}
+
+/** Code d'un partenaire existant mais qui ne peut pas attribuer : journalisé pour l'équipe, rien d'autre. */
+export async function logBlockedAttribution(code: string | null | undefined, userAgent?: string | null) {
+  if (!code) return;
+  const partner = await prisma.partner.findFirst({ where: { referralCode: code.trim().toUpperCase() }, select: { id: true, status: true, contractStatus: true } });
+  if (!partner || (partner.status === "ACTIVE" && ATTRIBUTING_CONTRACT_STATUSES.includes(partner.contractStatus))) return;
+  await prisma.referralEvent.create({ data: { partnerId: partner.id, type: "ATTRIBUTION_BLOCKED", userAgent: userAgent || undefined } }).catch(() => undefined);
 }

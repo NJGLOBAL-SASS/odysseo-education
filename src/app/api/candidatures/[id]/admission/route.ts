@@ -114,7 +114,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       });
       await tx.candidate.update({ where: { id: candidate.id }, data: advance(candidate, "ouvert", now) });
       await ensureChecklist(candidate.id, tx);
-    });
+    }, { timeout: 20_000 });
     notifyPortalAccounts(
       candidate.id,
       "report",
