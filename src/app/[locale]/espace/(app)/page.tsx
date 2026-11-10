@@ -10,6 +10,9 @@ import { getOffer } from "@/lib/matching/catalogue";
 import { toPublicRecommendation } from "@/lib/matching/public-offer";
 import type { StoredRecommendation } from "@/lib/matching/types";
 import { StageTimeline } from "@/components/portal/stage-timeline";
+import { ReportOfferCard } from "@/components/portal/report-offer-card";
+import { toPortalReport } from "@/lib/admission/server";
+import { ClipboardCheck } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +31,8 @@ export default async function PortalHomePage({ params }: { params: { locale: str
   const studentFirst = firstNameOf(c.fullName);
 
   // Offres recommandées (PACK-02) : champs publics seulement, jamais l'université réelle.
+  const report = toPortalReport(await prisma.admissionReport.findUnique({ where: { candidateId: session.candidateId } }), locale);
+  const tReport = await getTranslations("portal.report");
   const offers = ((Array.isArray(c.recommendations) ? c.recommendations : []) as unknown as StoredRecommendation[])
     .map((r) => {
       const o = getOffer(r.ref);
@@ -45,6 +50,22 @@ export default async function PortalHomePage({ params }: { params: { locale: str
         <p className="text-[13px] text-gris">{t("updated", { date: dateFmt.format(c.stageUpdatedAt ?? c.createdAt) })}</p>
       </div>
 
+      {report && (
+        <Link
+          href="/espace/rapport"
+          className={`flex items-start gap-3 rounded-brand p-5 ${report.validatedCurrent || report.paymentReceived ? "card hover:ring-1 hover:ring-noir" : "bg-rouge text-white"}`}
+        >
+          <ClipboardCheck className="mt-0.5 h-6 w-6 flex-shrink-0" />
+          <span className="flex-1">
+            <b className="block text-[17px]">{tReport("homeCard")}</b>
+            <span className="text-[14px] opacity-90">
+              {report.validatedCurrent || report.paymentReceived ? tReport("homeCardValidated") : tReport("homeCardText")}
+            </span>
+          </span>
+          <ArrowRight className="mt-1 h-5 w-5" />
+        </Link>
+      )}
+
       <StageTimeline stage={c.stage} history={normalizeHistory(c.stageHistory, c.createdAt)} locale={locale} />
 
       {c.publicNote && (
@@ -54,7 +75,22 @@ export default async function PortalHomePage({ params }: { params: { locale: str
         </div>
       )}
 
-      {offers.length > 0 && (
+      {report && report.offers.length > 0 && (
+        <section aria-labelledby="offers-title" className="space-y-2">
+          <h2 id="offers-title" className="px-1 text-lg font-extrabold">
+            {tReport("offersTitle")}
+          </h2>
+          <ul className="space-y-2">
+            {report.offers.map((o) => (
+              <li key={o.ref}>
+                <ReportOfferCard offer={o} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {!report && offers.length > 0 && (
         <section aria-labelledby="offers-title" className="space-y-2">
           <div className="px-1">
             <h2 id="offers-title" className="text-lg font-extrabold">

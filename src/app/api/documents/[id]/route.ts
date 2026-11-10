@@ -23,8 +23,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   const body = patchSchema.safeParse(await req.json().catch(() => ({})));
   if (!body.success) return NextResponse.json({ error: "invalid" }, { status: 400 });
 
-  const existing = await prisma.documentFolder.findUnique({ where: { id: params.id } });
+  const existing = await prisma.documentFolder.findUnique({ where: { id: params.id }, include: { checklistItem: { select: { id: true } } } });
   if (!existing) return NextResponse.json({ error: "notFound" }, { status: 404 });
+  // Lot de la checklist (PACK-10) : géré depuis « Rapport et documents » (jamais partagé au parent).
+  if (existing.checklistItem) return NextResponse.json({ error: "invalid" }, { status: 400 });
   if (body.data.kind && !documentKinds(existing.candidateId ? "candidate" : "internal").includes(body.data.kind)) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }

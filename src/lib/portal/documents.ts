@@ -5,7 +5,8 @@ import type { DocumentFile, DocumentFolder, Prisma } from "@prisma/client";
  * depuis l'espace (étudiant ou parent) OU approuvé par l'équipe (visibleToCandidate).
  */
 export function portalFolderWhere(candidateId: string): Prisma.DocumentFolderWhereInput {
-  return { candidateId, OR: [{ visibleToCandidate: true }, { uploadedByPortalId: { not: null } }] };
+  // Les lots de la checklist (PACK-10) ont leur propre affichage et leurs propres règles (parent exclu).
+  return { candidateId, checklistItem: { is: null }, OR: [{ visibleToCandidate: true }, { uploadedByPortalId: { not: null } }] };
 }
 
 export function canPortalSeeFolder(folder: Pick<DocumentFolder, "candidateId" | "visibleToCandidate" | "uploadedByPortalId">, candidateId: string) {

@@ -1,5 +1,57 @@
 # Changelog
 
+## [0.12.0] – 2026-11-10 · PACK-10 Espace dossier (rapport, validation, documents)
+
+Adapté aux décisions du fondateur : tout se passe dans l'**espace étudiant existant** (pas de lien magique ni de code à 4 chiffres) ; le **nom réel de l'université** n'apparaît jamais automatiquement ; le **parent** ne voit que l'état des documents.
+
+### Ajouté
+- **Rapport d'admissibilité** (fiche dossier → « Rapport et documents ») :
+  - 2 à 4 offres du catalogue (pré-remplies avec les recommandations), ordre, rôle, commentaire de 500 caractères, cursus facturé ;
+  - « Publier le rapport » : notification e-mail + push, étape « Rapport d'admissibilité envoyé » ;
+  - message WhatsApp à copier, toujours en français.
+- **Espace étudiant, page « Mon rapport »** :
+  - offres anonymisées, tarif et échéancier lus depuis les données des cursus ;
+  - case des conditions générales et « Je valide mon dossier » (étudiant seulement) ;
+  - date, IP et version enregistrées ; étape « Dossier validé ».
+  - Un rapport republié doit être revalidé.
+- **Révélation du nom de l'université**, offre par offre, par l'équipe : au moment d'un entretien, d'une pré-admission ou d'une admission. Avant, toujours « Université *** – ville ».
+- **« Paiement tranche 1 reçu »** (montant + date saisis à la main) : étape « Dossier ouvert », la checklist est générée.
+- **Checklist** depuis `data/documents/documents_requis.json` :
+  - base par cycle + ajouts et notes selon les offres (ex. MA-21 : vidéo de présentation, relevé bancaire obligatoire) ;
+  - groupes « À fournir maintenant », « Plus tard » et « Préparés par Odysseo ».
+- **Onglet Documents (étudiant)** :
+  - progression et prochaine date limite ;
+  - par document : « Prendre une photo » ou « Choisir un fichier » ; photos réduites à 2 000 px avant l'envoi ; formats et taille contrôlés ;
+  - langue du document (français / autre → tâche « Traduction » pour l'équipe) ;
+  - date d'expiration du passeport, avec une alerte à moins de 6 mois après la rentrée ;
+  - formulaire des 2 enseignants recommandants ;
+  - commentaire « À refaire » bien visible ;
+  - documents préparés par Odysseo : « Je valide » ou « Demander une modification » ;
+  - accord de conservation demandé avant le premier envoi.
+- **Parent** : progression et état de chaque document seulement (ni fichier, ni aide, ni commentaire). Il ne peut ni valider ni envoyer.
+- **Stockage** :
+  - privé (Vercel Blob), chemin `documents/espace/checklist/{code}/{document}/{AAAAMMJJ-HHMMSS}-{n}.{ext}`, sans le nom d'origine ;
+  - type réel vérifié par signature : un « .exe » renommé est refusé et supprimé ;
+  - fichiers servis uniquement par des routes authentifiées et journalisés.
+- **Équipe** :
+  - valider / « À refaire » avec commentaire, retirer / remettre, document libre, dépôt des documents préparés ;
+  - aperçu et téléchargement ; « Télécharger tout (ZIP) » avec des noms `NOM_Prenom_Document_n.ext` ;
+  - liste des traductions à cocher ;
+  - messages WhatsApp à copier : documents à refaire, documents à relire, relance ;
+  - compteur des documents à vérifier dans le menu et dans la liste des dossiers ;
+  - alerte e-mail + push au plus une fois par heure et par dossier.
+- **Conservation** : 12 mois après la fin du dossier (clos ou arrivé).
+  - Tâche mensuelle (`vercel.json`, `/api/cron/retention`, protégée par `CRON_SECRET`) qui envoie la liste à l'équipe.
+  - Suppression par un administrateur depuis la fiche dossier.
+  - Politique de confidentialité mise à jour (FR/EN).
+- Deux étapes ajoutées à la frise : « Rapport d'admissibilité envoyé » et « Dossier validé », entre « Analyse du profil » et « Dossier ouvert ».
+
+### Migration
+- `npm run db:push` : tables `admission_reports`, `checklist_items`, `translation_tasks`. Fait le 2026-11-10 ; ajouts uniquement.
+
+### À configurer
+- Vercel : variable `CRON_SECRET` (sinon la tâche mensuelle est refusée).
+
 ## [0.11.0] – 2026-11-10 · PACK-03 Pages offres publiques
 
 ### Ajouté

@@ -19,7 +19,8 @@ export async function GET(req: NextRequest) {
 
   const candidateId = req.nextUrl.searchParams.get("candidateId");
   const folders = await prisma.documentFolder.findMany({
-    where: { candidateId: candidateId || null },
+    // Lots de la checklist (PACK-10) : affichés dans le bloc « Rapport et documents ».
+    where: { candidateId: candidateId || null, checklistItem: { is: null } },
     orderBy: { createdAt: "desc" },
     include: folderInclude,
   });

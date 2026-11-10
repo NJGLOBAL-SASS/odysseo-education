@@ -19,6 +19,10 @@ import { TrackingEditor } from "@/components/dashboard/tracking-editor";
 import { PortalAccess } from "@/components/dashboard/portal-access";
 import { ChatThread } from "@/components/portal/chat-thread";
 import { ALL_STAGES, firstNameOf, normalizeHistory } from "@/lib/tracking-stages";
+import { AdmissionPanel } from "@/components/dashboard/admission-panel";
+import { listOffers } from "@/lib/matching/catalogue";
+import { portalUrl } from "@/lib/portal/host";
+import { retentionExpired } from "@/lib/admission/retention";
 
 function Row({ label, value }: { label: string; value?: string | number | null }) {
   if (value === null || value === undefined || value === "") return null;
@@ -95,6 +99,16 @@ export default async function CandidateDetailPage({ params }: { params: { locale
     date: dateOnly.format(new Date(h.date)),
   }));
   const recommendations = (Array.isArray(candidate.recommendations) ? candidate.recommendations : []) as unknown as StoredRecommendation[];
+  // PACK-10 : rapport et checklist. Offres du catalogue avec la vraie université (équipe seulement).
+  const offerOptions = listOffers().map((o) => ({
+    ref: o.ref,
+    label: `${o.ref} · ${o.lieu_affiche} · ${o.cycle === "phd" ? "PhD" : "Master"}${getInternalOffer(o.ref) ? ` — ${getInternalOffer(o.ref)!.universite}` : ""}${o.publiable ? "" : " (à vérifier)"}`,
+  }));
+  const PROGRAM_BY_LEVEL: Record<string, string> = { language: "langue-chinoise", licence: "bachelor", master: "master", doctorat: "doctorat" };
+  const waAdmission = (await getTranslations({ locale: "fr", namespace: "dashboard.candidate.admission" })).raw("wa") as Record<
+    "report" | "payment" | "redo" | "prepared" | "reminder",
+    string
+  >;
 
   return (
     <div>
@@ -255,6 +269,26 @@ export default async function CandidateDetailPage({ params }: { params: { locale
               }
             />
           </Section>
+
+          <section className="card p-5">
+            <h2 className="section-title mb-1">{t("admission.title")}</h2>
+            <p className="mb-4 text-xs text-gris">{t("admission.intro")}</p>
+            <AdmissionPanel
+              candidateId={candidate.id}
+              code={candidate.code}
+              fullName={candidate.fullName}
+              firstName={firstNameOf(candidate.fullName)}
+              hasSpace={candidate.portalAccounts.some((a) => a.role === "STUDENT" && !a.disabledAt)}
+              offerOptions={offerOptions}
+              defaultOffers={recommendations.map((x) => ({ ref: x.ref, role: x.role }))}
+              defaultProgram={PROGRAM_BY_LEVEL[candidate.targetLevel] ?? "master"}
+              portalLink={portalUrl("/").replace(/\/+$/, "")}
+              advisorName={firstNameOf(session?.user?.name ?? "") || "L'équipe"}
+              wa={waAdmission}
+              purgeEligible={retentionExpired(candidate)}
+              isAdmin={session?.user?.role === "ADMIN"}
+            />
+          </section>
 
           <CandidateDocuments
             candidateId={candidate.id}

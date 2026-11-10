@@ -467,7 +467,7 @@ async function portalRecipients(candidateId: string): Promise<PortalRecipient[]>
 /** Alerte l'étudiant / le parent (e-mail + notification) : nouveau message, document, étape. */
 export async function notifyPortalAccounts(
   candidateId: string,
-  kind: "message" | "document" | "stage",
+  kind: "message" | "document" | "stage" | "report",
   detail: { fr: string; en: string },
   path: string,
   exceptAccountId?: string
@@ -478,6 +478,7 @@ export async function notifyPortalAccounts(
     message: { fr: "Nouveau message de l'équipe Odysseo", en: "New message from the Odysseo team" },
     document: { fr: "Nouveau document dans votre espace", en: "New document in your space" },
     stage: { fr: "Votre dossier avance", en: "Your application is moving forward" },
+    report: { fr: "Votre dossier Odysseo", en: "Your Odysseo application" },
   }[kind];
   await Promise.all([
     ...accounts.map((a) => {
@@ -503,15 +504,19 @@ export async function notifyPortalAccounts(
 /** Alerte l'équipe : message ou document reçu depuis l'espace étudiant. */
 export async function notifyTeamFromPortal(
   candidate: { id: string; code: string; fullName: string },
-  kind: "message" | "document",
+  kind: "message" | "document" | "validation",
   authorName: string,
   preview: string
 ) {
-  const subject =
-    kind === "message" ? `Nouveau message — ${candidate.fullName} (${candidate.code})` : `Nouveau document — ${candidate.fullName} (${candidate.code})`;
+  const TITLES = {
+    message: { subject: "Nouveau message", title: "Nouveau message dans l'espace étudiant" },
+    document: { subject: "Nouveau document", title: "Nouveau document envoyé" },
+    validation: { subject: "Dossier validé par l'étudiant", title: "Rapport validé dans l'espace étudiant" },
+  }[kind];
+  const subject = `${TITLES.subject} — ${candidate.fullName} (${candidate.code})`;
   const detailPath = `/fr/dashboard/candidatures/${candidate.id}`;
   const html = emailLayout({
-    title: kind === "message" ? "Nouveau message dans l'espace étudiant" : "Nouveau document envoyé",
+    title: TITLES.title,
     intro: `${authorName} · dossier ${candidate.code}`,
     bodyHtml: `<p style="margin:0;font-size:15px;color:#0B0B0D;white-space:pre-line">${escapeHtml(preview.slice(0, 600))}</p>`,
     cta: { label: "Ouvrir le dossier", url: teamUrl(detailPath) },
@@ -522,8 +527,30 @@ export async function notifyTeamFromPortal(
     deliver(
       "PUSH",
       "équipe",
-      () => sendPush({ title: kind === "message" ? "Nouveau message" : "Nouveau document", body: `${candidate.fullName} : ${preview.slice(0, 120)}`, url: detailPath }, { badge: true }),
+      () => sendPush({ title: TITLES.subject, body: `${candidate.fullName} : ${preview.slice(0, 120)}`, url: detailPath }, { badge: true }),
       { subject, candidateId: candidate.id }
     ),
   ]);
+}
+
+/** Tâche mensuelle de conservation (PACK-10) : dossiers dont les documents doivent être supprimés. */
+export async function notifyRetentionList(
+  list: { id: string; code: string; fullName: string; stageUpdatedAt: Date | null }[],
+  months: number,
+) {
+  const subject = `Conservation des documents : ${list.length} dossier${list.length > 1 ? "s" : ""} à traiter`;
+  const rows = list
+    .map(
+      (c) =>
+        `<li style="margin:0 0 6px"><a href="${teamUrl(`/fr/dashboard/candidatures/${c.id}`)}" style="color:#0B0B0D">${escapeHtml(c.fullName)} (${c.code})</a> — terminé le ${c.stageUpdatedAt?.toLocaleDateString("fr-FR") ?? "?"}</li>`,
+    )
+    .join("");
+  const html = emailLayout({
+    title: "Documents à supprimer",
+    intro: `Ces dossiers sont terminés depuis plus de ${months} mois. Ouvrez chaque fiche et utilisez « Supprimer tous les documents du dossier » (administrateur).`,
+    bodyHtml: `<ul style="margin:0;padding-left:18px;font-size:15px;color:#0B0B0D">${rows}</ul>`,
+    cta: { label: "Ouvrir les candidatures", url: teamUrl("/fr/dashboard/candidatures") },
+  });
+  const recipients = await staffEmailRecipients();
+  await Promise.all(recipients.map((to) => deliver("EMAIL", to, () => sendEmail(to, subject, html), { subject })));
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog, FolderOpen, MessageCircle } from "lucide-react";
+import { LayoutDashboard, Users, Handshake, Mail, Settings, X, UserCog, FolderOpen, MessageCircle, FileCheck2 } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -93,6 +93,14 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                     title={tRoot("candidate.portalMessages.title")}
                   >
                     <MessageCircle className="h-3 w-3" /> {counts.messages > 99 ? "99+" : counts.messages}
+                  </span>
+                )}
+                {item.key === "candidates" && (counts.documents ?? 0) > 0 && (
+                  <span
+                    className="flex h-5 items-center gap-1 rounded-full bg-white px-1.5 text-[11px] font-bold tabular-nums text-noir"
+                    title={tRoot("candidate.admission.toReview")}
+                  >
+                    <FileCheck2 className="h-3 w-3" /> {counts.documents > 99 ? "99+" : counts.documents}
                   </span>
                 )}
                 {count > 0 && (

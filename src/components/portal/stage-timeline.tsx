@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 import { STAGES, isParallelStage, type StageHistoryEntry } from "@/lib/tracking-stages";
 import { cn } from "@/lib/utils";
 
-/** Frise des 9 étapes (passées cochées, actuelle en rouge, suivantes grisées) ; statuts parallèles à la place. */
+/** Frise des étapes (passées cochées, actuelle en rouge, suivantes grisées) ; statuts parallèles à la place. */
 export async function StageTimeline({ stage, history, locale }: { stage: string; history: StageHistoryEntry[]; locale: string }) {
   const t = await getTranslations("suivi.stages");
   const tHome = await getTranslations("portal.home");

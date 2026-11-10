@@ -1,6 +1,6 @@
 {
   "name": "odysseo-platform",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -25,6 +25,7 @@
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "exceljs": "^4.4.0",
+    "fflate": "^0.8.2",
     "googleapis": "^144.0.0",
     "iconv-lite": "^0.7.3",
     "jose": "^5.9.6",

@@ -5,7 +5,7 @@ import { LegalPageShell, LegalSection } from "@/components/legal/legal-page-shel
 import { Link } from "@/i18n/navigation";
 import { legalPageMetadata } from "@/lib/seo";
 
-const LAST_UPDATED = { fr: "27 octobre 2026", en: "October 27, 2026" };
+const LAST_UPDATED = { fr: "10 novembre 2026", en: "November 10, 2026" };
 const CONTACT = "contact.odysseo@gmail.com";
 
 export function generateMetadata({ params }: { params: { locale: string } }) {
@@ -99,6 +99,11 @@ export default function PrivacyPolicyPage({ params }: { params: { locale: string
         <LegalSection title="5. How long we keep it">
           <ul>
             <li>Application data and related emails: for the duration of your application process, then for a reasonable follow-up and archiving period.</li>
+            <li>
+              Documents sent from your student space (passport, diplomas, transcripts…): stored privately, accessible only to the
+              Odysseo team and sent to universities and their partners for your application only. They are kept until 12 months
+              after your file is closed (or after your arrival in China), then deleted.
+            </li>
             <li>Partnership requests: for the duration of the partnership; declined requests for up to 12 months after the decision.</li>
             <li>Referral click logs: while the partner account exists.</li>
             <li>Newsletter: until you unsubscribe.</li>
@@ -220,6 +225,12 @@ export default function PrivacyPolicyPage({ params }: { params: { locale: string
       <LegalSection title="5. Durée de conservation">
         <ul>
           <li>Dossier de candidature et emails associés : pendant la durée de votre procédure, puis pendant une durée raisonnable de suivi et d'archivage.</li>
+          <li>
+            Documents envoyés depuis votre espace étudiant (passeport, diplômes, relevés…) : stockés de façon privée,
+            accessibles uniquement à l'équipe Odysseo et transmis aux universités et à leurs partenaires pour votre seule
+            candidature. Ils sont conservés jusqu'à 12 mois après la clôture de votre dossier (ou votre arrivée en Chine),
+            puis supprimés.
+          </li>
           <li>Demandes de partenariat : pendant toute la durée du partenariat ; demandes refusées jusqu'à 12 mois après la décision.</li>
           <li>Journal des clics de parrainage : tant que le compte partenaire existe.</li>
           <li>Newsletter : jusqu'à votre désinscription.</li>

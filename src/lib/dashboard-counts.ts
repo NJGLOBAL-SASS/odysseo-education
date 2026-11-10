@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma";
 
-/** messages : messages de l'espace étudiant non lus par l'équipe (tous dossiers). */
-export type DashboardCounts = { candidates: number; partnerRequests: number; newsletter: number; messages: number };
+/**
+ * messages : messages de l'espace étudiant non lus par l'équipe (tous dossiers).
+ * documents : documents de checklist reçus, pas encore vérifiés (PACK-10).
+ */
+export type DashboardCounts = { candidates: number; partnerRequests: number; newsletter: number; messages: number; documents: number };
 
 /**
  * Nouveautés d'un membre de l'équipe : dossiers et inscriptions newsletter depuis
@@ -15,15 +18,16 @@ export async function getDashboardCounts(userId: string): Promise<DashboardCount
   });
   const since = (d?: Date | null) => d ?? user?.createdAt ?? new Date(0);
 
-  const [candidates, partnerRequests, newsletter, messages] = await Promise.all([
+  const [candidates, partnerRequests, newsletter, messages, documents] = await Promise.all([
     prisma.candidate.count({ where: { createdAt: { gt: since(user?.candidatesSeenAt) } } }),
     prisma.partnerApplication.count({ where: { status: "PENDING" } }),
     prisma.newsletterSubscriber.count({ where: { createdAt: { gt: since(user?.newsletterSeenAt) } } }),
     prisma.portalMessage.count({ where: { authorType: { not: "TEAM" }, readByTeamAt: null } }),
+    prisma.checklistItem.count({ where: { status: "recu", removedAt: null } }),
   ]);
-  return { candidates, partnerRequests, newsletter, messages };
+  return { candidates, partnerRequests, newsletter, messages, documents };
 }
 
 export function badgeTotal(c: DashboardCounts) {
-  return c.candidates + c.partnerRequests + c.newsletter + (c.messages ?? 0);
+  return c.candidates + c.partnerRequests + c.newsletter + (c.messages ?? 0) + (c.documents ?? 0);
 }

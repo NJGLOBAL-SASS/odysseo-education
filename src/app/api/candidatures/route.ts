@@ -222,7 +222,12 @@ export async function GET(req: NextRequest) {
     include: {
       partner: { select: { fullName: true, referralCode: true } },
       // Messages de l'espace étudiant non lus par l'équipe (pastille dans la liste).
-      _count: { select: { portalMessages: { where: { authorType: { not: "TEAM" }, readByTeamAt: null } } } },
+      _count: {
+        select: {
+          portalMessages: { where: { authorType: { not: "TEAM" }, readByTeamAt: null } },
+          checklistItems: { where: { status: "recu", removedAt: null } },
+        },
+      },
     },
   });
 

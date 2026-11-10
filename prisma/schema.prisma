@@ -334,6 +334,9 @@ model Candidate {
   portalAccounts      PortalAccount[]
   portalMessages      PortalMessage[]
   documentActivities  DocumentActivity[]
+  admissionReport     AdmissionReport?
+  checklistItems      ChecklistItem[]
+  translationTasks    TranslationTask[]
 
   locale String @default("fr")
 
@@ -557,8 +560,10 @@ model DocumentFolder {
   uploadedByPortalId String?
   uploadedByPortal   PortalAccount? @relation(fields: [uploadedByPortalId], references: [id], onDelete: SetNull)
 
-  files      DocumentFile[]
-  activities DocumentActivity[]
+  files         DocumentFile[]
+  activities    DocumentActivity[]
+  // PACK-10 : lot rattaché à un document de la checklist (hors des listes de documents libres).
+  checklistItem ChecklistItem?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -621,4 +626,101 @@ model DocumentActivity {
   @@index([candidateId, createdAt])
   @@index([folderId, createdAt])
   @@map("document_activities")
+}
+
+// ─── PACK-10 : rapport d'admissibilité, validation et checklist de documents ───
+
+// Rapport publié dans l'espace étudiant (un par dossier, republiable : version +1).
+model AdmissionReport {
+  id          String    @id @default(cuid())
+  candidateId String    @unique
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  program     String // cursus facturé : langue-chinoise | bachelor | master | doctorat
+  offers      Json      @default("[]") // [{ ref, role, revealedAt?, revealReason? }] dans l'ordre choisi
+  comment     String?   @db.VarChar(500)
+  version     Int       @default(0) // +1 à chaque publication
+
+  publishedAt     DateTime?
+  publishedByName String?
+
+  // « Je valide mon dossier » (étudiant) : preuve horodatée.
+  validatedAt         DateTime?
+  validatedVersion    Int?
+  validatedIp         String?
+  validatedByPortalId String?
+
+  // Tranche 1 saisie par l'équipe : ouvre la checklist.
+  paymentReceivedAt     DateTime?
+  paymentAmount         Int? // FCFA
+  paymentRecordedByName String?
+
+  // Accord de conservation et de transmission des documents (avant le premier envoi).
+  documentsConsentAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admission_reports")
+}
+
+// Un document attendu pour le dossier (généré depuis data/documents/documents_requis.json).
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  key         String // clé du catalogue (passeport, photo…), « prep-cv » (préparé par Odysseo) ou « libre-… »
+  kind        String    @default("fichier") // fichier | formulaire | prepare
+  labelFr     String
+  labelEn     String
+  helpFr      String?   @db.Text
+  helpEn      String?   @db.Text
+  noteFr      String?   @db.Text // précision liée à l'offre (ex. relevé bancaire de 10 000 USD)
+  noteEn      String?   @db.Text
+  phase       String    @default("maintenant") // maintenant | plus_tard
+  required    Boolean   @default(true)
+  formats     String[] // extensions acceptées
+  maxMb       Int       @default(10)
+  sortOrder   Int       @default(0)
+
+  // fichier / formulaire : a_fournir → recu → valide | a_refaire
+  // prepare : en_preparation → a_valider → valide | modification_demandee
+  status           String    @default("a_fournir")
+  teamComment      String?   @db.Text // « Photo floue, reprenez à la lumière du jour »
+  studentComment   String?   @db.Text // demande de modification d'un document préparé
+  documentLanguage String? // fr | en | zh | other
+  passportExpiry   DateTime?
+  formData         Json? // recommandants : [{ nom, titre, etablissement, email, whatsapp }]
+
+  folderId String?         @unique
+  folder   DocumentFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+
+  submittedAt    DateTime?
+  reviewedAt     DateTime?
+  reviewedByName String?
+  removedAt      DateTime? // retiré par l'équipe (masqué, gardé pour l'historique)
+
+  translationTasks TranslationTask[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([candidateId, key])
+  @@index([status])
+  @@map("checklist_items")
+}
+
+// Document envoyé en français ou dans une autre langue : à traduire par l'équipe.
+model TranslationTask {
+  id          String        @id @default(cuid())
+  candidateId String
+  candidate   Candidate     @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  itemId      String
+  item        ChecklistItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  language    String // fr | other
+  doneAt      DateTime?
+  doneByName  String?
+  createdAt   DateTime      @default(now())
+
+  @@index([candidateId])
+  @@map("translation_tasks")
 }

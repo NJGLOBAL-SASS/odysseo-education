@@ -3,8 +3,8 @@
  * Libellés et « prochaine action » dans les messages i18n (clé "suivi.stages").
  */
 
-/** Frise, dans l'ordre. */
-export const STAGES = ["recu", "analyse", "ouvert", "documents", "depose", "admis", "visa", "depart", "arrive"] as const;
+/** Frise, dans l'ordre (PACK-10 : rapport envoyé et validation ajoutés entre analyse et ouvert). */
+export const STAGES = ["recu", "analyse", "rapport_envoye", "valide_attente_paiement", "ouvert", "documents", "depose", "admis", "visa", "depart", "arrive"] as const;
 /** Statuts parallèles, affichés à la place de la frise. */
 export const PARALLEL_STAGES = ["en_attente_etudiant", "clos"] as const;
 export const ALL_STAGES = [...STAGES, ...PARALLEL_STAGES] as const;

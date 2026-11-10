@@ -22,6 +22,11 @@ export function getOffer(ref: string) {
   return byRef.get(ref);
 }
 
+/** Toutes les offres du catalogue (équipe : choix des offres du rapport, PACK-10). */
+export function listOffers() {
+  return catalogue.offres;
+}
+
 export interface MatchingResult {
   /** null : niveau Langue / Licence, pas de recommandation automatique. */
   cycle: "master" | "phd" | null;

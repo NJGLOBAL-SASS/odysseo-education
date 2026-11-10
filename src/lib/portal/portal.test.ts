@@ -29,7 +29,12 @@ test("documents : l'étudiant voit ses envois et ce que l'équipe a approuvé, r
   assert.equal(canPortalSeeFolder({ ...base, visibleToCandidate: true }, "c1"), true, "approuvé par l'équipe");
   assert.equal(canPortalSeeFolder({ ...base, uploadedByPortalId: "acc1" }, "c1"), true, "envoyé depuis l'espace");
   assert.equal(canPortalSeeFolder({ ...base, visibleToCandidate: true }, "c2"), false, "jamais le dossier d'un autre");
-  assert.deepEqual(portalFolderWhere("c1"), { candidateId: "c1", OR: [{ visibleToCandidate: true }, { uploadedByPortalId: { not: null } }] });
+  // Les lots de la checklist (PACK-10) sont exclus : ils ont leur propre affichage, sans accès parent.
+  assert.deepEqual(portalFolderWhere("c1"), {
+    candidateId: "c1",
+    checklistItem: { is: null },
+    OR: [{ visibleToCandidate: true }, { uploadedByPortalId: { not: null } }],
+  });
 });
 
 test("documents : aucune URL de stockage ni membre de l'équipe renvoyés au navigateur", () => {
