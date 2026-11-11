@@ -164,18 +164,23 @@ function drawSignatures(doc: PDFKit.PDFDocument, s: SignatureInfo, config: Contr
 
   doc.font("B").fontSize(8.5).fillColor(ROUGE).text("POUR ODYSSEO", left + 10, y + 8);
   doc.font("B").fontSize(9).fillColor(NOIR).text(`${config.signataire_odysseo.nom}, ${config.signataire_odysseo.fonction.toLowerCase()}`, left + 10, y + 22, { width: half - 20 });
-  if (s.founderSignature) doc.image(s.founderSignature, left + 12, y + 42, { fit: [half * 0.5, 70] });
+  // Cachet et signature superposés (usage des documents officiels) : le cachet dessous, légèrement
+  // tourné, la signature du fondateur par-dessus, qui le traverse en biais.
+  const size = 104; // environ 3,7 cm
+  const cx = left + half / 2;
+  const cy = y + 40 + size / 2;
   if (s.stamp) {
-    // Cachet superposé : rotation −8°, opacité 0,85, environ 3,5 cm.
-    const size = 99;
-    const cx = left + half - size / 2 - 10;
-    const cy = y + boxH - size / 2 - 4;
     doc.save();
     doc.opacity(0.85);
     doc.rotate(-8, { origin: [cx, cy] });
     doc.image(s.stamp, cx - size / 2, cy - size / 2, { width: size, height: size });
     doc.restore();
     doc.opacity(1);
+  }
+  if (s.founderSignature) {
+    const sw = 150;
+    const sh = 96;
+    doc.image(s.founderSignature, cx - sw / 2 - 14, cy - sh / 2 + 4, { fit: [sw, sh], align: "center", valign: "center" });
   }
   if (preview && !s.founderSignature) doc.font("R").fontSize(8).fillColor(GRIS).text("Signature apposée à la signature du contrat.", left + 10, y + 60, { width: half - 20 });
 
