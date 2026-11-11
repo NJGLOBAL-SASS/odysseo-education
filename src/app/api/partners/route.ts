@@ -13,7 +13,11 @@ export async function GET() {
   const [partners, clicks] = await Promise.all([
     prisma.partner.findMany({
       orderBy: { pointsBalance: "desc" },
-      include: { _count: { select: { candidates: true } } },
+      include: {
+        _count: { select: { candidates: true } },
+        // Dernier contrat signé : téléchargeable depuis la liste (sans le PDF lui-même).
+        contracts: { where: { signedAt: { not: null } }, orderBy: { signedAt: "desc" }, take: 1, select: { id: true, number: true } },
+      },
     }),
     prisma.referralEvent.groupBy({
       by: ["partnerId"],
@@ -24,7 +28,7 @@ export async function GET() {
 
   const clicksByPartner = new Map(clicks.map((c) => [c.partnerId, c._count]));
   return NextResponse.json({
-    partners: partners.map((p) => ({ ...p, linkClicks: clicksByPartner.get(p.id) ?? 0 })),
+    partners: partners.map(({ contracts, ...p }) => ({ ...p, signedContract: contracts[0] ?? null, linkClicks: clicksByPartner.get(p.id) ?? 0 })),
   });
 }
 

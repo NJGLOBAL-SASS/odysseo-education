@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { CheckCircle2, Copy, Download, FileText, LayoutDashboard, PenLine } from "lucide-react";
+import { CheckCircle2, Copy, Download, FileText, LayoutDashboard, MessageCircle, PenLine } from "lucide-react";
 
 import { Spinner } from "@/components/ui/spinner";
+import { copyText } from "@/lib/copy-text";
 import { cn } from "@/lib/utils";
 
 type Done = { code: string; link: string; downloadToken: string; number: string };
@@ -26,6 +27,8 @@ export function ContractSignForm({ token, expectedName, otpMinutes, contract }: 
   const [error, setError] = useState("");
   const [done, setDone] = useState<Done | null>(null);
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const linkRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const el = boxRef.current;
@@ -87,18 +90,33 @@ export function ContractSignForm({ token, expectedName, otpMinutes, contract }: 
         <div>
           <p className="mb-1 text-[13px] font-bold uppercase tracking-wide text-gris">{t("yourLink")}</p>
           <div className="flex gap-2">
-            <input readOnly value={done.link} className="field-input min-w-0 flex-1 font-mono text-sm" onFocus={(e) => e.target.select()} />
+            <input ref={linkRef} readOnly value={done.link} className="field-input min-w-0 flex-1 font-mono text-sm" onFocus={(e) => e.target.select()} />
             <button
               type="button"
               onClick={async () => {
-                await navigator.clipboard.writeText(done.link).catch(() => undefined);
-                setCopied(true);
+                const ok = await copyText(done.link);
+                setCopied(ok);
+                setCopyFailed(!ok);
+                if (!ok) {
+                  linkRef.current?.focus();
+                  linkRef.current?.setSelectionRange(0, done.link.length);
+                }
               }}
               className="btn-dark !w-auto px-4"
             >
               <Copy className="h-4 w-4" /> {copied ? t("copied") : t("copy")}
             </button>
           </div>
+          {copyFailed && <p className="mt-2 text-[14px] font-semibold text-rouge-fonce">{t("copyFailed")}</p>}
+          <p className="mt-2 text-[14px] text-gris">{t("linkHint")}</p>
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(t("shareMessage", { link: done.link }))}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-sm mt-3 inline-flex bg-[#1FAF55] text-white"
+          >
+            <MessageCircle className="h-4 w-4" /> {t("share")}
+          </a>
         </div>
         <div className="grid gap-2 sm:grid-cols-2">
           <a href={`/api/partner-contract/signed?token=${encodeURIComponent(done.downloadToken)}`} className="btn-ghost !min-h-[48px]">

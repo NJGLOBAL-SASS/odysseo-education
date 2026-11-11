@@ -17,6 +17,7 @@ import {
   Trash2,
   Inbox,
   Coins,
+  FileDown,
 } from "lucide-react";
 import QRCode from "qrcode";
 
@@ -34,7 +35,7 @@ import { PartnerApplications } from "./partner-applications";
 import { PartnerPointsDialog } from "./partner-points-dialog";
 import { useDashboardCounts } from "./dashboard-counts";
 
-type Row = PartnerExportRow & { linkClicks?: number };
+type Row = PartnerExportRow & { linkClicks?: number; signedContract?: { id: string; number: string } | null };
 
 function useCopy() {
   const [copied, setCopied] = useState<string | null>(null);
@@ -220,6 +221,7 @@ function EditPartnerDialog({ partner, onClose, onSaved }: { partner: Row; onClos
 export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: boolean; initialTab?: "partners" | "requests" }) {
   const t = useTranslations("dashboard.partners");
   const tc = useTranslations("dashboard.common");
+  const tk = useTranslations("dashboard.partners.contract");
   const toast = useToast();
   const { counts } = useDashboardCounts();
   const { data: partners, loading, isOffline, cachedAt, refresh } = useOfflineDataset<Row>("partenaires", "/api/partners", "partners");
@@ -470,6 +472,15 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
                               {copied === p.id ? <Check className="h-3.5 w-3.5 text-ok" /> : <Copy className="h-3.5 w-3.5" />}
                               {copied === p.id ? tc("copied") : t("linkButton")}
                             </button>
+                            {p.signedContract && (
+                              <a
+                                href={`/api/partner-contracts/${p.signedContract.id}`}
+                                className="btn-sm-ghost !min-h-[32px] !px-2.5 text-xs"
+                                title={`${tk("downloadSigned")} · ${p.signedContract.number}`}
+                              >
+                                <FileDown className="h-3.5 w-3.5" /> {tk("contract")}
+                              </a>
+                            )}
                             <button
                               onClick={() => {
                                 setCreated(null);
