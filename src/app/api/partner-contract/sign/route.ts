@@ -7,6 +7,7 @@ import { referralLink } from "@/lib/referral";
 import { sameName } from "@/lib/contracts/rules";
 import { CONTRACT_CONFIG, buildContractPdf, contractFromToken, logStatus, newFinalToken, otpHash } from "@/lib/contracts/service";
 import { sendSignedContract } from "@/lib/notifications";
+import { startPartnerSession } from "@/lib/partner-space/session";
 
 const schema = z.object({
   token: z.string().min(20).max(100),
@@ -89,6 +90,8 @@ export async function POST(req: NextRequest) {
     logStatus(prisma, { partnerId: partner.id, from: partner.contractStatus, to: newStatus, actor: "système", note: `Contrat ${contract.number} signé` }),
   ]);
 
+  // Signé avec le code reçu par e-mail : le partenaire est connecté à son espace (90 jours).
+  await startPartnerSession(partner.id).catch(() => undefined);
   sendSignedContract({ ...partner, contractStatus: newStatus }, contract.number, built.pdf, d.locale).catch((err) => console.error("[contrat] e-mail :", err));
   return NextResponse.json({ ok: true, code: partner.referralCode, link: referralLink(partner.referralCode), downloadToken: final.token, number: contract.number });
 }

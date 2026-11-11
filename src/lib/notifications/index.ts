@@ -591,6 +591,20 @@ export async function sendContractOtp(email: string, code: string, minutes: numb
   return deliver("EMAIL", email, () => sendEmail(email, subject, html), { subject });
 }
 
+/** Code à usage unique pour se connecter à l'espace partenaire. */
+export async function sendPartnerSpaceCode(email: string, code: string, minutes: number, locale = "fr") {
+  const en = locale === "en";
+  const subject = en ? `Your partner space code: ${code}` : `Votre code d'accès à l'espace partenaire : ${code}`;
+  const html = emailLayout({
+    title: en ? "Your access code" : "Votre code d'accès",
+    intro: en ? `Enter this code to open your Odysseo partner space. It is valid for ${minutes} minutes.` : `Saisissez ce code pour ouvrir votre espace partenaire Odysseo. Il est valable ${minutes} minutes.`,
+    bodyHtml: `<p style="margin:8px 0;font-size:32px;font-weight:800;letter-spacing:6px;color:#0B0B0D">${escapeHtml(code)}</p><p style="margin:0;font-size:13px;color:#5B5B66">${
+      en ? "If you did not request it, ignore this email: nobody can open your space without this code." : "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail : personne ne peut ouvrir votre espace sans ce code."
+    }</p>`,
+  });
+  return deliver("EMAIL", email, () => sendEmail(email, subject, html), { subject });
+}
+
 /** Contrat signé (PDF joint) au partenaire, copie à l'adresse de contact d'Odysseo. */
 export async function sendSignedContract(partner: Partner, number: string, pdf: Buffer, locale = "fr") {
   const en = locale === "en";
