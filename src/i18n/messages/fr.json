@@ -411,7 +411,31 @@
       "pts": "{count} pts",
       "via": "via {name}",
       "pendingRequests": "{count, plural, one {# demande de partenariat attend} other {# demandes de partenariat attendent}} une réponse",
-      "review": "Examiner"
+      "review": "Examiner",
+      "links": {
+        "title": "Page liens",
+        "hint": "Bios TikTok et Facebook · {count} clic(s) sur 30 jours",
+        "byButton": "Par bouton",
+        "bySource": "Par source",
+        "d7": "7 j",
+        "d30": "30 j",
+        "empty": "Aucun clic sur 30 jours.",
+        "unavailable": "Suivi indisponible : la table link_clicks n'existe pas encore (npm run db:push).",
+        "buttons": {
+          "analyse": "Analyse de profil",
+          "chaine": "Chaîne WhatsApp",
+          "groupe": "Groupe WhatsApp",
+          "conseiller": "Conseiller",
+          "partenaire": "Devenir partenaire"
+        },
+        "sources": {
+          "tiktok": "TikTok",
+          "facebook": "Facebook",
+          "whatsapp": "WhatsApp",
+          "autre": "Autre",
+          "direct": "Direct"
+        }
+      }
     },
     "candidates": {"documentsToReview": "Documents \u00e0 v\u00e9rifier", 
       "eyebrow": "Suivi",

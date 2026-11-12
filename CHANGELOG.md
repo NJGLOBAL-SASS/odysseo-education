@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.14.0] – 2026-11-12 · Page `/liens` (lien unique des bios)
+
+**Avant :** un seul lien cliquable dans les bios TikTok et Facebook, qui menait à une seule page.
+**Maintenant :** `/liens` regroupe tous les liens Odysseo sur une page légère pensée pour le mobile, et chaque clic est compté par bouton et par réseau d'origine.
+
+### Ajouté
+- **`/liens`** (statique, 480 px max, logo Odysseo, sans en-tête du site, ni bandeau cookies, ni Meta Pixel) :
+  - 🎓 Analyse de profil gratuite → `/postuler` (bouton principal rouge) ;
+  - 📢 Chaîne WhatsApp, 👥 Groupe Odysseo, 💬 Parler à un conseiller (message prérempli « Bonjour Odysseo, je viens de votre page liens ») ;
+  - 🤝 Devenir partenaire → `/partenaires/inscription` ;
+  - pied de page Facebook · TikTok, © Odysseo Education ;
+  - boutons de 50 px minimum, `aria-label` sans emoji, liens externes en nouvel onglet ;
+  - titre « Odysseo Education — Liens », description et image de partage du site.
+- **Suivi des clics** : paramètre `?src=` (`tiktok`, `facebook`, `whatsapp`, `autre` ; `direct` par défaut, valeur inconnue → `autre`), envoyé par `navigator.sendBeacon` à `POST /api/link-click` : l'ouverture du lien n'attend pas. Seuls le bouton, la source et la date sont stockés (table `link_clicks`). Au plus 30 clics par IP sur 10 min (empreinte seulement, jamais l'IP en clair).
+- **Tableau de bord → Vue d'ensemble** : carte « Page liens », clics par bouton et par source sur 7 et 30 jours.
+
+### Liens à mettre dans les bios
+- TikTok : `https://odysseo-education.vercel.app/liens?src=tiktok`
+- Facebook : `https://odysseo-education.vercel.app/liens?src=facebook`
+
+### Migration
+- `npm run db:push` : nouvelle table `link_clicks` (ajout uniquement). Tant qu'elle manque, la page fonctionne, les clics ne sont pas comptés et la carte affiche « Suivi indisponible ».
+
 ## [0.13.0] – 2026-11-10 · PACK-11 Inscription partenaire, validation et contrat signé en ligne
 
 **Avant :** le partenaire déposait une demande courte sur `/partenaires` (nom, contact, profil, motivation). L'équipe l'acceptait dans le tableau de bord, et il recevait aussitôt son code et son lien de parrainage, actifs immédiatement.

@@ -9,6 +9,7 @@ import { APP_TIME_ZONE } from "@/lib/utils";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { StatusBadge, STATUS_LABELS_FR, STATUS_LABELS_EN } from "@/components/dashboard/status-badge";
 import { TrendChart, BarList } from "@/components/dashboard/charts";
+import { LinkClicksCard } from "@/components/dashboard/link-clicks-card";
 
 const DAY = 24 * 60 * 60 * 1000;
 const PIPELINE = Object.keys(STATUS_LABELS_FR);
@@ -226,6 +227,8 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
           <BarList emptyLabel={t("noData")} total={total} rows={byCountry.map((c) => ({ label: c.country, value: c._count }))} />
         </Card>
       </div>
+
+      <LinkClicksCard />
 
       <div className="grid gap-6 xl:grid-cols-3">
         <section className="card overflow-hidden xl:col-span-2">

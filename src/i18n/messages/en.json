@@ -411,7 +411,31 @@
       "pts": "{count} pts",
       "via": "via {name}",
       "pendingRequests": "{count, plural, one {# partnership request is} other {# partnership requests are}} awaiting a reply",
-      "review": "Review"
+      "review": "Review",
+      "links": {
+        "title": "Links page",
+        "hint": "TikTok and Facebook bios · {count} click(s) over 30 days",
+        "byButton": "By button",
+        "bySource": "By source",
+        "d7": "7 d",
+        "d30": "30 d",
+        "empty": "No clicks over 30 days.",
+        "unavailable": "Tracking unavailable: the link_clicks table does not exist yet (npm run db:push).",
+        "buttons": {
+          "analyse": "Profile assessment",
+          "chaine": "WhatsApp channel",
+          "groupe": "WhatsApp group",
+          "conseiller": "Advisor",
+          "partenaire": "Become a partner"
+        },
+        "sources": {
+          "tiktok": "TikTok",
+          "facebook": "Facebook",
+          "whatsapp": "WhatsApp",
+          "autre": "Other",
+          "direct": "Direct"
+        }
+      }
     },
     "candidates": {"documentsToReview": "Documents to check", 
       "eyebrow": "Tracking",

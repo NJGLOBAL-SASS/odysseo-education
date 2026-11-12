@@ -836,3 +836,18 @@ model PartnerStatusEvent {
   @@index([applicationId])
   @@map("partner_status_events")
 }
+
+// ============================================================
+// PAGE /liens (lien unique des bios TikTok / Facebook) — v0.14.0
+// Un clic = un bouton + une source (?src=). Aucune donnée personnelle.
+// ============================================================
+
+model LinkClick {
+  id        String   @id @default(cuid())
+  bouton    String // analyse | chaine | groupe | conseiller | partenaire
+  src       String // tiktok | facebook | whatsapp | autre | direct
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("link_clicks")
+}
