@@ -52,10 +52,28 @@ export default async function PartnersPublicPage({ params }: { params: { locale:
           ))}
         </div>
 
-        <div id="demande" className="card mx-auto mt-12 max-w-2xl scroll-mt-6 p-6 text-center sm:p-8">
+        <div
+          id="demande"
+          className="card mx-auto mt-12 max-w-2xl scroll-mt-6 p-6 text-center sm:p-8"
+        >
           <p className="text-[15px] text-gris">{tApply("ctaText")}</p>
-          <Link href="/partenaires/inscription" className="btn-primary mx-auto mt-4 !w-auto px-6">
+          <Link
+            href="/partenaires/inscription"
+            className="btn-primary mx-auto mt-4 !w-auto px-6"
+          >
             {tApply("cta")} <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <div
+          id="demande"
+          className="card mx-auto mt-12 max-w-2xl scroll-mt-6 p-6 text-center sm:p-8"
+        >
+          <p className="text-[15px] text-gris">{tApply("spaceText")}</p>
+          <Link
+            href="/espace-partenaire"
+            className="btn-primary mx-auto mt-4 !w-auto px-6"
+          >
+            {tApply("spacecta")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
