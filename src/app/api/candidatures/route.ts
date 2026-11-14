@@ -99,6 +99,7 @@ export async function POST(req: NextRequest) {
       originalDiplomas: d.originalDiplomas === "yes",
       country: d.country,
       fundingPlan: d.fundingPlan,
+      highestDegree: d.highestDegree,
     },
     d.locale,
   );

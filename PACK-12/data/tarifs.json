@@ -1,0 +1,94 @@
+{
+ "meta": {
+  "version": "2026-11-04",
+  "devise": "FCFA",
+  "source": "Charte Odysseo, grille validée le 25/10/2026, échéanciers et remboursements validés le 04/11/2026"
+ },
+ "cursus": {
+  "langue": {
+   "libelle": "Langue chinoise",
+   "prix": 1500000,
+   "versements": [
+    150000,
+    450000,
+    450000,
+    450000
+   ]
+  },
+  "bachelor": {
+   "libelle": "Bachelor (licence)",
+   "prix": 2900000,
+   "versements": [
+    200000,
+    1000000,
+    850000,
+    850000
+   ]
+  },
+  "mbbs": {
+   "libelle": "Médecine (MBBS)",
+   "prix": null,
+   "versements": null,
+   "sur_devis": true,
+   "texte_rapport": "Le tarif de l'accompagnement en médecine (MBBS) est établi sur devis, selon votre dossier. Votre conseiller vous le communique sur WhatsApp."
+  },
+  "master": {
+   "libelle": "Master",
+   "prix": 3400000,
+   "versements": [
+    250000,
+    1000000,
+    1075000,
+    1075000
+   ]
+  },
+  "phd": {
+   "libelle": "Doctorat (PhD)",
+   "prix": 3700000,
+   "versements": [
+    300000,
+    1250000,
+    1075000,
+    1075000
+   ]
+  }
+ },
+ "etapes_versements": [
+  {
+   "n": 1,
+   "libelle": "Ouverture du dossier",
+   "regle": "Lance l'étude complète et les candidatures. Non remboursable."
+  },
+  {
+   "n": 2,
+   "libelle": "Caution",
+   "regle": "Remboursée sous 30 jours si aucune admission avec bourse n'est obtenue après les 3 candidatures."
+  },
+  {
+   "n": 3,
+   "libelle": "Avant la procédure de visa",
+   "regle": "Payé seulement après réception de l'Admission Notice et du JW202."
+  },
+  {
+   "n": 4,
+   "libelle": "Après le visa",
+   "regle": "Dû uniquement quand le visa est obtenu, au plus tard 7 jours après."
+  }
+ ],
+ "inclus": [
+  "Analyse de profil gratuite",
+  "Jusqu'à 3 candidatures, frais de candidature des universités pris en charge",
+  "Traduction de vos documents en anglais",
+  "Accompagnement pour le visa",
+  "Accueil à l'aéroport et transfert jusqu'à l'université",
+  "Équipement de base de la chambre (matelas, draps, vaisselle…)"
+ ],
+ "non_inclus": [
+  "Billet d'avion",
+  "Frais consulaires du visa",
+  "Traductions assermentées et légalisations",
+  "Assistance au test d'anglais (option : 80 000 FCFA)"
+ ],
+ "moyens_paiement": "[MOYENS DE PAIEMENT À COMPLÉTER : Orange Money, MTN MoMo, virement…]",
+ "validite_rapport_jours": 7
+}

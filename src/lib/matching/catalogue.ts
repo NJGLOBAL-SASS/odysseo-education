@@ -6,15 +6,17 @@
 import "server-only";
 
 import catalogueJson from "../../../data/offres/offres_2027.json";
-import { profilDepuisCandidature, type CandidateForMatching } from "./profil";
+import { profilDepuisCandidature, profilMarsDepuisCandidature, type CandidateForMatching } from "./profil";
 import { toPublicRecommendation } from "./public-offer";
 import { recommander } from "./recommander";
+import { recommanderMars } from "./recommanderMars";
 import type { Offer, OfferCatalogue, PublicRecommendation, StoredRecommendation } from "./types";
 
 const catalogue = catalogueJson as unknown as OfferCatalogue;
 
-/** Version du moteur enregistrée avec le dossier : celle du catalogue (meta.version). */
+/** Version du catalogue enregistrée avec le dossier (meta.version). */
 export const MOTEUR_VERSION = catalogue.meta.version;
+export const CATALOGUE_VERSION = catalogue.meta.version;
 
 const byRef = new Map<string, Offer>(catalogue.offres.map((o) => [o.ref, o]));
 
@@ -28,14 +30,44 @@ export function listOffers() {
 }
 
 export interface MatchingResult {
-  /** null : niveau Langue / Licence, pas de recommandation automatique. */
-  cycle: "master" | "phd" | null;
+  /** Moteur utilisé : PACK-02 (master / phd), PACK-12 (langue / licence) ; null si aucun. */
+  cycle: "master" | "phd" | "langue" | "licence" | null;
   stored: StoredRecommendation[];
   offers: PublicRecommendation[];
+  /** PACK-12 : Bachelor proposé en plus à un profil Langue qui a le bac. */
+  proposerBachelor?: string | null;
+  /** PACK-12 : Licence impossible, offres de langue proposées à la place. */
+  repliLangue?: boolean;
 }
 
-/** Recommandations d'un dossier. Ne lève jamais (en cas d'erreur : aucune offre). */
-export function recommendForCandidate(c: CandidateForMatching, locale = "fr"): MatchingResult {
+/** Version du moteur enregistrée avec le brouillon de rapport. */
+export function moteurVersionFor(cycle: MatchingResult["cycle"]) {
+  return cycle === "langue" || cycle === "licence" ? "mars-2027.1" : "pack02-1";
+}
+
+/**
+ * Recommandations d'un dossier. Ne lève jamais (en cas d'erreur : aucune offre).
+ * `today` : date du jour (paramètre pour les tests et le recalcul d'un rapport).
+ */
+export function recommendForCandidate(c: CandidateForMatching, locale = "fr", today: Date = new Date()): MatchingResult {
+  const mars = profilMarsDepuisCandidature(c);
+  if (mars) {
+    try {
+      const r = recommanderMars(mars, catalogue.offres, today);
+      return {
+        cycle: mars.cycle_vise,
+        stored: r.recommandations,
+        offers: r.recommandations.map((x) =>
+          toPublicRecommendation(byRef.get(x.ref)!, { ref: x.ref, role: x.role, ville: byRef.get(x.ref)!.ville, total: 0, filieres_correspondantes: [] }, locale),
+        ),
+        proposerBachelor: r.proposer_bachelor,
+        repliLangue: r.repli_langue,
+      };
+    } catch (err) {
+      console.error("[matching] échec (mars) :", err);
+      return { cycle: mars.cycle_vise, stored: [], offers: [] };
+    }
+  }
   const profil = profilDepuisCandidature(c);
   if (!profil) return { cycle: null, stored: [], offers: [] };
   try {

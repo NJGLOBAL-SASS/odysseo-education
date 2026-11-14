@@ -2,6 +2,10 @@
  * Correspondance dossier (colonnes PACK-01, voir src/lib/qualification.ts) → profil
  * du moteur (PACK-02). Module pur, partagé par l'API et les tests.
  */
+import fr from "../../i18n/messages/fr.json";
+import en from "../../i18n/messages/en.json";
+import { DOMAINE_VERS_FAMILLES } from "./recommander";
+import type { MarsCycle, MarsProfile } from "./recommanderMars";
 import type { EnglishProfile, MatchingProfile, ResearchCycle as Cycle } from "./types";
 
 /** Valeurs du dossier utiles au moteur (noms des colonnes Prisma de Candidate). */
@@ -18,6 +22,8 @@ export interface CandidateForMatching {
   originalDiplomas?: boolean | null;
   country?: string | null;
   fundingPlan?: string | null;
+  /** Libellé du diplôme le plus élevé (FR ou EN, éventuellement « Autre : … »). PACK-12. */
+  highestDegree?: string | null;
 }
 
 const CYCLES: Record<string, Cycle> = { master: "master", doctorat: "phd" };
@@ -56,5 +62,44 @@ export function profilDepuisCandidature(c: CandidateForMatching): MatchingProfil
     financement: (c.fundingPlan && FUNDING[c.fundingPlan]) || null,
     // L'offre OMM est proposée par un conseiller, jamais automatiquement.
     eligible_omm: false,
+  };
+}
+
+// ── PACK-12 : Langue / Licence (moteur de mars 2027) ──────────────────────────
+
+const MARS_CYCLES: Record<string, MarsCycle> = { language: "langue", licence: "licence" };
+
+/** Cycle du moteur de mars, ou null (Master / Doctorat : moteur PACK-02). */
+export function marsCycleFor(targetLevel: string): MarsCycle | null {
+  return MARS_CYCLES[targetLevel] ?? null;
+}
+
+/**
+ * Bac ou plus : Bac / GCE A Level, BTS / HND / DUT, Licence, Master, Doctorat
+ * (index 1 à 5 des options du formulaire). Probatoire et « Autre » : non.
+ */
+export function aLeBac(highestDegree?: string | null): boolean {
+  if (!highestDegree) return false;
+  const idx = [fr, en]
+    .map((m) => (m.intake.fields.degree.options as string[]).indexOf(highestDegree.trim()))
+    .find((i) => i >= 0);
+  return idx !== undefined && idx >= 1 && idx <= 5;
+}
+
+/** Domaines du formulaire → familles du catalogue (sans doublon, dans l'ordre). */
+export function famillesDepuisDomaines(domaines: string[]): string[] {
+  return [...new Set(domaines.flatMap((d) => DOMAINE_VERS_FAMILLES[d] ?? []))];
+}
+
+export function profilMarsDepuisCandidature(c: CandidateForMatching): MarsProfile | null {
+  const cycle = marsCycleFor(c.targetLevel);
+  if (!cycle) return null;
+  return {
+    cycle_vise: cycle,
+    age: c.age ?? 0,
+    familles: famillesDepuisDomaines(c.studyFields ?? []),
+    hsk: c.hskLevel ?? null,
+    a_le_bac: aLeBac(c.highestDegree),
+    funding: (c.fundingPlan && FUNDING[c.fundingPlan]) || null,
   };
 }

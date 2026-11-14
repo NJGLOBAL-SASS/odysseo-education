@@ -1,0 +1,1276 @@
+{
+ "meta": {
+  "version": "2027.03-v1",
+  "mise_a_jour": "2026-11-14",
+  "source": "Catalogue Odysseo (ODY-12)",
+  "devise": "RMB",
+  "note": "Montants indicatifs communiqués par les universités, sous réserve de confirmation à l'admission."
+ },
+ "familles_nouvelles": [
+  {
+   "slug": "langue-chinoise",
+   "libelle_fr": "Langue chinoise"
+  },
+  {
+   "slug": "medecine-sante",
+   "libelle_fr": "Médecine & santé"
+  }
+ ],
+ "offres": [
+  {
+   "ref": "L-01",
+   "cycle": "langue",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-03",
+   "date_limite": null,
+   "langue": "Chinois",
+   "duree": "Année préparatoire (Foundation)",
+   "bourse_texte": "Année préparatoire enseignée en chinois. Scolarité + logement : 9 000 RMB/an.",
+   "allocation_texte": "1 000 RMB/mois",
+   "logement_texte": null,
+   "conditions_texte": "Candidatures pas encore ouvertes.",
+   "arguments": [
+    "Allocation de 1 000 RMB/mois",
+    "Parmi les programmes de langue les moins chers"
+   ],
+   "allocation_min_rmb_mois": 1000,
+   "allocation_max_rmb_mois": 1000,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_min": 17,
+    "age_max": 22
+   },
+   "cout_annuel_rmb": 9000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-02",
+   "cycle": "langue",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-03",
+   "date_limite": null,
+   "langue": "Anglais",
+   "duree": "Année préparatoire (Foundation)",
+   "bourse_texte": "Année préparatoire enseignée en anglais. Scolarité + logement : 12 000 RMB/an.",
+   "allocation_texte": "1 000 RMB/mois",
+   "logement_texte": null,
+   "conditions_texte": "Candidatures pas encore ouvertes.",
+   "arguments": [
+    "Allocation de 1 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1000,
+   "allocation_max_rmb_mois": 1000,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_min": 17,
+    "age_max": 22
+   },
+   "cout_annuel_rmb": 12000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-03",
+   "cycle": "langue",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-10",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 12 000 RMB/an. Logement : 7 500 RMB/an.",
+   "allocation_texte": "1 000 RMB/mois",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Allocation de 1 000 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 1000,
+   "allocation_max_rmb_mois": 1000,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 19500,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-04",
+   "cycle": "langue",
+   "ville": "Nanning",
+   "province": "Guangxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanning (Guangxi)",
+   "rentree": "2027-03",
+   "date_limite": null,
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité + logement : 8 350 RMB/an.",
+   "allocation_texte": "2 000 – 4 000 RMB/an selon les résultats",
+   "logement_texte": null,
+   "conditions_texte": "Date limite à confirmer.",
+   "arguments": [
+    "Allocation : 2 000 – 4 000 RMB/an selon les résultats",
+    "Parmi les programmes de langue les moins chers"
+   ],
+   "allocation_min_rmb_mois": 167,
+   "allocation_max_rmb_mois": 333,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 8350,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": null,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-05",
+   "cycle": "langue",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-03",
+   "date_limite": null,
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 7 000 RMB/an. Logement : 3 000 RMB/an (chambre double).",
+   "allocation_texte": "Bourse au mérite : 10 000, 5 000 ou 3 000 RMB/an selon la catégorie",
+   "logement_texte": null,
+   "conditions_texte": "Candidatures pas encore ouvertes.",
+   "arguments": [
+    "Allocation : Bourse au mérite : 10 000, 5 000 ou 3 000 RMB/an selon la catégorie",
+    "Parmi les programmes de langue les moins chers"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 833,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 25
+   },
+   "cout_annuel_rmb": 10000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": null,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-06",
+   "cycle": "langue",
+   "ville": "Wuhan",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Hubei)",
+   "rentree": "2027-03",
+   "date_limite": null,
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 7 000 RMB/an. Logement : 4 000 RMB/an (chambre double).",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": "Candidatures pas encore ouvertes.",
+   "arguments": [],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 11000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": null,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-07",
+   "cycle": "langue",
+   "ville": "Nanchong",
+   "province": "Sichuan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanchong (Sichuan)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-30",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité + logement : 7 600 RMB/semestre.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Ouvert jusqu'à 35 ans"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 35
+   },
+   "cout_annuel_rmb": 15200,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 600,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-08",
+   "cycle": "langue",
+   "ville": "Harbin",
+   "province": "Heilongjiang",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Harbin (Heilongjiang)",
+   "rentree": "2027-03",
+   "date_limite": "2027-02-28",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 7 300 RMB/semestre. Logement : 800 RMB/mois (chambre double).",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Ouvert jusqu'à 40 ans",
+    "Université de premier rang en Chine"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 40
+   },
+   "cout_annuel_rmb": 24200,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-09",
+   "cycle": "langue",
+   "ville": "Weihai",
+   "province": "Shandong",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Weihai (Shandong)",
+   "rentree": "2027-03",
+   "date_limite": "2027-02-28",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 7 300 RMB/semestre. Logement : 800 RMB/mois (chambre double).",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Ouvert jusqu'à 40 ans",
+    "Université de premier rang en Chine"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 40
+   },
+   "cout_annuel_rmb": 24200,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-10",
+   "cycle": "langue",
+   "ville": "Harbin",
+   "province": "Heilongjiang",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Harbin (Heilongjiang)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-10",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 9 000 RMB/an. Logement : 2 000 RMB/semestre.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 13000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-11",
+   "cycle": "langue",
+   "ville": "Shenyang",
+   "province": "Liaoning",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Shenyang (Liaoning)",
+   "rentree": "2027-03",
+   "date_limite": "2027-02-28",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 11 000 RMB/an. Logement : 225 RMB/mois.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Ouvert jusqu'à 35 ans"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 35
+   },
+   "cout_annuel_rmb": 13700,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 800,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-12",
+   "cycle": "langue",
+   "ville": "Qujing",
+   "province": "Yunnan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Qujing (Yunnan)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-30",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 9 000 RMB/an. Logement : 1 600 RMB/an.",
+   "allocation_texte": "300 – 400 RMB/mois",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Allocation : 300 – 400 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 300,
+   "allocation_max_rmb_mois": 400,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 28
+   },
+   "cout_annuel_rmb": 10600,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-13",
+   "cycle": "langue",
+   "ville": "Nanjing",
+   "province": "Jiangsu",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Nanjing (Jiangsu)",
+   "rentree": "2027-03",
+   "date_limite": null,
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 7 500 RMB/semestre. Logement : 500 RMB/semestre.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": "Candidatures pas encore ouvertes.",
+   "arguments": [
+    "Ouvert jusqu'à 35 ans"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 35
+   },
+   "cout_annuel_rmb": 16000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-14",
+   "cycle": "langue",
+   "ville": "Haikou",
+   "province": "Hainan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Haikou (Hainan)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-30",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 4 410 RMB/semestre. Logement : 175 RMB/mois.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [
+    "Ouvert jusqu'à 35 ans"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 35,
+    "reserve_asie": true
+   },
+   "cout_annuel_rmb": 10920,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "non_eligible_afrique",
+   "publiable": false
+  },
+  {
+   "ref": "L-15",
+   "cycle": "langue",
+   "ville": "Chongqing",
+   "province": "Chongqing",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Chongqing",
+   "rentree": "2027-03",
+   "date_limite": "2026-12-30",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité + logement : 6 000 RMB/semestre.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": "Acompte de préadmission à verser après l'admission provisoire.",
+   "arguments": [
+    "Ouvert jusqu'à 35 ans"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 35
+   },
+   "cout_annuel_rmb": 12000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 800,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-16",
+   "cycle": "langue",
+   "ville": "Shenyang",
+   "province": "Liaoning",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Shenyang (Liaoning)",
+   "rentree": "2027-03",
+   "date_limite": "2026-12-25",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 10 000 RMB/an. Logement : 3 500 – 4 000 RMB/an.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 14000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 1000,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "L-17",
+   "cycle": "langue",
+   "ville": "Wuhan (Wuchang)",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Wuchang) (Hubei)",
+   "rentree": "2027-03",
+   "date_limite": "2026-12-30",
+   "langue": "Chinois",
+   "duree": null,
+   "bourse_texte": "Scolarité : 15 000 RMB/an. Logement : 4 000 RMB/an.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "langue-chinoise"
+   ],
+   "filieres": [
+    {
+     "nom": "Chinese Language",
+     "famille": "langue-chinoise"
+    }
+   ],
+   "criteres": {
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 19000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-01",
+   "cycle": "bachelor",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-03",
+   "date_limite": "2026-11-28",
+   "langue": "Anglais",
+   "duree": "0,5 + 4 ans (langue de mars à septembre, puis licence)",
+   "bourse_texte": "Type A : scolarité gratuite + logement gratuit. Type B : scolarité gratuite, logement 3 750 RMB/an. Type C : 50 % de la scolarité et 50 % du logement offerts.",
+   "allocation_texte": "1 500 RMB/mois (1re année)",
+   "logement_texte": null,
+   "conditions_texte": "Semestre de chinois de mars à septembre : 7 500 RMB (scolarité + logement), à la charge de l'étudiant.",
+   "arguments": [
+    "Allocation de 1 500 RMB/mois (1re année)",
+    "Scolarité et logement gratuits possibles (type A)",
+    "Pas de chinois exigé : 6 mois de langue sur place, puis la licence"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 1500,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "informatique-ia-electronique-telecoms",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Civil Engineering / Marketing",
+     "famille": "aeronautique-genie-civil-architecture-transports"
+    },
+    {
+     "nom": "Petroleum Engineering",
+     "famille": "petrole-geologie-mines-securite"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Resources and Exploration Engineering",
+     "famille": "petrole-geologie-mines-securite"
+    },
+    {
+     "nom": "Offshore Oil and Gas Engineering",
+     "famille": "petrole-geologie-mines-securite"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 25
+   },
+   "cout_annuel_rmb": 0,
+   "frais_langue_rmb": 7500,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-02",
+   "cycle": "bachelor",
+   "ville": "Pékin",
+   "province": "Beijing",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Pékin (Beijing)",
+   "rentree": "2027-03",
+   "date_limite": "2027-03-30",
+   "langue": "Anglais",
+   "duree": "0,5 + 4 ans (langue de mars à septembre, puis licence)",
+   "bourse_texte": "Scolarité gratuite. Logement : 750 RMB/mois.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": "Semestre de chinois de mars à septembre : 9 000 RMB (scolarité + logement).",
+   "arguments": [
+    "Pas de chinois exigé : 6 mois de langue sur place, puis la licence"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": true,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "genie-mecanique-electrique-energie-automatique"
+   ],
+   "filieres": [
+    {
+     "nom": "Electrical Engineering & Automation",
+     "famille": "genie-mecanique-electrique-energie-automatique"
+    },
+    {
+     "nom": "Mechanical Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique"
+    },
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce"
+    },
+    {
+     "nom": "New Energy Science and Engineering",
+     "famille": "genie-mecanique-electrique-energie-automatique"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 22
+   },
+   "cout_annuel_rmb": 9000,
+   "frais_langue_rmb": 9000,
+   "frais_candidature_rmb": null,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-03",
+   "cycle": "bachelor",
+   "ville": "Xi'an",
+   "province": "Shaanxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xi'an (Shaanxi)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-10",
+   "langue": "Chinois",
+   "duree": "0,5 + 4 ans",
+   "bourse_texte": "Type A : scolarité gratuite + logement gratuit. Type B : scolarité gratuite, logement 3 750 RMB/an. Type C : 50 % de la scolarité et 50 % du logement offerts.",
+   "allocation_texte": "1 500 RMB/mois (1re année)",
+   "logement_texte": null,
+   "conditions_texte": "Licence enseignée en chinois, HSK 3 exigé. Semestre de chinois de mars à septembre : 7 500 RMB.",
+   "arguments": [
+    "Allocation de 1 500 RMB/mois (1re année)",
+    "Scolarité et logement gratuits possibles (type A)",
+    "Pas de chinois exigé : 6 mois de langue sur place, puis la licence"
+   ],
+   "allocation_min_rmb_mois": 1500,
+   "allocation_max_rmb_mois": 1500,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "or",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "informatique-ia-electronique-telecoms",
+    "petrole-geologie-mines-securite"
+   ],
+   "filieres": [
+    {
+     "nom": "Civil Engineering / Marketing",
+     "famille": "aeronautique-genie-civil-architecture-transports"
+    },
+    {
+     "nom": "Petroleum Engineering",
+     "famille": "petrole-geologie-mines-securite"
+    },
+    {
+     "nom": "Geology",
+     "famille": "petrole-geologie-mines-securite"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Resources and Exploration Engineering",
+     "famille": "petrole-geologie-mines-securite"
+    },
+    {
+     "nom": "Offshore Oil and Gas Engineering",
+     "famille": "petrole-geologie-mines-securite"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 25,
+    "hsk_min": 3
+   },
+   "cout_annuel_rmb": 0,
+   "frais_langue_rmb": 7500,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-04",
+   "cycle": "bachelor",
+   "ville": "Xinyu",
+   "province": "Jiangxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Xinyu (Jiangxi)",
+   "rentree": "2027-03",
+   "date_limite": "2027-02-28",
+   "langue": "Anglais",
+   "duree": null,
+   "bourse_texte": "1re année : scolarité 8 400 RMB/an + logement 2 600 RMB/an. Dès la 2e année, au mérite : bourse provinciale (scolarité + logement gratuits) ou bourse de 7 000, 5 000 ou 2 000 RMB.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "economie-gestion-finance-commerce",
+    "informatique-ia-electronique-telecoms"
+   ],
+   "filieres": [
+    {
+     "nom": "International Economics and Trade",
+     "famille": "economie-gestion-finance-commerce"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports"
+    },
+    {
+     "nom": "Computer Science and Engineering",
+     "famille": "informatique-ia-electronique-telecoms"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 25
+   },
+   "cout_annuel_rmb": 11000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-05",
+   "cycle": "bachelor",
+   "ville": "Qujing",
+   "province": "Yunnan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Qujing (Yunnan)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-30",
+   "langue": "Chinois",
+   "duree": "1 + 4 ans (1 an de chinois, puis licence)",
+   "bourse_texte": "Scolarité : 7 000 RMB/an. Logement : 1 600 RMB/an.",
+   "allocation_texte": "400 – 600 RMB/mois",
+   "logement_texte": null,
+   "conditions_texte": "Accès direct à la licence si HSK 4 > 180.",
+   "arguments": [
+    "Allocation : 400 – 600 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 400,
+   "allocation_max_rmb_mois": 600,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "economie-gestion-finance-commerce",
+    "education-langues-lettres-communication",
+    "informatique-ia-electronique-telecoms",
+    "mathematiques-physique",
+    "sport"
+   ],
+   "filieres": [
+    {
+     "nom": "English",
+     "famille": "education-langues-lettres-communication"
+    },
+    {
+     "nom": "Logistics Management",
+     "famille": "economie-gestion-finance-commerce"
+    },
+    {
+     "nom": "Physics",
+     "famille": "mathematiques-physique"
+    },
+    {
+     "nom": "Computer Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Data Science and Big Data Technology",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Internet of Things",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Musicology",
+     "famille": "education-langues-lettres-communication"
+    },
+    {
+     "nom": "Dance Studies",
+     "famille": "education-langues-lettres-communication"
+    },
+    {
+     "nom": "Fine Arts",
+     "famille": "education-langues-lettres-communication"
+    },
+    {
+     "nom": "Physical Education",
+     "famille": "sport"
+    },
+    {
+     "nom": "Internet and New Media",
+     "famille": "education-langues-lettres-communication"
+    },
+    {
+     "nom": "Hotel Management",
+     "famille": "economie-gestion-finance-commerce"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 25
+   },
+   "cout_annuel_rmb": 8600,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-06",
+   "cycle": "bachelor",
+   "ville": "Shenyang",
+   "province": "Liaoning",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Shenyang (Liaoning)",
+   "rentree": "2027-03",
+   "date_limite": "2026-12-25",
+   "langue": "Anglais",
+   "duree": "0,5 + 4 ans (langue de mars à septembre, puis licence)",
+   "bourse_texte": "Scolarité : 12 000 RMB/an. Logement : 3 500 – 4 000 RMB/an.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": "Semestre de chinois de mars à septembre : 7 000 RMB (scolarité + logement).",
+   "arguments": [
+    "Pas de chinois exigé : 6 mois de langue sur place, puis la licence",
+    "Ouvert jusqu'à 30 ans"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "economie-gestion-finance-commerce",
+    "informatique-ia-electronique-telecoms"
+   ],
+   "filieres": [
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce"
+    },
+    {
+     "nom": "Civil Engineering",
+     "famille": "aeronautique-genie-civil-architecture-transports"
+    },
+    {
+     "nom": "Computer Science and Engineering",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Artificial Intelligence",
+     "famille": "informatique-ia-electronique-telecoms"
+    }
+   ],
+   "criteres": {
+    "age_min": 17,
+    "age_max": 30
+   },
+   "cout_annuel_rmb": 16000,
+   "frais_langue_rmb": 7000,
+   "frais_candidature_rmb": 1000,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "B-07",
+   "cycle": "bachelor",
+   "ville": "Wuhan (Wuchang)",
+   "province": "Hubei",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Wuhan (Wuchang) (Hubei)",
+   "rentree": "2027-03",
+   "date_limite": "2026-12-30",
+   "langue": "Anglais",
+   "duree": "4,5 ans (langue de mars à septembre, puis licence)",
+   "bourse_texte": "Type A : scolarité 8 000 RMB/an + logement 2 000 RMB/an. Type B : scolarité 11 000 RMB/an + logement 2 000 RMB/an.",
+   "allocation_texte": "Bourse complémentaire selon les résultats : 1 000 – 3 000 RMB",
+   "logement_texte": null,
+   "conditions_texte": "Semestre de chinois de mars à septembre : 8 000 RMB (scolarité + logement).",
+   "arguments": [
+    "Pas de chinois exigé : 6 mois de langue sur place, puis la licence"
+   ],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "aeronautique-genie-civil-architecture-transports",
+    "economie-gestion-finance-commerce",
+    "informatique-ia-electronique-telecoms"
+   ],
+   "filieres": [
+    {
+     "nom": "Business Administration",
+     "famille": "economie-gestion-finance-commerce"
+    },
+    {
+     "nom": "International Trade and Economics",
+     "famille": "economie-gestion-finance-commerce"
+    },
+    {
+     "nom": "Computer Science and Engineering",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Intelligent Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Data Science and Technology",
+     "famille": "informatique-ia-electronique-telecoms"
+    },
+    {
+     "nom": "Intelligent Construction",
+     "famille": "aeronautique-genie-civil-architecture-transports"
+    }
+   ],
+   "criteres": {
+    "age_min": 17,
+    "age_max": 23
+   },
+   "cout_annuel_rmb": 10000,
+   "frais_langue_rmb": 8000,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MB-01",
+   "cycle": "mbbs",
+   "ville": "Kunming",
+   "province": "Yunnan",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Kunming (Yunnan)",
+   "rentree": "2027-03",
+   "date_limite": "2027-01-30",
+   "langue": "Anglais",
+   "duree": "MBBS (durée à confirmer, en général 6 ans)",
+   "bourse_texte": "Scolarité : 35 000 RMB/an. Logement : 3 500 – 5 000 RMB/an.",
+   "allocation_texte": "600 RMB/mois",
+   "logement_texte": null,
+   "conditions_texte": "Test CSCA à passer avant septembre 2027.",
+   "arguments": [
+    "Allocation : 600 RMB/mois"
+   ],
+   "allocation_min_rmb_mois": 600,
+   "allocation_max_rmb_mois": 600,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "bronze",
+   "potentiel_or": false,
+   "familles": [
+    "medecine-sante"
+   ],
+   "filieres": [
+    {
+     "nom": "MBBS (Clinical Medicine)",
+     "famille": "medecine-sante"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 25,
+    "csca_requis": true
+   },
+   "cout_annuel_rmb": 40000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 400,
+   "statut": "active",
+   "publiable": true
+  },
+  {
+   "ref": "MB-02",
+   "cycle": "mbbs",
+   "ville": "Ji'an",
+   "province": "Jiangxi",
+   "nom_public": "Université ***",
+   "lieu_affiche": "Ji'an (Jiangxi)",
+   "rentree": "2027-03",
+   "date_limite": "2027-02-28",
+   "langue": "Anglais",
+   "duree": "MBBS (durée à confirmer, en général 6 ans)",
+   "bourse_texte": "Scolarité : 20 000 RMB/an. Logement : 4 000 RMB/an.",
+   "allocation_texte": "Aucune",
+   "logement_texte": null,
+   "conditions_texte": null,
+   "arguments": [],
+   "allocation_min_rmb_mois": 0,
+   "allocation_max_rmb_mois": 0,
+   "logement_resume": null,
+   "scolarite_offerte_garantie": false,
+   "score": "argent",
+   "potentiel_or": false,
+   "familles": [
+    "medecine-sante"
+   ],
+   "filieres": [
+    {
+     "nom": "MBBS (Clinical Medicine)",
+     "famille": "medecine-sante"
+    }
+   ],
+   "criteres": {
+    "age_min": 18,
+    "age_max": 26
+   },
+   "cout_annuel_rmb": 24000,
+   "frais_langue_rmb": null,
+   "frais_candidature_rmb": 500,
+   "statut": "active",
+   "publiable": true
+  }
+ ]
+}

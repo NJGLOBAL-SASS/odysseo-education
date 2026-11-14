@@ -1,0 +1,172 @@
+{
+ "date_reference": "2026-11-14",
+ "fixtures": [
+  {
+   "profil": {
+    "id": "langue_20ans_bac",
+    "cycle_vise": "langue",
+    "age": 20,
+    "familles": [],
+    "hsk": null,
+    "a_le_bac": true,
+    "funding": "partiel"
+   },
+   "attendu_refs": [
+    "L-01",
+    "L-04",
+    "L-05",
+    "B-01"
+   ],
+   "attendu_roles": [
+    "ambitieuse",
+    "cible",
+    "securite",
+    "alternative"
+   ],
+   "attendu_proposer_bachelor": "B-01",
+   "attendu_repli_langue": false
+  },
+  {
+   "profil": {
+    "id": "langue_33ans",
+    "cycle_vise": "langue",
+    "age": 33,
+    "familles": [],
+    "hsk": null,
+    "a_le_bac": true,
+    "funding": "total"
+   },
+   "attendu_refs": [
+    "L-15",
+    "L-11",
+    "L-07"
+   ],
+   "attendu_roles": [
+    "ambitieuse",
+    "cible",
+    "securite"
+   ],
+   "attendu_proposer_bachelor": null,
+   "attendu_repli_langue": false
+  },
+  {
+   "profil": {
+    "id": "licence_info_19ans",
+    "cycle_vise": "licence",
+    "age": 19,
+    "familles": [
+     "informatique-ia-electronique-telecoms"
+    ],
+    "hsk": null,
+    "a_le_bac": true,
+    "funding": "bourse_uniquement"
+   },
+   "attendu_refs": [
+    "B-01",
+    "B-05",
+    "B-07",
+    "B-04"
+   ],
+   "attendu_roles": [
+    "ambitieuse",
+    "cible",
+    "securite",
+    "alternative"
+   ],
+   "attendu_proposer_bachelor": null,
+   "attendu_repli_langue": false
+  },
+  {
+   "profil": {
+    "id": "licence_gestion_27ans",
+    "cycle_vise": "licence",
+    "age": 27,
+    "familles": [
+     "economie-gestion-finance-commerce"
+    ],
+    "hsk": null,
+    "a_le_bac": true,
+    "funding": "partiel"
+   },
+   "attendu_refs": [
+    "B-06"
+   ],
+   "attendu_roles": [
+    "ambitieuse"
+   ],
+   "attendu_proposer_bachelor": null,
+   "attendu_repli_langue": false
+  },
+  {
+   "profil": {
+    "id": "licence_medecine_20ans",
+    "cycle_vise": "licence",
+    "age": 20,
+    "familles": [
+     "medecine-sante"
+    ],
+    "hsk": null,
+    "a_le_bac": true,
+    "funding": "total"
+   },
+   "attendu_refs": [
+    "MB-02",
+    "MB-01"
+   ],
+   "attendu_roles": [
+    "ambitieuse",
+    "cible"
+   ],
+   "attendu_proposer_bachelor": null,
+   "attendu_repli_langue": false
+  },
+  {
+   "profil": {
+    "id": "licence_petrole_24ans_hsk3",
+    "cycle_vise": "licence",
+    "age": 24,
+    "familles": [
+     "petrole-geologie-mines-securite"
+    ],
+    "hsk": 3,
+    "a_le_bac": true,
+    "funding": "bourse_uniquement"
+   },
+   "attendu_refs": [
+    "B-01",
+    "B-03"
+   ],
+   "attendu_roles": [
+    "ambitieuse",
+    "cible"
+   ],
+   "attendu_proposer_bachelor": null,
+   "attendu_repli_langue": false
+  },
+  {
+   "profil": {
+    "id": "licence_31ans_trop_age",
+    "cycle_vise": "licence",
+    "age": 31,
+    "familles": [
+     "informatique-ia-electronique-telecoms"
+    ],
+    "hsk": null,
+    "a_le_bac": true,
+    "funding": "partiel"
+   },
+   "attendu_refs": [
+    "L-15",
+    "L-11",
+    "L-07"
+   ],
+   "attendu_roles": [
+    "ambitieuse",
+    "cible",
+    "securite"
+   ],
+   "attendu_proposer_bachelor": null,
+   "attendu_repli_langue": true
+  }
+ ]
+}
