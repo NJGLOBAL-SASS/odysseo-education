@@ -1,7 +1,7 @@
 {
  "meta": {
-  "version": "2027.09-v2",
-  "mise_a_jour": "2026-11-03",
+  "version": "2027.09-v3+2027.03-v1",
+  "mise_a_jour": "2026-11-14",
   "source": "Catalogue Odysseo (ODY-10)",
   "devise": "RMB",
   "note": "Montants indicatifs communiqués par les universités, sous réserve de confirmation à l'admission.",
@@ -287,6 +287,162 @@
    "partenaire": "RK Edu",
    "classement_selon_partenaire": "13e Chine / 281e monde (partenaire)",
    "note_interne": "« Biomedical Engineering » en double et 3 lignes « chauffage / gaz / ventilation » regroupées."
+  },
+  {
+   "ref": "L-01",
+   "universite": "Xi'an *** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-02",
+   "universite": "Xi'an *** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-03",
+   "universite": "Xi'an *** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-04",
+   "universite": "Nanning *** University",
+   "partenaire": "RK Edu",
+   "note_interne": "Date limite 30/12/2027 dans le tableau RK : probablement 30/12/2026. À confirmer."
+  },
+  {
+   "ref": "L-05",
+   "universite": "Hubei *** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-06",
+   "universite": "Hubei N*** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-07",
+   "universite": "China *** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-08",
+   "universite": "Harbin Institute of Technology",
+   "partenaire": "RK Edu",
+   "note_interne": "Université de premier rang (C9) : argument de prestige, coût le plus élevé."
+  },
+  {
+   "ref": "L-09",
+   "universite": "Harbin Institute of Technology (Weihai)",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-10",
+   "universite": "Harbin *** Institution",
+   "partenaire": "RK Edu",
+   "note_interne": "CHANGÉ depuis la V1 : scolarité auparavant GRATUITE (logement 3 500 RMB/semestre). Ne plus annoncer « scolarité gratuite »."
+  },
+  {
+   "ref": "L-11",
+   "universite": "Shenyang **** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-12",
+   "universite": "Qujing *** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-13",
+   "universite": "Nanjing Info***** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "L-14",
+   "universite": "Qiongtai N*** University",
+   "partenaire": "RK Edu",
+   "note_interne": "Réservé aux candidats asiatiques (hors Bangladesh, Pakistan, Inde). Jamais proposé à nos étudiants."
+  },
+  {
+   "ref": "L-15",
+   "universite": "Chongqing J*** University",
+   "partenaire": "RK Edu",
+   "note_interne": "NOUVELLE (V2). Remarque RK coupée sur la capture (« After Pre admission deposit Tuition account… ») : demander le montant et les conditions de l'acompte."
+  },
+  {
+   "ref": "L-16",
+   "universite": "Shenyang *** University",
+   "partenaire": "RK Edu",
+   "note_interne": "NOUVELLE (V2). Même université que B-06. Date limite proche (25/12/2026)."
+  },
+  {
+   "ref": "L-17",
+   "universite": "Wuchang U*** Technology",
+   "partenaire": "RK Edu",
+   "note_interne": "NOUVELLE (V2). Même université que B-07. Langue seule chère : préférer B-07 si le profil permet une licence."
+  },
+  {
+   "ref": "B-01",
+   "universite": "Xi'an ******** University",
+   "partenaire": "RK Edu",
+   "note_interne": "Date limite 28/11/2026 = correction du fondateur (06/11). Le tableau RK V2 indique encore 10/01/2027 : confirmer avec RK. Type A/B/C attribué par l'université. Allocation garantie seulement la 1re année."
+  },
+  {
+   "ref": "B-02",
+   "universite": "North C******** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "B-03",
+   "universite": "Xi'an ******** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "B-04",
+   "universite": "Jiangxi U***** Engineering",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "B-05",
+   "universite": "Qujing N***** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
+  },
+  {
+   "ref": "B-06",
+   "universite": "Shenyang *** University",
+   "partenaire": "RK Edu",
+   "note_interne": "NOUVELLE (V2). Atout : jusqu'à 30 ans, rare en licence. Date limite 25/12/2026."
+  },
+  {
+   "ref": "B-07",
+   "universite": "Wuchang **** Technology",
+   "partenaire": "RK Edu",
+   "note_interne": "NOUVELLE (V2). « 1 000 – 3 000 RMB » : par mois ou par an ? À confirmer avec RK avant de l'annoncer."
+  },
+  {
+   "ref": "MB-01",
+   "universite": "Kunming **** University",
+   "partenaire": "RK Edu",
+   "note_interne": "NOUVELLE. CSCA = test d'admission en licence pour étudiants internationaux : vérifier calendrier et centres d'examen en Afrique."
+  },
+  {
+   "ref": "MB-02",
+   "universite": "Jingg*** University",
+   "partenaire": "RK Edu",
+   "note_interne": null
   }
  ]
 }

@@ -34,6 +34,8 @@ export type Cycle = "langue" | "bachelor" | "master" | "phd";
 export const PROGRAM_CYCLE: Record<string, Cycle> = {
   "langue-chinoise": "langue",
   bachelor: "bachelor",
+  // PACK-12 : médecine (MBBS), mêmes documents qu'une licence.
+  mbbs: "bachelor",
   master: "master",
   doctorat: "phd",
 };

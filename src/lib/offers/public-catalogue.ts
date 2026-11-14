@@ -72,7 +72,8 @@ function toPublicOffer(o: Offer, locale: string): PublicOffer {
     arguments: o.arguments.map(tr),
     allocation_max: o.allocation_max_rmb_mois ?? 0,
     familles: o.familles,
-    filieres: o.filieres.map((f) => ({ nom: f.nom, langue: f.langue === "chinois" ? "chinois" : "anglais" })),
+    // PACK-12 : sans langue par filière, celle de l'offre (« Chinois » / « Anglais ») s'applique.
+    filieres: o.filieres.map((f) => ({ nom: f.nom, langue: (f.langue ?? o.langue).toLowerCase().startsWith("chinois") ? "chinois" : "anglais" })),
   };
 }
 
@@ -128,6 +129,7 @@ export function toOfferCard(o: PublicOffer) {
     ville: o.ville,
     lieu_affiche: o.lieu_affiche,
     date_limite: o.date_limite,
+    rentree: o.rentree,
     arguments: o.arguments.slice(0, 2),
     majorsCount: o.filieres.length,
     familles: o.familles,

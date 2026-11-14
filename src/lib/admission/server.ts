@@ -16,13 +16,14 @@ import { getOffer } from "@/lib/matching/catalogue";
 import { getInternalOffer } from "@/lib/matching/internes";
 import { toPublicRecommendation } from "@/lib/matching/public-offer";
 import { getProgram } from "@/lib/programs";
+import { TARIFS, isSurDevis, tarifOf } from "@/lib/pricing/tarifs";
 import { generateChecklist, progressOf, REPORT_PROGRAMS } from "./checklist";
 
 export const REVEAL_REASONS = ["entretien", "pre_admission", "admission"] as const;
 
 export const reportOfferSchema = z.object({
   ref: z.string().trim().toUpperCase().regex(/^[A-Z]{1,3}-\d{2}$/),
-  role: z.enum(["ambitieuse", "cible", "securite"]),
+  role: z.enum(["ambitieuse", "cible", "securite", "alternative"]),
   revealedAt: z.string().datetime().nullish(),
   revealReason: z.enum(REVEAL_REASONS).nullish(),
 });
@@ -46,6 +47,7 @@ export function reportOffers(report: Pick<AdmissionReport, "offers"> | null): Re
 export function toPortalReport(report: AdmissionReport | null, locale: string) {
   if (!report?.publishedAt) return null;
   const program = getProgram(report.program);
+  const tarif = tarifOf(report.program);
   const L = locale === "en" ? "en" : "fr";
   const offers = reportOffers(report).flatMap((o) => {
     const offer = getOffer(o.ref);
@@ -58,12 +60,19 @@ export function toPortalReport(report: AdmissionReport | null, locale: string) {
     publishedAt: report.publishedAt.toISOString(),
     comment: report.comment,
     offers,
-    program: program
+    // PACK-12 : prix et versements lus dans data/tarifs.json ; MBBS sur devis (aucun montant).
+    program: tarif
       ? {
-          slug: program.slug,
-          name: program.name[L],
-          price: program.price,
-          payments: program.payments.map((p) => ({ label: p.label[L], when: p.when[L], amount: p.amount })),
+          slug: program?.slug ?? null,
+          name: program?.name[L] ?? tarif.libelle,
+          surDevis: isSurDevis(report.program),
+          quoteText: tarif.texte_rapport ?? null,
+          price: tarif.prix,
+          payments: (tarif.versements ?? []).map((amount, i) => ({
+            label: TARIFS.etapes_versements[i]?.libelle ?? `${i + 1}`,
+            when: TARIFS.etapes_versements[i]?.regle ?? "",
+            amount,
+          })),
         }
       : null,
     validatedAt: report.validatedAt?.toISOString() ?? null,

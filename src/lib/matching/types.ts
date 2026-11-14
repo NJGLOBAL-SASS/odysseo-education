@@ -3,9 +3,12 @@
  * correspondance (PACK-02). Les noms suivent le JSON et matching_reference.py.
  */
 
-export type Cycle = "master" | "phd";
+/** Cycles du catalogue (PACK-12 : langue, bachelor et mbbs, rentrée de mars 2027). */
+export type Cycle = "master" | "phd" | "langue" | "bachelor" | "mbbs";
+/** Cycles du moteur PACK-02 (Master / PhD). */
+export type ResearchCycle = "master" | "phd";
 export type OfferScore = "or" | "argent" | "bronze";
-export type Role = "ambitieuse" | "cible" | "securite";
+export type Role = "ambitieuse" | "cible" | "securite" | "alternative";
 
 export interface OfferCriteria {
   age_min?: number;
@@ -21,12 +24,16 @@ export interface OfferCriteria {
   toefl_min?: number;
   duolingo_min?: number;
   certificat_anglais_obligatoire?: boolean;
+  /** PACK-12 : test CSCA exigé (information, pas une exclusion). */
+  csca_requis?: boolean;
+  /** PACK-12 : offre réservée aux candidats asiatiques (toujours exclue). */
+  reserve_asie?: boolean;
 }
 
 export interface OfferMajor {
   nom: string;
   famille: string;
-  langue: string;
+  langue?: string;
 }
 
 export interface Offer {
@@ -59,6 +66,10 @@ export interface Offer {
   /** Interne : jamais renvoyé au client. */
   statut: string;
   publiable: boolean;
+  /** PACK-12 (langue, bachelor, mbbs) : coût annuel scolarité + logement (RMB), 0 si offert. */
+  cout_annuel_rmb?: number;
+  frais_langue_rmb?: number | null;
+  frais_candidature_rmb?: number | null;
 }
 
 export interface OfferCatalogue {
@@ -73,7 +84,7 @@ export type EnglishProfile =
   | { type: "aucun" };
 
 export interface MatchingProfile {
-  cycle: Cycle;
+  cycle: ResearchCycle;
   domaines: string[];
   filiere_libre?: string | null;
   age?: number | null;

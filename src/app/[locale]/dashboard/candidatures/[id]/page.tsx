@@ -1,3 +1,4 @@
+import { PROGRAM_BY_LEVEL } from "@/lib/pricing/tarifs";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft, MessageCircle, Link2, PenLine, Globe, Mail, Smartphone, BellRing, Paperclip } from "lucide-react";
@@ -105,7 +106,6 @@ export default async function CandidateDetailPage({ params }: { params: { locale
     ref: o.ref,
     label: `${o.ref} · ${o.lieu_affiche} · ${o.cycle === "phd" ? "PhD" : "Master"}${getInternalOffer(o.ref) ? ` — ${getInternalOffer(o.ref)!.universite}` : ""}${o.publiable ? "" : " (à vérifier)"}`,
   }));
-  const PROGRAM_BY_LEVEL: Record<string, string> = { language: "langue-chinoise", licence: "bachelor", master: "master", doctorat: "doctorat" };
   const waAdmission = (await getTranslations({ locale: "fr", namespace: "dashboard.candidate.admission" })).raw("wa") as Record<
     "report" | "payment" | "redo" | "prepared" | "reminder",
     string

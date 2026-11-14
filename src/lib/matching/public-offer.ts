@@ -29,6 +29,23 @@ export function toPublicRecommendation(o: Offer, r: Recommendation, locale = "fr
  */
 const EN_REPLACEMENTS: [RegExp, string][] = [
   // Avant le remplacement de « : ».
+  // PACK-12 (langue, licence, médecine — rentrée de mars 2027).
+  [/Pas de chinois exigé : 6 mois de langue sur place, puis la licence/g, "No Chinese required: 6 months of language on site, then the Bachelor's"],
+  [/Scolarité et logement gratuits possibles/g, "Free tuition and accommodation possible"],
+  [/Bourse au mérite : (.+?) selon la catégorie/g, "Merit scholarship: $1 depending on category"],
+  [/Parmi les programmes de langue les moins chers/g, "Among the most affordable language programmes"],
+  [/Ouvert jusqu'à (\d+) ans/g, "Open up to age $1"],
+  [/Université de premier rang en Chine/g, "Top-tier university in China"],
+  [/Année préparatoire \(Foundation\)/g, "Foundation year"],
+  [/MBBS \(durée à confirmer, en général (\d) ans\)/g, "MBBS (duration to be confirmed, usually $1 years)"],
+  [/\(langue de mars à septembre, puis licence\)/g, "(language from March to September, then Bachelor's)"],
+  [/\(1 an de chinois, puis licence\)/g, "(1 year of Chinese, then Bachelor's)"],
+  [/selon les résultats/g, "depending on results"],
+  [/\(1re année\)/g, "(year 1)"],
+  [/Allocation de /g, "Allowance of "],
+  [/(\d) ou (\d)/g, "$1 or $2"],
+  [/(\d),(\d)/g, "$1.$2"],
+  [/^Chinois$/g, "Chinese"],
   [/Anglais \(Mathématiques : aussi en chinois\)/g, "English (Mathematics: also in Chinese)"],
   [/Frais de scolarité offerts/g, "Tuition fees covered"],
   [/Scolarité offerte en 1re année/g, "Tuition covered in year 1"],

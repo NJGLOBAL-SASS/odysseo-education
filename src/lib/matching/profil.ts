@@ -2,7 +2,7 @@
  * Correspondance dossier (colonnes PACK-01, voir src/lib/qualification.ts) → profil
  * du moteur (PACK-02). Module pur, partagé par l'API et les tests.
  */
-import type { Cycle, EnglishProfile, MatchingProfile } from "./types";
+import type { EnglishProfile, MatchingProfile, ResearchCycle as Cycle } from "./types";
 
 /** Valeurs du dossier utiles au moteur (noms des colonnes Prisma de Candidate). */
 export interface CandidateForMatching {

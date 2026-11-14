@@ -14,7 +14,7 @@ export function generateStaticParams() {
 }
 
 /** Niveau du formulaire /postuler correspondant au cycle de l'offre. */
-const FORM_LEVEL = { master: "master", phd: "doctorat" } as const;
+const FORM_LEVEL = { master: "master", phd: "doctorat", langue: "language", bachelor: "licence", mbbs: "licence" } as const;
 
 export async function generateMetadata({ params }: { params: { locale: string; ref: string } }): Promise<Metadata> {
   const locale = toLocale(params.locale);

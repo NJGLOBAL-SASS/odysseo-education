@@ -13,6 +13,8 @@ export interface OfferCardData {
   ville: string;
   lieu_affiche: string;
   date_limite: string | null;
+  /** Rentrée « 2027-03 » / « 2027-09 » (filtre PACK-12). */
+  rentree: string;
   arguments: string[];
   majorsCount: number;
   familles: string[];

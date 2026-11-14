@@ -10,7 +10,7 @@ import { formatBytes } from "@/lib/documents";
 import { passportTooShort } from "@/lib/admission/rules";
 import { cn } from "@/lib/utils";
 
-type Role = "ambitieuse" | "cible" | "securite";
+type Role = "ambitieuse" | "cible" | "securite" | "alternative";
 type ReportOffer = { ref: string; role: Role; revealedAt?: string | null; revealReason?: string | null; university?: string | null; place?: string | null };
 type FileRow = { id: string; name: string; size: number; contentType: string; createdAt: string; uploadedByPortalId: string | null };
 type Item = {
@@ -50,7 +50,7 @@ type Data = {
   translations: { id: string; label: string; language: string; doneAt: string | null; doneByName: string | null }[];
 };
 
-const PROGRAMS = ["langue-chinoise", "bachelor", "master", "doctorat"] as const;
+const PROGRAMS = ["langue-chinoise", "bachelor", "mbbs", "master", "doctorat"] as const;
 const ROLES: Role[] = ["ambitieuse", "cible", "securite"];
 const REVEAL = ["entretien", "pre_admission", "admission"] as const;
 

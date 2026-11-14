@@ -45,8 +45,8 @@
   "offers": {
     "index": {
       "eyebrow": "Scholarship offers · 2027 intake",
-      "title": "{count} scholarship offers for the {intake} intake",
-      "intro": "Master's and PhD programmes at Chinese universities. The university's name is shared with you as soon as your application file is opened.",
+      "title": "{count} scholarship offers for the 2027 intakes",
+      "intro": "Chinese language, Bachelor's, Medicine, Master's and PhD programmes at Chinese universities. The university's name is shared with you as soon as your application file is opened.",
       "cta": "Free profile assessment",
       "filters": {
         "label": "Filter offers",
@@ -56,13 +56,22 @@
         "allDomains": "All fields",
         "city": "City",
         "allCities": "All cities",
-        "reset": "Clear filters"
+        "reset": "Clear filters",
+        "intake": "Intake",
+        "allIntakes": "All",
+        "intakeOption": "{date} intake"
       },
       "results": "{count, plural, =0 {No offers} one {# offer} other {# offers}}",
       "empty": "No offer matches these filters.",
       "free": "Not sure which one to choose? Your profile assessment is free: we suggest the offers that fit you."
     },
-    "cycles": { "master": "Master's", "phd": "PhD" },
+    "cycles": {
+      "master": "Master's",
+      "phd": "PhD",
+      "langue": "Language",
+      "bachelor": "Bachelor's",
+      "mbbs": "Medicine"
+    },
     "card": {
       "university": "University *** – {place}",
       "majors": "{count, plural, one {# programme} other {# programmes}}",

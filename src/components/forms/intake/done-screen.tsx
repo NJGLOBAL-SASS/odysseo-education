@@ -17,6 +17,7 @@ const ROLE_STYLE: Record<PublicRecommendation["role"], string> = {
   ambitieuse: "bg-noir text-white",
   cible: "bg-rouge text-white",
   securite: "bg-fond text-noir border border-bord",
+  alternative: "bg-fond text-noir border border-bord",
 };
 
 /** Écran après l'envoi (PACK-02) : code dossier et « Vos 3 offres recommandées ». */

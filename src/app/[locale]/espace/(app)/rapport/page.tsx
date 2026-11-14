@@ -71,6 +71,10 @@ export default async function PortalReportPage({ params }: { params: { locale: s
           <h2 id="report-price" className="text-lg font-extrabold">
             {t("priceTitle", { program: report.program.name })}
           </h2>
+          {report.program.surDevis || report.program.price == null ? (
+            <p className="mt-1 text-[15px]">{report.program.quoteText}</p>
+          ) : (
+          <>
           <p className="mt-1 text-[15px]">{t.rich("priceTotal", { amount: formatFcfa(report.program.price, locale), b: (c) => <b>{c}</b> })}</p>
           <ol className="mt-3 divide-y divide-bord rounded-[10px] border border-bord">
             {report.program.payments.map((p, i) => (
@@ -80,14 +84,16 @@ export default async function PortalReportPage({ params }: { params: { locale: s
               </li>
             ))}
           </ol>
-          <a
+          </>
+          )}
+          {report.program.slug && <a
             href={`${SITE_URL}/${locale}/cursus/${report.program.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 inline-block text-[13px] font-semibold underline underline-offset-2"
           >
             {t("priceConditions")}
-          </a>
+          </a>}
         </section>
       )}
 
