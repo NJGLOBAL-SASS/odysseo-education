@@ -9,9 +9,9 @@ export type ProofItem = { id: string; image: string; caption: string };
 
 /**
  * Vignettes cliquables + agrandissement plein écran (Échap, clic sur le fond ou bouton pour fermer).
- * `layout="strip"` : bande horizontale défilable (mur des admissions de l'accueil).
+ * `layout="wall"` : grille en colonnes (2 / 3 / 4) du mur des admissions de l'accueil.
  */
-export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; layout?: "grid" | "strip" }) {
+export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; layout?: "grid" | "wall" }) {
   const t = useTranslations("proof");
   const [open, setOpen] = useState<ProofItem | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -35,13 +35,11 @@ export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; l
     <>
       <ul
         className={
-          layout === "strip"
-            ? "-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0"
-            : "grid grid-cols-3 gap-3"
+          layout === "wall" ? "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" : "grid grid-cols-3 gap-3"
         }
       >
         {items.map((p) => (
-          <li key={p.id} className={layout === "strip" ? "w-[44%] flex-shrink-0 snap-start sm:w-[200px]" : undefined}>
+          <li key={p.id}>
             <button
               type="button"
               onClick={(e) => {
@@ -51,7 +49,7 @@ export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; l
               className="group relative block aspect-[3/4] w-full overflow-hidden rounded-[6px] border border-bord bg-white"
               aria-label={t("enlarge", { name: p.caption })}
             >
-              <Image src={p.image} alt="" fill sizes={layout === "strip" ? "(min-width: 640px) 200px, 44vw" : "(min-width: 900px) 280px, 33vw"} className={`object-cover transition-transform group-hover:scale-105 ${layout === "strip" ? "object-top" : ""}`} />
+              <Image src={p.image} alt="" fill sizes={layout === "wall" ? "(min-width: 1024px) 270px, (min-width: 640px) 33vw, 50vw" : "(min-width: 900px) 280px, 33vw"} className={`object-cover transition-transform group-hover:scale-105 ${layout === "wall" ? "object-top" : ""}`} />
               <span className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-noir/75 text-white">
                 <Maximize2 className="h-4 w-4" />
               </span>

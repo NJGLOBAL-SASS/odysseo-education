@@ -41,6 +41,8 @@ export type Testimonial = {
 export type ProofDocument = {
   id: string;
   type: "admission_notice" | "jw202" | "visa_x1" | string;
+  /** Année de rentrée (tri et intertitres du mur des admissions). */
+  annee?: number | null;
   image: string;
   legende_fr: string;
   legende_en?: string | null;
@@ -155,11 +157,14 @@ export function getProofDocuments(): ProofDocument[] {
   return RAW_PROOFS.filter((p) => p.publie === true && hasConsent(p.accord_signe_le) && Boolean(p.image)).slice(0, 3);
 }
 
-/** Mur des admissions (accueil) : toutes les lettres d'admission publiées, sans limite. */
+/** Mur des admissions (accueil) : toutes les lettres publiées, des rentrées les plus récentes aux plus anciennes. */
 export function getAdmissionLetters(): ProofDocument[] {
   return RAW_PROOFS.filter(
     (p) => p.publie === true && hasConsent(p.accord_signe_le) && Boolean(p.image) && p.type === "admission_notice",
-  );
+  )
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) => (b.p.annee ?? 0) - (a.p.annee ?? 0) || a.i - b.i)
+    .map(({ p }) => p);
 }
 
 /** Chiffres de l'accueil : seulement ceux qui ont une valeur réelle. */

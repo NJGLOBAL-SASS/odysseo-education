@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
  */
 export function Zh({ children, className }: { children: string; className?: string }) {
   return (
-    <span lang="zh-Hans" aria-hidden="true" className={cn("ml-2 align-middle text-[0.7em] font-semibold tracking-normal text-gris/80", className)}>
+    <span lang="zh-Hans" aria-hidden="true" className={cn("ml-2 inline-block whitespace-nowrap align-middle text-[0.7em] font-semibold tracking-normal text-gris/80", className)}>
       {children}
     </span>
   );

@@ -77,13 +77,15 @@ reste masqué. Retirez le marqueur une fois le texte validé.
    envoi (passeport, dossier, code-barres, QR code). L'université peut être floutée elle aussi.
 2. Format portrait, **150 Ko max**, dans `public/images/preuves/` (ex. `admission-floutee.jpg`).
 3. Entrée dans `preuves.json`. **Accueil** : toutes les `admission_notice` publiées forment le
-   mur des admissions (aucune limite, le nombre est affiché). **Pages cursus** : les 3 premiers
+   mur des admissions, en colonnes, **classées par année de rentrée** (champ `"annee": 2026`,
+   la plus récente d'abord) ; les 8 premières s'affichent, le reste au clic sur « Voir les N lettres ». **Pages cursus** : les 3 premiers
    documents de la liste ; placer en tête un exemple de chaque type (Admission Notice, JW202, visa).
 
 ```json
 {
   "id": "p-001",
   "type": "admission_notice",
+  "annee": 2026,
   "image": "/images/preuves/admission-floutee.jpg",
   "legende_fr": "Admission Notice – informations personnelles masquées",
   "legende_en": "Admission Notice – personal details hidden",

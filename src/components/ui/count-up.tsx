@@ -16,11 +16,12 @@ export function CountUp({ value, locale, suffix = "", duration = 1600 }: { value
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
     let raf = 0;
-    setShown(0);
+    // Le vrai nombre reste affiché tant que l'animation n'a pas commencé (jamais de « 0 » figé).
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
+        setShown(0);
         const start = performance.now();
         const tick = (now: number) => {
           const t = Math.min(1, (now - start) / duration);
