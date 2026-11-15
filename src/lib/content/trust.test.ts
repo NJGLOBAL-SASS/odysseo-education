@@ -105,3 +105,9 @@ test("photos de campus : chacune a une licence libre et une source Wikimedia Com
     assert.ok(u.photo_source?.startsWith("https://commons.wikimedia.org/"), `${u.id} : source ${u.photo_source}`);
   }
 });
+
+test("fiches universités : identifiants utilisables dans une adresse, ville connue pour la plupart", () => {
+  const list = getUniversityLogos();
+  for (const u of list) assert.match(u.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `identifiant invalide : ${u.id}`);
+  assert.ok(list.filter((u) => u.ville_fr || u.ville_en).length >= list.length * 0.8, "trop d'universités sans ville");
+});

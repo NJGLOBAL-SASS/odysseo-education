@@ -5,6 +5,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import { normalizeSearch } from "@/lib/content/faq-search";
 
 export type GridUniversity = { id: string; en: string; zh: string; logo: string; photo?: string; photoTitle?: string };
@@ -46,7 +47,8 @@ export function UniversityGrid({ items }: { items: GridUniversity[] }) {
       ) : (
         <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {shown.map((u) => (
-            <li key={u.id} className="flex flex-col overflow-hidden rounded-brand border border-bord bg-white text-center">
+            <li key={u.id}>
+              <Link href={`/universites/${u.id}`} className="group flex h-full flex-col overflow-hidden rounded-brand border border-bord bg-white text-center transition-shadow hover:shadow-pop">
               {u.photo ? (
                 <div className="relative">
                   <img src={u.photo} alt="" title={u.photoTitle} loading="lazy" decoding="async" width={320} height={200} className="aspect-[16/10] w-full object-cover" />
@@ -58,9 +60,10 @@ export function UniversityGrid({ items }: { items: GridUniversity[] }) {
                 </div>
               )}
               <div className={`flex flex-1 flex-col gap-0.5 px-3 pb-3 ${u.photo ? "pt-8" : "pt-3"}`}>
-                <span className="text-[13px] font-bold leading-tight">{u.en}</span>
+                <span className="text-[13px] font-bold leading-tight group-hover:text-rouge">{u.en}</span>
                 {u.zh && <span className="text-xs text-gris">{u.zh}</span>}
               </div>
+              </Link>
             </li>
           ))}
         </ul>

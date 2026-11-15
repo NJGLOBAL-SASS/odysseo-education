@@ -83,6 +83,17 @@ export type UniversityLogo = {
   photo_licence?: string | null;
   photo_licence_url?: string | null;
   photo_source?: string | null;
+  /** Faits vérifiables (Wikidata), pour la page /universites/[id]. */
+  qid?: string | null;
+  ville_fr?: string | null;
+  ville_en?: string | null;
+  province_fr?: string | null;
+  province_en?: string | null;
+  creation?: number | null;
+  prive?: boolean;
+  double_first_class?: boolean;
+  ministere?: boolean;
+  domaine?: string | null;
 };
 const RAW_UNIVERSITIES = (universitesJson as { universites: UniversityLogo[] }).universites;
 
@@ -170,6 +181,16 @@ export function hasCreditedPhoto(u: UniversityLogo): u is UniversityLogo & { pho
 /** Logos du bandeau de l'accueil (publiés seulement). */
 export function getUniversityLogos(): UniversityLogo[] {
   return RAW_UNIVERSITIES.filter((u) => u.publie === true && Boolean(u.logo && u.nom_en));
+}
+
+export function getUniversity(id: string): UniversityLogo | undefined {
+  return getUniversityLogos().find((u) => u.id === id);
+}
+
+export function universityPlace(u: UniversityLogo, locale: Locale) {
+  const city = (locale === "en" ? u.ville_en : u.ville_fr) || u.ville_en || u.ville_fr || "";
+  const prov = (locale === "en" ? u.province_en : u.province_fr) || u.province_en || "";
+  return { city, province: prov && prov !== city ? prov : "" };
 }
 
 export function proofCaption(p: ProofDocument, locale: Locale) {

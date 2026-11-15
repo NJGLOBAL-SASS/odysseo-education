@@ -11,8 +11,8 @@ const MAX_SHOWN = 48;
 
 /**
  * Bandeau de logos de l'accueil (content/universites.json) : les 48 premiers (catalogue
- * d'abord), puis un lien vers /universites qui les montre tous. Aucun logo ne renvoie
- * vers l'université : l'étudiant passe toujours par son conseiller. Non rendu si vide.
+ * d'abord), puis un lien vers /universites qui les montre tous. Chaque logo ouvre la fiche
+ * Odysseo de l'université (/universites/[id]), jamais le site de l'université. Non rendu si vide.
  * Deux rangées qui défilent en sens inverse ; arrêt au survol ; immobile (et
  * défilable au doigt) si l'utilisateur a demandé moins d'animations.
  */
@@ -62,10 +62,16 @@ function LogoRow({ items, reverse }: { items: UniversityLogo[]; reverse: boolean
           <li
             key={`${u.id}-${i}`}
             aria-hidden={i >= items.length ? true : undefined}
-            className={`${i >= items.length ? "motion-reduce:hidden " : ""}flex w-[124px] flex-shrink-0 flex-col items-center gap-2 rounded-brand border border-bord bg-white p-3 text-center`}
+            className={`${i >= items.length ? "motion-reduce:hidden " : ""}w-[124px] flex-shrink-0`}
           >
-            <img src={u.logo} alt="" loading="lazy" decoding="async" className="h-14 w-14 object-contain" />
-            <span className="line-clamp-2 text-[11px] font-semibold leading-tight text-gris">{u.nom_en}</span>
+            <Link
+              href={`/universites/${u.id}`}
+              tabIndex={i >= items.length ? -1 : undefined}
+              className="flex h-full flex-col items-center gap-2 rounded-brand border border-bord bg-white p-3 text-center hover:border-noir"
+            >
+              <img src={u.logo} alt="" loading="lazy" decoding="async" className="h-14 w-14 object-contain" />
+              <span className="line-clamp-2 text-[11px] font-semibold leading-tight text-gris">{u.nom_en}</span>
+            </Link>
           </li>
         ))}
       </ul>
