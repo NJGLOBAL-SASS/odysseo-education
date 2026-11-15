@@ -561,7 +561,7 @@
     "home": "Home",
     "services": "Our services",
     "apply": "Submit my application",
-    "partners": "Become a partner",
+    "partners": "Partners",
     "programs": "Our programs",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -569,7 +569,8 @@
     "brand": "Odysseo Education",
     "faq": "FAQ",
     "universities": "Universities",
-    "videos": "Campus videos"
+    "videos": "Campus videos",
+    "partnerSpace": "Partner space"
   },
   "photoCredits": {"siteTitle": "Site photos", "campusTitle": "Campus photos", "eyebrow": "Credits", "title": "Photo credits", "intro": "The campus photos on this site are freely licensed files from Wikimedia Commons. Each one is credited below with its author and license.", "count": "{count, plural, one {# photo} other {# photos}}", "photo": "Photo: {author}", "source": "View the file", "logos": "University logos: property of each university, from Wikipedia and Wikimedia Commons. Their presence does not mean an official partnership. To request removal, write to us.", "unknown": "Author not stated"},
   "university": {"back": "All universities", "city": "City", "province": "Province", "founded": "Founded", "status": "Status", "public": "Public university", "private": "Private university", "dfc": "Double First-Class", "dfcText": "National program of China's most recognised universities", "ministry": "Under the Ministry of Education", "about": "About", "campus": "The campus", "photoCredit": "Photo: {author} · {license}, via Wikimedia Commons", "photoUnknown": "author not stated", "allCredits": "All photo credits", "intro": "{name} is a {kind} Chinese university{founded, select, none {} other { founded in {founded}}}{place, select, none {} other {, located in {place}}}.", "kindPublic": "public", "kindPrivate": "private", "domainSentence": "It is best known for {domain}.", "dfcSentence": "It is part of the national \"Double First-Class\" program, which brings together China's most recognised universities.", "ministrySentence": "It reports directly to the Chinese Ministry of Education.", "levelsTitle": "Study at {name}", "levelsIntro": "The programs open to international students, scholarships and tuition fees change every year. Your advisor checks the ones that fit your profile.", "levelCta": "Get the programs and scholarships", "reportTitle": "Programs, scholarships and tuition fees", "reportText": "Get the up-to-date list of this university's programs that fit your profile, with possible scholarships and fees, for free in your personalised report.", "cta": "Free analysis of my profile", "ctaHint": "Free, no commitment. Reply on WhatsApp within 24 h.", "submit": "Submit my application for free", "metaTitle": "Study at {name} ({place}) – programs and scholarships", "metaDescription": "Study at {name}, {place}: overview, campus, programs and scholarships for international students. Free profile analysis with Odysseo Education.", "domains": {"pluridisciplinaire": "its multidisciplinary teaching", "ingenierie": "engineering and sciences", "education": "teacher training and education sciences", "economie": "economics, finance and management", "sante": "medicine and health sciences", "agriculture": "agriculture and life sciences", "arts": "arts and communication", "droit": "law and political science", "energie": "energy and geosciences", "langues": "languages and international studies", "sport": "sport", "maritime": "maritime sciences", "medecine-chinoise": "traditional Chinese medicine"}},

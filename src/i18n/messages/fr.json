@@ -10,11 +10,12 @@
     "home": "Accueil",
     "services": "Nos services",
     "apply": "Déposer mon dossier",
-    "partners": "Devenir partenaire", "programs": "Nos cursus", "openMenu": "Ouvrir le menu", "closeMenu": "Fermer le menu", "menu": "Menu",
+    "partners": "Partenaires", "programs": "Nos cursus", "openMenu": "Ouvrir le menu", "closeMenu": "Fermer le menu", "menu": "Menu",
     "brand": "Odysseo Education",
     "faq": "FAQ",
     "universities": "Universités",
-    "videos": "Vidéos des campus"
+    "videos": "Vidéos des campus",
+    "partnerSpace": "Espace partenaire"
   },
   "photoCredits": {"siteTitle": "Photos du site", "campusTitle": "Photos des campus", "eyebrow": "Crédits", "title": "Crédits photos", "intro": "Les photos de campus de ce site sont des fichiers sous licence libre de Wikimedia Commons. Chacune est créditée ci-dessous avec son auteur et sa licence.", "count": "{count, plural, one {# photo} other {# photos}}", "photo": "Photo : {author}", "source": "Voir le fichier", "logos": "Logos des universités : propriété de chaque université, issus de Wikipédia et Wikimedia Commons. Leur présence n'indique pas un partenariat officiel. Pour toute demande de retrait, écrivez-nous.", "unknown": "Auteur non précisé"},
   "university": {"back": "Toutes les universités", "city": "Ville", "province": "Province", "founded": "Création", "status": "Statut", "public": "Université publique", "private": "Université privée", "dfc": "Double First-Class", "dfcText": "Programme national des universités chinoises les plus reconnues", "ministry": "Rattachée au ministère de l'Éducation", "about": "Présentation", "campus": "Le campus", "photoCredit": "Photo : {author} · {license}, via Wikimedia Commons", "photoUnknown": "auteur non précisé", "allCredits": "Tous les crédits photos", "intro": "{name} est une université {kind} chinoise{founded, select, none {} other { fondée en {founded}}}{place, select, none {} other {, située à {place}}}.", "kindPublic": "publique", "kindPrivate": "privée", "domainSentence": "Elle est surtout reconnue pour {domain}.", "dfcSentence": "Elle fait partie du programme national « Double First-Class », qui regroupe les universités chinoises les plus reconnues.", "ministrySentence": "Elle relève directement du ministère chinois de l'Éducation.", "levelsTitle": "Étudier à {name}", "levelsIntro": "Les programmes ouverts aux étudiants internationaux, les bourses et les frais de scolarité changent chaque année. Votre conseiller vérifie ceux qui correspondent à votre profil.", "levelCta": "Recevoir les programmes et les bourses", "reportTitle": "Programmes, bourses et frais de scolarité", "reportText": "Recevez gratuitement la liste à jour des programmes de cette université adaptés à votre profil, avec les bourses possibles et les frais, dans votre rapport personnalisé.", "cta": "Analyser mon profil gratuitement", "ctaHint": "Gratuit, sans engagement. Réponse sur WhatsApp sous 24 h.", "submit": "Soumettre mon dossier gratuitement", "metaTitle": "Étudier à {name} ({place}) – programmes et bourses", "metaDescription": "Étudier à {name}, {place} : présentation, campus, programmes et bourses pour les étudiants internationaux. Analyse gratuite de votre profil avec Odysseo Education.", "domains": {"pluridisciplinaire": "son enseignement pluridisciplinaire", "ingenierie": "l'ingénierie et les sciences", "education": "la formation des enseignants et les sciences de l'éducation", "economie": "l'économie, la finance et la gestion", "sante": "la médecine et les sciences de la santé", "agriculture": "l'agriculture et les sciences du vivant", "arts": "les arts et la communication", "droit": "le droit et les sciences politiques", "energie": "l'énergie et les géosciences", "langues": "les langues et les études internationales", "sport": "le sport", "maritime": "les sciences maritimes", "medecine-chinoise": "la médecine traditionnelle chinoise"}},
@@ -1035,7 +1036,7 @@
       "ctaText": "Inscription gratuite. Vous signez votre contrat en ligne et votre lien s'active aussitôt.",
       "choose": "Choisir…",
       "spacecta": "Mon espace partenaire",
-      "spaceText": "Déja partenaire ? Accéder a votre espace et suivez vos performances"
+      "spaceText": "Déjà partenaire ? Accédez à votre espace et suivez vos résultats."
     },
     "title": "Demande de partenariat",
     "intro": "Présentez-vous en quelques lignes. Notre équipe étudie chaque demande et vous répond par email.",

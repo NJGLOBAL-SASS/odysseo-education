@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { ArrowRight, Link2, Gift, TrendingUp } from "lucide-react";
+import { ArrowRight, Link2, Gift, TrendingUp, LayoutDashboard, UserPlus } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
@@ -42,6 +42,30 @@ export default async function PartnersPublicPage({ params }: { params: { locale:
           </p>
         </div>
 
+        {/* Deux portes d'entrée : partenaire existant (tableau de bord, sur tout appareil) ou nouveau partenaire. */}
+        <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+          <div className="flex flex-col rounded-brand bg-noir p-6 text-white">
+            <LayoutDashboard className="h-6 w-6 text-rouge" />
+            <h2 className="mt-3 text-xl font-extrabold">{isFr ? "Déjà partenaire ?" : "Already a partner?"}</h2>
+            <p className="mt-1 flex-1 text-sm text-[#D4D4DA]">
+              {isFr
+                ? "Connectez-vous avec votre e-mail ou votre numéro : vous recevez un code et suivez vos étudiants et vos gains, sur ordinateur comme sur téléphone."
+                : "Sign in with your email or phone number: you receive a code and follow your students and earnings, on computer or phone."}
+            </p>
+            <Link href="/espace-partenaire" className="btn-primary mt-5 w-full">
+              {isFr ? "Accéder à mon tableau de bord" : "Open my dashboard"} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="card flex flex-col p-6">
+            <UserPlus className="h-6 w-6 text-rouge" />
+            <h2 className="mt-3 text-xl font-extrabold">{isFr ? "Devenir partenaire" : "Become a partner"}</h2>
+            <p className="mt-1 flex-1 text-sm text-gris">{tApply("ctaText")}</p>
+            <Link href="/partenaires/inscription" className="btn-dark mt-5">
+              {isFr ? "S'inscrire gratuitement" : "Sign up for free"} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {steps.map((s) => (
             <div key={s.title} className="card p-5">
@@ -62,18 +86,6 @@ export default async function PartnersPublicPage({ params }: { params: { locale:
             className="btn-primary mx-auto mt-4 !w-auto px-6"
           >
             {tApply("cta")} <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div
-          id="demande"
-          className="card mx-auto mt-12 max-w-2xl scroll-mt-6 p-6 text-center sm:p-8"
-        >
-          <p className="text-[15px] text-gris">{tApply("spaceText")}</p>
-          <Link
-            href="/espace-partenaire"
-            className="btn-primary mx-auto mt-4 !w-auto px-6"
-          >
-            {tApply("spacecta")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
