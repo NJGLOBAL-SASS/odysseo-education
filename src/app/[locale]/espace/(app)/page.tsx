@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { ArrowRight, Check, FileText, MessageCircle } from "lucide-react";
 
@@ -13,6 +13,9 @@ import { StageTimeline } from "@/components/portal/stage-timeline";
 import { ReportOfferCard } from "@/components/portal/report-offer-card";
 import { toPortalReport } from "@/lib/admission/server";
 import { ClipboardCheck } from "lucide-react";
+import { documentProgress, nextAction, paymentSchedule } from "@/lib/portal/next-action";
+import { getPaymentRules } from "@/lib/content/payment-methods";
+import { DocumentProgressCard, NextActionCard, PaymentsCard } from "@/components/portal/dossier-overview";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +34,30 @@ export default async function PortalHomePage({ params }: { params: { locale: str
   const studentFirst = firstNameOf(c.fullName);
 
   // Offres recommandées (PACK-02) : champs publics seulement, jamais l'université réelle.
-  const report = toPortalReport(await prisma.admissionReport.findUnique({ where: { candidateId: session.candidateId } }), locale);
+  const rawReport = await prisma.admissionReport.findUnique({ where: { candidateId: session.candidateId } });
+  const report = toPortalReport(rawReport, locale);
+
+  // « Votre prochaine action », documents et paiements : uniquement des données réelles.
+  const [checklist, unreadMessages] = await Promise.all([
+    prisma.checklistItem.findMany({
+      where: { candidateId: session.candidateId, removedAt: null },
+      select: { status: true, phase: true, required: true, kind: true },
+    }),
+    prisma.portalMessage.count({ where: { candidateId: session.candidateId, authorType: "TEAM", readByCandidateAt: null } }),
+  ]);
+  const action = nextAction({
+    report: report
+      ? { published: true, validatedCurrent: report.validatedCurrent, paymentReceived: report.paymentReceived, documentsConsent: report.documentsConsent }
+      : null,
+    checklist,
+    unreadMessages,
+  });
+  const messages = (await getMessages()) as { suivi?: { stages?: Record<string, { next?: string }> } };
+  const waitText = messages.suivi?.stages?.[c.stage]?.next || undefined;
+  const progress = documentProgress(checklist);
+  const schedule = report?.program
+    ? paymentSchedule(report.program.payments, rawReport?.paymentReceivedAt ? rawReport.paymentAmount : 0)
+    : null;
   const tReport = await getTranslations("portal.report");
   const offers = ((Array.isArray(c.recommendations) ? c.recommendations : []) as unknown as StoredRecommendation[])
     .map((r) => {
@@ -50,7 +76,27 @@ export default async function PortalHomePage({ params }: { params: { locale: str
         <p className="text-[13px] text-gris">{t("updated", { date: dateFmt.format(c.stageUpdatedAt ?? c.createdAt) })}</p>
       </div>
 
-      {report && (
+      <NextActionCard action={action} waitText={waitText} isParent={session.role === "PARENT"} studentName={studentFirst} />
+
+      {(progress.total > 0 || schedule) && (
+        <div className="grid gap-4">
+          {progress.total > 0 && <DocumentProgressCard {...progress} />}
+          {report?.program && schedule && (
+            <PaymentsCard
+              locale={locale}
+              programName={report.program.name}
+              lines={schedule.lines}
+              total={schedule.total}
+              paid={schedule.paid}
+              rest={schedule.rest}
+              paidOn={rawReport?.paymentReceivedAt ? dateFmt.format(rawReport.paymentReceivedAt) : null}
+              rules={getPaymentRules(locale)}
+            />
+          )}
+        </div>
+      )}
+
+      {report && action.key !== "validateReport" && (
         <Link
           href="/espace/rapport"
           className={`flex items-start gap-3 rounded-brand p-5 ${report.validatedCurrent || report.paymentReceived ? "card hover:ring-1 hover:ring-noir" : "bg-rouge text-white"}`}

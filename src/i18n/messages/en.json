@@ -289,6 +289,63 @@
       "sent": "If a space exists for this address, an email has just been sent. Check your spam folder too.",
       "back": "Back to sign in"
     },
+    "next": {
+      "label": "Your next step",
+      "parentLabel": "Next step of the application",
+      "parentNote": "{name} must do this from their own access.",
+      "validateReport": {
+        "title": "Read and approve your report",
+        "text": "Your advisor has selected offers for you. Read them, then approve your application.",
+        "button": "See my report"
+      },
+      "firstPayment": {
+        "title": "Make your first payment",
+        "text": "Your application is approved. Your advisor sends you the payment instructions on WhatsApp. Only pay to a number they gave you.",
+        "button": "Write to my advisor"
+      },
+      "readMessages": {
+        "title": "{count, plural, one {You have a new message} other {You have # new messages}}",
+        "text": "Your advisor wrote to you. Read their reply before continuing.",
+        "button": "Read my messages"
+      },
+      "documentsConsent": {
+        "title": "Allow your documents to be sent",
+        "text": "Before your first upload, agree that your documents are kept and sent to universities for your application.",
+        "button": "Open my documents"
+      },
+      "sendDocuments": {
+        "title": "{count, plural, one {Send # document} other {Send # documents}}",
+        "text": "Take a photo or choose files in the Documents tab. Your advisor checks them.",
+        "button": "Send my documents"
+      },
+      "reviewPrepared": {
+        "title": "{count, plural, one {Review # document prepared for you} other {Review # documents prepared for you}}",
+        "text": "Your advisor wrote them: approve them or ask for a change.",
+        "button": "Review"
+      },
+      "wait": {
+        "title": "Nothing to do for now",
+        "text": "Your advisor is working on your application. You will be notified at each new step.",
+        "button": "Write to my advisor"
+      }
+    },
+    "progress": {
+      "title": "Your documents",
+      "received": "{received} of {total} received",
+      "validated": "{count, plural, =0 {None approved yet} one {# approved by your advisor} other {# approved by your advisor}}",
+      "open": "See my documents"
+    },
+    "payments": {
+      "title": "Your payments",
+      "program": "{program} support · total {amount} FCFA",
+      "paidOn": "Payment received on {date}",
+      "paid": "Paid",
+      "upcoming": "Upcoming",
+      "totalPaid": "Already paid: {amount} FCFA",
+      "rest": "Remaining: {amount} FCFA",
+      "note": "Your advisor confirms each instalment before you pay.",
+      "alertTitle": "Protect yourself from scams"
+    },
     "home": {
       "hello": "Hello {name}",
       "parentOf": "{name}'s application",
