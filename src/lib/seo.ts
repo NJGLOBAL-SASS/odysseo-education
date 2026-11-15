@@ -18,7 +18,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 type L<T> = Record<Locale, T>;
 type PageSeo = { title: string; description: string };
 
-export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "offers";
+export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "offers" | "universities";
 
 /** Chemins (sans préfixe de langue) des pages publiques. */
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
@@ -30,6 +30,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   faq: "/faq",
   guide: "/guides/avant-le-depart",
   offers: "/offres",
+  universities: "/universites",
 };
 
 /** Pages légales : indexables (canonical + hreflang), titres repris des pages. */
@@ -55,6 +56,18 @@ export const LEGAL_PAGE_PATHS = Object.keys(LEGAL_SEO);
 
 /** Titres et descriptions (140-160 caractères) des pages publiques. */
 export const PAGE_SEO: Record<PublicPage, L<PageSeo>> = {
+  universities: {
+    fr: {
+      title: "Universités chinoises",
+      description:
+        "Les universités chinoises où étudier en langue, licence, master ou doctorat. Vous postulez avec votre conseiller Odysseo : analyse gratuite de votre profil.",
+    },
+    en: {
+      title: "Chinese universities",
+      description:
+        "Chinese universities where you can study a language, bachelor's, master's or PhD. You apply with your Odysseo advisor: free profile analysis.",
+    },
+  },
   home: {
     fr: {
       title: "Étudier en Chine",

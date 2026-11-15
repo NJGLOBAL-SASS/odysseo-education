@@ -52,6 +52,18 @@ export function getFaq(locale: ContentLocale): FaqCategory[] {
     .filter((c) => isPublishable(c.titre) && c.questions.length > 0);
 }
 
+/**
+ * Quelques questions choisies (accueil), désignées par catégorie et position dans le JSON
+ * (même ordre en FR et en EN). Une question non publiable est simplement omise.
+ * L'identifiant est celui de la page /faq, pour y renvoyer avec une ancre.
+ */
+export function getFaqPicks(locale: ContentLocale, picks: readonly (readonly [string, number])[]) {
+  return picks.flatMap(([cat, index]) => {
+    const x = RAW_FAQ[locale].categories.find((c) => c.id === cat)?.questions[index];
+    return x && isPublishable(x.q) && isPublishable(x.r) ? [{ id: `q-${slugId(x.q)}`, q: x.q, r: x.r }] : [];
+  });
+}
+
 export function getChecklist(locale: ContentLocale): { titre: string; version: string; sections: ChecklistSection[] } {
   const raw = RAW_CHECKLIST[locale];
   return {

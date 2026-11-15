@@ -1,0 +1,10 @@
+{
+ "_comment": "Chiffres RÉELS affichés sous le titre de l'accueil (voir content/README.md). Un chiffre ne s'affiche que si \"valeur\" est un nombre (null = masqué). \"detail_fr\" / \"detail_en\" (facultatifs) : précision affichée en petit sous le libellé. Ne jamais arrondir vers le haut ni inventer. Aucun chiffre renseigné = bandeau masqué.",
+ "chiffres": [
+  {"id": "admissions", "valeur": 75, "suffixe": "+", "libelle_fr": "admissions obtenues", "libelle_en": "admissions obtained"},
+  {"id": "programmes", "valeur": 9700, "suffixe": "+", "libelle_fr": "programmes accessibles via nos partenaires", "libelle_en": "programs available through our partners", "source": "Catalogue du partenaire, environ 9 702 programmes (novembre 2026)"},
+  {"id": "bourses","valeur": null, "suffixe": "", "libelle_fr": "bourses obtenues", "libelle_en": "scholarships obtained"},
+  {"id": "pays", "valeur": 7, "suffixe": "", "libelle_fr": "pays d'origine de nos étudiants", "libelle_en": "home countries of our students", "detail_fr": "Cameroun, Gabon, Tchad, Niger, Côte d'Ivoire, Tanzanie, Zambie", "detail_en": "Cameroon, Gabon, Chad, Niger, Côte d'Ivoire, Tanzania, Zambia"},
+  {"id": "visas","valeur": null, "suffixe": " %", "libelle_fr": "de visas obtenus", "libelle_en": "of visas granted"}
+ ]
+}

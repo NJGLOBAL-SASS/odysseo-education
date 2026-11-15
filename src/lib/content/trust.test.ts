@@ -8,8 +8,13 @@ import {
   getAdvisors,
   getProofDocuments,
   getTestimonials,
+  isAllowedVideoFile,
   isAllowedVideoUrl,
+  getStats,
+  getUniversityLogos,
+  getVideoTestimonials,
   publishedImagePaths,
+  videoEmbedUrl,
   testimonialQuote,
   QUOTE_MAX_LENGTH,
 } from "./trust";
@@ -55,4 +60,37 @@ test("liens vidéo autorisés", () => {
   assert.equal(isAllowedVideoUrl("https://www.tiktok.com/@odysseo/video/1"), true);
   assert.equal(isAllowedVideoUrl("https://exemple.com/video"), false);
   assert.equal(isAllowedVideoUrl(null), false);
+});
+
+test("lecteur intégré : YouTube et TikTok reconnus, lien court ouvert à part", () => {
+  assert.equal(videoEmbedUrl("https://youtu.be/dQw4w9WgXcQ")?.startsWith("https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"), true);
+  assert.equal(videoEmbedUrl("https://www.youtube.com/shorts/dQw4w9WgXcQ")?.includes("/embed/dQw4w9WgXcQ"), true);
+  assert.equal(videoEmbedUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ")?.includes("/embed/dQw4w9WgXcQ"), true);
+  assert.equal(videoEmbedUrl("https://www.tiktok.com/@odysseo/video/7301234567890123456"), "https://www.tiktok.com/player/v1/7301234567890123456?autoplay=1&rel=0");
+  assert.equal(videoEmbedUrl("https://vm.tiktok.com/ZMabc123/"), null);
+});
+
+test("vidéos hébergées : MP4 dans public/videos/ ou sur Vercel Blob uniquement", () => {
+  assert.equal(isAllowedVideoFile("/videos/temoignage-t-001.mp4"), true);
+  assert.equal(isAllowedVideoFile("https://abc123.public.blob.vercel-storage.com/videos/t-001.mp4"), true);
+  assert.equal(isAllowedVideoFile("https://exemple.com/video.mp4"), false);
+  assert.equal(isAllowedVideoFile("/videos/t-001.mov"), false);
+  for (const t of getVideoTestimonials()) {
+    if (t.video_fichier?.startsWith("/")) {
+      assert.ok(existsSync(path.join(process.cwd(), "public", t.video_fichier)), `vidéo introuvable : public${t.video_fichier}`);
+    }
+  }
+});
+
+test("chiffres affichés : uniquement des nombres réels et positifs", () => {
+  for (const s of getStats()) assert.ok(typeof s.valeur === "number" && s.valeur > 0, s.id);
+});
+
+test("logos publiés : fichier sous /images/universites/, noms uniques", () => {
+  const ids = new Set<string>();
+  for (const u of getUniversityLogos()) {
+    assert.ok(u.logo.startsWith("/images/universites/"), `${u.id} : ${u.logo}`);
+    assert.ok(!ids.has(u.id), `doublon : ${u.id}`);
+    ids.add(u.id);
+  }
 });

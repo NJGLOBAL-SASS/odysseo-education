@@ -50,10 +50,12 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(6px)" },
           to: { opacity: "1", transform: "none" },
         },
+        marquee: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
       },
       animation: {
         "toast-in": "toast-in .2s ease-out",
         "fade-up": "fade-up .25s ease-out both",
+        marquee: "marquee var(--marquee-duration, 60s) linear infinite",
       },
       maxWidth: {
         wrap: "560px",

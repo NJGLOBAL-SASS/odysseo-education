@@ -7,12 +7,16 @@ commiter, pousser sur `main` → Vercel redéploie. **Aucun code à modifier.**
 |---|---|
 | `faq/faq_fr.json`, `faq/faq_en.json` | Page `/faq` (PACK-09) |
 | `guides/checklist_depart_fr.json`, `…_en.json` | Page `/guides/avant-le-depart` (PACK-09) |
-| `temoignages.json` | Accueil (3 au hasard) et page du cursus concerné (PACK-06) |
-| `preuves.json` | Pages cursus, section « Ce que vous recevez » (PACK-06) |
+| `temoignages.json` | Accueil : vidéos (« Ils racontent leur expérience ») ; page du cursus concerné (PACK-06) |
+| `preuves.json` | Accueil : mur des admissions (toutes les Admission Notice) ; pages cursus, « Ce que vous recevez » (3 premiers documents) |
+| `chiffres.json` | Accueil : chiffres sous le titre (admissions, bourses, pays, visas) |
+| `universites.json` | Accueil : bandeau de logos « Les universités de nos offres » |
 | `conseillers.json` | Carte « Votre conseiller » (pied de page, accueil) et bouton WhatsApp flottant (PACK-06) |
 
 **Règle d'or : rien de faux ne s'affiche jamais.** Une liste vide = la section n'apparaît pas.
-Ne jamais inventer un témoignage, une photo ou un chiffre. Ne jamais nommer l'université.
+Ne jamais inventer un témoignage, une photo ou un chiffre. Ne jamais nommer l'université dans
+une offre, un témoignage ou une légende : seul le bandeau de logos de l'accueil montre des
+universités, sans lien vers elles (l'étudiant passe toujours par son conseiller).
 
 FAQ et checklist : un texte qui contient `[À VALIDER]` (ou un nombre entre crochets comme `[7]`)
 reste masqué. Retirez le marqueur une fois le texte validé.
@@ -49,7 +53,15 @@ reste masqué. Retirez le marqueur une fois le texte validé.
 
 - `cursus` : `langue-chinoise`, `bachelor`, `master` ou `doctorat`.
 - `ville_chine` : la ville seulement, **jamais le nom de l'université**.
-- `video_url` : lien YouTube ou TikTok (ou `null`). Il s'ouvre dans un nouvel onglet.
+- `video_url` : lien YouTube ou TikTok (ou `null`). Sur l'accueil, la vidéo se lit directement
+  dans la page (lien complet `https://www.tiktok.com/@compte/video/123…` ; un lien court
+  `vm.tiktok.com` s'ouvre dans un nouvel onglet).
+- `video_fichier` (facultatif) : vidéo MP4 hébergée par Odysseo, lue dans la page sans passer par
+  TikTok ou YouTube. Petite vidéo (moins de 20 Mo) : `public/videos/t-001.mp4` → `"/videos/t-001.mp4"`.
+  Plus lourde : la déposer sur Vercel Blob et coller son URL `https://….public.blob.vercel-storage.com/….mp4`.
+  Format vertical 9:16 conseillé. La photo sert d'affiche avant la lecture.
+- Un témoignage avec une vidéo apparaît dans le bloc vidéo de l'accueil ; avec une citation, il
+  apparaît aussi sur la page de son cursus.
 - `accord_signe_le` : date réelle de l'accord (AAAA-MM-JJ). Sans date valide, rien ne s'affiche.
 - `publie` : `true` pour afficher, `false` pour masquer sans supprimer. Si l'étudiant retire son
   accord : `false`, puis supprimer l'entrée et la photo (sous 7 jours).
@@ -62,7 +74,9 @@ reste masqué. Retirez le marqueur une fois le texte validé.
    l'étudiant. **Flouter le nom, la photo, les dates de naissance et tous les numéros** avant tout
    envoi (passeport, dossier, code-barres, QR code). L'université peut être floutée elle aussi.
 2. Format portrait, **150 Ko max**, dans `public/images/preuves/` (ex. `admission-floutee.jpg`).
-3. Entrée dans `preuves.json` (3 documents affichés au maximum) :
+3. Entrée dans `preuves.json`. **Accueil** : toutes les `admission_notice` publiées forment le
+   mur des admissions (aucune limite, le nombre est affiché). **Pages cursus** : les 3 premiers
+   documents de la liste ; placer en tête un exemple de chaque type (Admission Notice, JW202, visa).
 
 ```json
 {
@@ -96,3 +110,24 @@ Photo carrée (150 Ko max) dans `public/images/conseillers/`, puis dans `conseil
 Le **premier** conseiller de la liste est affiché ; son numéro (format international, sans « + »
 ni espaces) est utilisé par le bouton WhatsApp flottant. Liste vide : le bouton utilise
 `NEXT_PUBLIC_WHATSAPP_NUMBER`.
+
+## Chiffres de l'accueil (`chiffres.json`)
+
+Remplacer `null` par le **chiffre réel** (ex. `"valeur": 42`). Un chiffre à `null` reste masqué ;
+si aucun n'est renseigné, le bandeau n'apparaît pas. `suffixe` s'ajoute après le nombre (ex. `" %"`).
+Garder une trace de la source (liste des admissions, des visas) en cas de question.
+
+## Logos des universités (`universites.json`)
+
+Les logos sont dans `public/images/universites/` (PNG ou JPG, 240 px de haut, 150 Ko max).
+Une université s'affiche si `"publie": true` ; l'ordre du fichier est l'ordre d'affichage
+(48 logos au maximum, sur deux rangées qui défilent). Pour en masquer une : `"publie": false`.
+
+```json
+{ "id": "xiamen-university", "nom_en": "Xiamen University", "nom_zh": "厦门大学",
+  "logo": "/images/universites/xiamen-university.png", "publie": true }
+```
+
+Sources des logos : `_ameliorations/logos-universites/SOURCES.csv` (page Wikipédia ou Wikimedia
+Commons de chaque fichier). Les logos restent la propriété des universités : en cas de demande de
+retrait, passer l'entrée à `"publie": false`.

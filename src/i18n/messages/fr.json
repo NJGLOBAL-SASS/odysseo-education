@@ -14,17 +14,71 @@
     "brand": "Odysseo Education",
     "faq": "FAQ"
   },
+  "universities": {"eyebrow": "Universités", "title": "{count} universités chinoises", "intro": "Des universités publiques chinoises, de la langue au doctorat. Vous y postulez toujours avec votre conseiller Odysseo : il vérifie votre éligibilité et dépose votre dossier.", "search": "Rechercher une université", "searchPlaceholder": "Nom en français, anglais ou chinois…", "results": "{count, plural, =0 {Aucune université} one {# université} other {# universités}}", "empty": "Aucune université ne correspond à cette recherche.", "cta": "Analyse gratuite de mon profil", "ctaText": "Une université vous intéresse ? Votre conseiller vérifie gratuitement votre éligibilité.", "credit": "Logos : propriété de chaque université, issus de Wikipédia et Wikimedia Commons. Leur présence n'indique pas un partenariat officiel."},
   "home": {
     "hero": {
-      "badge1": "Langue",
-      "badge2": "Licence",
-      "badge3": "Master",
-      "badge4": "Doctorat",
-      "title": "Étudier en <red>Chine</red> : analyse gratuite de votre profil",
-      "subtitle": "Répondez à quelques questions (3 minutes). Nous revenons vers vous sur WhatsApp avec un premier avis.",
-      "cta": "Commencer l'analyse gratuite",
-      "tagline": "Bénéficiez des meilleurs programmes d'étude en Chine",
-      "tagline2": "Éducation compétitive, disciplinée et innovante."
+      "eyebrow": "Accompagnement en français · Rentrées 2027",
+      "title": "Étudiez en <red>Chine</red> avec une bourse, accompagné de A à Z",
+      "subtitle": "Nous choisissons avec vous l'université, préparons votre dossier, vous guidons pour le visa et vous accueillons à l'aéroport. Tout se fait en français, sur WhatsApp.",
+      "cta": "Analyse gratuite de mon profil",
+      "ctaProof": "Voir les admissions obtenues",
+      "ctaOffers": "Voir les offres",
+      "reassure": ["Gratuit et sans engagement", "Réponse sur WhatsApp sous 24 h", "Paiement par étapes"]
+    },
+    "logos": {
+      "title": "Étudiez dans les universités chinoises",
+      "intro": "Des universités chinoises reconnues, de la langue au doctorat. Vous y postulez toujours avec votre conseiller Odysseo.",
+      "all": "Voir les {count} universités"
+    },
+    "admissions": {
+      "eyebrow": "Nos preuves",
+      "title": "Des admissions réelles, obtenues par nos étudiants",
+      "intro": "Lettres d'admission reçues par des étudiants accompagnés par Odysseo. Informations personnelles masquées, publiées avec leur accord.",
+      "count": "{count, plural, one {# lettre d'admission} other {# lettres d'admission}}",
+      "hint": "Touchez une lettre pour l'agrandir."
+    },
+    "videos": {
+      "title": "Ils racontent leur expérience",
+      "play": "Lire la vidéo de {name}",
+      "open": "Voir la vidéo",
+      "departure": "Départ {year}"
+    },
+    "steps": {
+      "title": "Comment ça marche",
+      "subtitle": "4 étapes, un seul interlocuteur du début à la fin.",
+      "items": [
+        {"title": "Analyse gratuite", "text": "Vous répondez à quelques questions en 3 minutes. Votre conseiller vous répond sur WhatsApp."},
+        {"title": "Votre sélection d'offres", "text": "Vous recevez un rapport avec les universités et les bourses adaptées à votre profil. Vous choisissez."},
+        {"title": "Dossier et candidatures", "text": "Nous préparons vos documents (traductions, lettre de motivation, plan d'études) et déposons vos candidatures. Vous suivez tout dans votre espace."},
+        {"title": "Admission, visa, départ", "text": "Vous recevez l'Admission Notice et le JW202, nous vous guidons pour le visa et vous accueillons à l'aéroport."}
+      ],
+      "cta": "Commencer par l'analyse gratuite"
+    },
+    "programs": {
+      "title": "Choisissez votre cursus",
+      "from": "Tout compris, à partir de",
+      "discover": "Découvrir"
+    },
+    "payment": {
+      "title": "Combien et quand vous payez",
+      "points": [
+        "Le prix de chaque cursus est affiché, tout compris : pas de frais cachés.",
+        "Vous payez par étapes : plus de la moitié seulement après votre admission.",
+        "Chaque paiement donne lieu à un reçu, visible dans votre espace."
+      ],
+      "alertTitle": "Protégez-vous des arnaques",
+      "alert": "Ne payez jamais sur un numéro qui ne vous a pas été communiqué par votre conseiller Odysseo. En cas de doute, écrivez-nous avant de payer.",
+      "honest": "Aucune agence ne peut honnêtement garantir une admission ou une bourse. Nous ne déposons que des dossiers complets et vérifiés, et les conditions de remboursement sont écrites sur chaque cursus.",
+      "link": "Voir les tarifs et les remboursements"
+    },
+    "faq": {
+      "title": "Vos questions",
+      "all": "Toutes les questions"
+    },
+    "final": {
+      "title": "Prêt à étudier en Chine ?",
+      "text": "L'analyse de votre profil est gratuite et sans engagement. Votre conseiller vous répond sur WhatsApp.",
+      "cta": "Analyse gratuite de mon profil"
     }
   },
   "services": {

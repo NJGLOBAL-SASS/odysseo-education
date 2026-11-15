@@ -474,17 +474,71 @@
     "brand": "Odysseo Education",
     "faq": "FAQ"
   },
+  "universities": {"eyebrow": "Universities", "title": "{count} Chinese universities", "intro": "Chinese public universities, from language courses to PhD. You always apply with your Odysseo advisor, who checks your eligibility and submits your application.", "search": "Search for a university", "searchPlaceholder": "Name in English or Chinese…", "results": "{count, plural, =0 {No university} one {# university} other {# universities}}", "empty": "No university matches this search.", "cta": "Free analysis of my profile", "ctaText": "Interested in a university? Your advisor checks your eligibility for free.", "credit": "Logos: property of each university, from Wikipedia and Wikimedia Commons. Their presence does not mean an official partnership."},
   "home": {
     "hero": {
-      "badge1": "Language",
-      "badge2": "Bachelor's",
-      "badge3": "Master's",
-      "badge4": "PhD",
-      "title": "Study in <red>China</red>: free analysis of your profile",
-      "subtitle": "Answer a few questions (3 minutes). We'll get back to you on WhatsApp with an initial assessment.",
-      "cta": "Start the free analysis",
-      "tagline": "Get access to the best study programs in China",
-      "tagline2": "Competitive, disciplined and innovative education."
+      "eyebrow": "Support from start to finish · 2027 intakes",
+      "title": "Study in <red>China</red> on a scholarship, supported from A to Z",
+      "subtitle": "We choose the university with you, prepare your application, guide you through the visa and welcome you at the airport. Everything happens on WhatsApp.",
+      "cta": "Free analysis of my profile",
+      "ctaProof": "See the admissions obtained",
+      "ctaOffers": "See the offers",
+      "reassure": ["Free, no commitment", "Reply on WhatsApp within 24 h", "Pay in stages"]
+    },
+    "logos": {
+      "title": "Study at Chinese universities",
+      "intro": "Well-known Chinese universities, from language courses to PhD. You always apply with your Odysseo advisor.",
+      "all": "See all {count} universities"
+    },
+    "admissions": {
+      "eyebrow": "Our proof",
+      "title": "Real admissions, obtained by our students",
+      "intro": "Admission letters received by students supported by Odysseo. Personal details hidden, published with their consent.",
+      "count": "{count, plural, one {# admission letter} other {# admission letters}}",
+      "hint": "Tap a letter to enlarge it."
+    },
+    "videos": {
+      "title": "They share their experience",
+      "play": "Play {name}'s video",
+      "open": "Watch the video",
+      "departure": "Left in {year}"
+    },
+    "steps": {
+      "title": "How it works",
+      "subtitle": "4 steps, one contact from start to finish.",
+      "items": [
+        {"title": "Free analysis", "text": "You answer a few questions in 3 minutes. Your advisor replies on WhatsApp."},
+        {"title": "Your selection of offers", "text": "You receive a report with the universities and scholarships that fit your profile. You choose."},
+        {"title": "Application and submissions", "text": "We prepare your documents (translations, motivation letter, study plan) and submit your applications. You follow everything in your space."},
+        {"title": "Admission, visa, departure", "text": "You receive the Admission Notice and the JW202, we guide you through the visa and welcome you at the airport."}
+      ],
+      "cta": "Start with the free analysis"
+    },
+    "programs": {
+      "title": "Choose your program",
+      "from": "All included, from",
+      "discover": "Discover"
+    },
+    "payment": {
+      "title": "How much and when you pay",
+      "points": [
+        "Each program's price is shown, all included: no hidden fees.",
+        "You pay in stages: more than half only after your admission.",
+        "Every payment comes with a receipt, visible in your space."
+      ],
+      "alertTitle": "Protect yourself from scams",
+      "alert": "Never pay to a number that was not given to you by your Odysseo advisor. If in doubt, write to us before paying.",
+      "honest": "No agency can honestly guarantee an admission or a scholarship. We only submit complete, verified applications, and the refund conditions are written on each program.",
+      "link": "See prices and refunds"
+    },
+    "faq": {
+      "title": "Your questions",
+      "all": "All questions"
+    },
+    "final": {
+      "title": "Ready to study in China?",
+      "text": "Your profile analysis is free and without commitment. Your advisor replies on WhatsApp.",
+      "cta": "Free analysis of my profile"
     }
   },
   "services": {

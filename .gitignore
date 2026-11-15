@@ -35,3 +35,7 @@ Prompt_Odysseo_Management_Platform.txt
 asset/
 
 env.txt
+
+# Originaux des lettres d'admission (données personnelles) : jamais commités.
+# Seules les versions floutées vont dans public/images/preuves/.
+content/admissions/

@@ -7,8 +7,11 @@ import { Maximize2, X } from "lucide-react";
 
 export type ProofItem = { id: string; image: string; caption: string };
 
-/** Vignettes cliquables + agrandissement plein écran (Échap, clic sur le fond ou bouton pour fermer). */
-export function ProofGallery({ items }: { items: ProofItem[] }) {
+/**
+ * Vignettes cliquables + agrandissement plein écran (Échap, clic sur le fond ou bouton pour fermer).
+ * `layout="strip"` : bande horizontale défilable (mur des admissions de l'accueil).
+ */
+export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; layout?: "grid" | "strip" }) {
   const t = useTranslations("proof");
   const [open, setOpen] = useState<ProofItem | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -30,9 +33,15 @@ export function ProofGallery({ items }: { items: ProofItem[] }) {
 
   return (
     <>
-      <ul className="grid grid-cols-3 gap-3">
+      <ul
+        className={
+          layout === "strip"
+            ? "-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0"
+            : "grid grid-cols-3 gap-3"
+        }
+      >
         {items.map((p) => (
-          <li key={p.id}>
+          <li key={p.id} className={layout === "strip" ? "w-[44%] flex-shrink-0 snap-start sm:w-[200px]" : undefined}>
             <button
               type="button"
               onClick={(e) => {
@@ -42,7 +51,7 @@ export function ProofGallery({ items }: { items: ProofItem[] }) {
               className="group relative block aspect-[3/4] w-full overflow-hidden rounded-[6px] border border-bord bg-white"
               aria-label={t("enlarge", { name: p.caption })}
             >
-              <Image src={p.image} alt="" fill sizes="(min-width: 900px) 280px, 33vw" className="object-cover transition-transform group-hover:scale-105" />
+              <Image src={p.image} alt="" fill sizes={layout === "strip" ? "(min-width: 640px) 200px, 44vw" : "(min-width: 900px) 280px, 33vw"} className={`object-cover transition-transform group-hover:scale-105 ${layout === "strip" ? "object-top" : ""}`} />
               <span className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-noir/75 text-white">
                 <Maximize2 className="h-4 w-4" />
               </span>
