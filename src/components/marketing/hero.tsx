@@ -1,10 +1,11 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight, Check } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/lib/programs";
-import { getStats, statDetail, statLabel } from "@/lib/content/trust";
+import { getSitePhoto, getStats, statDetail, statLabel } from "@/lib/content/trust";
+import { CountUp } from "@/components/ui/count-up";
+import { HeroSlides, type HeroSlide } from "./hero-slides";
 
 /**
  * Haut de l'accueil : promesse, deux actions (analyse gratuite + preuves) et,
@@ -14,13 +15,17 @@ import { getStats, statDetail, statLabel } from "@/lib/content/trust";
 export async function Hero({ locale, hasAdmissions }: { locale: Locale; hasAdmissions: boolean }) {
   const t = await getTranslations("home.hero");
   const stats = getStats();
-  const nf = new Intl.NumberFormat(locale === "en" ? "en-GB" : "fr-FR");
+  // Bannière : la photo Odysseo d'abord, puis les campus (licence libre, crédit affiché).
+  const slides: HeroSlide[] = [{ src: "/images/hero/hero-banner-home.jpg", position: "object-[70%_center] sm:object-right" }];
+  for (const id of ["hero-pekin", "hero-sun-yat-sen"]) {
+    const p = getSitePhoto(id);
+    if (p) slides.push({ src: p.image, opacity: "opacity-90", credit: `${(locale === "en" && p.legende_en) || p.legende_fr} · ${p.auteur ?? ""} · ${p.licence}` });
+  }
 
   return (
     <section className="relative overflow-hidden bg-noir text-white">
-      <Image src="/images/hero/hero-banner-home.jpg" alt="" fill priority sizes="100vw" className="object-cover object-right opacity-60" />
-      <div className="absolute inset-0 bg-gradient-to-r from-noir via-noir/80 to-noir/10" />
-      <div className="relative wrap-site py-14 sm:py-24">
+      <HeroSlides slides={slides} />
+      <div className="relative wrap-site pb-14 pt-12 sm:py-24">
         <p className="text-sm font-extrabold uppercase tracking-wide text-rouge">{t("eyebrow")}</p>
         <h1 className="mt-3 max-w-2xl text-[2rem] font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
           {t.rich("title", { red: (chunks) => <span className="text-rouge">{chunks}</span> })}
@@ -55,9 +60,8 @@ export async function Hero({ locale, hasAdmissions }: { locale: Locale; hasAdmis
             {stats.map((s) => (
               <div key={s.id}>
                 <dt className="sr-only">{statLabel(s, locale)}</dt>
-                <dd className="text-3xl font-extrabold tabular-nums sm:text-4xl">
-                  {nf.format(s.valeur as number)}
-                  {s.suffixe}
+                <dd className="text-3xl font-extrabold sm:text-4xl">
+                  <CountUp value={s.valeur as number} suffix={s.suffixe} locale={locale} />
                 </dd>
                 <dd className="mt-0.5 text-sm text-[#C9C9D1]" aria-hidden="true">
                   {statLabel(s, locale)}

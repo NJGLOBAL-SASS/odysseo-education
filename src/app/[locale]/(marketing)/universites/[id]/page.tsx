@@ -8,6 +8,9 @@ import { locales } from "@/i18n/config";
 import { PROGRAMS, type Locale } from "@/lib/programs";
 import { getUniversity, getUniversityLogos, hasCreditedPhoto, universityPlace } from "@/lib/content/trust";
 import { buildPageMetadata } from "@/lib/seo";
+import { Zh } from "@/components/ui/zh";
+import { CampusVideoCards } from "@/components/home/campus-video-cards";
+import { campusVideoCards } from "@/components/home/campus-videos";
 
 /** Niveau pré-sélectionné dans le formulaire /postuler (?level=). */
 const LEVEL_PARAM = { "langue-chinoise": "language", bachelor: "licence", master: "master", doctorat: "doctorat" } as const;
@@ -60,6 +63,9 @@ export default async function UniversityPage({ params }: { params: { locale: str
   ]
     .filter(Boolean)
     .join(" ");
+
+  const videos = await campusVideoCards(locale, (id) => id === u.id);
+  const tv = await getTranslations("campusVideos");
 
   const credit = photo
     ? t("photoCredit", { author: photo.photo_auteur || t("photoUnknown"), license: photo.photo_licence })
@@ -130,6 +136,7 @@ export default async function UniversityPage({ params }: { params: { locale: str
             <section className="card p-5 sm:p-6" aria-labelledby="about-title">
               <h2 id="about-title" className="text-xl font-extrabold">
                 {t("about")}
+                <Zh>学校概况</Zh>
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed">{intro}</p>
             </section>
@@ -138,6 +145,7 @@ export default async function UniversityPage({ params }: { params: { locale: str
               <section aria-labelledby="campus-title" className="hidden lg:block">
                 <h2 id="campus-title" className="mb-3 text-xl font-extrabold">
                   {t("campus")}
+                  <Zh>校园风光</Zh>
                 </h2>
                 <figure className="card overflow-hidden">
                   <img src={photo.photo} alt={`${t("campus")} – ${u.nom_en}`} width={640} height={400} className="aspect-[16/9] w-full object-cover" />
@@ -152,9 +160,21 @@ export default async function UniversityPage({ params }: { params: { locale: str
               </section>
             )}
 
+            {videos.length > 0 && (
+              <section aria-labelledby="video-title">
+                <h2 id="video-title" className="mb-3 text-xl font-extrabold">
+                  {tv("campusTitle")}
+                  <Zh>校园视频</Zh>
+                </h2>
+                <CampusVideoCards items={videos} showUniversityLink={false} />
+                <p className="mt-2 text-xs text-gris">{tv("privacy")}</p>
+              </section>
+            )}
+
             <section aria-labelledby="levels-title">
               <h2 id="levels-title" className="text-xl font-extrabold">
                 {t("levelsTitle", { name: u.nom_en })}
+                <Zh>学习项目</Zh>
               </h2>
               <p className="mt-1 max-w-2xl text-[15px] text-gris">{t("levelsIntro")}</p>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">

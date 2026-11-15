@@ -10,7 +10,9 @@ commiter, pousser sur `main` → Vercel redéploie. **Aucun code à modifier.**
 | `temoignages.json` | Accueil : vidéos (« Ils racontent leur expérience ») ; page du cursus concerné (PACK-06) |
 | `preuves.json` | Accueil : mur des admissions (toutes les Admission Notice) ; pages cursus, « Ce que vous recevez » (3 premiers documents) |
 | `chiffres.json` | Accueil : chiffres sous le titre (admissions, bourses, pays, visas) |
-| `universites.json` | Accueil : bandeau de logos « Les universités de nos offres » |
+| `universites.json` | Bandeau de logos (accueil), page `/universites`, fiche `/universites/[id]` (faits, photo créditée) |
+| `videos.json` | Section « Visitez les campus » (accueil), page `/videos`, fiche de l'université concernée |
+| `photos-site.json` | Bannière défilante de l'accueil et images des cursus (crédits sur `/credits-photos`) |
 | `conseillers.json` | Carte « Votre conseiller » (pied de page, accueil) et bouton WhatsApp flottant (PACK-06) |
 
 **Règle d'or : rien de faux ne s'affiche jamais.** Une liste vide = la section n'apparaît pas.
@@ -131,3 +133,24 @@ Une université s'affiche si `"publie": true` ; l'ordre du fichier est l'ordre d
 Sources des logos : `_ameliorations/logos-universites/SOURCES.csv` (page Wikipédia ou Wikimedia
 Commons de chaque fichier). Les logos restent la propriété des universités : en cas de demande de
 retrait, passer l'entrée à `"publie": false`.
+
+## Vidéos des campus (`videos.json`)
+
+Uniquement des vidéos publiées par l'université **sur sa chaîne officielle** (vérifier le nom de la chaîne)
+et dont l'intégration est autorisée. Pour vérifier : ouvrir
+`https://www.youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D<ID>&format=json` :
+une réponse avec `author_name` = la chaîne officielle → OK ; une erreur → vidéo non intégrable.
+
+```json
+{ "id": "v-09", "universite": "wuhan-university", "youtube": "3X_8vXfS3So",
+  "titre_fr": "À la découverte de l'Université de Wuhan", "titre_en": "Explore Wuhan University",
+  "chaine": "Wuhan University Admissions" }
+```
+
+`universite` = identifiant d'une entrée de `universites.json`. Le lecteur ne se charge qu'au clic.
+
+## Photos du site (`photos-site.json`)
+
+Bannière (`hero-…`) et cursus (`cursus-…`) : fichiers sous licence libre de Wikimedia Commons, avec
+`auteur`, `licence` et `source` (obligatoires, sinon l'image ne s'affiche pas). Images dans
+`public/images/hero/` (1920 × 1080) et `public/images/cursus/` (1200 × 800), au format WebP.

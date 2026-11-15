@@ -1,0 +1,69 @@
+{
+ "_comment": "Vidéos officielles publiées par les universités elles-mêmes (chaîne vérifiée), intégrables. Le lecteur YouTube (youtube-nocookie) ne se charge qu'au clic. Ne jamais ajouter une vidéo d'une chaîne tierce.",
+ "videos": [
+  {
+   "id": "v-01",
+   "universite": "tsinghua-university",
+   "youtube": "x_Y-zme1iTs",
+   "titre_fr": "Visite du campus au printemps",
+   "titre_en": "Campus tour in spring",
+   "chaine": "Tsinghua University"
+  },
+  {
+   "id": "v-02",
+   "universite": "peking-university",
+   "youtube": "tXAxf0Aaeho",
+   "titre_fr": "« Nothing is impossible at PKU »",
+   "titre_en": "Nothing is impossible at PKU",
+   "chaine": "Peking University"
+  },
+  {
+   "id": "v-03",
+   "universite": "shanghai-jiao-tong-university",
+   "youtube": "_qGXaTDc_d4",
+   "titre_fr": "La vie sur le campus de SJTU",
+   "titre_en": "Immersing in the vibrancy of SJTU",
+   "chaine": "Shanghai Jiao Tong University"
+  },
+  {
+   "id": "v-04",
+   "universite": "zhejiang-university",
+   "youtube": "g33F1bHM4JE",
+   "titre_fr": "Présentation de l'Université du Zhejiang",
+   "titre_en": "An overview of Zhejiang University",
+   "chaine": "Zhejiang University"
+  },
+  {
+   "id": "v-05",
+   "universite": "fudan-university",
+   "youtube": "xLoxScOovs8",
+   "titre_fr": "Une journée à l'Université Fudan",
+   "titre_en": "One day at Fudan University",
+   "chaine": "Study at Fudan 留学复旦"
+  },
+  {
+   "id": "v-06",
+   "universite": "wuhan-university",
+   "youtube": "3X_8vXfS3So",
+   "titre_fr": "À la découverte de l'Université de Wuhan",
+   "titre_en": "Explore Wuhan University",
+   "chaine": "Wuhan University Admissions"
+  },
+  {
+   "id": "v-07",
+   "universite": "xiamen-university",
+   "youtube": "eg-BhL5avVU",
+   "titre_fr": "L'Université de Xiamen vue par ses étudiants internationaux",
+   "titre_en": "Xiamen University through the eyes of international students",
+   "chaine": "Xiamen University"
+  },
+  {
+   "id": "v-08",
+   "universite": "tsinghua-university",
+   "youtube": "s7w8XqK4gLo",
+   "titre_fr": "Visite d'une résidence étudiante",
+   "titre_en": "Take a dorm tour",
+   "chaine": "Tsinghua University"
+  }
+ ]
+}

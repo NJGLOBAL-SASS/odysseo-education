@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { getUniversityLogos, type UniversityLogo } from "@/lib/content/trust";
+import { Zh } from "@/components/ui/zh";
 
 /** Logos montrés au maximum (2 rangées), dans l'ordre du fichier. */
 const MAX_SHOWN = 48;
@@ -30,6 +31,7 @@ export async function UniversityLogos() {
       <div className="wrap-site mb-6 text-center">
         <h2 id="logos-title" className="text-xl font-extrabold sm:text-2xl">
           {t("title")}
+          <Zh>院校库</Zh>
         </h2>
         <p className="mx-auto mt-1 max-w-xl text-[15px] text-gris">{t("intro")}</p>
       </div>

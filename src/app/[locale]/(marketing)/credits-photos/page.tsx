@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { getUniversityLogos, hasCreditedPhoto } from "@/lib/content/trust";
+import { getSitePhotos, getUniversityLogos, hasCreditedPhoto } from "@/lib/content/trust";
 import { publicPageMetadata } from "@/lib/seo";
 
 export function generateMetadata({ params }: { params: { locale: string } }) {
@@ -11,6 +11,7 @@ export function generateMetadata({ params }: { params: { locale: string } }) {
 export default async function PhotoCreditsPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
   const t = await getTranslations("photoCredits");
+  const site = getSitePhotos();
   const photos = getUniversityLogos()
     .filter(hasCreditedPhoto)
     .sort((a, b) => a.nom_en.localeCompare(b.nom_en));
@@ -22,7 +23,35 @@ export default async function PhotoCreditsPage({ params }: { params: { locale: s
       <p className="mt-3 max-w-2xl text-gris">{t("intro")}</p>
       <p className="mt-2 text-sm font-semibold">{t("count", { count: photos.length })}</p>
 
-      <ul className="mt-6 divide-y divide-bord rounded-brand border border-bord bg-white text-sm">
+      {site.length > 0 && (
+        <>
+          <h2 className="mt-8 text-lg font-extrabold">{t("siteTitle")}</h2>
+          <ul className="mt-3 divide-y divide-bord rounded-brand border border-bord bg-white text-sm">
+            {site.map((p) => (
+              <li key={p.id} className="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                <span className="font-bold">{(params.locale === "en" && p.legende_en) || p.legende_fr}</span>
+                <span className="text-gris">
+                  {t("photo", { author: p.auteur || t("unknown") })} ·{" "}
+                  {p.licence_url ? (
+                    <a href={p.licence_url} target="_blank" rel="noopener noreferrer license" className="underline hover:text-rouge">
+                      {p.licence}
+                    </a>
+                  ) : (
+                    p.licence
+                  )}
+                  , via{" "}
+                  <a href={p.source} target="_blank" rel="noopener noreferrer" className="underline hover:text-rouge">
+                    Wikimedia Commons
+                  </a>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <h2 className="mt-8 text-lg font-extrabold">{t("campusTitle")}</h2>
+        </>
+      )}
+
+      <ul className="mt-3 divide-y divide-bord rounded-brand border border-bord bg-white text-sm">
         {photos.map((u) => (
           <li key={u.id} className="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
             <span className="font-bold">{u.nom_en}</span>

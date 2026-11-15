@@ -18,7 +18,7 @@ export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 type L<T> = Record<Locale, T>;
 type PageSeo = { title: string; description: string };
 
-export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "offers" | "universities" | "photoCredits";
+export type PublicPage = "home" | "programs" | "services" | "partners" | "apply" | "faq" | "guide" | "offers" | "universities" | "photoCredits" | "videos";
 
 /** Chemins (sans préfixe de langue) des pages publiques. */
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
@@ -32,6 +32,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   offers: "/offres",
   universities: "/universites",
   photoCredits: "/credits-photos",
+  videos: "/videos",
 };
 
 /** Pages légales : indexables (canonical + hreflang), titres repris des pages. */
@@ -57,6 +58,10 @@ export const LEGAL_PAGE_PATHS = Object.keys(LEGAL_SEO);
 
 /** Titres et descriptions (140-160 caractères) des pages publiques. */
 export const PAGE_SEO: Record<PublicPage, L<PageSeo>> = {
+  videos: {
+    fr: { title: "Visitez les campus en vidéo", description: "Vidéos officielles des universités chinoises : découvrez les campus avant de postuler, puis faites analyser votre profil gratuitement." },
+    en: { title: "Visit the campuses on video", description: "Official videos from Chinese universities: discover the campuses before applying, then get a free profile analysis." },
+  },
   photoCredits: {
     fr: { title: "Crédits photos", description: "Auteurs et licences des photos de campus utilisées sur le site Odysseo Education (Wikimedia Commons)." },
     en: { title: "Photo credits", description: "Authors and licenses of the campus photos used on the Odysseo Education website (Wikimedia Commons)." },

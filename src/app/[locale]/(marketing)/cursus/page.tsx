@@ -7,6 +7,8 @@ import { PROGRAMS, formatFcfa, type Locale } from "@/lib/programs";
 import { BrochureDownload } from "@/components/programs/brochure-download";
 import { BrandWatermark } from "@/components/layout/brand-watermark";
 import { publicPageMetadata } from "@/lib/seo";
+import { getSitePhoto } from "@/lib/content/trust";
+import { CURSUS_PHOTO } from "@/components/home/sections";
 
 export function generateMetadata({ params }: { params: { locale: string } }) {
   return publicPageMetadata("programs", params.locale);
@@ -37,7 +39,7 @@ export default async function ProgramsIndexPage({ params }: { params: { locale: 
             <article key={p.slug} className="card flex flex-col overflow-hidden">
               <Link href={`/cursus/${p.slug}`} className="group relative block h-44 overflow-hidden bg-noir">
                 <Image
-                  src={p.image}
+                  src={getSitePhoto(CURSUS_PHOTO[p.slug])?.image ?? p.image}
                   alt=""
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"

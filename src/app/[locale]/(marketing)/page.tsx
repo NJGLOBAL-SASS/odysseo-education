@@ -4,6 +4,7 @@ import { Hero } from "@/components/marketing/hero";
 import { UniversityLogos } from "@/components/home/university-logos";
 import { AdmissionWall } from "@/components/home/admission-wall";
 import { VideoTestimonials } from "@/components/home/video-testimonials";
+import { CampusVideos } from "@/components/home/campus-videos";
 import { FinalCta, HomeFaq, HowItWorks, PaymentTrust, ProgramsStrip } from "@/components/home/sections";
 import { OffersClosingSoon } from "@/components/offers/closing-soon";
 import { getAdmissionLetters } from "@/lib/content/trust";
@@ -33,6 +34,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       <VideoTestimonials locale={locale} />
       <HowItWorks />
       <ProgramsStrip locale={locale} />
+      <CampusVideos locale={locale} />
       <OffersClosingSoon locale={locale} />
       <PaymentTrust />
       <HomeFaq locale={locale} />

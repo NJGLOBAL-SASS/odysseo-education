@@ -13,6 +13,8 @@ import {
   getStats,
   getUniversityLogos,
   getVideoTestimonials,
+  getCampusVideos,
+  getSitePhotos,
   hasCreditedPhoto,
   publishedImagePaths,
   videoEmbedUrl,
@@ -110,4 +112,20 @@ test("fiches universités : identifiants utilisables dans une adresse, ville con
   const list = getUniversityLogos();
   for (const u of list) assert.match(u.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `identifiant invalide : ${u.id}`);
   assert.ok(list.filter((u) => u.ville_fr || u.ville_en).length >= list.length * 0.8, "trop d'universités sans ville");
+});
+
+test("photos du site : fichier présent, licence libre, source Wikimedia Commons", () => {
+  for (const p of getSitePhotos()) {
+    assert.ok(existsSync(path.join(process.cwd(), "public", p.image)), `image introuvable : public${p.image}`);
+    assert.match(p.licence, /CC|Public domain|PD/i, `${p.id} : licence ${p.licence}`);
+    assert.ok(p.source.startsWith("https://commons.wikimedia.org/"), `${p.id} : source ${p.source}`);
+  }
+});
+
+test("vidéos de campus : toutes rattachées à une université publiée, sans doublon", () => {
+  const ids = new Set<string>();
+  for (const v of getCampusVideos()) {
+    assert.ok(!ids.has(v.youtube), `vidéo en double : ${v.youtube}`);
+    ids.add(v.youtube);
+  }
 });

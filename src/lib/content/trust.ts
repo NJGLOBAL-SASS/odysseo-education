@@ -12,6 +12,8 @@ import preuvesJson from "../../../content/preuves.json";
 import conseillersJson from "../../../content/conseillers.json";
 import chiffresJson from "../../../content/chiffres.json";
 import universitesJson from "../../../content/universites.json";
+import photosSiteJson from "../../../content/photos-site.json";
+import videosJson from "../../../content/videos.json";
 
 import type { Locale, ProgramSlug } from "@/lib/programs";
 
@@ -181,6 +183,38 @@ export function hasCreditedPhoto(u: UniversityLogo): u is UniversityLogo & { pho
 /** Logos du bandeau de l'accueil (publiés seulement). */
 export function getUniversityLogos(): UniversityLogo[] {
   return RAW_UNIVERSITIES.filter((u) => u.publie === true && Boolean(u.logo && u.nom_en));
+}
+
+export type SitePhoto = {
+  id: string;
+  image: string;
+  legende_fr: string;
+  legende_en?: string | null;
+  auteur?: string | null;
+  licence: string;
+  licence_url?: string | null;
+  source: string;
+};
+const RAW_SITE_PHOTOS = (photosSiteJson as { photos: SitePhoto[] }).photos;
+
+/** Photos du site (bannière, cursus) : uniquement celles dont la licence et la source sont connues. */
+export function getSitePhotos(): SitePhoto[] {
+  return RAW_SITE_PHOTOS.filter((p) => Boolean(p.image && p.licence && p.source));
+}
+
+export function getSitePhoto(id: string): SitePhoto | undefined {
+  return getSitePhotos().find((p) => p.id === id);
+}
+
+export type CampusVideo = { id: string; universite: string; youtube: string; titre_fr: string; titre_en?: string | null; chaine: string };
+const RAW_VIDEOS = (videosJson as { videos: CampusVideo[] }).videos;
+
+/** Vidéos officielles des universités : identifiant YouTube valide et université publiée. */
+export function getCampusVideos(): (CampusVideo & { university: UniversityLogo })[] {
+  return RAW_VIDEOS.flatMap((v) => {
+    const university = getUniversity(v.universite);
+    return /^[\w-]{11}$/.test(v.youtube) && university ? [{ ...v, university }] : [];
+  });
 }
 
 export function getUniversity(id: string): UniversityLogo | undefined {

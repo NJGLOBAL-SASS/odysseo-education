@@ -1,0 +1,65 @@
+{
+ "_comment": "Photos du site (bannière, cursus) sous licence libre, créditées sur /credits-photos. Ne jamais ajouter une image sans auteur, licence et source.",
+ "photos": [
+  {
+   "id": "hero-pekin",
+   "image": "/images/hero/hero-pekin.webp",
+   "legende_fr": "Lac Weiming, Université de Pékin",
+   "legende_en": "Weiming Lake, Peking University",
+   "auteur": "星外之神",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Autumn_in_Peking_University%27s_Weiming_Lake_Island_002.jpg"
+  },
+  {
+   "id": "hero-sun-yat-sen",
+   "image": "/images/hero/hero-sun-yat-sen.webp",
+   "legende_fr": "Porte de l'Université Sun Yat-sen, Canton",
+   "legende_en": "Gate of Sun Yat-sen University, Guangzhou",
+   "auteur": "Nissangeniss",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:South_Gate_of_the_South_Campus_of_Sun_Yat-sen_University_in_2018_02.jpg"
+  },
+  {
+   "id": "cursus-langue",
+   "image": "/images/cursus/langue.webp",
+   "legende_fr": "Calligraphie chinoise, Yueshan Daozong",
+   "legende_en": "Chinese calligraphy, Yueshan Daozong",
+   "auteur": "Yueshan Daozong",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Yueshan_Daozong_-_Calligraphy_in_Semi-Cursive_Style_(xing-caoshu)_-_2003.353_-_Cleveland_Museum_of_Art.tif"
+  },
+  {
+   "id": "cursus-licence",
+   "image": "/images/cursus/licence.webp",
+   "legende_fr": "Campus de Xuhui, Université Jiao Tong de Shanghai",
+   "legende_en": "Xuhui campus, Shanghai Jiao Tong University",
+   "auteur": "Nrwt1999",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Shanghai_Jiao_Tong_University_Xuhui_campus.jpg"
+  },
+  {
+   "id": "cursus-master",
+   "image": "/images/cursus/master.webp",
+   "legende_fr": "Ancienne bibliothèque, Université de Wuhan",
+   "legende_en": "Old library, Wuhan University",
+   "auteur": "Howchou",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Wuhan_University_Old_Library.jpg"
+  },
+  {
+   "id": "cursus-doctorat",
+   "image": "/images/cursus/doctorat.webp",
+   "legende_fr": "Laboratoire de recherche",
+   "legende_en": "Research laboratory",
+   "auteur": "Shixart1985",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Close-up_of_a_lab_technitian_adjusting_a_microscope_glass_slide.jpg"
+  }
+ ]
+}

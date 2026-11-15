@@ -6,6 +6,11 @@ import { Link } from "@/i18n/navigation";
 import { PROGRAMS, formatFcfa, type Locale } from "@/lib/programs";
 import { getFaqPicks } from "@/lib/content/faq";
 import { AdvisorCard } from "@/components/trust/advisor-card";
+import { Zh } from "@/components/ui/zh";
+import { getSitePhoto } from "@/lib/content/trust";
+
+/** Images des cursus (photos du site sous licence libre), à défaut l'image du cursus. */
+export const CURSUS_PHOTO = { "langue-chinoise": "cursus-langue", bachelor: "cursus-licence", master: "cursus-master", doctorat: "cursus-doctorat" } as const;
 
 /** « Comment ça marche » : 4 étapes, un seul interlocuteur. */
 export async function HowItWorks() {
@@ -16,6 +21,7 @@ export async function HowItWorks() {
     <section className="wrap-site py-12" aria-labelledby="steps-title">
       <h2 id="steps-title" className="text-2xl font-extrabold sm:text-3xl">
         {t("title")}
+        <Zh>申请流程</Zh>
       </h2>
       <p className="mt-1 text-gris">{t("subtitle")}</p>
       <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -29,7 +35,7 @@ export async function HowItWorks() {
           </li>
         ))}
       </ol>
-      <Link href="/postuler" className="btn-primary mt-6 sm:!w-auto" data-track-location="accueil-etapes">
+      <Link href="/postuler" className="btn-primary mt-6 w-full sm:w-auto" data-track-location="accueil-etapes">
         {t("cta")} <ArrowRight className="h-5 w-5" />
       </Link>
     </section>
@@ -44,20 +50,21 @@ export async function ProgramsStrip({ locale }: { locale: Locale }) {
     <section className="wrap-site py-12" aria-labelledby="programs-title">
       <h2 id="programs-title" className="mb-6 text-2xl font-extrabold sm:text-3xl">
         {t("title")}
+        <Zh>学习项目</Zh>
       </h2>
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {PROGRAMS.map((p) => (
           <li key={p.slug}>
             <Link href={`/cursus/${p.slug}`} className="card group flex h-full flex-col overflow-hidden hover:shadow-pop">
-              <div className="relative h-32 overflow-hidden bg-noir">
+              <div className="relative h-40 overflow-hidden bg-noir sm:h-44">
                 <Image
-                  src={p.image}
+                  src={getSitePhoto(CURSUS_PHOTO[p.slug])?.image ?? p.image}
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover opacity-75 transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-noir/85 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-noir/90 via-noir/20 to-transparent" />
                 <h3 className="absolute bottom-3 left-4 text-xl font-extrabold text-white">{p.name[locale]}</h3>
               </div>
               <div className="flex flex-1 flex-col p-4">
@@ -92,6 +99,7 @@ export async function PaymentTrust() {
         <div>
           <h2 id="payment-title" className="flex items-center gap-2 text-2xl font-extrabold">
             <Receipt className="h-6 w-6 text-rouge" /> {t("title")}
+            <Zh className="text-[#9C9CA6]">费用说明</Zh>
           </h2>
           <ul className="mt-4 space-y-3">
             {(t.raw("points") as string[]).map((p) => (
@@ -134,6 +142,7 @@ export async function HomeFaq({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-3xl">
         <h2 id="faq-title" className="mb-5 text-2xl font-extrabold sm:text-3xl">
           {t("title")}
+          <Zh>常见问题</Zh>
         </h2>
         <div className="divide-y divide-bord rounded-brand border border-bord bg-white">
           {questions.map((x) => (
