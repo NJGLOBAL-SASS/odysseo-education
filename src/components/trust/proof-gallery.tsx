@@ -36,7 +36,7 @@ export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; l
       <ul
         className={
           layout === "strip"
-            ? "-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0"
+            ? "-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0"
             : "grid grid-cols-3 gap-3"
         }
       >

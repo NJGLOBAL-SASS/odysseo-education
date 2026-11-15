@@ -27,8 +27,8 @@ export async function UniversityLogos() {
   const rows = shown.length > 12 ? [shown.slice(0, half), shown.slice(half)] : [shown];
 
   return (
-    <section className="border-b border-bord bg-white py-10" aria-labelledby="logos-title">
-      <div className="wrap-site mb-6 text-center">
+    <section className="border-b border-bord bg-white py-7 sm:py-10" aria-labelledby="logos-title">
+      <div className="wrap-site mb-5 text-center">
         <h2 id="logos-title" className="text-xl font-extrabold sm:text-2xl">
           {t("title")}
           <Zh>院校库</Zh>
@@ -41,7 +41,7 @@ export async function UniversityLogos() {
         ))}
       </div>
       {all.length > shown.length && (
-        <div className="mt-6 text-center">
+        <div className="mt-4 text-center">
           <Link href="/universites" className="inline-flex min-h-[44px] items-center gap-1.5 text-[15px] font-bold hover:text-rouge">
             {t("all", { count: all.length })} <ArrowRight className="h-4 w-4" />
           </Link>

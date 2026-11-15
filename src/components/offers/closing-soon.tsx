@@ -11,7 +11,7 @@ export async function OffersClosingSoon({ locale }: { locale: string }) {
   if (offers.length === 0) return null;
   const t = await getTranslations("offers.home");
   return (
-    <section className="wrap-site py-12" aria-labelledby="offres-proches">
+    <section className="wrap-site py-7 sm:py-10" aria-labelledby="offres-proches">
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-extrabold uppercase tracking-wide text-rouge">{t("eyebrow")}</p>

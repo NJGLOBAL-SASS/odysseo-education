@@ -18,13 +18,13 @@ export async function HowItWorks() {
   const steps = t.raw("items") as { title: string; text: string }[];
 
   return (
-    <section className="wrap-site py-12" aria-labelledby="steps-title">
+    <section className="wrap-site pb-7 pt-8 sm:pb-10 sm:pt-10" aria-labelledby="steps-title">
       <h2 id="steps-title" className="text-2xl font-extrabold sm:text-3xl">
         {t("title")}
         <Zh>申请流程</Zh>
       </h2>
       <p className="mt-1 text-gris">{t("subtitle")}</p>
-      <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="mt-5 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
         {steps.map((s, i) => (
           <li key={s.title} className="card relative p-5">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-rouge text-[15px] font-extrabold text-white">
@@ -47,8 +47,8 @@ export async function ProgramsStrip({ locale }: { locale: Locale }) {
   const t = await getTranslations("home.programs");
 
   return (
-    <section className="wrap-site py-12" aria-labelledby="programs-title">
-      <h2 id="programs-title" className="mb-6 text-2xl font-extrabold sm:text-3xl">
+    <section className="wrap-site py-7 sm:py-10" aria-labelledby="programs-title">
+      <h2 id="programs-title" className="mb-5 text-2xl font-extrabold sm:text-3xl">
         {t("title")}
         <Zh>学习项目</Zh>
       </h2>
@@ -94,7 +94,7 @@ export async function PaymentTrust() {
   const t = await getTranslations("home.payment");
 
   return (
-    <section className="wrap-site py-12" aria-labelledby="payment-title">
+    <section className="wrap-site py-4 sm:py-6" aria-labelledby="payment-title">
       <div className="grid gap-6 rounded-brand bg-noir p-6 text-white sm:p-8 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <h2 id="payment-title" className="flex items-center gap-2 text-2xl font-extrabold">
@@ -138,7 +138,7 @@ export async function HomeFaq({ locale }: { locale: Locale }) {
   const t = await getTranslations("home.faq");
 
   return (
-    <section className="wrap-site py-12" aria-labelledby="faq-title">
+    <section className="wrap-site py-7 sm:py-10" aria-labelledby="faq-title">
       <div className="mx-auto max-w-3xl">
         <h2 id="faq-title" className="mb-5 text-2xl font-extrabold sm:text-3xl">
           {t("title")}
@@ -168,7 +168,7 @@ export async function FinalCta({ locale }: { locale: Locale }) {
   const t = await getTranslations("home.final");
 
   return (
-    <section className="wrap-site pb-14 pt-4" aria-labelledby="final-title">
+    <section className="wrap-site pb-10 pt-2 sm:pb-14" aria-labelledby="final-title">
       <div className="flex flex-col gap-5 rounded-brand bg-rouge p-6 text-white sm:p-8 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 id="final-title" className="text-2xl font-extrabold sm:text-3xl">

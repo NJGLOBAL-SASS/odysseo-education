@@ -40,7 +40,7 @@ export async function CampusVideos({ locale, max = 6 }: { locale: Locale; max?: 
   const total = getCampusVideos().length;
 
   return (
-    <section className="bg-fond py-12" aria-labelledby="campus-videos-title">
+    <section className="bg-fond py-7 sm:py-10" aria-labelledby="campus-videos-title">
       <div className="wrap-site">
         <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>

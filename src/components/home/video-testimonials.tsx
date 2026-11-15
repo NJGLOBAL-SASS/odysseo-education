@@ -31,7 +31,7 @@ export async function VideoTestimonials({ locale }: { locale: Locale }) {
   });
 
   return (
-    <section className="wrap-site py-12" aria-labelledby="videos-title">
+    <section className="wrap-site py-7 sm:py-10" aria-labelledby="videos-title">
       <h2 id="videos-title" className="mb-5 text-2xl font-extrabold sm:text-3xl">
         {t("title")}
       </h2>

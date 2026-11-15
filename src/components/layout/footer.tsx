@@ -16,12 +16,12 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-bord bg-carte print:hidden">
-      <div className="wrap-site py-10">
+      <div className="wrap-site py-7 sm:py-9">
         <NewsletterForm />
       </div>
 
       <div className="border-t border-bord">
-        <div className="wrap-site grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="wrap-site grid gap-8 py-8 sm:grid-cols-2 sm:gap-10 sm:py-10 lg:grid-cols-4">
           <div>
             <Image
               src="/images/logo/logo-full-black-tight.png"
