@@ -73,6 +73,11 @@ export async function Footer() {
                   {tNav("faq")}
                 </Link>
               </li>
+              <li>
+                <Link href="/universites" className="text-texte hover:text-rouge">
+                  {tNav("universities")}
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -99,6 +104,11 @@ export async function Footer() {
               <li>
                 <Link href="/conditions-generales" className="text-texte hover:text-rouge">
                   {t("terms")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/credits-photos" className="text-texte hover:text-rouge">
+                  {t("photoCredits")}
                 </Link>
               </li>
               <li>

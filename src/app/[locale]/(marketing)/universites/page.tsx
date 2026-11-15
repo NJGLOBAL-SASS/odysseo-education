@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
-import { getUniversityLogos } from "@/lib/content/trust";
+import { getUniversityLogos, hasCreditedPhoto } from "@/lib/content/trust";
 import { publicPageMetadata } from "@/lib/seo";
 import { UniversityGrid } from "@/components/home/university-grid";
 
@@ -34,9 +34,22 @@ export default async function UniversitiesPage({ params }: { params: { locale: s
         </Link>
       </div>
 
-      <UniversityGrid items={list.map((u) => ({ id: u.id, en: u.nom_en, zh: u.nom_zh ?? "", logo: u.logo }))} />
+      <UniversityGrid
+        items={list.map((u) => ({
+          id: u.id,
+          en: u.nom_en,
+          zh: u.nom_zh ?? "",
+          logo: u.logo,
+          ...(hasCreditedPhoto(u) ? { photo: u.photo, photoTitle: `${u.photo_auteur ?? ""} · ${u.photo_licence}` } : {}),
+        }))}
+      />
 
-      <p className="mt-8 text-xs text-gris">{t("credit")}</p>
+      <p className="mt-8 text-xs text-gris">
+        {t("credit")}{" "}
+        <Link href="/credits-photos" className="underline hover:text-rouge">
+          {t("creditsLink")}
+        </Link>
+      </p>
     </div>
   );
 }

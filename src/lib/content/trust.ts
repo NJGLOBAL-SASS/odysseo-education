@@ -71,7 +71,19 @@ export type Stat = {
 };
 const RAW_STATS = (chiffresJson as { chiffres: Stat[] }).chiffres;
 
-export type UniversityLogo = { id: string; nom_en: string; nom_zh?: string | null; logo: string; publie: boolean };
+export type UniversityLogo = {
+  id: string;
+  nom_en: string;
+  nom_zh?: string | null;
+  logo: string;
+  publie: boolean;
+  /** Photo de campus sous licence libre (Wikimedia Commons), créditée sur /credits-photos. */
+  photo?: string | null;
+  photo_auteur?: string | null;
+  photo_licence?: string | null;
+  photo_licence_url?: string | null;
+  photo_source?: string | null;
+};
 const RAW_UNIVERSITIES = (universitesJson as { universites: UniversityLogo[] }).universites;
 
 /** Une date d'accord AAAA-MM-JJ réelle (pas le « AAAA-MM-JJ » du modèle). */
@@ -150,6 +162,11 @@ export function statDetail(s: Stat, locale: Locale) {
   return (locale === "en" && s.detail_en) || s.detail_fr || null;
 }
 
+/** Une photo de campus ne s'affiche que si sa licence et sa source sont connues (obligation de crédit). */
+export function hasCreditedPhoto(u: UniversityLogo): u is UniversityLogo & { photo: string; photo_licence: string; photo_source: string } {
+  return Boolean(u.photo && u.photo_licence && u.photo_source);
+}
+
 /** Logos du bandeau de l'accueil (publiés seulement). */
 export function getUniversityLogos(): UniversityLogo[] {
   return RAW_UNIVERSITIES.filter((u) => u.publie === true && Boolean(u.logo && u.nom_en));
@@ -180,6 +197,7 @@ export function publishedImagePaths() {
     ...getProofDocuments().map((p) => p.image),
     ...getAdmissionLetters().map((p) => p.image),
     ...getUniversityLogos().map((u) => u.logo),
+    ...getUniversityLogos().flatMap((u) => (hasCreditedPhoto(u) ? [u.photo] : [])),
     ...getAdvisors().flatMap((a) => (a.photo ? [a.photo] : [])),
   ];
 }

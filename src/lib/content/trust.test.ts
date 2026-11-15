@@ -13,6 +13,7 @@ import {
   getStats,
   getUniversityLogos,
   getVideoTestimonials,
+  hasCreditedPhoto,
   publishedImagePaths,
   videoEmbedUrl,
   testimonialQuote,
@@ -92,5 +93,15 @@ test("logos publiés : fichier sous /images/universites/, noms uniques", () => {
     assert.ok(u.logo.startsWith("/images/universites/"), `${u.id} : ${u.logo}`);
     assert.ok(!ids.has(u.id), `doublon : ${u.id}`);
     ids.add(u.id);
+  }
+});
+
+test("photos de campus : chacune a une licence libre et une source Wikimedia Commons", () => {
+  for (const u of getUniversityLogos()) {
+    if (!u.photo) continue;
+    assert.ok(hasCreditedPhoto(u), `${u.id} : photo sans licence ou sans source`);
+    assert.ok(u.photo.startsWith("/images/campus/"), `${u.id} : ${u.photo}`);
+    assert.match(u.photo_licence ?? "", /CC|Public domain|PD|GFDL|Attribution/i, `${u.id} : licence non libre`);
+    assert.ok(u.photo_source?.startsWith("https://commons.wikimedia.org/"), `${u.id} : source ${u.photo_source}`);
   }
 });

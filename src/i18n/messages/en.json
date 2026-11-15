@@ -472,9 +472,11 @@
     "closeMenu": "Close menu",
     "menu": "Menu",
     "brand": "Odysseo Education",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "universities": "Universities"
   },
-  "universities": {"eyebrow": "Universities", "title": "{count} Chinese universities", "intro": "Chinese public universities, from language courses to PhD. You always apply with your Odysseo advisor, who checks your eligibility and submits your application.", "search": "Search for a university", "searchPlaceholder": "Name in English or Chinese…", "results": "{count, plural, =0 {No university} one {# university} other {# universities}}", "empty": "No university matches this search.", "cta": "Free analysis of my profile", "ctaText": "Interested in a university? Your advisor checks your eligibility for free.", "credit": "Logos: property of each university, from Wikipedia and Wikimedia Commons. Their presence does not mean an official partnership."},
+  "photoCredits": {"eyebrow": "Credits", "title": "Photo credits", "intro": "The campus photos on this site are freely licensed files from Wikimedia Commons. Each one is credited below with its author and license.", "count": "{count, plural, one {# photo} other {# photos}}", "photo": "Photo: {author}", "source": "View the file", "logos": "University logos: property of each university, from Wikipedia and Wikimedia Commons. Their presence does not mean an official partnership. To request removal, write to us.", "unknown": "Author not stated"},
+  "universities": {"eyebrow": "Universities", "title": "{count} Chinese universities", "intro": "Chinese public universities, from language courses to PhD. You always apply with your Odysseo advisor, who checks your eligibility and submits your application.", "search": "Search for a university", "searchPlaceholder": "Name in English or Chinese…", "results": "{count, plural, =0 {No university} one {# university} other {# universities}}", "empty": "No university matches this search.", "cta": "Free analysis of my profile", "ctaText": "Interested in a university? Your advisor checks your eligibility for free.", "creditsLink": "Photo credits", "credit": "Logos: property of each university, from Wikipedia and Wikimedia Commons. Their presence does not mean an official partnership."},
   "home": {
     "hero": {
       "eyebrow": "Support from start to finish · 2027 intakes",
@@ -2033,7 +2035,8 @@
     "cookies": "Cookie policy",
     "legalNotice": "Legal notice",
     "terms": "Terms of use",
-    "manageCookies": "Manage cookies"
+    "manageCookies": "Manage cookies",
+    "photoCredits": "Photo credits"
   },
   "notFound": {
     "eyebrow": "Error 404",

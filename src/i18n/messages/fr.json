@@ -12,9 +12,11 @@
     "apply": "Déposer mon dossier",
     "partners": "Devenir partenaire", "programs": "Nos cursus", "openMenu": "Ouvrir le menu", "closeMenu": "Fermer le menu", "menu": "Menu",
     "brand": "Odysseo Education",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "universities": "Universités"
   },
-  "universities": {"eyebrow": "Universités", "title": "{count} universités chinoises", "intro": "Des universités publiques chinoises, de la langue au doctorat. Vous y postulez toujours avec votre conseiller Odysseo : il vérifie votre éligibilité et dépose votre dossier.", "search": "Rechercher une université", "searchPlaceholder": "Nom en français, anglais ou chinois…", "results": "{count, plural, =0 {Aucune université} one {# université} other {# universités}}", "empty": "Aucune université ne correspond à cette recherche.", "cta": "Analyse gratuite de mon profil", "ctaText": "Une université vous intéresse ? Votre conseiller vérifie gratuitement votre éligibilité.", "credit": "Logos : propriété de chaque université, issus de Wikipédia et Wikimedia Commons. Leur présence n'indique pas un partenariat officiel."},
+  "photoCredits": {"eyebrow": "Crédits", "title": "Crédits photos", "intro": "Les photos de campus de ce site sont des fichiers sous licence libre de Wikimedia Commons. Chacune est créditée ci-dessous avec son auteur et sa licence.", "count": "{count, plural, one {# photo} other {# photos}}", "photo": "Photo : {author}", "source": "Voir le fichier", "logos": "Logos des universités : propriété de chaque université, issus de Wikipédia et Wikimedia Commons. Leur présence n'indique pas un partenariat officiel. Pour toute demande de retrait, écrivez-nous.", "unknown": "Auteur non précisé"},
+  "universities": {"eyebrow": "Universités", "title": "{count} universités chinoises", "intro": "Des universités publiques chinoises, de la langue au doctorat. Vous y postulez toujours avec votre conseiller Odysseo : il vérifie votre éligibilité et dépose votre dossier.", "search": "Rechercher une université", "searchPlaceholder": "Nom en français, anglais ou chinois…", "results": "{count, plural, =0 {Aucune université} one {# université} other {# universités}}", "empty": "Aucune université ne correspond à cette recherche.", "cta": "Analyse gratuite de mon profil", "ctaText": "Une université vous intéresse ? Votre conseiller vérifie gratuitement votre éligibilité.", "creditsLink": "Crédits photos", "credit": "Logos : propriété de chaque université, issus de Wikipédia et Wikimedia Commons. Leur présence n'indique pas un partenariat officiel."},
   "home": {
     "hero": {
       "eyebrow": "Accompagnement en français · Rentrées 2027",
@@ -996,7 +998,8 @@
     "cookies": "Politique de cookies",
     "legalNotice": "Mentions légales",
     "terms": "Conditions générales d'utilisation",
-    "manageCookies": "Gérer mes cookies"
+    "manageCookies": "Gérer mes cookies",
+    "photoCredits": "Crédits photos"
   },
   "notFound": {"eyebrow": "Erreur 404", "title": "Cette page s'est perdue en chemin", "text": "La page que vous cherchez n'existe pas, a été déplacée ou n'est pas disponible ici. Pas d'inquiétude : votre projet d'études, lui, est toujours sur la bonne route.", "home": "Retour à l'accueil", "apply": "Déposer mon dossier", "helpTitle": "Vous cherchiez peut-être :", "services": "Nos services", "partners": "Devenir partenaire", "whatsapp": "Nous écrire sur WhatsApp", "teamTitle": "Page introuvable dans l'espace équipe", "teamText": "Ce lien ne mène nulle part : la page a peut-être été supprimée, ou l'adresse est mal saisie.", "dashboard": "Retour au tableau de bord", "candidates": "Candidatures", "partnersTeam": "Partenaires", "itemTitle": "Élément introuvable", "itemText": "Ce dossier ou cette page n'existe pas, ou a été supprimé. Vérifiez le lien ou revenez à la liste.", "partnerTitle": "Code partenaire inconnu", "partnerText": "Ce code de parrainage n'existe pas ou n'est plus actif. Vérifiez le code reçu par email, en respectant les tirets (ex. AUDY-012).", "partnerRetry": "Saisir un autre code", "rights": "Tous droits réservés."},
   "partnerApply": {

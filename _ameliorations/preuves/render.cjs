@@ -24,11 +24,12 @@ const logo = 'data:image/png;base64,' + fs.readFileSync(logoPath).toString('base
         x.save(); x.imageSmoothingEnabled = false; x.filter = 'blur(3px)'; x.drawImage(t, 0, 0, t.width, t.height, rx, ry, rw, rh); x.restore();
         x.fillStyle = 'rgba(214,214,222,0.55)'; x.fillRect(rx, ry, rw, rh);
       }
-      // Filigrane diagonal répété.
+      // Filigrane (variante B validée le 2026-11-15) : texte diagonal répété (14 %) + grand logo au centre (22 %).
       x.save(); x.translate(c.width / 2, c.height / 2); x.rotate(-Math.PI / 6);
-      x.font = `800 ${Math.round(c.width * 0.045)}px Inter, Arial, sans-serif`; x.fillStyle = 'rgba(255,0,0,0.10)'; x.textAlign = 'center';
-      const step = c.width * 0.26;
-      for (let yy = -c.height; yy < c.height; yy += step) for (let xx = -c.width; xx < c.width; xx += c.width * 0.62) x.fillText('ODYSSEO EDUCATION', xx + ((yy / step) % 2 ? c.width * 0.31 : 0), yy);
+      x.font = `800 ${Math.round(c.width * 0.05)}px Inter, Arial, sans-serif`; x.fillStyle = 'rgba(255,0,0,0.14)'; x.textAlign = 'center'; x.textBaseline = 'middle';
+      const step = c.width * 0.05 * 4.2;
+      for (let yy = -c.height; yy < c.height; yy += step) for (let xx = -c.width; xx < c.width; xx += c.width * 0.75) x.fillText('ODYSSEO EDUCATION', xx + (Math.round(yy / step) % 2 ? c.width * 0.375 : 0), yy);
+      const cw = c.width * 0.62, ch = cw * lg.height / lg.width; x.globalAlpha = 0.22; x.drawImage(lg, -cw / 2, -ch / 2, cw, ch); x.globalAlpha = 1;
       x.restore();
       // Logo + mention en bas à droite.
       const lw = c.width * 0.22, lh = lw * lg.height / lg.width, m = c.width * 0.03;

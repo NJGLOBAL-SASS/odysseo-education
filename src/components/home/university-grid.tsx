@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 
 import { normalizeSearch } from "@/lib/content/faq-search";
 
-export type GridUniversity = { id: string; en: string; zh: string; logo: string };
+export type GridUniversity = { id: string; en: string; zh: string; logo: string; photo?: string; photoTitle?: string };
 
 /** Grille de toutes les universités + recherche (nom anglais ou chinois, sans accents). */
 export function UniversityGrid({ items }: { items: GridUniversity[] }) {
@@ -44,12 +44,23 @@ export function UniversityGrid({ items }: { items: GridUniversity[] }) {
       {shown.length === 0 ? (
         <p className="mt-6 text-gris">{t("empty")}</p>
       ) : (
-        <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {shown.map((u) => (
-            <li key={u.id} className="flex flex-col items-center gap-2 rounded-brand border border-bord bg-white p-3 text-center">
-              <img src={u.logo} alt="" loading="lazy" decoding="async" width={64} height={64} className="h-16 w-16 object-contain" />
-              <span className="text-[13px] font-bold leading-tight">{u.en}</span>
-              {u.zh && <span className="text-xs text-gris">{u.zh}</span>}
+            <li key={u.id} className="flex flex-col overflow-hidden rounded-brand border border-bord bg-white text-center">
+              {u.photo ? (
+                <div className="relative">
+                  <img src={u.photo} alt="" title={u.photoTitle} loading="lazy" decoding="async" width={320} height={200} className="aspect-[16/10] w-full object-cover" />
+                  <img src={u.logo} alt="" loading="lazy" decoding="async" width={48} height={48} className="absolute -bottom-6 left-1/2 h-12 w-12 -translate-x-1/2 rounded-full border-2 border-white bg-white object-contain p-0.5 shadow-card" />
+                </div>
+              ) : (
+                <div className="flex aspect-[16/10] items-center justify-center bg-fond">
+                  <img src={u.logo} alt="" loading="lazy" decoding="async" width={64} height={64} className="h-16 w-16 object-contain" />
+                </div>
+              )}
+              <div className={`flex flex-1 flex-col gap-0.5 px-3 pb-3 ${u.photo ? "pt-8" : "pt-3"}`}>
+                <span className="text-[13px] font-bold leading-tight">{u.en}</span>
+                {u.zh && <span className="text-xs text-gris">{u.zh}</span>}
+              </div>
             </li>
           ))}
         </ul>
