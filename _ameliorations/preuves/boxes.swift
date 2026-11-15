@@ -12,7 +12,7 @@ let names = ((try? String(contentsOfFile: CommandLine.arguments[2], encoding: .u
 let nameRe = try! NSRegularExpression(pattern: "(?:(?:Mr|Ms|Mrs|Miss)\\.?\\s*)?[A-Z][A-Z.'’\\-]{1,}(?:[\\s,]+[A-Z][A-Z.'’\\-]{1,})*")
 let pats = [
   "(?:Application|Applicatio[a-z]*)\\s*(?:Number|No)[\\s.:：]*\\d+", "申请编号[：:]?\\s*\\d+", "学生编号[：:]?\\s*\\d+",
-  "Passport\\s*(?:No|number)[\\s.:：）)]*[A-Z]{0,2}\\s?\\d{6,}", "Application\\s*ID[\\s.:：]*\\d+",
+  "Passport\\s*(?:No|number)[\\s.:：）)]*[A-Z]{0,2}\\s?\\d{6,}", "Application\\s*ID[\\s.:：]*\\d+", "CSC\\s*No[.:：]?\\s*[A-Z0-9]+",
   "(?:录取书|通知书)?编号[／/：:\\s]*(?:No\\.?)?\\s*[A-Z0-9]+", "\\bNo\\.?\\s*[A-Z]{2,}\\d{4,}", "^\\d{4}/\\d{1,2}/\\d{1,2}$",
   "(?:\\d{4}\\s){3,}\\d{2,}", "账号[：:]\\s*[\\d\\s]+", "护照号?[为：:\\s]*[A-Z]{1,2}\\d{6,}", "[A-Z]{2}\\d{6,7}",
   "Date\\s*Of\\s*Birth[:：]?\\s*[\\d-]+", "\\b20\\d{8,9}\\b", "\\d{15,}", "登录密码[：:]\\s*\\S+", "Account\\s*N[a-z]*[.:：]?\\s*\\d*"
