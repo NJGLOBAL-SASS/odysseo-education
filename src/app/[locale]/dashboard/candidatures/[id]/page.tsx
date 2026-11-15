@@ -20,6 +20,7 @@ import { PortalAccess } from "@/components/dashboard/portal-access";
 import { ChatThread } from "@/components/portal/chat-thread";
 import { ALL_STAGES, firstNameOf, normalizeHistory } from "@/lib/tracking-stages";
 import { AdmissionPanel } from "@/components/dashboard/admission-panel";
+import { PaymentsPanel } from "@/components/dashboard/payments-panel";
 import { listOffers } from "@/lib/matching/catalogue";
 import { portalUrl } from "@/lib/portal/host";
 import { retentionExpired } from "@/lib/admission/retention";
@@ -287,6 +288,18 @@ export default async function CandidateDetailPage({ params }: { params: { locale
               wa={waAdmission}
               purgeEligible={retentionExpired(candidate)}
               isAdmin={session?.user?.role === "ADMIN"}
+            />
+          </section>
+
+          <section className="card p-5">
+            <h2 className="section-title mb-1">{t("payments.title")}</h2>
+            <p className="mb-4 text-xs text-gris">{t("payments.intro")}</p>
+            <PaymentsPanel
+              candidateId={candidate.id}
+              code={candidate.code}
+              whatsapp={candidate.whatsapp}
+              firstName={firstNameOf(candidate.fullName)}
+              spaceUrl={portalUrl("/fr/espace")}
             />
           </section>
 

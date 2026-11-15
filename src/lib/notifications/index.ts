@@ -629,3 +629,51 @@ export async function sendSignedContract(partner: Partner, number: string, pdf: 
     deliver("EMAIL", copyTo, () => sendEmail(copyTo, `[Copie] Contrat ${number} signé — ${partner.fullName}`, html, { attachments }), { subject }),
   ]);
 }
+
+/** Paiement déclaré depuis l'espace : l'équipe doit vérifier la preuve et confirmer. */
+export async function notifyPaymentDeclared(p: { candidateId: string; code: string; fullName: string; amount: number; method: string; declaredBy: string }) {
+  const recipients = await staffEmailRecipients();
+  const subject = `Paiement à vérifier – ${p.fullName} (${p.code})`;
+  const html = emailLayout({
+    title: "Paiement à vérifier",
+    intro: `${escapeHtml(p.declaredBy)} a déclaré un paiement depuis son espace.`,
+    bodyHtml: emailRows([
+      ["Dossier", `${p.fullName} (${p.code})`],
+      ["Montant", `${new Intl.NumberFormat("fr-FR").format(p.amount)} FCFA`],
+      ["Moyen", p.method],
+    ]),
+    cta: { label: "Vérifier et confirmer", url: teamUrl(`/fr/dashboard/candidatures/${p.candidateId}#paiements`) },
+  });
+  await Promise.all(recipients.map((to) => deliver("EMAIL", to, () => sendEmail(to, subject, html), { subject, candidateId: p.candidateId })));
+}
+
+/** Paiement confirmé : reçu PDF par e-mail à l'étudiant et au parent (+ notification). Renvoie le nombre d'e-mails partis. */
+export async function notifyPaymentConfirmed(p: { candidateId: string; receiptNumber: string; amount: number; pdf: Buffer }) {
+  const accounts = await portalRecipients(p.candidateId);
+  const amount = new Intl.NumberFormat("fr-FR").format(p.amount);
+  const attachments: EmailAttachment[] = [{ name: `Recu-${p.receiptNumber}.pdf`, content: p.pdf.toString("base64") }];
+  const results = await Promise.all(
+    accounts.map((a) => {
+      const en = a.locale === "en";
+      const subject = en ? `Your Odysseo receipt ${p.receiptNumber}` : `Votre reçu Odysseo ${p.receiptNumber}`;
+      const html = emailLayout({
+        title: en ? "Payment confirmed" : "Paiement confirmé",
+        intro: en ? `Hello ${firstWord(a.name)},` : `Bonjour ${firstWord(a.name)},`,
+        bodyHtml: `<p style="margin:0;font-size:15px;color:#0B0B0D">${escapeHtml(
+          en
+            ? `We have received and checked your payment of ${amount} FCFA. Your receipt ${p.receiptNumber} is attached and stays available in your space.`
+            : `Nous avons bien reçu et vérifié votre paiement de ${amount} FCFA. Votre reçu ${p.receiptNumber} est joint à cet e-mail et reste disponible dans votre espace.`,
+        )}</p>`,
+        cta: { label: en ? "Open my space" : "Ouvrir mon espace", url: portalUrl(`/${en ? "en" : "fr"}/espace`) },
+      });
+      return deliver("EMAIL", a.email, () => sendEmail(a.email, subject, html, { attachments }), { subject, candidateId: p.candidateId });
+    }),
+  );
+  await deliver(
+    "PUSH",
+    "espace étudiant",
+    () => sendPush({ title: "Paiement confirmé", body: `Reçu ${p.receiptNumber} : ${amount} FCFA`, url: "/fr/espace", icon: PORTAL_ICON }, { portalAccountIds: accounts.map((a) => a.id) }),
+    { candidateId: p.candidateId },
+  );
+  return results.filter(Boolean).length;
+}

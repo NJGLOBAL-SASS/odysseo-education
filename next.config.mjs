@@ -55,6 +55,11 @@ const nextConfig = {
       "/api/partner-applications/[id]": CONTRACT_FILES,
       "/api/partners/[id]/contract": CONTRACT_FILES,
       "/[locale]/partenaires/contrat/[token]": CONTRACT_FILES,
+      // Reçus de paiement (police, logo, cachet, signature, pdfkit).
+      "/api/portal/payments/[id]/receipt": CONTRACT_FILES,
+      "/api/candidatures/[id]/payments": CONTRACT_FILES,
+      "/api/candidatures/[id]/payments/[pid]": CONTRACT_FILES,
+      "/api/candidatures/[id]/payments/[pid]/receipt": CONTRACT_FILES,
     },
   },
 };

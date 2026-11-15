@@ -86,6 +86,7 @@ export async function PaymentsCard({
   rest,
   paidOn,
   rules,
+  children,
 }: {
   locale: Locale;
   programName: string;
@@ -95,6 +96,8 @@ export async function PaymentsCard({
   rest: number;
   paidOn: string | null;
   rules: string[];
+  /** Déclaration « J'ai payé » et historique (composant client). */
+  children?: React.ReactNode;
 }) {
   const t = await getTranslations("portal.payments");
   const fcfa = (n: number) => formatFcfa(n, locale);
@@ -137,6 +140,7 @@ export async function PaymentsCard({
         <span className="font-extrabold">{t("rest", { amount: fcfa(rest) })}</span>
       </div>
       <p className="mt-2 text-[13px] text-gris">{t("note")}</p>
+      {children}
 
       {rules.length > 0 && (
         <div className="mt-4 rounded-brand border border-[#F5C26B]/60 bg-[#FFF8E8] p-3.5">

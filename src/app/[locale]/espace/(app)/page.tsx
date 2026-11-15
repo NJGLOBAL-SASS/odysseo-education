@@ -16,6 +16,8 @@ import { ClipboardCheck } from "lucide-react";
 import { documentProgress, nextAction, paymentSchedule } from "@/lib/portal/next-action";
 import { getPaymentRules } from "@/lib/content/payment-methods";
 import { DocumentProgressCard, NextActionCard, PaymentsCard } from "@/components/portal/dossier-overview";
+import { PaymentDeclare } from "@/components/portal/payment-declare";
+import { confirmedTotal } from "@/lib/payments/rules";
 
 export const dynamic = "force-dynamic";
 
@@ -38,12 +40,13 @@ export default async function PortalHomePage({ params }: { params: { locale: str
   const report = toPortalReport(rawReport, locale);
 
   // « Votre prochaine action », documents et paiements : uniquement des données réelles.
-  const [checklist, unreadMessages] = await Promise.all([
+  const [checklist, unreadMessages, payments] = await Promise.all([
     prisma.checklistItem.findMany({
       where: { candidateId: session.candidateId, removedAt: null },
       select: { status: true, phase: true, required: true, kind: true },
     }),
     prisma.portalMessage.count({ where: { candidateId: session.candidateId, authorType: "TEAM", readByCandidateAt: null } }),
+    prisma.payment.findMany({ where: { candidateId: session.candidateId }, orderBy: { createdAt: "desc" } }),
   ]);
   const action = nextAction({
     report: report
@@ -56,8 +59,14 @@ export default async function PortalHomePage({ params }: { params: { locale: str
   const waitText = messages.suivi?.stages?.[c.stage]?.next || undefined;
   const progress = documentProgress(checklist);
   const schedule = report?.program
-    ? paymentSchedule(report.program.payments, rawReport?.paymentReceivedAt ? rawReport.paymentAmount : 0)
+    ? paymentSchedule(report.program.payments, confirmedTotal(payments, rawReport?.paymentReceivedAt ? rawReport.paymentAmount : 0))
     : null;
+  // Échéances encore à venir, proposées dans « J'ai effectué un paiement ».
+  // Une échéance déjà déclarée (en vérification) n'est plus proposée : pas de double déclaration.
+  const pendingSteps = new Set(payments.filter((p) => p.status === "en_verification" && p.stepIndex != null).map((p) => p.stepIndex));
+  const upcomingSteps = schedule
+    ? schedule.lines.flatMap((l, index) => (l.status === "upcoming" && !pendingSteps.has(index) ? [{ index, label: l.label, amount: l.amount }] : []))
+    : [];
   const tReport = await getTranslations("portal.report");
   const offers = ((Array.isArray(c.recommendations) ? c.recommendations : []) as unknown as StoredRecommendation[])
     .map((r) => {
@@ -91,7 +100,22 @@ export default async function PortalHomePage({ params }: { params: { locale: str
               rest={schedule.rest}
               paidOn={rawReport?.paymentReceivedAt ? dateFmt.format(rawReport.paymentReceivedAt) : null}
               rules={getPaymentRules(locale)}
-            />
+            >
+              <PaymentDeclare
+                code={c.code}
+                steps={upcomingSteps}
+                payments={payments.map((p) => ({
+                  id: p.id,
+                  amount: p.amount,
+                  stepLabel: p.stepLabel,
+                  method: p.method,
+                  paidOn: p.paidOn.toISOString(),
+                  status: p.status,
+                  receiptNumber: p.receiptNumber,
+                  rejectReason: p.rejectReason,
+                }))}
+              />
+            </PaymentsCard>
           )}
         </div>
       )}

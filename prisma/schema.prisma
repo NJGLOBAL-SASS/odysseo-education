@@ -358,6 +358,7 @@ model Candidate {
   admissionReport     AdmissionReport?
   checklistItems      ChecklistItem[]
   translationTasks    TranslationTask[]
+  payments            Payment[]
 
   locale String @default("fr")
 
@@ -850,4 +851,44 @@ model LinkClick {
 
   @@index([createdAt])
   @@map("link_clicks")
+}
+
+// Paiement déclaré par l'étudiant / le parent (espace) ou enregistré par l'équipe.
+// Odysseo vérifie et confirme : le reçu numéroté (REC-AAAA-NNNN) est généré à la confirmation.
+model Payment {
+  id          String    @id @default(cuid())
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  stepIndex Int? // échéance du cursus (position dans l'échéancier), null = autre paiement
+  stepLabel String? // libellé de l'échéance au moment de la déclaration
+  amount    Int // FCFA
+  method    String // especes | virement | orange_money | mtn_momo | autre
+  methodNote String?  @db.VarChar(200) // précision (« autre », référence de transaction…)
+  paidOn    DateTime // date du paiement indiquée
+
+  // Preuve (photo du reçu, capture Mobile Money, avis de virement) : stockage privé.
+  proofBlobUrl String?
+  proofName    String?
+  proofType    String?
+  proofSize    Int?
+
+  status       String  @default("en_verification") // en_verification | confirme | refuse
+  rejectReason String? @db.VarChar(300)
+  source       String // espace | equipe
+  declaredByPortalId String?
+  declaredByName     String?
+  recordedByName     String?
+
+  confirmedAt      DateTime?
+  confirmedByName  String?
+  receiptNumber    String?   @unique // REC-2026-0001
+  receiptEmailedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([candidateId, createdAt])
+  @@index([status])
+  @@map("payments")
 }
