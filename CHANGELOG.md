@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.15.0] – 2026-11-17 · ODY-14 Kits partenaires envoyés par WhatsApp
+
+**Avant :** chaque visuel était envoyé à la main à chaque partenaire, qui devait ajouter lui-même son lien (souvent oublié ou laissé « votre lien »).
+**Maintenant :** l'équipe crée un kit (un flyer + un texte modèle). La plateforme génère pour chaque partenaire son flyer avec **son QR code et son code incrustés**, et son texte avec **son lien déjà inséré**. « Envoyer » ouvre WhatsApp sur la conversation du partenaire, message prêt.
+
+### Ajouté
+- **Tableau de bord → Kits** (`/dashboard/kits`) : liste (statut, « Envoyés X / Y partenaires actifs »), création et modification (flyer JPG/PNG 10 Mo, position du QR, texte modèle avec `{PRENOM}`, `{LIEN}`, `{CODE}`, aperçu réel pour un partenaire exemple, aperçu du message et compteur de caractères avec alerte au-delà de 2 000).
+- **Envoi** (`/dashboard/kits/[id]/envoyer`) : partenaires actifs, filtres « Pas encore envoyés » / « Tous », recherche, « Envoyer » (lien `wa.me`, envoi marqué), « Copier », « Annuler l'envoi », « Suivant non envoyé », numéros normalisés (« numéro manquant » sinon), indicateurs « Kit ouvert » et « Image téléchargée ».
+- **Page publique du kit** (`/fr/kit/[slug]/[CODE]`, sans connexion, non indexée) : flyer personnalisé, « Télécharger l'image », « Copier le texte », « Partager » (si le téléphone le permet), aperçu WhatsApp 1200 × 630 (< 300 Ko).
+- **Images** : `GET /api/kit/[slug]/[CODE]/image.jpg` (JPEG qualité 82, 1080 px max, badge 18 % de la largeur, 220 px min, marge 3 %) et `og.jpg`. Mises en cache par le CDN avec une adresse versionnée : un nouveau flyer change la version (et l'ancien fichier est supprimé). Partenaire inactif ou code inconnu : 404.
+- **Lien `/r/[CODE]?src=kit-[slug]`** : le kit est transmis au formulaire (`utm_source=partenaire`, `utm_medium=kit`, `utm_campaign=kit-[slug]`) et enregistré sur la candidature : on sait quel kit a amené quel étudiant.
+
+### Consigne au designer
+Laisser une zone libre carrée d'environ 20 % de la largeur dans le coin du QR (par défaut en bas à droite). Format conseillé : 1080 × 1350 ou 1080 × 1080.
+
+### Migration
+- Nouvelles tables `kits`, `kit_sends`, `kit_views` (ajout uniquement).
+- Nouvelle dépendance : `sharp` (incrustation et compression des flyers).
+
 ## [0.14.0] – 2026-11-12 · Page `/liens` (lien unique des bios)
 
 **Avant :** un seul lien cliquable dans les bios TikTok et Facebook, qui menait à une seule page.

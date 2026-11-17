@@ -1091,8 +1091,91 @@
     }
   },
   "dashboard": {
+    "kits": {
+      "title": "Partner kits",
+      "intro": "One flyer and one text: the platform adds each partner's QR code, code and link. “Send” opens WhatsApp with the message ready.",
+      "new": "New kit",
+      "empty": "No kit yet.",
+      "cols": {
+        "title": "Kit",
+        "date": "Date",
+        "status": "Status",
+        "sent": "Sent"
+      },
+      "sentCount": "{sent} / {total} active partners",
+      "status": {
+        "brouillon": "Draft",
+        "pret": "Ready",
+        "archive": "Archived"
+      },
+      "edit": "Edit",
+      "send": "Send",
+      "back": "All kits",
+      "editor": {
+        "newTitle": "New kit",
+        "editTitle": "Edit kit",
+        "name": "Title (internal)",
+        "namePlaceholder": "One university a day #3",
+        "flyer": "Designer's flyer",
+        "flyerHint": "JPG or PNG, 10 MB max. Leave a free area of about 20% of the width in the QR code corner (suggested size 1080 × 1350).",
+        "chooseFlyer": "Choose the flyer",
+        "replaceFlyer": "Replace the flyer",
+        "position": "QR code position",
+        "positions": {
+          "bas-droite": "Bottom right",
+          "bas-gauche": "Bottom left",
+          "bas-centre": "Bottom centre",
+          "haut-droite": "Top right"
+        },
+        "template": "Template text",
+        "templateHint": "Variables: {PRENOM}, {LIEN} (partner's tracked link), {CODE}.",
+        "insert": "Insert",
+        "preview": "Preview for a sample partner",
+        "previewSave": "Save the kit to see the preview with the QR code.",
+        "message": "Final WhatsApp message",
+        "chars": "{count} characters in the WhatsApp link",
+        "tooLong": "Long message: beyond about 2,000 characters the WhatsApp link may fail on some phones. Shorten the text.",
+        "saveDraft": "Save as draft",
+        "markReady": "Mark as ready",
+        "archive": "Archive",
+        "saving": "Saving…",
+        "saved": "Kit saved.",
+        "errors": {
+          "generic": "Saving failed.",
+          "flyerRequired": "Add a flyer before marking the kit ready.",
+          "badType": "The flyer must be a JPG or PNG.",
+          "tooBig": "The flyer is larger than 10 MB.",
+          "title": "Give the kit a title (3 characters minimum).",
+          "template": "The template text is too short.",
+          "noLink": "The text does not contain {LIEN}: the partner will not be credited. Add it."
+        }
+      },
+      "sender": {
+        "title": "Send “{title}”",
+        "notReady": "This kit is not ready: mark it ready before sending it.",
+        "filters": {
+          "pending": "Not sent yet",
+          "all": "All"
+        },
+        "search": "Search for a partner",
+        "progress": "Sent: {sent} / {total}",
+        "next": "Next unsent",
+        "send": "Send",
+        "copy": "Copy",
+        "copied": "Message copied",
+        "unsend": "Undo send",
+        "sentOn": "Sent on {date}",
+        "notSent": "Not sent",
+        "noPhone": "Missing number",
+        "viewed": "Kit opened",
+        "downloaded": "Image downloaded",
+        "none": "No partner in this list.",
+        "allSent": "All active partners have received this kit."
+      }
+    },
     "version": "Dashboard · v1.3",
     "nav": {
+      "kits": "Kits",
       "overview": "Overview",
       "candidates": "Applications",
       "partners": "Partners",

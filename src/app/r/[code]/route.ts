@@ -11,7 +11,7 @@ import {
 } from "@/lib/referral";
 
 /**
- * Lien de parrainage court : /r/AUDY-012 -> journalise le clic puis redirige
+ * Lien de parrainage court : /r/AUDY-012 (?src=kit-… pour un kit ODY-14) -> journalise le clic puis redirige
  * vers le formulaire du site public avec ?ref=AUDY-012. Le formulaire
  * pré-remplit alors le parrainage tout seul ; un cookie de 30 jours garde
  * l'attribution si le candidat revient plus tard.
@@ -32,6 +32,14 @@ export async function GET(req: NextRequest, { params }: { params: { code: string
   const locale = locales.find((l) => l === lang) || defaultLocale;
   const url = new URL(`/${locale}/postuler`, publicSiteUrl());
   if (partner) url.searchParams.set("ref", partner.referralCode);
+  // ODY-14 : ?src=kit-{slug} → campagne de la candidature (quel kit a amené quel étudiant).
+  const src = (req.nextUrl.searchParams.get("src") || "").trim().toLowerCase();
+  if (partner && /^kit-[a-z0-9-]{1,80}$/.test(src)) {
+    url.searchParams.set("utm_source", "partenaire");
+    url.searchParams.set("utm_medium", "kit");
+    url.searchParams.set("utm_campaign", src);
+    url.searchParams.set("utm_content", partner.referralCode);
+  }
 
   const res = NextResponse.redirect(url);
   if (partner) {

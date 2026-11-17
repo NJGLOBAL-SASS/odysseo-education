@@ -144,6 +144,8 @@ model Partner {
   referralEvents ReferralEvent[]
   pointsLedger   PointsLedgerEntry[]
   application    PartnerApplication?
+  kitSends       KitSend[]
+  kitViews       KitView[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -891,4 +893,56 @@ model Payment {
   @@index([candidateId, createdAt])
   @@index([status])
   @@map("payments")
+}
+
+// ODY-14 : kit partenaire (un flyer + un texte modèle). La plateforme génère pour chaque
+// partenaire son flyer avec QR code et code incrustés, et son texte avec son lien.
+model Kit {
+  id         String  @id @default(cuid())
+  slug       String  @unique // ex. unipardjour-03, généré depuis le titre
+  title      String // interne : « Une université par jour #3 »
+  imageUrl   String? // flyer d'origine (stockage privé)
+  imageWidth Int?
+  imageHeight Int?
+  imageVersion Int    @default(0) // +1 à chaque nouveau flyer : invalide les images générées
+  qrPosition String  @default("bas-droite") // bas-droite | bas-gauche | bas-centre | haut-droite
+  template   String  @db.Text // texte modèle avec {PRENOM}, {LIEN}, {CODE}
+  status     String  @default("brouillon") // brouillon | pret | archive
+  createdByName String?
+
+  sends KitSend[]
+  views KitView[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("kits")
+}
+
+// Kit envoyé à un partenaire (bouton « Envoyer » → WhatsApp). Une ligne par couple kit / partenaire.
+model KitSend {
+  id         String   @id @default(cuid())
+  kitId      String
+  kit        Kit      @relation(fields: [kitId], references: [id], onDelete: Cascade)
+  partnerId  String
+  partner    Partner  @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  sentAt     DateTime @default(now())
+  sentByName String?
+
+  @@unique([kitId, partnerId])
+  @@map("kit_sends")
+}
+
+// Le partenaire a ouvert sa page de kit, téléchargé l'image ou copié le texte (relances ciblées).
+model KitView {
+  id        String   @id @default(cuid())
+  kitId     String
+  kit       Kit      @relation(fields: [kitId], references: [id], onDelete: Cascade)
+  partnerId String
+  partner   Partner  @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  type      String // page_ouverte | image_telechargee | texte_copie
+  createdAt DateTime @default(now())
+
+  @@index([kitId, partnerId])
+  @@map("kit_views")
 }

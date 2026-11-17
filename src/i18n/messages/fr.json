@@ -337,8 +337,91 @@
     }
   },
   "dashboard": {
+    "kits": {
+      "title": "Kits partenaires",
+      "intro": "Un flyer et un texte : la plateforme ajoute le QR code, le code et le lien de chaque partenaire. « Envoyer » ouvre WhatsApp avec le message prêt.",
+      "new": "Nouveau kit",
+      "empty": "Aucun kit pour l'instant.",
+      "cols": {
+        "title": "Kit",
+        "date": "Date",
+        "status": "Statut",
+        "sent": "Envoyés"
+      },
+      "sentCount": "{sent} / {total} partenaires actifs",
+      "status": {
+        "brouillon": "Brouillon",
+        "pret": "Prêt",
+        "archive": "Archivé"
+      },
+      "edit": "Modifier",
+      "send": "Envoyer",
+      "back": "Tous les kits",
+      "editor": {
+        "newTitle": "Nouveau kit",
+        "editTitle": "Modifier le kit",
+        "name": "Titre (interne)",
+        "namePlaceholder": "Une université par jour #3",
+        "flyer": "Flyer du designer",
+        "flyerHint": "JPG ou PNG, 10 Mo maximum. Laissez une zone libre d'environ 20 % de la largeur dans le coin du QR code (format conseillé 1080 × 1350).",
+        "chooseFlyer": "Choisir le flyer",
+        "replaceFlyer": "Remplacer le flyer",
+        "position": "Position du QR code",
+        "positions": {
+          "bas-droite": "Bas droite",
+          "bas-gauche": "Bas gauche",
+          "bas-centre": "Bas centre",
+          "haut-droite": "Haut droite"
+        },
+        "template": "Texte modèle",
+        "templateHint": "Variables : {PRENOM}, {LIEN} (lien tracé du partenaire), {CODE}.",
+        "insert": "Insérer",
+        "preview": "Aperçu pour un partenaire exemple",
+        "previewSave": "Enregistrez le kit pour voir l'aperçu avec le QR code.",
+        "message": "Message WhatsApp final",
+        "chars": "{count} caractères dans le lien WhatsApp",
+        "tooLong": "Message long : au-delà d'environ 2 000 caractères, le lien WhatsApp peut échouer sur certains téléphones. Raccourcissez le texte.",
+        "saveDraft": "Enregistrer en brouillon",
+        "markReady": "Marquer prêt",
+        "archive": "Archiver",
+        "saving": "Enregistrement…",
+        "saved": "Kit enregistré.",
+        "errors": {
+          "generic": "L'enregistrement n'a pas abouti.",
+          "flyerRequired": "Ajoutez un flyer avant de marquer le kit prêt.",
+          "badType": "Le flyer doit être un JPG ou un PNG.",
+          "tooBig": "Le flyer dépasse 10 Mo.",
+          "title": "Donnez un titre au kit (3 caractères minimum).",
+          "template": "Le texte modèle est trop court.",
+          "noLink": "Le texte ne contient pas {LIEN} : le partenaire ne sera pas attribué. Ajoutez-le."
+        }
+      },
+      "sender": {
+        "title": "Envoyer « {title} »",
+        "notReady": "Ce kit n'est pas prêt : marquez-le prêt avant de l'envoyer.",
+        "filters": {
+          "pending": "Pas encore envoyés",
+          "all": "Tous"
+        },
+        "search": "Rechercher un partenaire",
+        "progress": "Envoyés : {sent} / {total}",
+        "next": "Suivant non envoyé",
+        "send": "Envoyer",
+        "copy": "Copier",
+        "copied": "Message copié",
+        "unsend": "Annuler l'envoi",
+        "sentOn": "Envoyé le {date}",
+        "notSent": "Pas envoyé",
+        "noPhone": "Numéro manquant",
+        "viewed": "Kit ouvert",
+        "downloaded": "Image téléchargée",
+        "none": "Aucun partenaire dans cette liste.",
+        "allSent": "Tous les partenaires actifs ont reçu ce kit."
+      }
+    },
     "version": "Tableau de bord · v1.3",
     "nav": {
+      "kits": "Kits",
       "overview": "Vue d'ensemble",
       "candidates": "Candidatures",
       "partners": "Partenaires",
