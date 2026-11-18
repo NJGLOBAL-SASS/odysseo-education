@@ -20,8 +20,32 @@ const schema = z.object({
  * (adresses ?v=) ne sont plus servies ; l'ancien fichier est supprimé du stockage.
  */
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    return await update(req, params.id);
+  } catch (err) {
+    console.error("[kits] modification :", err);
+    return NextResponse.json({ error: "server", detail: err instanceof Error ? err.message.slice(0, 200) : "?" }, { status: 500 });
+  }
+}
+
+/**
+ * Suppression définitive d'un kit : envois et ouvertures supprimés avec lui, flyer retiré du stockage.
+ * Les liens déjà envoyés aux partenaires renvoient ensuite une page introuvable.
+ */
+export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
   const session = await auth();
-  if (!session?.user) return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
+  const kit = await prisma.kit.findUnique({ where: { id: params.id } });
+  if (!kit) return NextResponse.json({ error: "notFound" }, { status: 404 });
+  await prisma.kit.delete({ where: { id: kit.id } });
+  if (kit.imageUrl) await deleteBlobs([kit.imageUrl]);
+  return NextResponse.json({ ok: true });
+}
+
+async function update(req: NextRequest, id: string) {
+  const params = { id };
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
   const body = schema.safeParse(await req.json().catch(() => null));
   if (!body.success) return NextResponse.json({ error: "invalid" }, { status: 400 });
   const kit = await prisma.kit.findUnique({ where: { id: params.id } });

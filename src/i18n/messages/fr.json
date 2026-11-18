@@ -358,6 +358,10 @@
       "send": "Envoyer",
       "back": "Tous les kits",
       "editor": {
+        "converting": "Préparation du flyer…",
+        "deleted": "Kit supprimé.",
+        "confirmDelete": "Supprimer définitivement ce kit ? Les liens déjà envoyés aux partenaires ne fonctionneront plus.",
+        "delete": "Supprimer",
         "newTitle": "Nouveau kit",
         "editTitle": "Modifier le kit",
         "name": "Titre (interne)",
@@ -387,6 +391,10 @@
         "saving": "Enregistrement…",
         "saved": "Kit enregistré.",
         "errors": {
+          "server": "Erreur du serveur ({detail}). Réessayez ; si cela continue, envoyez cette capture.",
+          "upload": "L'envoi du flyer a échoué ({detail}). Vérifiez la connexion et réessayez.",
+          "unreadable": "Ce fichier n'a pas pu être lu comme une image. Exportez le flyer en JPG ou PNG, puis réessayez.",
+          "unauthenticated": "Votre session a expiré : reconnectez-vous, puis recommencez.",
           "generic": "L'enregistrement n'a pas abouti.",
           "flyerRequired": "Ajoutez un flyer avant de marquer le kit prêt.",
           "badType": "Le flyer doit être un JPG ou un PNG.",

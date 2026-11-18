@@ -1112,6 +1112,10 @@
       "send": "Send",
       "back": "All kits",
       "editor": {
+        "converting": "Preparing the flyer…",
+        "deleted": "Kit deleted.",
+        "confirmDelete": "Delete this kit permanently? Links already sent to partners will stop working.",
+        "delete": "Delete",
         "newTitle": "New kit",
         "editTitle": "Edit kit",
         "name": "Title (internal)",
@@ -1141,6 +1145,10 @@
         "saving": "Saving…",
         "saved": "Kit saved.",
         "errors": {
+          "server": "Server error ({detail}). Retry; if it continues, send this screenshot.",
+          "upload": "Uploading the flyer failed ({detail}). Check the connection and retry.",
+          "unreadable": "This file could not be read as an image. Export the flyer as JPG or PNG, then retry.",
+          "unauthenticated": "Your session has expired: sign in again, then retry.",
           "generic": "Saving failed.",
           "flyerRequired": "Add a flyer before marking the kit ready.",
           "badType": "The flyer must be a JPG or PNG.",

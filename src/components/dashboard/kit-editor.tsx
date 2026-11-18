@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { upload } from "@vercel/blob/client";
-import { ImagePlus } from "lucide-react";
+import { ImagePlus, Trash2 } from "lucide-react";
 
 import { useRouter } from "@/i18n/navigation";
 import {
@@ -33,6 +33,41 @@ const DEFAULT_TEMPLATE =
   "🎓 Étudier en Chine avec une bourse ? Odysseo t'accompagne de A à Z : choix de l'université, dossier, visa.\n\n👉 Analyse gratuite de ton profil : {LIEN}";
 const stamp = () => new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
 const SAMPLE = { firstName: "Exemple", code: "ODY-000" };
+
+/**
+ * Flyer prêt à l'envoi : un JPG ou PNG de 10 Mo maximum passe tel quel. Sinon (WEBP, HEIC d'iPhone,
+ * type inconnu, fichier trop lourd), le navigateur le redessine en JPG haute qualité (2 160 px max).
+ * Renvoie null si le fichier n'est pas une image lisible.
+ */
+async function prepareFlyer(file: File): Promise<File | null> {
+  if ((file.type === "image/jpeg" || file.type === "image/png") && file.size <= 10 * 1024 * 1024) return file;
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const el = new Image();
+      el.onload = () => resolve(el);
+      el.onerror = reject;
+      el.src = url;
+    });
+    const scale = Math.min(1, 2160 / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
+    let quality = 0.92;
+    let blob: Blob | null = null;
+    while (quality >= 0.6) {
+      blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/jpeg", quality));
+      if (blob && blob.size <= 9.5 * 1024 * 1024) break;
+      quality -= 0.1;
+    }
+    return blob ? new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" }) : null;
+  } catch {
+    return null;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
 
 /**
  * Création / modification d'un kit (ODY-14) : flyer, position du QR (aperçu réel pour un partenaire
@@ -82,31 +117,49 @@ export function KitEditor({ kit, siteUrl }: { kit?: EditableKit; siteUrl: string
     try {
       let flyer: { url: string; name: string } | undefined;
       if (file) {
-        const ext = /png$/i.test(file.type) ? "png" : "jpg";
-        const blob = await upload(`documents/kits/flyers/${stamp()}-1.${ext}`, file, {
-          access: "private",
-          handleUploadUrl: "/api/kits/upload",
-          contentType: file.type,
-        });
-        flyer = { url: blob.url, name: file.name };
+        setState({ busy: true, ok: t("converting") });
+        const ready = await prepareFlyer(file);
+        if (!ready) return setState({ error: t("errors.unreadable") });
+        const ext = ready.type === "image/png" ? "png" : "jpg";
+        try {
+          const blob = await upload(`documents/kits/flyers/${stamp()}-1.${ext}`, ready, {
+            access: "private",
+            handleUploadUrl: "/api/kits/upload",
+            contentType: ready.type,
+          });
+          flyer = { url: blob.url, name: ready.name };
+        } catch (err) {
+          const detail = err instanceof Error ? err.message.slice(0, 120) : "?";
+          return setState({ error: /non autoris|unauthor|401/i.test(detail) ? t("errors.unauthenticated") : t("errors.upload", { detail }) });
+        }
       }
       const res = await fetch(kit ? `/api/kits/${kit.id}` : "/api/kits", {
         method: kit ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: title.trim(), template, qrPosition: position, status, ...(flyer && { flyer }) }),
       });
-      const json = (await res.json().catch(() => ({}))) as { error?: string; kit?: { id: string } };
+      const json = (await res.json().catch(() => ({}))) as { error?: string; detail?: string; kit?: { id: string } };
       if (!res.ok) {
-        const key = json.error === "flyerRequired" || json.error === "badType" || json.error === "tooBig" ? json.error : "generic";
-        return setState({ error: t(`errors.${key}`) });
+        if (res.status === 401) return setState({ error: t("errors.unauthenticated") });
+        if (json.error === "flyerRequired" || json.error === "badType" || json.error === "tooBig") return setState({ error: t(`errors.${json.error}`) });
+        return setState({ error: t("errors.server", { detail: `${res.status} ${json.error ?? ""} ${json.detail ?? ""}`.trim() }) });
       }
       setFile(null);
       setState({ ok: t("saved") });
       if (!kit && json.kit) router.push(`/dashboard/kits/${json.kit.id}`);
       else router.refresh();
-    } catch {
-      setState({ error: t("errors.generic") });
+    } catch (err) {
+      setState({ error: t("errors.server", { detail: err instanceof Error ? err.message.slice(0, 120) : "?" }) });
     }
+  }
+
+  async function remove() {
+    if (!kit || !window.confirm(t("confirmDelete"))) return;
+    setState({ busy: true });
+    const res = await fetch(`/api/kits/${kit.id}`, { method: "DELETE" }).catch(() => null);
+    if (!res?.ok) return setState({ error: res?.status === 401 ? t("errors.unauthenticated") : t("errors.server", { detail: String(res?.status ?? "réseau") }) });
+    router.push("/dashboard/kits");
+    router.refresh();
   }
 
   const previewSrc = kit?.hasImage && !file ? `/api/kits/${kit.id}/preview.jpg?position=${position}&v=${kit.imageVersion}` : null;
@@ -124,7 +177,7 @@ export function KitEditor({ kit, siteUrl }: { kit?: EditableKit; siteUrl: string
           <p className="text-xs text-gris">{t("flyerHint")}</p>
           <label className="btn-sm-ghost mt-2 cursor-pointer">
             <ImagePlus className="h-4 w-4" /> {kit?.hasImage || file ? t("replaceFlyer") : t("chooseFlyer")}
-            <input type="file" accept="image/jpeg,image/png" className="sr-only" onChange={(e) => pick(e.target.files?.[0] ?? null)} />
+            <input type="file" accept="image/*" className="sr-only" onChange={(e) => pick(e.target.files?.[0] ?? null)} />
           </label>
           {file && <p className="mt-1 truncate text-xs font-semibold">{file.name}</p>}
         </div>
@@ -170,6 +223,11 @@ export function KitEditor({ kit, siteUrl }: { kit?: EditableKit; siteUrl: string
           {kit && kit.status !== "archive" && (
             <button type="button" disabled={state.busy} onClick={() => save("archive")} className="btn-sm-ghost text-gris">
               {t("archive")}
+            </button>
+          )}
+          {kit && (
+            <button type="button" disabled={state.busy} onClick={remove} className="btn-sm-ghost ml-auto text-erreur">
+              <Trash2 className="h-4 w-4" /> {t("delete")}
             </button>
           )}
         </div>

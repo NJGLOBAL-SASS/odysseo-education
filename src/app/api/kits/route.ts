@@ -10,8 +10,17 @@ const createSchema = kitSchema.extend({ flyer: z.object({ url: z.string().url(),
 
 /** Nouveau kit (brouillon ou prêt). Un kit « prêt » doit avoir un flyer. */
 export async function POST(req: NextRequest) {
+  try {
+    return await create(req);
+  } catch (err) {
+    console.error("[kits] création :", err);
+    return NextResponse.json({ error: "server", detail: err instanceof Error ? err.message.slice(0, 200) : "?" }, { status: 500 });
+  }
+}
+
+async function create(req: NextRequest) {
   const session = await auth();
-  if (!session?.user) return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
   const body = createSchema.safeParse(await req.json().catch(() => null));
   if (!body.success) return NextResponse.json({ error: "invalid" }, { status: 400 });
   const d = body.data;
