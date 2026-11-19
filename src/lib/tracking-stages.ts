@@ -3,11 +3,40 @@
  * Libellés et « prochaine action » dans les messages i18n (clé "suivi.stages").
  */
 
-/** Frise, dans l'ordre (PACK-10 : rapport envoyé et validation ajoutés entre analyse et ouvert). */
-export const STAGES = ["recu", "analyse", "rapport_envoye", "valide_attente_paiement", "ouvert", "documents", "depose", "admis", "visa", "depart", "arrive"] as const;
-/** Statuts parallèles, affichés à la place de la frise. */
-export const PARALLEL_STAGES = ["en_attente_etudiant", "clos"] as const;
-export const ALL_STAGES = [...STAGES, ...PARALLEL_STAGES] as const;
+/**
+ * Frise, dans l'ordre. PACK-12 : nouveau (= recu) → rapport_pret → rapport_valide →
+ * rapport_envoye → accord → ouvert (1er versement) → suite. « analyse » reste pour les
+ * dossiers antérieurs et la saisie manuelle.
+ */
+export const STAGES = [
+  "recu",
+  "analyse",
+  "rapport_pret",
+  "rapport_valide",
+  "rapport_envoye",
+  "accord",
+  "ouvert",
+  "documents",
+  "depose",
+  "admis",
+  "visa",
+  "depart",
+  "arrive",
+] as const;
+/** Statuts parallèles, affichés à la place de la frise (PACK-12 : perdu, rapport expiré). */
+export const PARALLEL_STAGES = ["en_attente_etudiant", "clos", "perdu", "rapport_expire"] as const;
+/**
+ * Étapes retirées, encore acceptées pour les dossiers existants (PACK-10 : « Je valide mon
+ * dossier » avant le paiement, supprimé par le PACK-12). Affichées comme « accord ».
+ */
+export const LEGACY_STAGES = ["valide_attente_paiement"] as const;
+export const ALL_STAGES = [...STAGES, ...PARALLEL_STAGES, ...LEGACY_STAGES] as const;
+
+/** Position dans la frise (-1 : statut parallèle). Une étape retirée prend la place de son équivalent. */
+export function stagePosition(stage: string) {
+  const s = stage === "valide_attente_paiement" ? "accord" : stage;
+  return (STAGES as readonly string[]).indexOf(s);
+}
 
 export type Stage = (typeof ALL_STAGES)[number];
 export type StageHistoryEntry = { stage: Stage; date: string };

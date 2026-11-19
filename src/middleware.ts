@@ -26,6 +26,14 @@ export default async function middleware(req: NextRequest) {
   // les domaines (il redirige lui-même vers le formulaire du site public).
   if (pathname.startsWith("/r/")) return NextResponse.next();
 
+  // Lien privé du rapport d'admissibilité (ODY-15 §6) : hors i18n, protégé par son jeton.
+  if (pathname.startsWith("/rapport/")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    res.headers.set("Referrer-Policy", "no-referrer");
+    return res;
+  }
+
   const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
   const onTeamHost = isTeamHost(host);
   const onPortalHost = isPortalHost(host);

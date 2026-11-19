@@ -358,6 +358,9 @@ model Candidate {
   portalMessages      PortalMessage[]
   documentActivities  DocumentActivity[]
   admissionReport     AdmissionReport?
+  reportDocuments     ReportDocument[]
+  reportReminders     ReportReminder[]
+  events              CandidateEvent[]
   checklistItems      ChecklistItem[]
   translationTasks    TranslationTask[]
   payments            Payment[]
@@ -392,6 +395,7 @@ enum NotificationChannel {
   EMAIL
   WHATSAPP
   PUSH
+  TELEGRAM // PACK-12 : groupe Telegram de l'équipe
 }
 
 enum NotificationStatus {
@@ -659,7 +663,7 @@ model AdmissionReport {
   id          String    @id @default(cuid())
   candidateId String    @unique
   candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
-  program     String // cursus facturé : langue-chinoise | bachelor | master | doctorat
+  program     String // cursus facturé : langue-chinoise | bachelor | mbbs | master | doctorat
   offers      Json      @default("[]") // [{ ref, role, revealedAt?, revealReason? }] dans l'ordre choisi
   comment     String?   @db.VarChar(500)
   version     Int       @default(0) // +1 à chaque publication
@@ -681,9 +685,27 @@ model AdmissionReport {
   // Accord de conservation et de transmission des documents (avant le premier envoi).
   documentsConsentAt DateTime?
 
+  // Statut unique du rapport (PACK-12 + ODY-15 + PACK-13), voir src/lib/report/status.ts :
+  // infos_manquantes | analyse_en_cours | a_revoir | brouillon | a_valider | envoye | lu |
+  // oui_recu | premier_versement_recu | sans_suite. null = rapport antérieur (statut déduit).
+  status           String?
+  engineVersion    String? // moteur qui a calculé le brouillon (moteur_version)
+  catalogueVersion String? // version du catalogue au calcul (catalogue_version)
+  proposerBachelor String? // profil Langue avec le bac : Bachelor proposé en plus
+  repliLangue      Boolean   @default(false) // Licence impossible : offres de langue à la place
+  // ODY-15 : relances et arrêt du suivi.
+  remindersActive  Boolean   @default(true) // relances_actives
+  stopReason       String? // motif_arret : oui_recu | versement | pas_interesse | autre_rentree | injoignable | autre
+  stopNote         String?   @db.VarChar(300)
+  stoppedAt        DateTime?
+  stoppedByName    String?
+  ouiAt            DateTime? // « L'étudiant a répondu OUI »
+  ouiByName        String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([status])
   @@map("admission_reports")
 }
 
@@ -862,12 +884,12 @@ model Payment {
   candidateId String
   candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
 
-  stepIndex Int? // échéance du cursus (position dans l'échéancier), null = autre paiement
-  stepLabel String? // libellé de l'échéance au moment de la déclaration
-  amount    Int // FCFA
-  method    String // especes | virement | orange_money | mtn_momo | autre
+  stepIndex  Int? // échéance du cursus (position dans l'échéancier), null = autre paiement
+  stepLabel  String? // libellé de l'échéance au moment de la déclaration
+  amount     Int // FCFA
+  method     String // especes | virement | orange_money | mtn_momo | autre
   methodNote String?  @db.VarChar(200) // précision (« autre », référence de transaction…)
-  paidOn    DateTime // date du paiement indiquée
+  paidOn     DateTime // date du paiement indiquée
 
   // Preuve (photo du reçu, capture Mobile Money, avis de virement) : stockage privé.
   proofBlobUrl String?
@@ -875,9 +897,9 @@ model Payment {
   proofType    String?
   proofSize    Int?
 
-  status       String  @default("en_verification") // en_verification | confirme | refuse
-  rejectReason String? @db.VarChar(300)
-  source       String // espace | equipe
+  status             String  @default("en_verification") // en_verification | confirme | refuse
+  rejectReason       String? @db.VarChar(300)
+  source             String // espace | equipe
   declaredByPortalId String?
   declaredByName     String?
   recordedByName     String?
@@ -898,16 +920,16 @@ model Payment {
 // ODY-14 : kit partenaire (un flyer + un texte modèle). La plateforme génère pour chaque
 // partenaire son flyer avec QR code et code incrustés, et son texte avec son lien.
 model Kit {
-  id         String  @id @default(cuid())
-  slug       String  @unique // ex. unipardjour-03, généré depuis le titre
-  title      String // interne : « Une université par jour #3 »
-  imageUrl   String? // flyer d'origine (stockage privé)
-  imageWidth Int?
-  imageHeight Int?
-  imageVersion Int    @default(0) // +1 à chaque nouveau flyer : invalide les images générées
-  qrPosition String  @default("bas-droite") // bas-droite | bas-gauche | bas-centre | haut-droite
-  template   String  @db.Text // texte modèle avec {PRENOM}, {LIEN}, {CODE}
-  status     String  @default("brouillon") // brouillon | pret | archive
+  id            String  @id @default(cuid())
+  slug          String  @unique // ex. unipardjour-03, généré depuis le titre
+  title         String // interne : « Une université par jour #3 »
+  imageUrl      String? // flyer d'origine (stockage privé)
+  imageWidth    Int?
+  imageHeight   Int?
+  imageVersion  Int     @default(0) // +1 à chaque nouveau flyer : invalide les images générées
+  qrPosition    String  @default("bas-droite") // bas-droite | bas-gauche | bas-centre | haut-droite
+  template      String  @db.Text // texte modèle avec {PRENOM}, {LIEN}, {CODE}
+  status        String  @default("brouillon") // brouillon | pret | archive
   createdByName String?
 
   sends KitSend[]
@@ -945,4 +967,82 @@ model KitView {
 
   @@index([kitId, partnerId])
   @@map("kit_views")
+}
+
+// ─── ODY-15 : rapport envoyé (PDF + message), relances, historique ───
+
+// Une version du rapport d'admissibilité envoyée (ou à envoyer) à l'étudiant (RapportAdmissibilite).
+// Un nouveau dépôt crée une nouvelle version ; les anciennes restent consultables (archivage, jamais d'effacement).
+model ReportDocument {
+  id               String    @id @default(cuid())
+  candidateId      String
+  candidate        Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  version          Int
+  blobUrl          String? // PDF privé (Vercel Blob) ; null pour un envoi rattrapé sans PDF
+  fileName         String?
+  fileSize         Int?
+  message          String    @db.Text // message WhatsApp qui accompagne le PDF
+  source           String    @default("manuel") // manuel | ia | regles
+  cas              String    @default("standard") // standard | moyenne_faible | mbbs | parcours_complet | septembre_non_ouvert | master_phd | langue | peu_offres
+  nbOffres         Int?
+  firstInstallment Int? // premier_versement (FCFA, tarifs.json)
+  // Instantané des offres à l'émission (PACK-13 §4) : [{ ref, date_limite, statut }], pour « Revérifier les offres ».
+  offersSnapshot   Json?
+  catalogueVersion String?
+  token            String    @unique // lien privé /rapport/{token}
+  depositedAt      DateTime  @default(now())
+  depositedById    String?
+  depositedByName  String?
+  sentAt           DateTime?
+  sentById         String?
+  sentByName       String?
+  sentMessage      String?   @db.Text // message exact envoyé
+  sendMode         String? // whatsapp_lien | partage_pdf | hors_plateforme
+  validUntil       DateTime? // date_validite : envoi + validite_rapport_jours
+  readAt           DateTime? // 1re ouverture du lien privé
+  archivedAt       DateTime?
+  archivedByName   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([candidateId, version])
+  @@index([sentAt])
+  @@map("report_documents")
+}
+
+// Relance WhatsApp préparée (R1, R2, R3) : envoyée à la main en 1 clic par un membre.
+model ReportReminder {
+  id          String    @id @default(cuid())
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  documentId  String? // version du rapport relancée
+  number      Int // 1, 2, 3
+  dueAt       DateTime // prevue_le (8 h, heure de Douala)
+  status      String    @default("a_faire") // a_faire | envoyee | reportee | annulee
+  sentAt      DateTime?
+  sentByName  String?
+  message     String?   @db.Text // message exact envoyé
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status, dueAt])
+  @@index([candidateId])
+  @@map("report_reminders")
+}
+
+// Historique de la candidature, visible dans la fiche (JournalCandidature).
+model CandidateEvent {
+  id          String    @id @default(cuid())
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  // rapport_depose | rapport_modifie | rapport_envoye | envoi_annule | rapport_lu | relance_envoyee |
+  // relance_reportee | relances_arretees | oui_recu | versement_recu | offres_reverifiees | version_archivee | note
+  type        String
+  actorName   String?
+  detail      String?   @db.VarChar(500)
+  createdAt   DateTime  @default(now())
+
+  @@index([candidateId, createdAt])
+  @@map("candidate_events")
 }

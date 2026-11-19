@@ -5,16 +5,17 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getOffer } from "@/lib/matching/catalogue";
 import { getInternalOffer } from "@/lib/matching/internes";
-import { appendStage, normalizeHistory, STAGES, type Stage } from "@/lib/tracking-stages";
+import { appendStage, normalizeHistory, stagePosition, type Stage } from "@/lib/tracking-stages";
 import { notifyPortalAccounts } from "@/lib/notifications";
+import { onFirstPayment } from "@/lib/report/server";
 import { REVEAL_REASONS, checklistInclude, ensureChecklist, progressOf, reportDraftSchema, reportOffers } from "@/lib/admission/server";
 
 const bad = (error: string, status = 400) => NextResponse.json({ error }, { status });
 
 /** Étape suivante seulement si le dossier n'est pas déjà plus loin dans la frise. */
 function advance(candidate: { stage: string; stageHistory: unknown; createdAt: Date }, target: Stage, now: Date) {
-  const cur = (STAGES as readonly string[]).indexOf(candidate.stage);
-  if (cur === -1 || cur >= (STAGES as readonly string[]).indexOf(target)) return {};
+  const cur = stagePosition(candidate.stage);
+  if (cur === -1 || cur >= stagePosition(target)) return {};
   return {
     stage: target,
     stageUpdatedAt: now,
@@ -106,7 +107,6 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   }
 
   if (d.action === "payment") {
-    if (!report.publishedAt) return bad("notPublished", 409);
     await prisma.$transaction(async (tx) => {
       await tx.admissionReport.update({
         where: { id: report.id },
@@ -114,6 +114,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       });
       await tx.candidate.update({ where: { id: candidate.id }, data: advance(candidate, "ouvert", now) });
       await ensureChecklist(candidate.id, tx);
+      if (!report.paymentReceivedAt) await onFirstPayment(tx, candidate.id, who);
     }, { timeout: 20_000 });
     notifyPortalAccounts(
       candidate.id,

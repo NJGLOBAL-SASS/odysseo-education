@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Mail, Smartphone, BellRing, Sheet, ExternalLink } from "lucide-react";
+import { Mail, Smartphone, BellRing, Sheet, ExternalLink, Send } from "lucide-react";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -23,7 +23,7 @@ const LOG_STATUS = {
   FAILED: "bg-erreur-fond text-erreur",
   PENDING: "bg-[#FFF3D6] text-[#8A6200]",
 };
-const CHANNEL_ICONS = { EMAIL: Mail, WHATSAPP: Smartphone, PUSH: BellRing };
+const CHANNEL_ICONS = { EMAIL: Mail, WHATSAPP: Smartphone, PUSH: BellRing, TELEGRAM: Send };
 
 export default async function DashboardSettingsPage({ params }: { params: { locale: string } }) {
   const [t, tCand, session] = await Promise.all([

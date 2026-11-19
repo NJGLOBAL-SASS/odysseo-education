@@ -8,6 +8,7 @@ import { getProgram } from "@/lib/programs";
 import { APP_TIME_ZONE } from "@/lib/utils";
 import { appendStage, normalizeHistory, STAGES } from "@/lib/tracking-stages";
 import { ensureChecklist } from "@/lib/admission/server";
+import { onFirstPayment } from "@/lib/report/server";
 import { notifyPaymentConfirmed, notifyPortalAccounts } from "@/lib/notifications";
 import { METHOD_LABELS, confirmedTotal, nextSequence, receiptNumber, type PaymentMethod } from "./rules";
 import { renderReceiptPdf } from "./receipt-pdf";
@@ -91,7 +92,9 @@ export async function confirmPayment(paymentId: string, confirmedByName: string)
           // Premier paiement : ouverture du dossier (comme l'ancien bouton de la fiche).
           const report = await tx.admissionReport.findUnique({ where: { candidateId: payment.candidateId } });
           let firstPayment = false;
-          if (report?.publishedAt && !report.paymentReceivedAt) {
+          // ODY-15 : le rapport est envoyé sur WhatsApp, sans « publication » dans l'espace : tout
+          // dossier qui a un rapport et n'a pas encore payé s'ouvre au premier paiement confirmé.
+          if (report && !report.paymentReceivedAt) {
             firstPayment = true;
             await tx.admissionReport.update({
               where: { id: report.id },
@@ -106,6 +109,7 @@ export async function confirmPayment(paymentId: string, confirmedByName: string)
               });
             }
             await ensureChecklist(payment.candidateId, tx);
+            await onFirstPayment(tx, payment.candidateId, confirmedByName);
           }
           return { payment: updated, firstPayment };
         },

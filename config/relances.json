@@ -1,0 +1,6 @@
+{
+  "_doc": "ODY-15 §7.2 : jours de relance après l'envoi du rapport (3 au maximum). Modifiable sans toucher au code. Heure d'apparition dans la liste : heure_locale (Douala). Pas de relance le dimanche : décalée au lundi.",
+  "jours": [1, 3, 6],
+  "heure_locale": 8,
+  "report_jours": 2
+}

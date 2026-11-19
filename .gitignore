@@ -39,3 +39,7 @@ env.txt
 # Originaux des lettres d'admission (données personnelles) : jamais commités.
 # Seules les versions floutées vont dans public/images/preuves/.
 content/admissions/
+
+# PACK-13 : PDF réels envoyés aux étudiants (noms réels). Jamais commités, jamais envoyés à l'IA.
+_ameliorations/PACK-13/PACK-13_connaissances_v4/reference_visuelle/
+_ameliorations/PACK-13/*.zip

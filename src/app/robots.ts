@@ -18,6 +18,7 @@ export default function robots(): MetadataRoute.Robots {
         "/en/espace-partenaire",
         "/fr/brochure/",
         "/en/brochure/",
+        "/rapport/",
       ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,

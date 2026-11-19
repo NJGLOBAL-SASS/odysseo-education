@@ -1,4 +1,4 @@
-import { STAGES, firstNameOf, isParallelStage } from "@/lib/tracking-stages";
+import { firstNameOf, isParallelStage, stagePosition } from "@/lib/tracking-stages";
 
 /**
  * Étapes qui déclenchent une prime selon le contrat partenaire : ouverture du dossier (1er versement),
@@ -18,5 +18,5 @@ export function shortName(fullName: string) {
 
 /** Index de l'étape dans la frise (−1 pour les états parallèles : en attente, clôturé). */
 export function stageIndex(stage: string) {
-  return isParallelStage(stage) ? -1 : (STAGES as readonly string[]).indexOf(stage);
+  return isParallelStage(stage) ? -1 : stagePosition(stage);
 }

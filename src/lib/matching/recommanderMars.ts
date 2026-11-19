@@ -1,6 +1,6 @@
 /**
  * Moteur Langue / Licence / Médecine (PACK-12) : port TypeScript À L'IDENTIQUE de
- * PACK-12/matching_mars_reference.py, qui fait foi (tests : PACK-12/fixtures_mars.json).
+ * _ameliorations/PACK-12/matching_mars_reference.py, qui fait foi (tests : _ameliorations/PACK-12/fixtures_mars.json).
  *
  * Ne pas modifier les exclusions, le score
  * (pertinence × 10 + valeur × 3 + allocation_min / 1000 − coût_annuel / 10 000, +2 si

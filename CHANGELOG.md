@@ -1,5 +1,50 @@
 # Changelog
 
+## [0.16.0] – 2026-11-19 · ODY-15 Suivi d'envoi du rapport + relances · fin du PACK-12
+
+**Pourquoi tout restait « Nouveau » :** la liste affichait `Candidate.status`, un statut interne que seule la liste déroulante de la fiche modifie. Rien ne le faisait avancer, et le rapport, envoyé à la main sur WhatsApp, ne laissait aucune trace sur la plateforme. Le circuit du rapport (PACK-10/12) faisait avancer un autre champ (`stage`, la frise de l'étudiant).
+**Maintenant :** un **statut unique du rapport** (`AdmissionReport.status`, commun au PACK-12, à ODY-15 et au PACK-13), affiché dans une colonne « Rapport ». Le PDF et le message sont stockés et envoyés depuis la fiche par n'importe quel membre. Les relances sont préparées automatiquement.
+
+### Statut unique (`src/lib/report/status.ts`)
+`infos_manquantes` · `analyse_en_cours` · `a_revoir` (PACK-13) · `brouillon` (« Nouveau ») · `a_valider` (« Rapport prêt ») · `envoye` · `lu` · `oui_recu` · `premier_versement_recu` · `sans_suite`. Les relances ne sont plus des statuts (table `report_reminders`). Les valeurs PACK-12 (`valide`, `accord`, `ouvert`, `perdu`) sont converties. `Candidate.status` reste le suivi interne (sous le badge quand il n'est pas « Nouveau »).
+
+### Ajouté
+- **Liste des candidatures** :
+  - colonne et badge « Rapport » : Nouveau, Rapport prêt (v2), Envoyé · 18/11 · prénom, Lu, Relance n/3, OUI reçu, 1er versement, Sans suite (motif au survol), ⚠️ Offres à revérifier ;
+  - filtres rapides avec compteurs : À envoyer (par défaut, le plus ancien d'abord, temps d'attente en rouge au-delà de 24 h), À relancer aujourd'hui, Envoyés non lus, Offres à revérifier, Tous ;
+  - cartes sur téléphone, tableau sur ordinateur ;
+  - **rattrapage** : cases à cocher + « Marquer rapport envoyé » (date, cas, sans PDF), et les relances démarrent à cette date.
+- **Fiche → bloc « Rapport d'admissibilité »** (sous le profil) :
+  - « Copier le profil pour Claude » ;
+  - dépôt du PDF (privé, 10 Mo, PDF uniquement) + message WhatsApp (ou modèle du PACK-13) + cas + nombre d'offres + références des offres (facultatif, pour la revérification) ;
+  - aperçu du PDF lisible sur téléphone, téléchargement ;
+  - « Envoyer via WhatsApp » (lien privé ajouté s'il manque), « Partager le PDF » (partage natif, message copié avant), « Copier le message » ;
+  - question **« Le rapport est bien parti ? »** au retour sur l'onglet, puis statut, membre, date, message exact et 3 relances ;
+  - « Marquer comme envoyé », « Remplacer le rapport » (versions conservées), archivage (auteur ou administrateur, jamais d'effacement) ;
+  - encart « envoyé le … par … », « Lu le … », relances (prévue / envoyée / reportée / annulée) ;
+  - « L'étudiant a répondu OUI », « Arrêter les relances » (motif obligatoire), « Reprendre le suivi », « Renvoyer », « Annuler l'envoi » ;
+  - **« Revérifier les offres »** : ✅ ouverte, ⚠️ date limite à moins de 21 jours, ❌ fermée, 🆕 nouvelles offres compatibles (moteur de règles), puis « Préparer le rapport mis à jour » (dépôt de la v2 avec le message MSG-MAJ) ;
+  - historique complet (`candidate_events`).
+- **Lien privé `/rapport/{jeton}`** : sans compte, jamais indexé, actif 30 jours, aperçu + téléchargement + « Répondre OUI sur WhatsApp ». La 1re ouverture passe la candidature en « Lu ». Le marquage se fait en JavaScript, donc les aperçus de lien WhatsApp ne comptent pas. Le PDF n'est servi qu'avec le jeton.
+- **Relances J+1, J+3, J+6** (`config/relances.json`) à 8 h, heure de Douala, jamais le dimanche. Messages dans `config/messages_relance.json` (R1 lu / non lu, R2 selon le cas, R3, variantes parent) ; R2 et R3 citent la vraie date limite d'université si elle est plus proche. Arrêt automatique à OUI, au 1er versement ou sur « Arrêter ». « Reporter de 2 jours ». Rattrapage : les relances passées sont regroupées en une seule R1 aujourd'hui.
+- **« À relancer aujourd'hui »** : une relance à la fois, message prêt et modifiable, « Relancer », puis « Relance envoyée ? » au retour, « Suivant », « Copier », « Reporter », « Arrêter », alerte « ⚠️ Revérifier avant de relancer ».
+- **Alerte de 8 h** (cron `/api/cron/rapports`, 7 h UTC) sur Telegram + e-mail : « 📲 N relances à faire aujourd'hui · M rapports à envoyer · ⚠️ K rapports à revérifier », avec un lien vers le filtre.
+- **Mesure** (vue d'ensemble) : par semaine, envoyés → lus → OUI, étape du OUI (sans relance, R1, R2, R3) et délai moyen soumission → envoi.
+- **PACK-13 (sans l'API)** : modèles de messages `config/messages_whatsapp.json` (MSG-BACHELOR, MOYENNE, SEPTEMBRE, MBBS, PARCOURS, LANGUE, MASTER-PHD, MAJ, INFOS-MANQUANTES) et choix automatique selon le cas.
+
+### PACK-12 terminé
+- Lots A et B (catalogue de mars 2027 langue / licence / MBBS, `tarifs.json`, moteur Langue / Licence / Médecine) réintégrés : ils manquaient dans la version en ligne publiée avec les kits partenaires.
+- Alerte **Telegram** à chaque nouveau profil, avec le brouillon d'offres (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `npm run telegram:chat-id`). L'e-mail passe par Brevo, déjà en place, plutôt que par Gmail SMTP.
+- `npm run backfill:rapports` : brouillon pour chaque dossier qui n'en a pas.
+- Le 1er paiement confirmé ouvre le dossier même sans « publication » du rapport (statut `premier_versement_recu`, relances arrêtées).
+- **Remplacé par ODY-15** : relances 48 h / 5 jours, cron horaire, « Marquer comme envoyé » du PACK-12.
+- **Reporté au PACK-13** : génération du PDF par la plateforme (une seule mise en page, d'après `structure_rapport.md`).
+
+### Migration
+- `npm run db:push` : nouvelles tables `report_documents`, `report_reminders` et `candidate_events`, nouveaux champs sur `admission_reports`, valeur `TELEGRAM` des canaux de notification. Uniquement des ajouts.
+- Puis, une fois : `npm run backfill:rapports`, et dans la liste « Marquer rapport envoyé » sur les candidatures déjà traitées.
+- Variables Vercel : `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` (`CRON_SECRET` existe déjà).
+
 ## [0.15.0] – 2026-11-17 · ODY-14 Kits partenaires envoyés par WhatsApp
 
 **Avant :** chaque visuel était envoyé à la main à chaque partenaire, qui devait ajouter lui-même son lien (souvent oublié ou laissé « votre lien »).

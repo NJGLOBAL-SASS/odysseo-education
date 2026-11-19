@@ -17,7 +17,7 @@ type Fixture = {
   attendu_proposer_bachelor: string | null;
   attendu_repli_langue: boolean;
 };
-const fixtures = JSON.parse(readFileSync("PACK-12/fixtures_mars.json", "utf8")) as { date_reference: string; fixtures: Fixture[] };
+const fixtures = JSON.parse(readFileSync("_ameliorations/PACK-12/fixtures_mars.json", "utf8")) as { date_reference: string; fixtures: Fixture[] };
 
 test("fixtures : date de référence 2026-11-14, 7 profils", () => {
   assert.equal(fixtures.date_reference, TODAY);

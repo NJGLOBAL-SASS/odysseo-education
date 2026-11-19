@@ -1,7 +1,7 @@
 import { PROGRAM_BY_LEVEL } from "@/lib/pricing/tarifs";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { ArrowLeft, MessageCircle, Link2, PenLine, Globe, Mail, Smartphone, BellRing, Paperclip } from "lucide-react";
+import { ArrowLeft, MessageCircle, Link2, PenLine, Globe, Mail, Smartphone, BellRing, Paperclip, Send } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
@@ -22,6 +22,7 @@ import { ChatThread } from "@/components/portal/chat-thread";
 import { ALL_STAGES, firstNameOf, normalizeHistory } from "@/lib/tracking-stages";
 import { AdmissionPanel } from "@/components/dashboard/admission-panel";
 import { PaymentsPanel } from "@/components/dashboard/payments-panel";
+import { ReportPanel } from "@/components/dashboard/report/report-panel";
 import { listOffers } from "@/lib/matching/catalogue";
 import { portalUrl } from "@/lib/portal/host";
 import { retentionExpired } from "@/lib/admission/retention";
@@ -45,7 +46,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-const CHANNEL_ICONS = { EMAIL: Mail, WHATSAPP: Smartphone, PUSH: BellRing };
+const CHANNEL_ICONS = { EMAIL: Mail, WHATSAPP: Smartphone, PUSH: BellRing, TELEGRAM: Send };
 const LOG_STATUS = {
   SENT: "bg-[#E1F6EA] text-ok",
   SKIPPED: "bg-fond text-gris",
@@ -76,6 +77,7 @@ export default async function CandidateDetailPage({ params }: { params: { locale
   if (!candidate) notFound();
 
   const L = params.locale;
+  const tReport = await getTranslations("dashboard.report");
   const r = (key: string) => t(`rows.${key}`);
   const dateTime = new Intl.DateTimeFormat(L, { dateStyle: "medium", timeStyle: "short", timeZone: APP_TIME_ZONE });
   const viaLink = Boolean(candidate.partner) && candidate.srcParam?.toUpperCase() === candidate.partner?.referralCode;
@@ -188,6 +190,13 @@ export default async function CandidateDetailPage({ params }: { params: { locale
             <Row label={r("funding")} value={optionLabel("fundingPlan", candidate.fundingPlan, L)} />
             <Row label={r("intake")} value={optionLabel("targetIntake", candidate.targetIntake, L)} />
           </Section>
+
+          {/* ODY-15 : rapport d'admissibilité envoyé, relances et historique, sous le profil. */}
+          <section id="rapport" className="card scroll-mt-4 p-4 sm:p-5 md:col-span-2">
+            <h2 className="section-title mb-1">{tReport("title")}</h2>
+            <p className="mb-4 text-xs text-gris">{tReport("intro")}</p>
+            <ReportPanel candidateId={candidate.id} code={candidate.code} firstName={firstNameOf(candidate.fullName)} />
+          </section>
 
           {candidate.matchingVersion && (
             <section className="card p-5 md:col-span-2">

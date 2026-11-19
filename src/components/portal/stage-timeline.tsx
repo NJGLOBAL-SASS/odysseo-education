@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Check } from "lucide-react";
 
-import { STAGES, isParallelStage, type StageHistoryEntry } from "@/lib/tracking-stages";
+import { STAGES, isParallelStage, stagePosition, type StageHistoryEntry } from "@/lib/tracking-stages";
 import { cn } from "@/lib/utils";
 
 /** Frise des étapes (passées cochées, actuelle en rouge, suivantes grisées) ; statuts parallèles à la place. */
@@ -20,7 +20,7 @@ export async function StageTimeline({ stage, history, locale }: { stage: string;
       </div>
     );
   }
-  const current = (STAGES as readonly string[]).indexOf(stage);
+  const current = stagePosition(stage);
   return (
     <>
       {next && (

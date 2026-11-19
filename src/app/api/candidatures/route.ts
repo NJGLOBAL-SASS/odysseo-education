@@ -5,7 +5,9 @@ import { auth } from "@/lib/auth";
 import { intakeSchema, normalizePhone, ageFrom } from "@/lib/validations/intake";
 import { generateCandidateCode } from "@/lib/utils";
 import { findPartnerByCode, awardPoints, logBlockedAttribution, POINTS_RULES } from "@/lib/points";
-import { notifyNewCandidate, notifyCandidateConfirmation } from "@/lib/notifications";
+import { notifyNewCandidate } from "@/lib/notifications";
+import { prepareDraftReport, newCandidateTelegram } from "@/lib/report/draft";
+import { listInclude, summarize } from "@/lib/report/server";
 import { appendCandidateRow } from "@/lib/google-sheets";
 import { REFERRAL_COOKIE } from "@/lib/referral";
 import { looksLikeOfferRef } from "@/lib/attribution";
@@ -49,7 +51,7 @@ export async function POST(req: NextRequest) {
 
   if (isBot) {
     // On simule un succès sans rien enregistrer, pour ne pas alerter le robot.
-    return NextResponse.json({ ok: true, code: "ODY-000000", recommendations: { cycle: null, offers: [] } });
+    return NextResponse.json({ ok: true, code: "ODY-000000" });
   }
 
   // Attribution de source, par ordre de fiabilité : le lien de parrainage
@@ -81,8 +83,8 @@ export async function POST(req: NextRequest) {
     return code === "autre" && d.fieldOther?.trim() ? `${label} : ${d.fieldOther.trim()}` : label;
   });
 
-  // Moteur « Vos 3 offres » (PACK-02), à partir des valeurs enregistrées ci-dessous.
-  // Seuls les champs publics des offres retenues sont renvoyés au navigateur.
+  // Moteur (PACK-02 Master/PhD, PACK-12 Langue/Licence), à partir des valeurs enregistrées
+  // ci-dessous. PACK-12 : aucune offre n'est renvoyée au navigateur.
   const age = ageFrom(d.dateOfBirth);
   const averagePct = averageToPct(averageValue, d.averageScale);
   const matching = recommendForCandidate(
@@ -170,8 +172,16 @@ export async function POST(req: NextRequest) {
     await awardPoints(partner.id, POINTS_RULES.NEW_LEAD, "NEW_LEAD", candidate.id);
   }
 
-  notifyNewCandidate({ ...candidate, partner }).catch((err) => console.error("[notify] échec :", err));
-  notifyCandidateConfirmation(candidate).catch((err) => console.error("[notify] confirmation candidat :", err));
+  // PACK-12 : brouillon de rapport calculé tout de suite (étape rapport_pret). Ne bloque jamais la candidature.
+  let draft: Awaited<ReturnType<typeof prepareDraftReport>> | null = null;
+  try {
+    draft = await prepareDraftReport(candidate.id);
+  } catch (err) {
+    console.error("[rapport] brouillon non créé :", candidate.code, err);
+  }
+
+  notifyNewCandidate({ ...candidate, partner }, newCandidateTelegram(candidate, draft)).catch((err) => console.error("[notify] échec :", err));
+  // PACK-12 : plus d'e-mail automatique à l'étudiant (le rapport lui est envoyé sur WhatsApp).
   appendCandidateRow(candidate).catch((err) => console.error("[google-sheets] échec :", err));
 
   // API Conversions Meta : seulement avec consentement marketing. Attendu (avec délai
@@ -190,11 +200,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({
-    ok: true,
-    code: candidate.code,
-    recommendations: { cycle: matching.cycle, offers: matching.offers },
-  });
+  return NextResponse.json({ ok: true, code: candidate.code });
 }
 
 /** Liste des candidatures pour le tableau de bord (protégé). */
@@ -231,8 +237,16 @@ export async function GET(req: NextRequest) {
           checklistItems: { where: { status: "recu", removedAt: null } },
         },
       },
+      ...listInclude,
     },
   });
 
-  return NextResponse.json({ candidates });
+  // ODY-15 : résumé du rapport (badge, filtres rapides), sans les données internes.
+  const now = new Date();
+  return NextResponse.json({
+    candidates: candidates.map(({ admissionReport: _a, reportDocuments: _d, reportReminders: _r, ...c }) => ({
+      ...c,
+      report: summarize({ ...c, admissionReport: _a, reportDocuments: _d, reportReminders: _r }, now),
+    })),
+  });
 }

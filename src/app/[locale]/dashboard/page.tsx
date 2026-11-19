@@ -7,9 +7,12 @@ import { Link } from "@/i18n/navigation";
 import { optionLabel } from "@/lib/intake-labels";
 import { APP_TIME_ZONE } from "@/lib/utils";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { StatusBadge, STATUS_LABELS_FR, STATUS_LABELS_EN } from "@/components/dashboard/status-badge";
+import { STATUS_LABELS_FR, STATUS_LABELS_EN } from "@/components/dashboard/status-badge";
 import { TrendChart, BarList } from "@/components/dashboard/charts";
 import { LinkClicksCard } from "@/components/dashboard/link-clicks-card";
+import { ReportStatsCard } from "@/components/dashboard/report/report-stats-card";
+import { ReportBadge } from "@/components/dashboard/report/report-badge";
+import { listInclude, summarize } from "@/lib/report/server";
 
 const DAY = 24 * 60 * 60 * 1000;
 const PIPELINE = Object.keys(STATUS_LABELS_FR);
@@ -96,6 +99,7 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
         status: true,
         createdAt: true,
         partner: { select: { fullName: true } },
+        ...listInclude,
       },
     }),
     prisma.partner.findMany({
@@ -228,6 +232,8 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
         </Card>
       </div>
 
+      <ReportStatsCard />
+
       <LinkClicksCard />
 
       <div className="grid gap-6 xl:grid-cols-3">
@@ -254,7 +260,8 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
                       {c.partner && <p className="text-[11px]">{t("via", { name: c.partner.fullName })}</p>}
                     </td>
                     <td className="px-3 py-3">
-                      <StatusBadge status={c.status} locale={locale} />
+                      {/* ODY-15 : état du rapport (le statut interne reste dans la fiche). */}
+                      <ReportBadge badge={summarize(c).badge} />
                     </td>
                     <td className="py-3 pl-3 pr-5 text-right text-xs text-gris">
                       {new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", timeZone: APP_TIME_ZONE }).format(c.createdAt)}

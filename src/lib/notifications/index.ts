@@ -7,6 +7,7 @@ import { publicSiteUrl, referralLink } from "@/lib/referral";
 import { sendEmail, emailLayout, emailRows, escapeHtml, textToHtml, styleRichHtml, type EmailAttachment } from "./email";
 import { sendWhatsAppMessage } from "./whatsapp";
 import { sendPush } from "./push";
+import { sendTelegram } from "./telegram";
 import { portalUrl } from "@/lib/portal/host";
 
 type ChannelResult = { sent: boolean | number; reason?: string };
@@ -71,7 +72,7 @@ export function teamUrl(path: string) {
  * (email / WhatsApp / push) — chaque canal est indépendant : l'échec de l'un
  * n'empêche pas les autres.
  */
-export async function notifyNewCandidate(candidate: Candidate & { partner?: Partner | null }) {
+export async function notifyNewCandidate(candidate: Candidate & { partner?: Partner | null }, telegramText?: string) {
   const adminWhatsApp = process.env.WHATSAPP_ADMIN_NUMBER;
   const level = optionLabel("targetLevel", candidate.targetLevel);
 
@@ -90,7 +91,7 @@ export async function notifyNewCandidate(candidate: Candidate & { partner?: Part
       ["Géré par", optionLabel("managedBy", candidate.managedBy)],
       ["Niveau visé", level],
       ["Domaine", candidate.fieldOfStudy],
-      ["Financement", optionLabel("fundingPlan", candidate.fundingPlan)],
+      ["Budget", optionLabel("fundingPlan", candidate.fundingPlan)],
       ["Rentrée", optionLabel("targetIntake", candidate.targetIntake)],
       ["Partenaire", candidate.partner ? `${candidate.partner.fullName} (${candidate.partner.referralCode})` : ""],
     ]),
@@ -119,6 +120,33 @@ export async function notifyNewCandidate(candidate: Candidate & { partner?: Part
       () => sendPush({ title: "Nouvelle candidature", body: summary, url: detailPath }, { badge: true }),
       { subject: "Nouvelle candidature", candidateId: candidate.id }
     ),
+
+    // PACK-12 : groupe Telegram de l'équipe (profil + brouillon d'offres).
+    deliver(
+      "TELEGRAM",
+      "groupe équipe",
+      () => sendTelegram(telegramText ?? `🔔 Nouveau profil ${candidate.code}\n${summary}\n👉 ${teamUrl(detailPath)}`),
+      { subject, candidateId: candidate.id }
+    ),
+  ]);
+}
+
+/**
+ * Alerte équipe générique (ODY-15 : alerte de 8 h, PACK-13 : rapports touchés) :
+ * Telegram + e-mail aux destinataires des alertes, avec un lien vers le tableau de bord.
+ */
+export async function notifyTeamAlert(a: { subject: string; text: string; path: string; cta?: string }) {
+  const url = teamUrl(a.path);
+  const html = emailLayout({
+    title: a.subject,
+    intro: "",
+    bodyHtml: `<p style="margin:0;font-size:15px;color:#0B0B0D;white-space:pre-line">${escapeHtml(a.text)}</p>`,
+    cta: { label: a.cta ?? "Ouvrir le tableau de bord", url },
+  });
+  const recipients = await staffEmailRecipients();
+  await Promise.all([
+    deliver("TELEGRAM", "groupe équipe", () => sendTelegram(`${a.text}\n👉 ${url}`), { subject: a.subject }),
+    ...recipients.map((to) => deliver("EMAIL", to, () => sendEmail(to, a.subject, html), { subject: a.subject })),
   ]);
 }
 
