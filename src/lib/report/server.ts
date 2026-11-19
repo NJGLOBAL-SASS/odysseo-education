@@ -11,7 +11,7 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { publicSiteUrl } from "@/lib/referral";
 import { CATALOGUE_VERSION, getOffer } from "@/lib/matching/catalogue";
-import { PROGRAM_BY_LEVEL, TARIFS, cursusOf, firstInstallment as installmentOf } from "@/lib/pricing/tarifs";
+import { PROGRAM_BY_LEVEL, TARIFS, firstInstallment as installmentOf } from "@/lib/pricing/tarifs";
 import { optionLabel } from "@/lib/intake-labels";
 import { appendStage, firstNameOf, normalizeHistory, stagePosition, type Stage } from "@/lib/tracking-stages";
 import { isClosed, isPreSend, reportBadge, reportStatus, type ReportStatus, type SendMode } from "./status";
@@ -58,10 +58,9 @@ async function cancelPendingReminders(db: Db, candidateId: string) {
   await db.reportReminder.updateMany({ where: { candidateId, status: { in: PENDING_REMINDER } }, data: { status: "annulee" } });
 }
 
-/** 1er versement (FCFA) du cursus facturé, ou du niveau visé. MBBS sur devis : tarif Bachelor (décision du 14/11/2026). */
+/** 1er versement (FCFA) du cursus facturé (tarifs.json ; MBBS au tarif Bachelor). */
 export function firstInstallmentFor(program: string | null | undefined) {
-  const p = cursusOf(program) === "mbbs" ? "bachelor" : program;
-  return installmentOf(p);
+  return installmentOf(program);
 }
 
 /** Instantané des offres à l'émission (ref, date limite, statut). */

@@ -1,8 +1,8 @@
 {
  "meta": {
-  "version": "2026-11-04",
+  "version": "2026-11-19",
   "devise": "FCFA",
-  "source": "Charte Odysseo, grille validée le 25/10/2026, échéanciers et remboursements validés le 04/11/2026"
+  "source": "Charte Odysseo, grille validée le 25/10/2026, échéanciers et remboursements validés le 04/11/2026 ; MBBS au tarif Bachelor, test d'anglais en option, moyens de paiement au cas par cas (19/11/2026)"
  },
  "cursus": {
   "langue": {
@@ -27,10 +27,14 @@
   },
   "mbbs": {
    "libelle": "Médecine (MBBS)",
-   "prix": null,
-   "versements": null,
-   "sur_devis": true,
-   "texte_rapport": "Le tarif de l'accompagnement en médecine (MBBS) est établi sur devis, selon votre dossier. Votre conseiller vous le communique sur WhatsApp."
+   "prix": 2900000,
+   "versements": [
+    200000,
+    1000000,
+    850000,
+    850000
+   ],
+   "note": "Même tarif que le Bachelor (décision du fondateur, 14/11/2026, confirmée le 19/11/2026)."
   },
   "master": {
    "libelle": "Master",
@@ -86,9 +90,11 @@
  "non_inclus": [
   "Billet d'avion",
   "Frais consulaires du visa",
-  "Traductions assermentées et légalisations",
-  "Assistance au test d'anglais (option : 80 000 FCFA)"
+  "Traductions assermentées et légalisations"
  ],
- "moyens_paiement": "[MOYENS DE PAIEMENT À COMPLÉTER : Orange Money, MTN MoMo, virement…]",
- "validite_rapport_jours": 7
+ "moyens_paiement": "Définis au moment du paiement avec votre conseiller sur WhatsApp, selon vos disponibilités.",
+ "validite_rapport_jours": 7,
+ "options": [
+  "Assistance au test d'anglais : 80 000 FCFA (en option)"
+ ]
 }

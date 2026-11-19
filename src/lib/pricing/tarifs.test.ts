@@ -38,10 +38,16 @@ test("tarifs : Bachelor 2 900 000 FCFA, 1er versement 200 000 FCFA", () => {
   assert.equal(formatFcfa(2_900_000), "2 900 000");
 });
 
-test("tarifs : MBBS sur devis, sans aucun montant", () => {
-  assert.equal(isSurDevis("mbbs"), true);
-  assert.equal(firstInstallment("mbbs"), null);
-  assert.match(tarifOf("mbbs")!.texte_rapport!, /sur devis/);
+test("tarifs : MBBS au même tarif que le Bachelor (19/11/2026)", () => {
+  assert.equal(isSurDevis("mbbs"), false);
+  assert.equal(tarifOf("mbbs")!.prix, tarifOf("bachelor")!.prix);
+  assert.deepEqual(tarifOf("mbbs")!.versements, tarifOf("bachelor")!.versements);
+  assert.equal(firstInstallment("mbbs"), 200_000);
+});
+
+test("tarifs : test d'anglais en option, pas dans le « non inclus »", () => {
+  assert.ok(!TARIFS.non_inclus.some((x) => /test d'anglais/i.test(x)));
+  assert.ok(TARIFS.options?.some((x) => /test d'anglais/i.test(x)));
 });
 
 test("tarifs : les 4 versements font le prix total", () => {

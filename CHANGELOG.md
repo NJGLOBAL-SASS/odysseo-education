@@ -26,8 +26,6 @@
 ### Reste pour la connexion de l'API (`ANTHROPIC_API_KEY`)
 Appel à Claude avec l'outil `rapport_admissibilite` et le prompt caching, validation serveur (§3.4), passage de la sortie IA au PDF, 1 nouvelle tentative puis secours `a_revoir`, « Relancer l'analyse », mode `mise_a_jour` (v2), apprentissage par les corrections et onglet « Corrections » (§3.5), journal durée / tokens / coût.
 
-## [0.15.0] – 2026-11-19 · ODY-15 Suivi d'envoi du rapport + relances · fin du PACK-12
-
 ## [0.16.0] – 2026-11-19 · ODY-15 Suivi d'envoi du rapport + relances · fin du PACK-12
 
 **Pourquoi tout restait « Nouveau » :** la liste affichait `Candidate.status`, un statut interne que seule la liste déroulante de la fiche modifie. Rien ne le faisait avancer, et le rapport, envoyé à la main sur WhatsApp, ne laissait aucune trace sur la plateforme. Le circuit du rapport (PACK-10/12) faisait avancer un autre champ (`stage`, la frise de l'étudiant).

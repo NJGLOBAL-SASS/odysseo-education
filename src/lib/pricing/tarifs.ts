@@ -3,7 +3,8 @@
  * admin, PDF, message WhatsApp, espace étudiant). Données : data/tarifs.json.
  *
  * Module pur, sans secret : utilisable côté serveur comme côté navigateur.
- * MBBS = sur devis : aucun prix ni échéancier, afficher texte_rapport à la place.
+ * Un cursus « sur devis » (sur_devis, prix null) n'affiche aucun prix : texte_rapport à la place.
+ * Depuis le 19/11/2026, aucun cursus n'est sur devis (MBBS = tarif Bachelor).
  *
  * Les pages /cursus et les brochures gardent pour l'instant src/lib/programs.ts
  * (mêmes totaux ; échéanciers Langue et Bachelor différents, voir CHANGELOG 0.15.0).
@@ -27,6 +28,8 @@ export interface Tarifs {
   inclus: string[];
   non_inclus: string[];
   moyens_paiement: string;
+  /** Services en option, en plus du tarif (ex. assistance au test d'anglais). */
+  options?: string[];
   validite_rapport_jours: number;
 }
 
