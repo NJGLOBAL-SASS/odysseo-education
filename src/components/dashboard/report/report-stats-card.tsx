@@ -63,7 +63,7 @@ export async function ReportStatsCard() {
         <p className="py-6 text-center text-sm text-gris">{t("empty")}</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[520px] text-sm tabular-nums">
+          <table className="table-cards w-full min-w-[520px] text-sm tabular-nums">
             <thead className="text-left text-xs text-gris">
               <tr>
                 <th className="py-2 pr-3">{t("week")}</th>
@@ -77,16 +77,16 @@ export async function ReportStatsCard() {
             <tbody className="divide-y divide-bord">
               {rows.map((w) => (
                 <tr key={w.key}>
-                  <td className="py-2 pr-3">{fmt.format(new Date(w.key))}</td>
-                  <td className="px-2 font-bold">{w.sent}</td>
-                  <td className="px-2">
+                  <td className="py-2 pr-3 font-semibold sm:font-normal">{fmt.format(new Date(w.key))}</td>
+                  <td data-label={t("sent")} className="px-2 font-bold">{w.sent}</td>
+                  <td data-label={t("read")} className="px-2">
                     {w.read} <span className="text-xs text-gris">({Math.round((w.read / w.sent) * 100)} %)</span>
                   </td>
-                  <td className="px-2">
+                  <td data-label={t("oui")} className="px-2">
                     {w.oui} <span className="text-xs text-gris">({Math.round((w.oui / w.sent) * 100)} %)</span>
                   </td>
-                  <td className="px-2">{w.stages.join(" · ")}</td>
-                  <td className="pl-2 text-right">{hours(w.delays)}</td>
+                  <td data-label={t("ouiStage")} className="px-2">{w.stages.join(" · ")}</td>
+                  <td data-label={t("responseTime")} className="pl-2 text-right">{hours(w.delays)}</td>
                 </tr>
               ))}
             </tbody>

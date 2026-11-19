@@ -175,7 +175,7 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
             <p className="text-xs text-gris">{t("logHint")}</p>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[620px] text-left text-sm">
+            <table className="table-cards w-full min-w-[620px] text-left text-sm">
               <thead className="table-head">
                 <tr>
                   <th className="px-5 py-2.5">{t("logColumns.channel")}</th>
@@ -190,11 +190,11 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
                   const Icon = CHANNEL_ICONS[log.channel];
                   return (
                     <tr key={log.id}>
-                      <td className="px-5 py-2.5">
+                      <td data-label={t("logColumns.channel")} className="px-5 py-2.5">
                         <Icon className="h-4 w-4 text-gris" aria-label={log.channel} />
                       </td>
-                      <td className="max-w-[200px] truncate px-5 py-2.5">{log.recipient}</td>
-                      <td className="max-w-[260px] px-5 py-2.5">
+                      <td data-label={t("logColumns.recipient")} className="max-w-[200px] truncate px-5 py-2.5">{log.recipient}</td>
+                      <td data-label={t("logColumns.subject")} className="max-w-[260px] px-5 py-2.5">
                         <span className="block truncate">{log.subject ?? "—"}</span>
                         {log.error && (
                           <span className="block truncate text-xs text-gris" title={log.error}>
@@ -202,12 +202,12 @@ export default async function DashboardSettingsPage({ params }: { params: { loca
                           </span>
                         )}
                       </td>
-                      <td className="px-5 py-2.5">
+                      <td data-label={t("logColumns.status")} className="px-5 py-2.5">
                         <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${LOG_STATUS[log.status]}`}>
                           {tCand(`logStatus.${log.status}`)}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-5 py-2.5 text-right text-xs text-gris">{dateTime.format(log.createdAt)}</td>
+                      <td data-label={t("logColumns.date")} className="whitespace-nowrap px-5 py-2.5 text-right text-xs text-gris">{dateTime.format(log.createdAt)}</td>
                     </tr>
                   );
                 })}

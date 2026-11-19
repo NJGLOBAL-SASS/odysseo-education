@@ -117,6 +117,37 @@ body {
   .table-head {
     @apply border-b border-bord bg-[#FAFAFB] text-xs font-semibold uppercase tracking-wide text-gris;
   }
+  /* Tableau du back-office lisible sur téléphone : chaque ligne devient une carte, chaque
+     cellule une ligne « libellé : valeur » (libellé pris dans data-label). */
+  @media (max-width: 639px) {
+    .table-cards {
+      @apply block w-full;
+      min-width: 0 !important;
+    }
+    .table-cards thead {
+      @apply sr-only;
+    }
+    .table-cards tbody,
+    .table-cards tr {
+      @apply block;
+    }
+    .table-cards tr {
+      @apply space-y-1 px-4 py-3;
+    }
+    .table-cards td {
+      @apply flex min-w-0 max-w-none items-center justify-between gap-3 !p-0 text-left;
+    }
+    .table-cards td > * {
+      @apply min-w-0 text-right;
+    }
+    .table-cards td[data-label]::before {
+      content: attr(data-label);
+      @apply flex-shrink-0 text-xs font-semibold text-gris;
+    }
+    .table-cards td:empty {
+      @apply hidden;
+    }
+  }
   .btn-sm {
     @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-[10px] px-3.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
   }

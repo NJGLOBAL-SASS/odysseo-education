@@ -144,7 +144,7 @@ export function NewsletterPanel({ locale, isAdmin }: { locale: string; isAdmin: 
         <SkeletonTable cols={4} />
       ) : (
         <div className="card overflow-x-auto">
-          <table className="w-full min-w-[560px] text-left text-sm">
+          <table className="table-cards w-full min-w-[560px] text-left text-sm">
             <thead className="table-head">
               <tr>
                 <th className="px-4 py-3">{t("columns.email")}</th>
@@ -158,8 +158,8 @@ export function NewsletterPanel({ locale, isAdmin }: { locale: string; isAdmin: 
               {subscribers.map((s) => (
                 <tr key={s.id} className="transition-colors hover:bg-fond">
                   <td className="px-4 py-3 font-medium">{s.email}</td>
-                  <td className="px-4 py-3 uppercase">{s.locale}</td>
-                  <td className="px-4 py-3">
+                  <td data-label={t("columns.language")} className="px-4 py-3 uppercase">{s.locale}</td>
+                  <td data-label={t("columns.confirmed")} className="px-4 py-3">
                     <span
                       className={cn(
                         "rounded-full px-2 py-0.5 text-xs font-semibold",
@@ -169,7 +169,7 @@ export function NewsletterPanel({ locale, isAdmin }: { locale: string; isAdmin: 
                       {s.confirmed ? tc("yes") : tc("no")}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gris">{new Intl.DateTimeFormat(locale).format(new Date(s.createdAt))}</td>
+                  <td data-label={t("columns.date")} className="px-4 py-3 text-gris">{new Intl.DateTimeFormat(locale).format(new Date(s.createdAt))}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-1">
                       <button

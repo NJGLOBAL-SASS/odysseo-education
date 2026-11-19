@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { upload } from "@vercel/blob/client";
-import { ClipboardCopy, Download, Eye, EyeOff, MessageCircle, Share2, Upload, CheckCircle2, RefreshCw, Archive } from "lucide-react";
+import { ClipboardCopy, Download, Eye, EyeOff, MessageCircle, Paperclip, Upload, CheckCircle2, RefreshCw, Archive } from "lucide-react";
 
 import { copyText } from "@/lib/copy-text";
 import { useToast } from "@/components/ui/toast";
@@ -490,12 +490,26 @@ function ReadyBlock({
     };
   }, [pdfUrl, doc.hasPdf, doc.fileName]);
 
-  const share = () => {
-    if (!file) return;
+  // WhatsApp + PDF joint. Un lien wa.me ne peut pas porter de fichier : sur téléphone, le
+  // partage natif envoie le PDF et le texte ; sur ordinateur, on télécharge le PDF, on copie
+  // le message et on ouvre la conversation de l'étudiant (il reste à glisser le fichier).
+  const sendWithPdf = () => {
     void copyText(final);
-    toast({ tone: "info", title: t("shareToast") });
     onSendStart({ docId: doc.id, mode: "partage_pdf", message: final });
-    navigator.share({ files: [file], text: final }).catch(() => undefined);
+    // Partage natif seulement sur écran tactile : sur ordinateur, ouvrir directement la bonne conversation est plus sûr.
+    if (file && window.matchMedia("(pointer: coarse)").matches) {
+      toast({ tone: "info", title: t("shareToast") });
+      navigator.share({ files: [file], text: final }).catch(() => undefined);
+      return;
+    }
+    const a = document.createElement("a");
+    a.href = `${pdfUrl}?download`;
+    a.download = doc.fileName || "Rapport_Odysseo.pdf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    if (number) window.open(waLink(number, final), "_blank", "noopener,noreferrer");
+    toast({ tone: "info", title: t("pdfDesktopToast") });
   };
 
   return (
@@ -510,25 +524,30 @@ function ReadyBlock({
         <textarea value={message} onChange={(e) => setMessage(e.target.value)} onBlur={() => message.trim() && message !== doc.message && onSaveMessage(message.trim())} rows={8} className="field-input mt-1 text-sm" />
       </label>
       {!number && <p className="rounded-brand bg-erreur-fond px-3 py-2 text-xs font-semibold text-erreur">{t("noNumber")}</p>}
+      {doc.hasPdf && <p className="text-xs text-gris">{t("sendWithPdfHint")}</p>}
       <div className="grid gap-2 sm:flex sm:flex-wrap">
+        {doc.hasPdf && (
+          <button
+            type="button"
+            onClick={sendWithPdf}
+            className="btn-sm !min-h-[48px] justify-center bg-[#1FAF55] text-white hover:bg-[#1A9A4A]"
+          >
+            <Paperclip className="h-4 w-4" /> {t("sharePdf")}
+          </button>
+        )}
         {number ? (
           <a
             href={waLink(number, final)}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onSendStart({ docId: doc.id, mode: "whatsapp_lien", message: final })}
-            className="btn-sm !min-h-[48px] justify-center bg-[#1FAF55] text-white hover:bg-[#1A9A4A]"
+            className={`!min-h-[48px] justify-center ${doc.hasPdf ? "btn-sm-ghost" : "btn-sm bg-[#1FAF55] text-white hover:bg-[#1A9A4A]"}`}
           >
-            <MessageCircle className="h-4 w-4" /> {t("sendWhatsapp")}
+            <MessageCircle className="h-4 w-4" /> {doc.hasPdf ? t("linkOnly") : t("sendWhatsapp")}
           </a>
         ) : (
           <button type="button" disabled className="btn-sm !min-h-[48px] justify-center bg-[#1FAF55]/40 text-white">
             <MessageCircle className="h-4 w-4" /> {t("sendWhatsapp")}
-          </button>
-        )}
-        {file && (
-          <button type="button" onClick={share} className="btn-sm-dark !min-h-[48px] justify-center">
-            <Share2 className="h-4 w-4" /> {t("sharePdf")}
           </button>
         )}
         <button

@@ -244,38 +244,34 @@ export default async function DashboardOverviewPage({ params }: { params: { loca
               {tc("seeAll")}
             </Link>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[560px] text-left text-sm">
-              <tbody className="divide-y divide-bord">
-                {latest.map((c) => (
-                  <tr key={c.id} className="transition-colors hover:bg-fond">
-                    <td className="py-3 pl-5 pr-3">
-                      <Link href={`/dashboard/candidatures/${c.id}`} className="font-semibold hover:underline">
-                        {c.fullName}
-                      </Link>
-                      <p className="font-mono text-[11px] text-gris">{c.code}</p>
-                    </td>
-                    <td className="px-3 py-3 text-gris">
+          {/* Liste (pas de tableau) : chaque ligne entière est cliquable et tient sur un téléphone. */}
+          <ul className="divide-y divide-bord">
+            {latest.map((c) => (
+              <li key={c.id}>
+                <Link
+                  href={`/dashboard/candidatures/${c.id}`}
+                  className="flex items-start gap-3 px-5 py-3 text-sm transition-colors hover:bg-fond"
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-semibold">{c.fullName}</span>
+                    <span className="block font-mono text-[11px] text-gris">{c.code}</span>
+                    <span className="mt-0.5 block text-xs text-gris">
                       {c.country} · {optionLabel("targetLevel", c.targetLevel, locale)}
-                      {c.partner && <p className="text-[11px]">{t("via", { name: c.partner.fullName })}</p>}
-                    </td>
-                    <td className="px-3 py-3">
-                      {/* ODY-15 : état du rapport (le statut interne reste dans la fiche). */}
-                      <ReportBadge badge={summarize(c).badge} />
-                    </td>
-                    <td className="py-3 pl-3 pr-5 text-right text-xs text-gris">
+                      {c.partner && <> · {t("via", { name: c.partner.fullName })}</>}
+                    </span>
+                  </span>
+                  <span className="flex flex-shrink-0 flex-col items-end gap-1.5">
+                    {/* ODY-15 : état du rapport (le statut interne reste dans la fiche). */}
+                    <ReportBadge badge={summarize(c).badge} />
+                    <span className="text-xs text-gris">
                       {new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", timeZone: APP_TIME_ZONE }).format(c.createdAt)}
-                    </td>
-                  </tr>
-                ))}
-                {latest.length === 0 && (
-                  <tr>
-                    <td className="px-5 py-10 text-center text-gris">{t("noFiles")}</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+            {latest.length === 0 && <li className="px-5 py-10 text-center text-sm text-gris">{t("noFiles")}</li>}
+          </ul>
         </section>
 
         <Card

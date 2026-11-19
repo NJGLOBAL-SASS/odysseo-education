@@ -49,7 +49,8 @@ export default async function ReportLinkPage({ params }: { params: { token: stri
     ? await prisma.reportDocument.findUnique({ where: { token: params.token }, include: { candidate: { select: { code: true, locale: true } } } })
     : null;
   const t = TEXT[doc?.candidate.locale === "en" ? "en" : "fr"];
-  const active = Boolean(doc && doc.sentAt && linkActive(doc));
+  // Valable dès le dépôt du PDF : le lien part dans le message avant que l'équipe confirme l'envoi.
+  const active = Boolean(doc && linkActive(doc));
 
   return (
     <main className="mx-auto w-full max-w-[720px] px-4 pb-28 pt-5">

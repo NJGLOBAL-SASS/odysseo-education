@@ -305,6 +305,69 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
     { clicks: 0, candidates: 0, points: 0 }
   );
 
+  // Actions d'un partenaire : mêmes boutons dans le tableau (ordinateur) et les cartes (téléphone).
+  const renderActions = (p: (typeof partners)[number]) => (
+    <div className="flex justify-end gap-1">
+      <button
+        onClick={() => copy(p.id, referralLink(p.referralCode))}
+        disabled={isOffline}
+        className="btn-sm-ghost !min-h-[32px] !px-2.5 text-xs"
+        title={t("copyLink")}
+      >
+        {copied === p.id ? <Check className="h-3.5 w-3.5 text-ok" /> : <Copy className="h-3.5 w-3.5" />}
+        {copied === p.id ? tc("copied") : t("linkButton")}
+      </button>
+      {p.signedContract && (
+        <a
+          href={`/api/partner-contracts/${p.signedContract.id}`}
+          className="btn-sm-ghost !min-h-[32px] !px-2.5 text-xs"
+          title={`${tk("downloadSigned")} · ${p.signedContract.number}`}
+        >
+          <FileDown className="h-3.5 w-3.5" /> {tk("contract")}
+        </a>
+      )}
+      <button
+        onClick={() => {
+          setCreated(null);
+          setLinkFor(p);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        className="btn-sm-ghost !min-h-[32px] !px-2"
+        title={t("qr")}
+        aria-label={t("qr")}
+      >
+        <QrCode className="h-3.5 w-3.5" />
+      </button>
+      <button
+        onClick={() => setPointsFor(p)}
+        disabled={isOffline}
+        className="btn-sm-ghost !min-h-[32px] !px-2"
+        title={t("points.open")}
+        aria-label={`${t("points.open")} ${p.fullName}`}
+      >
+        <Coins className="h-3.5 w-3.5" />
+      </button>
+      <button
+        onClick={() => setEditing(p)}
+        disabled={isOffline}
+        className="btn-sm-ghost !min-h-[32px] !px-2"
+        title={tc("edit")}
+        aria-label={`${tc("edit")} ${p.fullName}`}
+      >
+        <Pencil className="h-3.5 w-3.5" />
+      </button>
+      <button
+        onClick={() => setDeleting(p)}
+        disabled={isOffline || !isAdmin}
+        className="btn-sm-ghost !min-h-[32px] !px-2 text-erreur hover:!bg-erreur-fond"
+        title={isAdmin ? tc("delete") : tc("adminOnly")}
+        aria-label={`${tc("delete")} ${p.fullName}`}
+      >
+        <Trash2 className="h-3.5 w-3.5" />
+      </button>
+    </div>
+  );
+
   return (
     <div>
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
@@ -412,7 +475,7 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
           {loading ? (
             <SkeletonTable cols={6} />
           ) : (
-            <div className="card overflow-x-auto">
+            <div className="card hidden overflow-x-auto lg:block">
               <table className="w-full min-w-[860px] text-left text-sm">
                 <thead className="table-head">
                   <tr>
@@ -462,65 +525,7 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
                           </span>
                         </td>
                         <td className="px-4 py-3">
-                          <div className="flex justify-end gap-1">
-                            <button
-                              onClick={() => copy(p.id, referralLink(p.referralCode))}
-                              disabled={isOffline}
-                              className="btn-sm-ghost !min-h-[32px] !px-2.5 text-xs"
-                              title={t("copyLink")}
-                            >
-                              {copied === p.id ? <Check className="h-3.5 w-3.5 text-ok" /> : <Copy className="h-3.5 w-3.5" />}
-                              {copied === p.id ? tc("copied") : t("linkButton")}
-                            </button>
-                            {p.signedContract && (
-                              <a
-                                href={`/api/partner-contracts/${p.signedContract.id}`}
-                                className="btn-sm-ghost !min-h-[32px] !px-2.5 text-xs"
-                                title={`${tk("downloadSigned")} · ${p.signedContract.number}`}
-                              >
-                                <FileDown className="h-3.5 w-3.5" /> {tk("contract")}
-                              </a>
-                            )}
-                            <button
-                              onClick={() => {
-                                setCreated(null);
-                                setLinkFor(p);
-                                window.scrollTo({ top: 0, behavior: "smooth" });
-                              }}
-                              className="btn-sm-ghost !min-h-[32px] !px-2"
-                              title={t("qr")}
-                              aria-label={t("qr")}
-                            >
-                              <QrCode className="h-3.5 w-3.5" />
-                            </button>
-                            <button
-                              onClick={() => setPointsFor(p)}
-                              disabled={isOffline}
-                              className="btn-sm-ghost !min-h-[32px] !px-2"
-                              title={t("points.open")}
-                              aria-label={`${t("points.open")} ${p.fullName}`}
-                            >
-                              <Coins className="h-3.5 w-3.5" />
-                            </button>
-                            <button
-                              onClick={() => setEditing(p)}
-                              disabled={isOffline}
-                              className="btn-sm-ghost !min-h-[32px] !px-2"
-                              title={tc("edit")}
-                              aria-label={`${tc("edit")} ${p.fullName}`}
-                            >
-                              <Pencil className="h-3.5 w-3.5" />
-                            </button>
-                            <button
-                              onClick={() => setDeleting(p)}
-                              disabled={isOffline || !isAdmin}
-                              className="btn-sm-ghost !min-h-[32px] !px-2 text-erreur hover:!bg-erreur-fond"
-                              title={isAdmin ? tc("delete") : tc("adminOnly")}
-                              aria-label={`${tc("delete")} ${p.fullName}`}
-                            >
-                              <Trash2 className="h-3.5 w-3.5" />
-                            </button>
-                          </div>
+                          {renderActions(p)}
                         </td>
                       </tr>
                     );
@@ -537,6 +542,58 @@ export function PartnersPanel({ isAdmin, initialTab = "partners" }: { isAdmin: b
                 </tbody>
               </table>
             </div>
+          )}
+          {!loading && (
+            <ul className="space-y-3 lg:hidden">
+              {partners.map((p) => {
+                const clicks = p.linkClicks ?? 0;
+                const count = p._count?.candidates ?? 0;
+                return (
+                  <li key={p.id} className="card space-y-3 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="truncate font-semibold">{p.fullName}</p>
+                        <p className="truncate text-xs text-gris">{p.email}</p>
+                        <p className="mt-0.5 font-mono text-xs font-semibold">{p.referralCode}</p>
+                      </div>
+                      <span
+                        className={`flex-shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                          p.status === "ACTIVE" ? "bg-[#E1F6EA] text-ok" : "bg-fond text-gris"
+                        }`}
+                      >
+                        {p.status === "ACTIVE" ? tc("active") : tc("suspended")}
+                      </span>
+                    </div>
+                    <dl className="grid grid-cols-4 gap-2 rounded-brand bg-fond p-2 text-center text-xs">
+                      <div>
+                        <dt className="text-gris">{t("columns.clicks")}</dt>
+                        <dd className="font-bold tabular-nums">{clicks}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gris">{t("columns.candidates")}</dt>
+                        <dd className="font-bold tabular-nums">{count}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gris">{t("columns.conversion")}</dt>
+                        <dd className="font-bold tabular-nums">{clicks > 0 ? `${Math.round((count / clicks) * 100)}%` : "—"}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gris">{t("columns.points")}</dt>
+                        <dd className="font-bold tabular-nums">{p.pointsBalance}</dd>
+                      </div>
+                    </dl>
+                    <div className="flex flex-wrap [&>div]:flex-wrap [&>div]:justify-start">{renderActions(p)}</div>
+                  </li>
+                );
+              })}
+              {partners.length === 0 && (
+                <li className="card px-4 py-12 text-center">
+                  <Handshake className="mx-auto mb-2 h-8 w-8 text-bord" />
+                  <p className="font-semibold">{t("empty")}</p>
+                  <p className="text-sm text-gris">{t("emptyHint")}</p>
+                </li>
+              )}
+            </ul>
           )}
         </>
       )}
