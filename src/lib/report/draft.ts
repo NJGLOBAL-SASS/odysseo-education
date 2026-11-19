@@ -14,6 +14,7 @@ import { CATALOGUE_VERSION, moteurVersionFor, recommendForCandidate } from "@/li
 import { PROGRAM_BY_LEVEL } from "@/lib/pricing/tarifs";
 import { appendStage, normalizeHistory } from "@/lib/tracking-stages";
 import { reportStatus } from "./status";
+import { missingInfo } from "@/lib/analysis/missing-info";
 import { newProfileAlert } from "./messages";
 import { optionLabel } from "@/lib/intake-labels";
 import { firstNameOf } from "@/lib/tracking-stages";
@@ -93,7 +94,8 @@ export async function prepareDraftReport(candidateId: string, opts: { today?: Da
   const data = {
     program: PROGRAM_BY_LEVEL[c.targetLevel] ?? "master",
     offers,
-    status: "brouillon",
+    // PACK-13 §3.6 : profil incomplet → question à l'étudiant avant tout rapport.
+    status: missingInfo(c).length ? "infos_manquantes" : "brouillon",
     engineVersion: moteurVersionFor(m.cycle),
     catalogueVersion: CATALOGUE_VERSION,
     proposerBachelor: m.proposerBachelor ?? null,

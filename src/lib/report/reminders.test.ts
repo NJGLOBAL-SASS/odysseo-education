@@ -126,3 +126,14 @@ test("modèle d'envoi et profil pour Claude", () => {
   assert.match(txt, /^Demande ODY-ABC123 · reçue le 18\/11\/2026\nRempli par : parent/);
   assert.match(txt, /Budget : —/);
 });
+
+test("PDF : texte enrichi, « Université *** » intact", async () => {
+  const { parseRich } = await import("./pdf/rich");
+  assert.deepEqual(parseRich("**Université *** · Pékin**"), [{ text: "Université *** · Pékin", bold: true }]);
+  assert.deepEqual(parseRich("1 !!Notre choix!! ~~24 000~~"), [
+    { text: "1 ", bold: false },
+    { text: "Notre choix", bold: true, red: true },
+    { text: " ", bold: false },
+    { text: "24 000", bold: false, strike: true },
+  ]);
+});

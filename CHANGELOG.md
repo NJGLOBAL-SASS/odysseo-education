@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.17.0] – 2026-11-19 · PACK-13 (1re partie) : tout ce qui ne dépend pas de l'API Claude
+
+**Avant :** le rapport était rédigé et mis en page à la main, avec Claude, hors plateforme.
+**Maintenant :** les pièces du PACK-13 qui ne demandent pas de clé API sont en place. La connexion à l'API Claude viendra brancher l'analyse dessus, sans rien refaire.
+
+### Ajouté
+- **Base de connaissances `connaissances/`** : `regles_odysseo.md` (avec `PROMPT_VERSION`), `structure_rapport.md` et les 11 exemples anonymisés. Les PDF de référence (`reference_visuelle/`, noms réels) restent hors du dépôt (`.gitignore`) et ne sont jamais envoyés à l'IA.
+- **Profil incomplet (§3.6)** : moyenne, diplôme (série du bac), âge ou filière manquants donnent le statut `infos_manquantes`, le badge « Infos manquantes » et, dans la fiche, la liste des informations, le message de question prêt (WhatsApp / copier) et « Infos reçues : préparer le rapport ».
+- **Pré-filtre des offres (§3.1)** `src/lib/analysis/prefilter.ts` :
+  - statut, date limite (« à confirmer » incluse), cycle, âge, filière ;
+  - cas MBBS : MB + L + B sciences / ingénierie ;
+  - seuls les champs publics partent vers l'IA (« Université *** · ville »).
+- **Choix des 2 exemples envoyés à l'IA (§2.1)** `src/lib/analysis/examples.ts`.
+- **Générateur du PDF (§4)** `src/lib/report/pdf/render.ts` (pdfkit, Inter) fidèle aux rapports envoyés :
+  - bandeau noir ODYSSEO / EDUCATION, verdict à filet rouge, profil, titres rouges numérotés ;
+  - tableau des offres « Notre choix » avec frais d'origine barrés, graphique en barres ;
+  - « Nous faisons le plus gros », calendrier, tarif en 4 versements, encadré noir « Pour lancer votre dossier » ;
+  - bandeau « Rapport mis à jour » + « Ce qui change » ;
+  - textes fixes « offres évolutives » insérés par le code ; pied de page x/N.
+  - Rapport fictif de contrôle : `src/lib/report/pdf/fixture.ts` (3 pages, comme les rapports de référence).
+- **`npm run check-offres` (§6)** : JSON valides, références uniques, aucune référence disparue (comparaison avec le dernier commit), dates AAAA-MM-JJ, statuts connus, pas de nom d'université visible. En cas d'erreur, code de sortie 1 et rien n'est déployé.
+- **Alerte « rapports touchés » (§6)** : au premier passage du cron de 8 h après le déploiement d'un nouveau catalogue, une alerte unique par version, avec le lien vers « Offres à revérifier ».
+
+### Reste pour la connexion de l'API (`ANTHROPIC_API_KEY`)
+Appel à Claude avec l'outil `rapport_admissibilite` et le prompt caching, validation serveur (§3.4), passage de la sortie IA au PDF, 1 nouvelle tentative puis secours `a_revoir`, « Relancer l'analyse », mode `mise_a_jour` (v2), apprentissage par les corrections et onglet « Corrections » (§3.5), journal durée / tokens / coût.
+
+## [0.15.0] – 2026-11-19 · ODY-15 Suivi d'envoi du rapport + relances · fin du PACK-12
+
 ## [0.16.0] – 2026-11-19 · ODY-15 Suivi d'envoi du rapport + relances · fin du PACK-12
 
 **Pourquoi tout restait « Nouveau » :** la liste affichait `Candidate.status`, un statut interne que seule la liste déroulante de la fiche modifie. Rien ne le faisait avancer, et le rapport, envoyé à la main sur WhatsApp, ne laissait aucune trace sur la plateforme. Le circuit du rapport (PACK-10/12) faisait avancer un autre champ (`stage`, la frise de l'étudiant).

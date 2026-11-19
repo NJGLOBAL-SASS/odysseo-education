@@ -12,6 +12,7 @@ import { CASES, SEND_MODES, STOP_REASONS, reportStatus } from "@/lib/report/stat
 import { parseRefs } from "@/lib/report/offers-check";
 import { profileForClaude, pickSendTemplate, sendTemplateText, SEND_TEMPLATES } from "@/lib/report/templates";
 import { waNumber } from "@/lib/report/reminders";
+import { joinFr, missingInfo } from "@/lib/analysis/missing-info";
 import { formatFcfa } from "@/lib/pricing/tarifs";
 import {
   REPORT_MAX_MB,
@@ -68,6 +69,9 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
     ouiAt: report?.ouiAt ?? null,
     ouiByName: report?.ouiByName ?? null,
     whatsappNumber: waNumber(c.whatsapp, c.country),
+    // PACK-13 §3.6 : informations manquantes et message de question prêt.
+    missing: missingInfo(c),
+    missingMessage: sendTemplateText("MSG-INFOS-MANQUANTES", { prenom, liste_infos: joinFr(missingInfo(c)) }),
     draftRefs,
     profileText: profileForClaude({
       code: c.code,
@@ -134,6 +138,7 @@ const actionSchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("resume") }),
   z.object({ action: z.literal("recheck") }),
   z.object({ action: z.literal("note"), text: z.string().trim().min(1).max(500) }),
+  z.object({ action: z.literal("infosRecues") }),
 ]);
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
@@ -215,6 +220,17 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     case "resume":
       await resumeFollowUp(candidate.id, actor);
       return NextResponse.json({ ok: true });
+    case "infosRecues": {
+      // Infos reçues sur WhatsApp : le dossier repasse « à envoyer » (avec la clé API : l'analyse se lancera ici).
+      const report = await prisma.admissionReport.findUnique({ where: { candidateId: candidate.id } });
+      if (report && reportStatus(report) === "infos_manquantes") {
+        await prisma.$transaction([
+          prisma.admissionReport.update({ where: { id: report.id }, data: { status: "brouillon" } }),
+          logEvent(prisma, candidate.id, "note", me.name, "Informations manquantes reçues"),
+        ]);
+      }
+      return NextResponse.json({ ok: true });
+    }
     case "note":
       await logEvent(prisma, candidate.id, "note", me.name, d.text);
       return NextResponse.json({ ok: true });

@@ -47,6 +47,8 @@ type Data = {
   ouiAt: string | null;
   ouiByName: string | null;
   whatsappNumber: string | null;
+  missing: string[];
+  missingMessage: string;
   draftRefs: string[];
   profileText: string;
   suggestedTemplate: string;
@@ -134,6 +136,9 @@ export function ReportPanel({ candidateId, code, firstName }: { candidateId: str
           <ClipboardCopy className="h-4 w-4" /> {t("copyProfile")}
         </button>
       </div>
+
+      {/* 0. Profil incomplet (PACK-13 §3.6) : poser la question avant tout rapport */}
+      {data.status === "infos_manquantes" && <MissingInfo data={data} busy={busy} onReceived={() => act({ action: "infosRecues" })} />}
 
       {/* 1. Rien de déposé : « Nouveau » */}
       {!latest && !depositOpen && (
@@ -286,6 +291,37 @@ export function ReportPanel({ candidateId, code, firstName }: { candidateId: str
           }
         />
       )}
+    </div>
+  );
+}
+
+// ── Profil incomplet ──
+
+function MissingInfo({ data, busy, onReceived }: { data: Data; busy: boolean; onReceived: () => void }) {
+  const t = useTranslations("dashboard.report");
+  const toast = useToast();
+  return (
+    <div className="space-y-2 rounded-brand border-2 border-[#E8E8EC] p-3 text-sm">
+      <p className="font-bold">{t("missingTitle")}</p>
+      <ul className="list-disc pl-5">
+        {data.missing.map((m) => (
+          <li key={m}>{m}</li>
+        ))}
+      </ul>
+      <p className="whitespace-pre-line rounded-brand bg-fond p-3">{data.missingMessage}</p>
+      <div className="flex flex-wrap gap-2">
+        {data.whatsappNumber && (
+          <a href={waLink(data.whatsappNumber, data.missingMessage)} target="_blank" rel="noopener noreferrer" className="btn-sm bg-[#1FAF55] text-white">
+            <MessageCircle className="h-4 w-4" /> {t("missingAsk")}
+          </a>
+        )}
+        <button type="button" onClick={async () => toast((await copyText(data.missingMessage)) ? { tone: "success", title: t("messageCopied") } : { tone: "error", title: t("failed") })} className="btn-sm-ghost">
+          <ClipboardCopy className="h-4 w-4" /> {t("copyMessage")}
+        </button>
+        <button type="button" disabled={busy} onClick={onReceived} className="btn-sm-dark">
+          {t("missingReceived")}
+        </button>
+      </div>
     </div>
   );
 }
