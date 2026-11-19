@@ -9,9 +9,9 @@ export type ProofItem = { id: string; image: string; caption: string };
 
 /**
  * Vignettes cliquables + agrandissement plein écran (Échap, clic sur le fond ou bouton pour fermer).
- * `layout="wall"` : grille en colonnes (2 / 3 / 4) du mur des admissions de l'accueil.
+ * `layout="marquee"` : une ligne qui défile, mur des admissions de l'accueil.
  */
-export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; layout?: "grid" | "wall" }) {
+export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; layout?: "grid" | "marquee" }) {
   const t = useTranslations("proof");
   const [open, setOpen] = useState<ProofItem | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -31,33 +31,62 @@ export function ProofGallery({ items, layout = "grid" }: { items: ProofItem[]; l
     };
   }, [open]);
 
+  const marquee = layout === "marquee";
+  const card = (p: ProofItem, copy: boolean) => (
+    <>
+      <button
+        type="button"
+        tabIndex={copy ? -1 : undefined}
+        onClick={(e) => {
+          triggerRef.current = e.currentTarget;
+          setOpen(p);
+        }}
+        className="group relative block aspect-[3/4] w-full overflow-hidden rounded-[6px] border border-bord bg-white"
+        aria-label={t("enlarge", { name: p.caption })}
+      >
+        <Image
+          src={p.image}
+          alt=""
+          fill
+          sizes={marquee ? "180px" : "(min-width: 900px) 280px, 33vw"}
+          className={`object-cover transition-transform group-hover:scale-105 ${marquee ? "object-top" : ""}`}
+        />
+        <span className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-noir/75 text-white">
+          <Maximize2 className="h-4 w-4" />
+        </span>
+      </button>
+      <p className={`mt-1.5 text-xs leading-snug text-gris ${marquee ? "line-clamp-3" : "sm:text-sm"}`}>{p.caption}</p>
+    </>
+  );
+
   return (
     <>
-      <ul
-        className={
-          layout === "wall" ? "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" : "grid grid-cols-3 gap-3"
-        }
-      >
-        {items.map((p) => (
-          <li key={p.id}>
-            <button
-              type="button"
-              onClick={(e) => {
-                triggerRef.current = e.currentTarget;
-                setOpen(p);
-              }}
-              className="group relative block aspect-[3/4] w-full overflow-hidden rounded-[6px] border border-bord bg-white"
-              aria-label={t("enlarge", { name: p.caption })}
-            >
-              <Image src={p.image} alt="" fill sizes={layout === "wall" ? "(min-width: 1024px) 270px, (min-width: 640px) 33vw, 50vw" : "(min-width: 900px) 280px, 33vw"} className={`object-cover transition-transform group-hover:scale-105 ${layout === "wall" ? "object-top" : ""}`} />
-              <span className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-noir/75 text-white">
-                <Maximize2 className="h-4 w-4" />
-              </span>
-            </button>
-            <p className="mt-1.5 text-xs leading-snug text-gris sm:text-sm">{p.caption}</p>
-          </li>
-        ))}
-      </ul>
+      {marquee ? (
+        // Une seule ligne qui défile (comme les logos) ; arrêt au survol ou au doigt ;
+        // immobile et défilable à la main si l'utilisateur a demandé moins d'animations.
+        <div className="group/m relative overflow-x-auto motion-safe:overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)]">
+          <ul
+            className="flex w-max gap-3 px-3 motion-safe:animate-marquee group-hover/m:[animation-play-state:paused] group-active/m:[animation-play-state:paused]"
+            style={{ ["--marquee-duration" as string]: `${Math.max(40, items.length * 4.5)}s` }}
+          >
+            {/* Liste doublée pour une boucle continue ; la copie est masquée aux lecteurs d'écran. */}
+            {[...items, ...items].map((p, i) => {
+              const copy = i >= items.length;
+              return (
+                <li key={`${p.id}-${i}`} aria-hidden={copy || undefined} className={`${copy ? "motion-reduce:hidden " : ""}w-[150px] flex-shrink-0 sm:w-[180px]`}>
+                  {card(p, copy)}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        <ul className="grid grid-cols-3 gap-3">
+          {items.map((p) => (
+            <li key={p.id}>{card(p, false)}</li>
+          ))}
+        </ul>
+      )}
 
       {open && (
         <div

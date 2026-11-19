@@ -611,8 +611,6 @@
       "title": "Real admissions, obtained by our students",
       "intro": "Admission letters received by students supported by Odysseo. Personal details hidden, published with their consent.",
       "count": "{count, plural, one {# admission letter} other {# admission letters}}",
-      "year": "{year} intake",
-      "showAll": "See all {count} letters",
       "countLabel": "{count, plural, one {admission letter} other {admission letters}}",
       "hint": "Tap a letter to enlarge it."
     },

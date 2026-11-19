@@ -42,8 +42,6 @@
       "title": "Des admissions réelles, obtenues par nos étudiants",
       "intro": "Lettres d'admission reçues par des étudiants accompagnés par Odysseo. Informations personnelles masquées, publiées avec leur accord.",
       "count": "{count, plural, one {# lettre d'admission} other {# lettres d'admission}}",
-      "year": "Rentrée {year}",
-      "showAll": "Voir les {count} lettres",
       "countLabel": "{count, plural, one {lettre d'admission} other {lettres d'admission}}",
       "hint": "Touchez une lettre pour l'agrandir."
     },
