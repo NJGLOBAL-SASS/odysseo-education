@@ -11,6 +11,8 @@ const CONTRACT_FILES = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Développement : l'espace équipe s'ouvre sur team.localhost (voir src/lib/hosts.ts).
+  allowedDevOrigins: ["team.localhost", "*.localhost"],
   images: {
     remotePatterns: [],
   },
